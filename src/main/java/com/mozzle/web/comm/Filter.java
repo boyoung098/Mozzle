@@ -2,7 +2,8 @@ package com.mozzle.web.comm;
 
 public class Filter {
 
-	public void make() {
+	String jmj;
+	public void make(String jmj) {
 		
 	}
 	public void make2() {
