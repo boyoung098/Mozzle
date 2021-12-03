@@ -5,4 +5,7 @@ public class Filter {
 	public void make() {
 		
 	}
+	public void make2() {
+		
+	}
 }
