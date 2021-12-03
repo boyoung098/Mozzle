@@ -2,5 +2,7 @@ package com.mozzle.web.comm;
 
 public class Filter {
 
-	//수
+	public void make() {
+		
+	}
 }
