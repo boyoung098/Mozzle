@@ -38,10 +38,10 @@ public class JwtTokenProvider {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @PostConstruct
-    protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
-    }
+//    @PostConstruct
+//    protected void init() {
+//        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+//    }
 
     // JWT ACCESS 토큰을 발급해준다
     public String createJwtAccessToken(String userId) {

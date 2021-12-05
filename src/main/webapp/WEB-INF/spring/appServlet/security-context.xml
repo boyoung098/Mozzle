@@ -8,6 +8,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	<context:annotation-config/>
 
 	<mvc:annotation-driven />
 	<context:component-scan
@@ -22,14 +24,13 @@
 		<security:intercept-url pattern="/loginPage.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/user/**"
-			access="hasRole('User')" />
+			access="hasRole('USER')" />
 		<security:intercept-url pattern="/**"
 			access="permitAll" />
 
 		<security:custom-filter
 			ref="jwtAuthenticationFilter" before="FORM_LOGIN_FILTER" />
 
-		<!-- login-processing-url="/logingo.do" -->
 		<security:form-login
 			login-processing-url="/logingo.do" login-page="/loginPage.do"
 			default-target-url="/result.do" username-parameter="id"
@@ -58,9 +59,12 @@
 	</security:http>
 
 	<bean id="memberDetailService"
-		class="com.mozzle.web.service.member.MemberDetailService" />
+		class="com.mozzle.web.service.users.MemberDetailService" />
 	<bean id="passwordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<bean class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="memberDetailService"/>
+	</bean>
 
 	<security:authentication-manager>
 		<security:authentication-provider

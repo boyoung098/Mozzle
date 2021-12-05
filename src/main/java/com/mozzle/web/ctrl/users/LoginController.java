@@ -1,4 +1,4 @@
-package com.mozzle.web.ctrl.member;
+package com.mozzle.web.ctrl.users;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mozzle.web.comm.JwtTokenProvider;
-import com.mozzle.web.dto.member.MemberDto;
-import com.mozzle.web.service.member.Login_IService;
+import com.mozzle.web.dto.users.UserDto;
+import com.mozzle.web.service.users.Login_IService;
 
 
 
@@ -83,7 +83,7 @@ public class LoginController {
 
 	// 회원가입 성공 매핑
 	@RequestMapping(value = "/singUpSc.do", method = RequestMethod.POST)
-	public String maingo(MemberDto dto, Model model) {
+	public String maingo(UserDto dto, Model model) {
 		System.out.println("회원가입 정보"+dto.toString());
 		service.signUp(dto);
 		return "login";

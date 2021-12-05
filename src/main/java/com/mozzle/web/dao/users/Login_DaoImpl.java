@@ -1,4 +1,4 @@
-package com.mozzle.web.dao.member;
+package com.mozzle.web.dao.users;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import com.mozzle.web.dto.member.MemberDto;
+import com.mozzle.web.dto.users.UserDto;
 
 @Repository
 public class Login_DaoImpl implements Login_IDao{
@@ -22,13 +22,15 @@ public class Login_DaoImpl implements Login_IDao{
 	
 	
 	@Override
-	public MemberDto loginChk(String id) {
-		return session.selectOne(NS+"loginChk", id);
+	public UserDto loginChk(String id) {
+		UserDto dto = session.selectOne(NS+"loginChk", id);
+		System.out.println("AT DAO : " + dto);
+		return dto;
 	}
 
 	@Override
-	public boolean signUp(MemberDto dto) {
-		dto.setUserPw(passwordEncoder.encode(dto.getUserPw()));
+	public boolean signUp(UserDto dto) {
+		dto.setUser_pw(passwordEncoder.encode(dto.getUser_pw()));
 		return session.insert(NS+"signUp", dto) > 0 ? true : false;
 	}
 

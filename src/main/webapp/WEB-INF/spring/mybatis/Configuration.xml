@@ -3,7 +3,7 @@
 <configuration>
 
 <typeAliases>
-	<typeAlias type="com.mozzle.web.dto.member.MemberDto" alias="MDto"/>
+	<typeAlias type="com.mozzle.web.dto.users.UserDto" alias="uDto"/>
 </typeAliases>
 
 

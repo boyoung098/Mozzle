@@ -14,7 +14,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.mozzle.web">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -33,7 +33,9 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
-	
+		<logger name="org.springframework.security">
+		<level value="TRACE" />
+	</logger>
 	
 	<root>
 		<priority value="TRACE" />

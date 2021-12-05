@@ -3,13 +3,13 @@
 <mapper namespace="com.min.login">
 
 
-<select id="loginChk" parameterType="String" resultType="MDto">
+<select id="loginChk" parameterType="java.lang.String" resultType="uDto">
   SELECT USER_PW 
 	FROM USERS
 		WHERE USER_ID = #{id}
 </select>
 
-<insert id="signUp" parameterType="MDto">
+<insert id="signUp" parameterType="uDto">
 	INSERT INTO USERS(USER_ID, USER_PW, USER_NAME, AUTH_CODE, BIRTH, EMAIL, TEL, DELFLAG)
 		VALUES(#{user_id}, 'dlwhdvy123', '이종표',
 		1, '1997-05-13', 'qkrekfthsus@naver.com',

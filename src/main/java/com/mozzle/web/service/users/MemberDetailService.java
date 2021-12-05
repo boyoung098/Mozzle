@@ -1,37 +1,40 @@
-package com.mozzle.web.service.member;
+package com.mozzle.web.service.users;
 
 import java.util.ArrayList;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
-import com.mozzle.web.dto.member.MemberDto;
+import com.mozzle.web.dto.users.UserDto;
 
-@Service
 public class MemberDetailService implements UserDetailsService {
 
 	@Autowired
 	private Login_IService service;
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		MemberDto dto = service.loginChk(username);
-	    if(dto == null){
-	        throw new UsernameNotFoundException("User not authorized.");
-	    }
+		UserDto dto = service.loginChk(username);
+		
+		logger.info("addfaehuifeafuieahfiaeifheaif : " + dto);
+		
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		
-		roles.add(new SimpleGrantedAuthority("ROLE_User"));
+		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
 		
-		UserDetails user = new User(username,dto.getUserPw(),roles);
+		UserDetails user = new User(username,dto.getUser_pw(),roles);
 
 		return user;
 	}
