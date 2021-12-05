@@ -5,13 +5,16 @@
 	version="3.1">
 	<display-name>Web Application</display-name>
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>home.do</welcome-file>
 	</welcome-file-list>
 
 	<!-- needed for ContextLoaderListener -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/appServlet/root-context.xml</param-value>
+		<param-value>
+		/WEB-INF/spring/appServlet/root-context.xml
+		/WEB-INF/spring/appServlet/security-context.xml
+		</param-value>
 	</context-param>
 
 	<!-- Bootstraps the root web application context before servlet initialization -->
@@ -35,7 +38,7 @@
 	<!-- Map all requests to the DispatcherServlet for handling -->
 	<servlet-mapping>
 		<servlet-name>springDispatcherServlet</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 	<!-- utf-8 filter지정 -->
@@ -56,4 +59,14 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+
+		<!-- Spring Security Filter -->
+ 	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.login">
+
+
+<select id="loginChk" parameterType="String" resultType="MDto">
+  SELECT USER_PW 
+	FROM USERS
+		WHERE USER_ID = #{id}
+</select>
+
+<insert id="signUp" parameterType="MDto">
+	INSERT INTO USERS(USER_ID, USER_PW, USER_NAME, AUTH_CODE, BIRTH, EMAIL, TEL, DELFLAG)
+		VALUES(#{user_id}, 'dlwhdvy123', '이종표',
+		1, '1997-05-13', 'qkrekfthsus@naver.com',
+		'010-1234-4567', 'N')
+</insert>
+</mapper>
