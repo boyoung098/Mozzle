@@ -30,7 +30,7 @@ public class LoginController {
 	@RequestMapping(value = "/", method=RequestMethod.GET)
 	public String home() {
 		
-		return "home";
+		return "index";
 	}
 
 	// 로그인 페이지로 가는 매핑
