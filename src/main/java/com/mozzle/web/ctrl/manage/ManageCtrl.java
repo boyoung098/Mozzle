@@ -12,16 +12,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mozzle.web.dto.manage.ManageDto;
+
+@Controller
 public class ManageCtrl {
 	
-	@RequestMapping(value = "/resiterMozzle", method = RequestMethod.POST)
-	@ResponseBody
+	@RequestMapping(value = "/registerMozzle", method = RequestMethod.GET)
+	public String resiterMozzle(ManageDto mDto) {
+		
+		
+		return "registerMozzle";
+	}
+	
+
 	public ResponseEntity<String> multiUpload(MultipartHttpServletRequest multi,HttpServletResponse response) throws IOException {
 
 		List<MultipartFile> mf = multi.getFiles("photo");		
