@@ -14,14 +14,21 @@
 	<context:property-placeholder
 		location="classpath:properties/db.properties" />
 
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="${driver}" />
-		<property name="url" value="${url}" />
-		<property name="username" value="${user}" />
-		<property name="password" value="${pw}" />
-	</bean>
-
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"> 
+		<property name="driverClassName" value="${driver}" /> <property name="url" 
+		value="${url}" /> <property name="username" value="${user}" /> <property 
+		name="password" value="${pw}" /> </bean> -->
+ <bean id="dataSource" class="oracle.ucp.jdbc.PoolDataSourceImpl">
+        <property name="connectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
+        <!-- Connection URL uses a TNS alias -->
+        <property name="URL" value="${url}" />
+        <property name="user" value="${user}" />
+        <property name="password" value="${pw}" />
+        <property name="minPoolSize" value="5" />
+        <property name="maxPoolSize" value="10" />
+        <property name="initialPoolSize" value="5" />
+    </bean>
+	
 	<bean id="sqlSessionFactoryBean"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -34,13 +41,17 @@
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactoryBean" />
 	</bean>
-	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
-	<property name="dataSource" ref="dataSource"/>
-</bean>
+	<bean
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		id="transactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 
-  <tx:advice transaction-manager="transactionManager" id="txAdvice">
-	<tx:attributes>
-		<tx:method name="*" propagation="REQUIRED" rollback-for="Exeption"/>
-	</tx:attributes>
-</tx:advice>  
+	<tx:advice transaction-manager="transactionManager"
+		id="txAdvice">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED"
+				rollback-for="Exeption" />
+		</tx:attributes>
+	</tx:advice>
 </beans>
