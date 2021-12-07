@@ -232,6 +232,13 @@
 			<artifactId>java-uuid-generator</artifactId>
 			<version>3.2.0</version>
 		</dependency>
+		
+		<!-- 프로필 사진 리사이징 -->
+		<dependency>
+		<groupId>net.coobird</groupId>
+		<artifactId>thumbnailator</artifactId>
+		<version>0.4.8</version>
+		</dependency>
 
 
 	</dependencies>
