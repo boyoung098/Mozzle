@@ -19,7 +19,7 @@ import com.mozzle.web.dto.users.UserDto;
 public class MemberDetailService implements UserDetailsService {
 
 	@Autowired
-	private Login_IService service;
+	private IUserService service;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 

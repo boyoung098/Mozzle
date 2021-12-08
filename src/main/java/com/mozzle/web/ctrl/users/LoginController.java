@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,16 +14,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mozzle.web.comm.JwtTokenProvider;
 import com.mozzle.web.dto.users.UserDto;
-import com.mozzle.web.service.users.Login_IService;
+import com.mozzle.web.service.users.IUserService;
 
 @Controller
 public class LoginController {
 
 	@Autowired
-	Login_IService service;
+	IUserService service;
 
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Authentication user, Model model) {
@@ -69,11 +73,17 @@ public class LoginController {
 	}
 
 	// 회원가입 성공 매핑
-	@RequestMapping(value = "/singUpSc.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public String maingo(UserDto dto, Model model) {
 		System.out.println("회원가입 정보" + dto.toString());
-		service.signUp(dto);
-		return "login";
+		System.out.println(dto.getUser_pw().equals(""));
+		String pw = dto.getUser_pw();
+		if(service.signUp(dto)) {
+			return "redirect:/";
+		}
+		else {
+			return "login";
+		}
 	}
 
 	// 중복 로그인

@@ -275,7 +275,18 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
-
+		<!-- Spring Rest API java 객체를 JSON 형태로 변경 jackson-databind 주의점 : 반드시 <mvc:annotation-driven>이 
+			있어야 한다 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
 
 	</dependencies>
 	<build>

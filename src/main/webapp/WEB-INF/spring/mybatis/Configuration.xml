@@ -8,7 +8,7 @@
 
 
 <mappers>
-	<mapper resource="/sql/login.xml"/>
+	<mapper resource="/sql/User_mapper.xml"/>
 </mappers>
 
 </configuration>
