@@ -28,12 +28,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     	if(token != null && token.startsWith("Bearer ")) {
     		token = token.substring(7);
 			System.out.println("TOKEN USER IS : " + jwtTokenProvider.getUserId(token));
+			if(jwtTokenProvider.isTokenValid(token) && SecurityContextHolder.getContext().getAuthentication() == null) {
+				Authentication authentication = jwtTokenProvider.getAuthentication(token);
+	            SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
+			
     	}
-    	if (token != null && jwtTokenProvider.isTokenValid(token)) {
-            Authentication authentication = jwtTokenProvider.getAuthentication(token);
-            System.out.println("adlfjadofadfad;fkjadiojfoad" + authentication);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
+
         filterChain.doFilter(request, response);
     }
 }

@@ -6,7 +6,7 @@
 	<display-name>Web Application</display-name>
 	<welcome-file-list>
 		
-		<welcome-file>home.do</welcome-file>
+		<welcome-file>/</welcome-file>
 	</welcome-file-list>
 
 	<!-- needed for ContextLoaderListener -->

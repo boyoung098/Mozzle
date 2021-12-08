@@ -8,19 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <jsp:include page="./comm/import.jsp" />
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="<%=request.getContextPath()%>/js/swiper-bundle.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/script.js"></script>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css"/>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/common.css"/>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/popup/popup.css"/>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/xeicon.min.css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resourcescss/xeicon.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/swiper-bundle.min.css" />
-<script src="<%=request.getContextPath()%>/resources/js/swiper-bundle.min.js"></script>
 <style>
 .card {
 	width: 90%;
@@ -48,7 +35,9 @@
 </script>
 </head>
 <body>
-	<jsp:include page="./comm/header.jsp" />
+	<jsp:include page="./comm/header.jsp" >
+		<jsp:param value="${userId}" name="userId"/>
+	</jsp:include>
 	<section id="main-bg" class="container mt-3">
 		<div class="swiper-container main-bg-img">
 			<div class="swiper-wrapper">
