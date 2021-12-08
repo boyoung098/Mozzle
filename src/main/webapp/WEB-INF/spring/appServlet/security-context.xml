@@ -33,7 +33,7 @@
 
 		<security:form-login
 			login-processing-url="/logingo.do" login-page="/loginPage.do"
-			default-target-url="/result.do" username-parameter="id"
+			default-target-url="/" username-parameter="id"
 			password-parameter="password"
 			authentication-failure-url="/loginPage.do?error"
 			always-use-default-target="true" />
