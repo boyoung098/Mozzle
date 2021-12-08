@@ -1,81 +1,52 @@
 package com.mozzle.web.ctrl.manage;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mozzle.web.dto.manage.ManageDto;
 
 @Controller
 public class ManageCtrl {
 	
-	@RequestMapping(value = "/registerMozzle", method = RequestMethod.GET)
+	@RequestMapping(value = "/registerMozzle.do", method = RequestMethod.GET)
 	public String resiterMozzle(ManageDto mDto) {
 		
 		
 		return "registerMozzle";
 	}
 	
-
-	public ResponseEntity<String> multiUpload(MultipartHttpServletRequest multi,HttpServletResponse response) throws IOException {
-
-		List<MultipartFile> mf = multi.getFiles("photo");		
+	@RequestMapping(value = "/imageUpload.do", method = RequestMethod.POST)
+	public String imageUpload() {
 		
-		for (int i = 0; i < mf.size(); i++) {
-
-			String genId = UUID.randomUUID().toString();
-
-			String originName = mf.get(i).getOriginalFilename();
-			String savedName = "chalkack-" + genId + "." + originName;
-			String resizeFileName_medium = "medium-" + savedName;
-
-			//DB 연결 후 
-			//S3Util.uploadImageToS3(mf.get(i),saveFileName);
-            
-			BufferedImage image = ImageIO.read(mf.get(i).getInputStream());
-			double getWidth = image.getWidth();
-			double getHeight = image.getHeight();
-
-			double resizeRatio = getWidth / getHeight;
-
-			int mediumHeight = 550;				
-			int mediumWidth = (int)(resizeRatio * mediumHeight);
-			
-			//dependency 추가
-			/*
-			 * BufferedImage thumbnail_medium =
-			 * Thumbnails.of(image).size(mediumWidth,mediumHeight).asBufferedImage();
-			 */
-
-			//DB 연결 후 
-			//S3Util_Thumbs.uploadImageToS3(thumbnail_medium, resizeFileName_medium);
-
-			Map uploadMap = new HashMap();
-            	     
-			uploadMap.put("p_height", (int)getHeight);
-			
-		}
-		//int res = filedao.upload(uploadMap);
-		boolean res = true;
-		if (!res) {
-			return new ResponseEntity<String>("사진 업로드 중 문제가 발생했습니다", HttpStatus.CONFLICT);
-		} else {
-			return new ResponseEntity<String>(mf.size()+ "프로필 사진이 업로드되었습니다", HttpStatus.CREATED);
-		} // end for
-	}
+		/*
+		 * String realPath = request.getServletContext().getRealPath("image"); int id;
+		 * String fileName = null; String contextPath =
+		 * request.getServletContext().getContextPath(); String userProfile = null;
+		 * 
+		 * try { MultipartRequest multi = new MultipartRequest( request, realPath,
+		 * 1024*1024*2, "UTF-8", new DefaultFileRenamePolicy()); fileName =
+		 * multi.getFilesystemName("userProfile"); System.out.println("fileName : " +
+		 * fileName);
+		 * 
+		 * id = Integer.parseInt(multi.getParameter("id"));
+		 * 
+		 * userProfile = contextPath + "/image/" + fileName; UsersRepository
+		 * usersRepository = UsersRepository.getInstance(); int result =
+		 * usersRepository.update(id, userProfile);
+		 * 
+		 * if (result == 1) { HttpSession session = request.getSession(); Users
+		 * principal = usersRepository.findById(id); session.setAttribute("principal",
+		 * principal);
+		 * 
+		 * Script.href("사진 변경완료","/blog/index.jsp" , response); } else {
+		 * Script.back("사진변경실패", response); } } catch (Exception e) {
+		 * e.printStackTrace(); Script.getMessage("요류 : " + e.getMessage() , response);
+		 * }
+		 */
+		return null;
+	   }
 
 }
