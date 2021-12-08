@@ -82,10 +82,6 @@ select:focus {
     vertical-align: middle;
     padding-left: 10px;
 }
-.ch-box ul {
-    display: flex;
-    font-size: 13px;
-}
 
 
 /* 모즐 메인 */
@@ -303,7 +299,7 @@ select:focus {
 }
 .member-box form{
     display: flex;
-    width: 85%;
+    width: 80%;
 }
 .member-box > form > .input-group-btn{
     padding-left: 0px;
@@ -327,4 +323,16 @@ select:focus {
     color: #fff;    
     border:1px solid #999;
     padding:5px 20px; 
+}
+.meeber-thumbnail {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 100%;
+    display: flex;
+}
+.mozzle-member ul li {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
