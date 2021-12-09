@@ -62,27 +62,31 @@ $(function(){
 	var pwRegEx = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
 	// 아이디 유효성 체크
 	$("input[name=user_id]").keyup(function(){
-		var msg = "";
-		if(!idRegEx.test($("input[name=user_id]").val())){
-			$("#id-duplicated-result").text("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
-			return;
+		var idVal = $("input[name=user_id]").val();
+		if(idVal.indexOf(" ") != -1){
+			$("#id-duplicated-result").text("");
 		}
-		if(idReq) idReq.abort();
-		idReq = $.ajax({
-			url:"./duplication/chkid.do",
-			type:"post",
-			data:{id: $("input[name=user_id]").val()},
-			success: function(result){
-				//console.log(result);
-				if(result.duplicated){
-					$("#id-duplicated-result").text("사용할 수 없는 아이디입니다.");
+		else if(idVal.length <= 5 || idVal.length > 20){
+			$("#id-duplicated-result").text("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
+		}
+		else{
+			if(idReq) idReq.abort();
+			idReq = $.ajax({
+				url:"./duplication/chkid.do",
+				type:"post",
+				data:{id: $("input[name=user_id]").val()},
+				success: function(result){
+					//console.log(result);
+					if(result.duplicated){
+						$("#id-duplicated-result").text("사용할 수 없는 아이디입니다.");
+					}
+					else{
+						$("#id-duplicated-result").text("사용가능한 아이디입니다.");
+					}
 				}
-				else{
-					$("#id-duplicated-result").text("사용가능한 아이디입니다.");
-				}
-			}
-			
-		});
+				
+			});
+		}
 		
 	});
 	
