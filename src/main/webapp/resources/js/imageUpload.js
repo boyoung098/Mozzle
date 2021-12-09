@@ -105,7 +105,7 @@ $(document).ready(function(){
                 
                 function sendFileToServer(formData,status)
                 {
-                    var uploadURL = "/fileUpload/post"; //Upload URL
+                    var uploadURL = "./imageUpload/post"; 
                     var extraData ={}; //Extra Data.
                     var jqXHR=$.ajax({
                             xhr: function() {
