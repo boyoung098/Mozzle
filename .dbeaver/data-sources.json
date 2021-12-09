@@ -1,20 +1,18 @@
 {
 	"folders": {},
 	"connections": {
-		"oracle_thin-17d75366e7d-564b31f7d9011223": {
+		"oracle_thin-17d8831ace5-41ffc2f6d2d4c42d": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
-			"name": "XE",
+			"name": "New Connection",
 			"save-password": true,
 			"read-only": false,
 			"configuration": {
-				"host": "localhost",
-				"port": "1521",
-				"database": "XE",
-				"url": "jdbc:oracle:thin:@//localhost:1521/XE",
+				"url": "jdbc:oracle:thin:@mozzle_high?TNS_ADMIN=C:\\\\Wallet",
 				"home": "C:\\oraclexe\\app\\oracle\\product\\11.2.0\\server",
 				"type": "dev",
 				"provider-properties": {
+					"@dbeaver-connection-type@": "CUSTOM",
 					"@dbeaver-check-schema-content@": "false",
 					"@dbeaver-always-show-dba@": "false",
 					"@dbeaver-always-use-dba-views@": "false",
@@ -24,7 +22,6 @@
 					"@dbeaver-use-meta-optimizer@": "false",
 					"@dbeaver-meta-use-alternative-table-query@": "false",
 					"oracle.meta-search-in-synonyms": "false",
-					"@dbeaver-connection-type@": "BASIC",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
 				"auth-model": "oracle_native",
