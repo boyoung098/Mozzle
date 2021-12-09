@@ -29,7 +29,7 @@
 	<jsp:include page="../comm/header.jsp" />
 
 	<div class="register-container">
-		<form action="./registerMozzle.do"></form>
+		<form action="./registerMozzle.do" method="post" enctype = "multipart/form-data">
 		<div class="register-inner">
 			<h4>모즐 생성</h4>
 		</div>
@@ -43,7 +43,7 @@
 					<img class="image" id="image" />
 				</div>
 			</div>
-			<div class="box-file-input" style="margin-top:5px">
+			<div class="box-file-input" style="margin-top: 5px">
 				<label> <input type="file" name="image_origin"
 					class="file-input" accept="image/*" id="img">
 				</label> <span class="filename"></span>
@@ -58,7 +58,7 @@
 
 			</div>
 			<div id="slider-box">
-				<label class="switch"> <input type="checkbox"> <span
+				<label class="switch"> <input type="checkbox" name="state"> <span
 					class="slider round"></span>
 				</label>
 				<p id="on">ON</p>
@@ -93,7 +93,7 @@
 			<input type=button class="btn" id="submit-btn"
 				style="width: 200px; background: #e82d55; color: #fff;" value="모즐등록">
 		</div>
-
+	</form>
 	</div>
 
 	<jsp:include page="../comm/footer.jsp" />
@@ -142,11 +142,10 @@
 										});
 							});
 				});
-		
-		
-		document.addEventListener("DOMContentLoaded", function(){
+
+		window.onload = function() {
 			document.getElementById("image").src = "./resources/images/img.png";
-		});
+		};
 
 		document.getElementById("img").onchange = function() {
 			var reader = new FileReader();
@@ -160,44 +159,7 @@
 			reader.readAsDataURL(this.files[0]);
 		};
 
-		function resize(img) {
 
-			// 원본 이미지 사이즈 저장
-			var width = img.width;
-			var height = img.height;
-
-			// 가로, 세로 최대 사이즈 설정
-			var maxWidth = 20; // 원하는대로 설정. 픽셀로 하려면 maxWidth = 400
-			var maxHeight = height * 0.5; // 원래 사이즈 * 0.5 = 50%
-
-			//document.write(maxWidth+"<br>");
-			//document.write(maxHeight+"<br>");
-
-			// 가로나 세로의 길이가 최대 사이즈보다 크면 실행
-			if (width > maxWidth || height > maxHeight) {
-				// 가로가 세로보다 크면 가로는 최대사이즈로, 세로는 비율 맞춰 리사이즈
-				if (width > height) {
-					resizeWidth = maxWidth;
-					resizeHeight = Math.Round((height * resizeWidth) / width);
-
-					// 세로가 가로보다 크면 세로는 최대사이즈로, 가로는 비율 맞춰 리사이즈
-				} else {
-					resizeHeight = maxHeight;
-					resizeWidth = Math.Round((width * resizeHeight) / height);
-				}
-
-				// 최대사이즈보다 작으면 원본 그대로
-			} else {
-				resizeWidth = width;
-				resizeHeight = height;
-			}
-
-			// 리사이즈한 크기로 이미지 크기 다시 지정
-			img.width = resizeWidth;
-			img.height = resizeHeight;
-			document.write(resizeWidth + "<br>");
-			document.write(resizeHeight + "<br>");
-		}
 	</script>
 
 </body>

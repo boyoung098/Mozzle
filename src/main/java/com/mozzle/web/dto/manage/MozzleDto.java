@@ -13,8 +13,6 @@ public class MozzleDto {
 	private String delflag;
 	private String category_name;
 	
-	
-	
 	public String getMozzle_id() {
 		return mozzle_id;
 	}
@@ -75,5 +73,14 @@ public class MozzleDto {
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
 	}
+	@Override
+	public String toString() {
+		return "MozzleDto [mozzle_id=" + mozzle_id + ", mozzle_name=" + mozzle_name + ", mozzle_intro=" + mozzle_intro
+				+ ", create_date=" + create_date + ", image_origin=" + image_origin + ", image_saved=" + image_saved
+				+ ", category_code=" + category_code + ", state=" + state + ", delflag=" + delflag + ", category_name="
+				+ category_name + "]";
+	}
+	
+	
 	
 }
