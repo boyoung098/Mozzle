@@ -9,13 +9,12 @@ public interface IBoardService {
 	public int updateBoard(Board board);
 	public int deleteBoard(int num);
 	public List<Board> selectOneBoard(Board board);
+	public List<Board> selectAllBoard();
 	
 	public int bookmarkBoard(Board board);
 	public int bookmarkDelete(Board board);
 	
-	public int replyIn(Board board);
-	public int replyUp(Board board);
-	public int replyDl(Board board);
+	public int reply(Board board);
 	
 	public int reportBoard(Board board); 
 }
