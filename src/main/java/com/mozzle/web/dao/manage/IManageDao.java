@@ -1,5 +1,13 @@
 package com.mozzle.web.dao.manage;
 
-public interface IManageDao {
+import java.util.List;
 
+import com.mozzle.web.dto.manage.MozzleDto;
+
+public interface IManageDao {
+	
+	public int registMozzle(MozzleDto mozzle);
+	public List<MozzleDto> selectMozzleByCreatDate();
+	
+	
 }
