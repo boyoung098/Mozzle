@@ -115,7 +115,7 @@
 		</div>
 	</section>
 	<section class="container mt-3">
-		<img src="./resources/images/bn2.png" />
+		<img class="width-100" src="./resources/images/bn2.png" />
 	</section>
 	<br />
 	<br />

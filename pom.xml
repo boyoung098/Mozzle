@@ -59,7 +59,7 @@
 		<!-- 관점지향 프로그램을 AOP 사용 라이브러리 -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
+			<artifactId>aspectjweaver</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
 
