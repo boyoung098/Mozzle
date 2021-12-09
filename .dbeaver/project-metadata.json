@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"resources":{"Scripts/Script.sql":{"sql-editor-data-source-id":"oracle_thin-17d75366e7d-564b31f7d9011223","default-datasource":"oracle_thin-17d75366e7d-564b31f7d9011223","default-schema":"ADMIN"}}}
+=======
+{"resources":{"Scripts/Script.sql":{"default-schema":"ADMIN","sql-editor-data-source-id":"oracle_thin-17d992eb226-6cb0d7f3a3e3f34a","default-datasource":"oracle_thin-17d992eb226-6cb0d7f3a3e3f34a"}}}
+>>>>>>> branch 'main' of https://github.com/boyoung098/Mozzle.git

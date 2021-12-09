@@ -1,0 +1,205 @@
+.card {
+	width: 90%;
+	height: 100%;
+}
+
+.register-container {
+	margin-right: auto;
+	margin-left: auto; 
+	width: 40%;
+}
+
+.register-name {
+	text-align: left;
+}
+
+#public-choice {
+	display: flex;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 40px;
+	height: 20px;
+	vertical-align: middle;
+}
+
+#text-box {
+	width: 300%;
+}
+
+#explain {
+	font-size:0.5rem;
+}
+
+#slider-box {
+	width: 100%;
+	margin-top : 15px;
+	margin-left : 100px;
+	
+}
+
+.switch input {
+	display: none;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 18px;
+	width: 18px;
+	left: 1px;
+	bottom: 1px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked+.slider {
+	background-color: #2196F3;
+}
+
+input:focus+.slider {
+	box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(20px);
+}
+
+.slider.round {
+	border-radius: 34px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+#on {
+	margin: 0px;
+	display: inline-block;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+
+section.content {
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+
+.dragAndDropDiv {
+	border: 2px dashed #92AAB0;
+	width: 650px;
+	height: 200px;
+	color: #92AAB0;
+	text-align: center;
+	vertical-align: middle;
+	padding: 10px 0px 10px 10px;
+	font-size: 200%;
+	display: table-cell;
+}
+
+.progressBar {
+	width: 200px;
+	height: 22px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	overflow: hidden;
+	display: inline-block;
+	margin: 0px 10px 5px 5px;
+	vertical-align: top;
+}
+
+.progressBar div {
+	height: 100%;
+	color: #fff;
+	text-align: right;
+	line-height: 22px;
+	/* same as #progressBar height if we want text middle aligned */
+	width: 0;
+	background-color: #0ba1b5;
+	border-radius: 3px;
+}
+
+.statusbar {
+	border-top: 1px solid #A9CCD1;
+	min-height: 25px;
+	width: 99%;
+	padding: 10px 10px 0px 10px;
+	vertical-align: top;
+}
+
+.statusbar:nth-child(odd) {
+	background: #EBEFF0;
+}
+
+.filename {
+	display: inline-block;
+	vertical-align: top;
+	width: 250px;
+}
+
+.filesize {
+	display: inline-block;
+	vertical-align: top;
+	color: #30693D;
+	width: 100px;
+	margin-left: 10px;
+	margin-right: 5px;
+}
+
+.abort {
+	background-color: #A8352F;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	display: inline-block;
+	color: #fff;
+	font-family: arial;
+	font-size: 13px;
+	font-weight: normal;
+	padding: 4px 15px;
+	cursor: pointer;
+	vertical-align: top
+}
+
+#submit-btn {
+	background: #e82d55;
+	color: #fff;
+	font-size: 15px;
+	border-radius: 4px;
+	border: none;
+}
+
+#category {
+    display: block !important;
+    width: 100% !important;
+    height: 34px !important;
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+    line-height: 1.42857143 !important;
+    color: #555 !important;
+    background-color: #fff !important;
+    background-image: none !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+}
+
+
+

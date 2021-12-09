@@ -122,5 +122,10 @@
 
 	<jsp:include page="./comm/footer.jsp" />
 
+
+	<div>
+		<h1>임의로 만든 이동페이지</h1>
+		<a href="./guestInvite.do">김보영-게스트URI뿌리는 곳으로 이동</a>
+	</div>
 </body>
 </html>
