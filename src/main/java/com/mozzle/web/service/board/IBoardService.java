@@ -17,5 +17,5 @@ public interface IBoardService {
 	public int replyUp(Board board);
 	public int replyDl(Board board);
 	
-	public int reportBoard(Board board);
+	public int reportBoard(Board board); 
 }
