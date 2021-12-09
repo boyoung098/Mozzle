@@ -22,7 +22,7 @@ public class ManageCtrl {
 		return "manage/registMozzleForm";
 	}
 	
-	// ajax에서 호출
+	// ajax에서 호출//수정
 	@RequestMapping(value = "/imageUpload/post")
 	@ResponseBody
 	public String imageUpload(MultipartHttpServletRequest multipartHttpServletRequest) {
