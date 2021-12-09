@@ -11,7 +11,7 @@
 				"host": "localhost",
 				"port": "1521",
 				"database": "XE",
-				"url": "jdbc:oracle:thin:@//localhost:1521/XE",
+				"url": "jdbc:oracle:thin:@mozzle_high?TNS_ADMIN=C:\\\\Wallet",
 				"home": "C:\\oraclexe\\app\\oracle\\product\\11.2.0\\server",
 				"type": "dev",
 				"provider-properties": {
@@ -24,7 +24,7 @@
 					"@dbeaver-use-meta-optimizer@": "false",
 					"@dbeaver-meta-use-alternative-table-query@": "false",
 					"oracle.meta-search-in-synonyms": "false",
-					"@dbeaver-connection-type@": "BASIC",
+					"@dbeaver-connection-type@": "CUSTOM",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
 				"auth-model": "oracle_native",
