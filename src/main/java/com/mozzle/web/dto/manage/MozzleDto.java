@@ -1,6 +1,6 @@
 package com.mozzle.web.dto.manage;
 
-public class ManageDto {
+public class MozzleDto {
 
 	private String mozzle_id;
 	private String mozzle_name;
@@ -12,6 +12,8 @@ public class ManageDto {
 	private String state;
 	private String delflag;
 	private String category_name;
+	
+	
 	
 	public String getMozzle_id() {
 		return mozzle_id;
