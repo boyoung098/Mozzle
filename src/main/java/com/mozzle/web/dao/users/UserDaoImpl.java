@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.mozzle.web.dto.users.UserDto;
 
 @Repository
-public class Login_DaoImpl implements Login_IDao{
+public class UserDaoImpl implements IUserDao{
 
 	
 	@Autowired
@@ -18,7 +18,7 @@ public class Login_DaoImpl implements Login_IDao{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	private final String NS = "com.min.login.";
+	private final String NS = "com.mozzle.web.Users.";
 	
 	
 	@Override
@@ -32,6 +32,11 @@ public class Login_DaoImpl implements Login_IDao{
 	public boolean signUp(UserDto dto) {
 		dto.setUser_pw(passwordEncoder.encode(dto.getUser_pw()));
 		return session.insert(NS+"signUp", dto) > 0 ? true : false;
+	}
+
+	@Override
+	public int duplicationIdChk(String id) {
+		return session.selectOne(NS + "duplicationIdChk", id);
 	}
 
 }
