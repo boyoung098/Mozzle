@@ -16,4 +16,10 @@ section.content{
 	margin-top: 5%;
 	margin-bottom: 5%;
 }
+.swiper-slide img{
+	width: 100%;
+}
+.width-100{
+	width: 100%;
+}
 </style>
