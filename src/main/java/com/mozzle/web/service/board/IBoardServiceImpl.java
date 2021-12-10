@@ -2,68 +2,69 @@ package com.mozzle.web.service.board;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.mozzle.web.dao.board.IBoardDao;
 import com.mozzle.web.dto.board.Board;
 
+@Service
 public class IBoardServiceImpl implements IBoardService {
 
+	@Autowired
+	private IBoardDao dao;
+	
 	@Override
 	public int insertBoard(Board board) {
-		
-		return 0;
+		return dao.insertBoard(board);
 	}
 
 	@Override
 	public int updateBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.updateBoard(board);
 	}
 
 	@Override
 	public int deleteBoard(int num) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.deleteBoard(num);
 	}
 
 	@Override
 	public List<Board> selectOneBoard(Board board) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectOneBoard(board);
 	}
 
 	@Override
+	public List<Board> selectAllBoard() {
+		return dao.selectAllBoard();
+	}
+	
+	@Override
 	public int bookmarkBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.bookmarkBoard(board);
 	}
 
 	@Override
 	public int bookmarkDelete(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.bookmarkDelete(board);
 	}
 
 	@Override
-	public int replyIn(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+	@Transactional
+	public int reply(Board board) {
+		int In = dao.replyIn(board);
+		int Up = dao.replyUp(board);
+		int Dl = dao.replyDl(board);
+		return In+Up+Dl;
 	}
 
-	@Override
-	public int replyUp(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int replyDl(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public int reportBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.reportBoard(board);
 	}
+
+	
 
 }
