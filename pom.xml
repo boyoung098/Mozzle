@@ -275,6 +275,15 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
+   
+        <dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+
+
 		<!-- Spring Rest API java 객체를 JSON 형태로 변경 jackson-databind 주의점 : 반드시 <mvc:annotation-driven>이 
 			있어야 한다 -->
 		<dependency>
@@ -287,6 +296,7 @@
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+
 
 	</dependencies>
 	<build>
