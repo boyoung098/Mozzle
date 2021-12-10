@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="">
   	<!-- 게시판 -->
+  	<select id="selectAllBoard" resultType="Board">
+  		SELECT POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, DEPTH, REGDATE
+		FROM MOZZLE_POST
+  	</select>
   	<select id="selectOneBoard" parameterType="java.lang.String" resultType="Board">
   		SELECT POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, DEPTH, REGDATE
 		FROM MOZZLE_POST

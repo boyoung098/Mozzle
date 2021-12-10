@@ -63,13 +63,13 @@ public class LoginController {
 		if (user != null) {
 			return "redirect:/";
 		}
-		return "users/login";
+		return "user/login";
 	}
 
 	// 회원가입으로 가는 매핑
 	@RequestMapping(value = "/registerPage.do", method = RequestMethod.GET)
 	public String SignUpgo() {
-		return "users/register";
+		return "user/register";
 	}
 
 	// 회원가입 성공 매핑
@@ -92,9 +92,5 @@ public class LoginController {
 		return "duplicateLogin";
 	}
 
-	@RequestMapping(value = "/user/userPage.do", method = RequestMethod.GET)
-	public String userPage() {
-		return null;
-	}
 
 }

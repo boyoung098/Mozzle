@@ -22,7 +22,7 @@ public class Board {
 	private int depth;
 	private String regdate;
 	
-	private int seq;
+	private int seq2;
 	
 	private String report_id;
 	private String report_time;

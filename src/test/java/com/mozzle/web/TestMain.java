@@ -18,17 +18,18 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+
 import com.mozzle.web.dao.users.IGuestDao;
 import com.mozzle.web.dao.users.IUserDao;
 import com.mozzle.web.dto.users.GuestDto;
 
 //김보영
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*.xml")
+@ContextConfiguration(locations="file:src/main/webapp/WEB-INF/spring/**/*.xml")
 public class TestMain {
 
 	@Autowired
-	private ApplicationContext context;
+	private IUserDao userDao;
 	
 	@Autowired
 	private IGuestDao guestDao;
@@ -41,6 +42,8 @@ public class TestMain {
 		log.info("GuestDto 값 {}",guestdto);
 		//List<GuestDto> list = guestDao.selectGuest();
 		//assertEquals(list.size(), 1);
+		System.out.println(userDao.duplicationIdChk("qkrekfthsus"));
+
 	}
 
 }

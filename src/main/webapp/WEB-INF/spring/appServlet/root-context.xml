@@ -36,7 +36,6 @@
 			value="/WEB-INF/spring/mybatis/Configuration.xml" /> -->
 		<property name="configLocation"
 			value="classpath:/mybatis/Configuration.xml" />
-
 	</bean>
 
 	<bean id="sqlSessionTemplate"
