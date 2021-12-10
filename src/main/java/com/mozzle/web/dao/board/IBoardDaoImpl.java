@@ -1,0 +1,93 @@
+package com.mozzle.web.dao.board;
+
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.mozzle.web.dto.board.Board;
+
+public class IBoardDaoImpl implements IBoardDao {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final String NS = "";
+	
+	@Autowired
+	private SqlSessionTemplate session;
+	
+	@Override
+	public int insertBoard(Board board) {
+		logger.info("게시판 입력");
+		return session.insert(NS+"insertBoard", board);
+	}
+
+	@Override
+	public int updateBoard(Board board) {
+		logger.info("게시판 수정");
+		return session.update(NS+"updateBoard",board);
+	}
+
+	@Override
+	public int deleteBoard(int num) {
+		logger.info("게시판 삭제");
+		return session.delete(NS+"updateBoard",num);
+	}
+
+	@Override
+	public List<Board> selectOneBoard(Board board) {
+		logger.info("게시판 조회");
+		return session.selectOne(NS+"selectOneBoard", board);
+	}
+	
+	@Override
+	public List<Board> selectAllBoard() {
+		logger.info("전체 게시판");
+		return session.selectList(NS+"selectAllBoard");
+	}
+
+	
+	
+	
+
+	@Override
+	public int bookmarkBoard(Board board) {
+		logger.info("북마크");
+		return session.insert(NS+"bookmarkBoard", board);
+	}
+
+	@Override
+	public int bookmarkDelete(Board board) {
+		logger.info("북마크 해제");
+		return session.insert(NS+"bookmarkDelete", board);
+	}
+
+	@Override
+	public int replyIn(Board board) {
+		logger.info("댓글 입력");
+		return session.insert(NS+"replyIn",board);
+	}
+
+	@Override
+	public int replyUp(Board board) {
+		logger.info("댓글 수정");
+		return session.update(NS+"replyUp",board);
+	}
+
+	@Override
+	public int replyDl(Board board) {
+		logger.info("댓글 삭제");
+		return session.delete(NS+"replyDl", board);
+	}
+
+	@Override
+	public int reportBoard(Board board) {
+		logger.info("신고");
+		return session.insert(NS+"reportBoard", board);
+	}
+
+	
+	
+
+}

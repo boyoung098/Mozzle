@@ -1,7 +1,5 @@
 package com.mozzle.web.ctrl.users;
 
-
-
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -9,37 +7,20 @@ import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.fasterxml.uuid.Generators;
 import com.mozzle.web.dao.users.UuidUtil;
 
-
+@Controller
 public class GuestController {
 
-	private static long get64LeastSignificantBitsForVersion1() {
-	    Random random = new Random();
-	    long random63BitLong = random.nextLong() & 0x3FFFFFFFFFFFFFFFL;
-	    long variant3BitFlag = 0x8000000000000000L;
-	    return random63BitLong + variant3BitFlag;
-	}
-	
-	private static long get64MostSignificantBitsForVersion1() {
-	    LocalDateTime start = LocalDateTime.of(1582, 10, 15, 0, 0, 0);
-	    Duration duration = Duration.between(start, LocalDateTime.now());
-	    long seconds = duration.getSeconds();
-	    long nanos = duration.getNano();
-	    long timeForUuidIn100Nanos = seconds * 10000000 + nanos * 100;
-	    long least12SignificatBitOfTime = (timeForUuidIn100Nanos & 0x000000000000FFFFL) >> 4;
-	    long version = 1 << 12;
-	    return 
-	      (timeForUuidIn100Nanos & 0xFFFFFFFFFFFF0000L) + version + least12SignificatBitOfTime;
-	}
-	
-	public static UUID generateType1UUID() {
-
-	    long most64SigBits = get64MostSignificantBitsForVersion1();
-	    long least64SigBits = get64LeastSignificantBitsForVersion1();
-
-	    return new UUID(most64SigBits, least64SigBits);
+	@RequestMapping(value="/guestInvite.do", method = RequestMethod.GET)
+	public String guestInvite() {
+		
+		return "mozzle/guestInvite";
 	}
 	
 	public static void main(String[] args) {
@@ -63,22 +44,12 @@ public class GuestController {
 		//01ec56e6-abc0-1833-b9dc-5d74ac9e0caa
 		
 		
-//		시간이 안맞아
-//		UUID tuid = generateType1UUID();
-//		System.out.println(tuid);
-//		Long t = tuid.timestamp();
-//		System.out.println(t);
-//		Timestamp timestamp = new Timestamp (t);
-//		System.out.println(timestamp.toGMTString());
-//		Date dateTime = new Date (timestamp.getTime());
-//		System.out.println(dateTime.toLocaleString());
-//		System.out.println(dateTime.toGMTString());
 		
-		UUID tuid = UuidUtil.getTimeBasedUuid();
-		System.out.println(tuid.toString());
-
-		Date date = (Date) UuidUtil.getDateFromUuid(tuid);
-		System.out.println(date.toLocaleString());
+//		UUID tuid = UuidUtil.getTimeBasedUuid();
+//		System.out.println(tuid.toString());
+//
+//		Date date = (Date) UuidUtil.getDateFromUuid(tuid);
+//		System.out.println(date.toLocaleString());
 		
 	}
 }

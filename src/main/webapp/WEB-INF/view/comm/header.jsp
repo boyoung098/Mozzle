@@ -52,6 +52,16 @@ input:focus, select:focus {
 	background-color: rgba(0, 0, 0, 0);
 }
 </style>
+
+<script>
+	$(function(){
+		$("#myPageGo").click(function(e){
+			e.preventDefault();
+			$("#myPageGo-form").submit();
+		});
+	});
+</script>
+
 </head>
 
 <body>
@@ -63,7 +73,7 @@ input:focus, select:focus {
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="./"><img
+				<a class="navbar-brand" href="<%=request.getContextPath()%>"><img
 					src="<%=request.getContextPath()%>/resources/images/logo/logo.png" /></a>
 			</div>
 			<div class="collapse navbar-collapse select_bar" id="myNavbar">
@@ -86,15 +96,18 @@ input:focus, select:focus {
 
 				<ul class="nav navbar-nav navbar-right">
 					<c:if test="${empty param.userId}">
-						<li><a href="./loginPage.do">로그인</a></li>
-						<li><a href="./registerPage.do">회원가입</a></li>
+						<li><a href="<%=request.getContextPath()%>/loginPage.do">로그인</a></li>
+						<li><a href="<%=request.getContextPath()%>/registerPage.do">회원가입</a></li>
 					</c:if>
 					<c:if test="${not empty param.userId}">
 						<li><a href="./">${param.userId}님</a></li>
-						<li><a href="./">마이페이지</a></li>
-						<li><a href="./logout.do">로그아웃</a></li>
+						<li><a id="myPageGo" href="#">마이페이지</a></li>
+						<li><a href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
 					</c:if>
 				</ul>
+				<form id="myPageGo-form" action="<%=request.getContextPath()%>/user/myPage.do" method="post">
+					<input type="hidden" name="auth"/>
+				</form>
 			</div>
 		</div>
 	</nav>

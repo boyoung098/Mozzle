@@ -59,7 +59,7 @@
 		<!-- 관점지향 프로그램을 AOP 사용 라이브러리 -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
+			<artifactId>aspectjweaver</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
 
@@ -275,12 +275,26 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
-        
+   
         <dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
 			<version>2.4</version>
 			<classifier>jdk15</classifier>
+		</dependency>
+
+
+		<!-- Spring Rest API java 객체를 JSON 형태로 변경 jackson-databind 주의점 : 반드시 <mvc:annotation-driven>이 
+			있어야 한다 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.13</version>
 		</dependency>
 
 

@@ -59,7 +59,8 @@
 					<a href="./home.do"><img class="card" src="./resources/images/g1.png" alt="" /><br />
 						<p class="mozzle_title">로아 하는 로아인 모여!</p>
 						<p>리더 : 로아로아&nbsp;&nbsp;멤버 : 101</p>
-						<p>혼자하기 어려운 레이드, 던전 같이 해요! 옾톡, 디코 필수입니다!!</p> </a>
+						<p>혼자하기 어려운 레이드, 던전 같이 해요! 옾톡, 디코 필수입니다!!</p> 
+					</a>
 				</div>
 				<div class="swiper-slide">
 					<a href="#"><img class="card" src="./resources/images/g2.png" alt="" /><br />
@@ -115,12 +116,17 @@
 		</div>
 	</section>
 	<section class="container mt-3">
-		<img src="./resources/images/bn2.png" />
+		<img class="width-100" src="./resources/images/bn2.png" />
 	</section>
 	<br />
 	<br />
 
 	<jsp:include page="./comm/footer.jsp" />
 
+
+	<div>
+		<h1>임의로 만든 이동페이지</h1>
+		<a href="./guestInvite.do">김보영-게스트URI뿌리는 곳으로 이동</a>
+	</div>
 </body>
 </html>

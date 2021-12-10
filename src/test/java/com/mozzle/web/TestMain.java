@@ -16,18 +16,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.mozzle.web.dao.users.IUserDao;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*.xml")
+@ContextConfiguration(locations="file:src/main/webapp/WEB-INF/spring/**/*.xml")
 public class TestMain {
 
 	@Autowired
-	private ApplicationContext context;
+	private IUserDao userDao;
 	
 	@Test
 	public void test() {
-		SqlSessionTemplate session = context.getBean("sqlSessionTemplate",SqlSessionTemplate.class);
-		System.out.println("session 값="+session);
+		System.out.println(userDao.duplicationIdChk("qkrekfthsus"));
 
 	}
 

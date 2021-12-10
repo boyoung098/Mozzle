@@ -1,6 +1,6 @@
 package com.mozzle.web.dto.manage;
 
-public class ManageDto {
+public class MozzleDto {
 
 	private String mozzle_id;
 	private String mozzle_name;
@@ -73,5 +73,14 @@ public class ManageDto {
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
 	}
+	@Override
+	public String toString() {
+		return "MozzleDto [mozzle_id=" + mozzle_id + ", mozzle_name=" + mozzle_name + ", mozzle_intro=" + mozzle_intro
+				+ ", create_date=" + create_date + ", image_origin=" + image_origin + ", image_saved=" + image_saved
+				+ ", category_code=" + category_code + ", state=" + state + ", delflag=" + delflag + ", category_name="
+				+ category_name + "]";
+	}
+	
+	
 	
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<bean id="authenticationAspect" class="com.mozzle.web.comm.AuthenticationAspect" />
+
+	<aop:config>
+	<!-- aspect id는 logger이고, logAop를 참조함 -->
+	<aop:pointcut id="authCheck" expression="execution(public * com.mozzle.web.ctrl.*.*Controller*.*(..))"/>
+    <aop:aspect ref="authenticationAspect">
+        <!-- loggerAop()라는 공통 기능을 publicM라는 pointcut에 적용 -->
+        <aop:before pointcut-ref="authCheck" method="before"/>
+    </aop:aspect>
+
+
+	</aop:config>
+</beans>
