@@ -11,12 +11,18 @@ import java.util.Map;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.mozzle.web.dao.users.IGuestDao;
+import com.mozzle.web.dao.users.IUserDao;
+import com.mozzle.web.dto.users.GuestDto;
 
+//김보영
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*.xml")
 public class TestMain {
@@ -24,11 +30,17 @@ public class TestMain {
 	@Autowired
 	private ApplicationContext context;
 	
+	@Autowired
+	private IGuestDao guestDao;
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Test
 	public void test() {
-		SqlSessionTemplate session = context.getBean("sqlSessionTemplate",SqlSessionTemplate.class);
-		System.out.println("session 값="+session);
-
+		GuestDto guestdto = guestDao.selectByUUID("ee");
+		log.info("GuestDto 값 {}",guestdto);
+		//List<GuestDto> list = guestDao.selectGuest();
+		//assertEquals(list.size(), 1);
 	}
 
 }

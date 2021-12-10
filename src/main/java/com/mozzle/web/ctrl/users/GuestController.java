@@ -45,11 +45,11 @@ public class GuestController {
 		
 		
 		
-//		UUID tuid = UuidUtil.getTimeBasedUuid();
-//		System.out.println(tuid.toString());
-//
-//		Date date = (Date) UuidUtil.getDateFromUuid(tuid);
-//		System.out.println(date.toLocaleString());
+		//UUID tuid = UuidUtil.getTimeBasedUuid();
+		//System.out.println(tuid.toString());
+//e2b10cc1-58c8-11ec-bade-d9ac7fd025b4
+		//Date date = (Date) UuidUtil.getDateFromUuid(tuid);
+		//System.out.println(date.toLocaleString());
 		
 	}
 }

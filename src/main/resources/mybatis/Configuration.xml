@@ -9,8 +9,8 @@
 
 
 <mappers>
-	<mapper resource="/sql/User_mapper.xml"/>
-	<mapper resource="/sql/Guest_mapper.xml"/>
+	<mapper resource="sql/User_mapper.xml"/>
+	<mapper resource="sql/Guest_mapper.xml"/>
 </mappers>
 
 </configuration>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mozzle.web.dao.users.IGuestDao">
+
+<!-- guest생성 -->
+<insert id="guestInsert" parameterType="guestDto">
+INSERT INTO GUEST
+(MOZZLE_ID, UUID)
+VALUES(#{mozzle_id}, #{uuid})
+</insert>
+
+<!-- guest전체조회 -->
+<select id="selectGuest" resultType="guestDto">
+SELECT MOZZLE_ID, UUID
+FROM GUEST
+</select>
+
+<!-- guest부분조회 -->
+<select id="selectByUUID" resultType="guestDto">
+SELECT MOZZLE_ID, UUID
+FROM GUEST WHERE UUID = #{uuid}
+</select>
+  
+</mapper>
