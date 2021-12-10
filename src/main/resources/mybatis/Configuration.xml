@@ -4,11 +4,13 @@
 
 <typeAliases>
 	<typeAlias type="com.mozzle.web.dto.users.UserDto" alias="uDto"/>
+	<typeAlias type="com.mozzle.web.dto.users.GuestDto" alias="guestDto"/>
 </typeAliases>
 
 
 <mappers>
 	<mapper resource="sql/User_mapper.xml"/>
+	<mapper resource="sql/Guest_mapper.xml"/>
 </mappers>
 
 </configuration>
