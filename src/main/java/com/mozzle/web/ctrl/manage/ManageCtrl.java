@@ -32,18 +32,23 @@ public class ManageCtrl {
 	}
 	
 	@RequestMapping(value = "/registMozzle.do", method = RequestMethod.POST)
-	public String registMozzle(MozzleDto mozzle, @RequestParam("image_origin") MultipartFile image){
-	
-		logger.info("ManageCtrl의 imageUpload {}");
+	public String registMozzle(MozzleDto mozzle){
 		
-		String image_origin = image.getOriginalFilename();
-		String image_origin_extension = image_origin.substring(image_origin.lastIndexOf("."));
-		String image_saved = UUID.randomUUID().toString().replace("-", "") + image_origin_extension;
 		
-		/* File file = new File(filePath + storedFileName); */
+		String image_origin = null;
+		MultipartFile uploadImage = mozzle.getUploadFile();
 		
+		if(!uploadImage.isEmpty()) {
+			image_origin = uploadImage.getOriginalFilename();
+			String image_origin_extension = image_origin.substring(image_origin.lastIndexOf("."));
+			String image_saved = UUID.randomUUID().toString().replace("-", "") + image_origin_extension;
+			
+			System.out.println("====================================>"+ image_origin);
+			System.out.println(image_origin_extension);
+			System.out.println("====================================>"+ image_saved);
+		}
 
-		return image_origin_extension;
+		return null;
 		
 		
 		
