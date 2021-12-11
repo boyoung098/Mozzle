@@ -21,7 +21,7 @@
  <bean id="dataSource" class="oracle.ucp.jdbc.PoolDataSourceImpl">
         <property name="connectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
         <!-- Connection URL uses a TNS alias -->
-        <property name="URL" value="${test_url}" />
+        <property name="URL" value="${url}" />
         <property name="user" value="${user}" />
         <property name="password" value="${pw}" />
         <property name="minPoolSize" value="5" />

@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			<div class="box-file-input" style="margin-top: 5px">
-				<label> <input type="file" name="image_origin"
+				<label> <input type="file" name="uploadFile"
 					class="file-input" accept="image/*" id="img">
 				</label> <span class="filename"></span>
 			</div>
