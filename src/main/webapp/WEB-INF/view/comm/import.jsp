@@ -15,7 +15,6 @@
 section.content{
 	margin-top: 5%;
 	margin-bottom: 5%;
-	text-align: center;
 }
 .swiper-slide img{
 	width: 100%;

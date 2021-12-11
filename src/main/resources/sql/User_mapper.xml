@@ -9,6 +9,12 @@
 		WHERE USER_ID = #{id}
 </select>
 
+<select id="passwordChk" parameterType="java.lang.String" resultType="java.lang.String">
+  SELECT USER_PW 
+	FROM USERS
+		WHERE USER_ID = #{id}
+</select>
+
 <insert id="signUp" parameterType="uDto">
 	INSERT INTO USERS(USER_ID, USER_PW, USER_NAME, AUTH_CODE, BIRTH, EMAIL, TEL, DELFLAG)
 		VALUES(#{user_id}, #{user_pw}, #{user_name},

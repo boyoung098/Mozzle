@@ -98,11 +98,14 @@
 	$(function(){
 		$("#mypage-pw-check").click(function(){
 			$.ajax({
-				url: "./passwordCheck.do",
+				url: "./myPageAuth.do",
 				type: "post",
-				data: {pw: $("#password-check").val()},
-				success: function(result){
-					console.log(result);
+				data: {passwordChk: $("input[name=passwordChk]").val()},
+				success: function(data){
+					console.log(data);
+					if(data.result){
+						$("#myPageAuth-success").submit();
+					}
 				}
 			});
 		});
@@ -115,7 +118,7 @@
 
 <body>
 	<jsp:include page="../comm/header.jsp" >
-		<jsp:param value="${userId}" name="userId"/>
+		<jsp:param value="${sessionScope.userId}" name="userId"/>
 	</jsp:include>
 	<section class="container mt-3">
 		<div>
@@ -130,22 +133,26 @@
 			</ul>
 		</div>
 	</section>
-	<section class="container content">
+	<section class="container">
+		
 		<c:if test="${auth == false}">
+		<div class="text-center mt-5 bt-5">
 			<h2>회원정보 입력</h2>
 			<label>정보 확인을 위해 비밀번호를 다시 입력해주세요<br /><br />
 				<input type="text" class="form-control input-login"
-					name="password-check" placeholder="비밀번호를 입력 해주세요" />
+					name="passwordChk" placeholder="비밀번호를 입력 해주세요" />
 				<button id="mypage-pw-check" class="color-btn input-login">확인</button>
 			</label>
-			<form action="/myPage.do" method="post">
+			<form id="myPageAuth-success" action="./myPage.do" method="post">
 				<input type="hidden" name="auth" value="true"/>
 			</form>
+		</div>
 		</c:if>
 		
 		<c:if test="${auth == true}">
-		<form action="./updateUser.do" method="POST">
-				<div>
+		<div class="container-login">
+			<form id="login-form" action="./updateUser.do" method="POST">
+				<h2>회원 정보 수정</h2>
 					<label>아이디
 					<input type="text" class="form-control input-login"
 						name="user_id" placeholder="아이디를 입력 해주세요" />
@@ -185,9 +192,9 @@
 					</label>
 					
 					<input type="submit" class="color-btn input-login" value="정보수정" />
-				</div>
-
-		</form>
+	
+			</form>
+		</div>
 		</c:if>
 
 	</section>

@@ -1,8 +1,10 @@
 package com.mozzle.web.ctrl.users;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mozzle.web.comm.JwtTokenProvider;
 import com.mozzle.web.dto.users.UserDto;
@@ -32,21 +35,7 @@ public class UserController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.POST)
-	public String myPage(Authentication user, Model model, 
-			@RequestParam(value = "auth") String auth) {
-		// 로그인 상태인지 확인
-		if (user != null) {
-			UserDetails userdto = (UserDetails) user.getPrincipal();
-			// 로그인 결과가 유효하다면
-			if (userdto != null) {
-				String accessToken = jwtTokenProvider.createJwtAccessToken(userdto.getUsername());
-				String refreshToken = jwtTokenProvider.createJwtRefreshToken(userdto.getUsername());
-				System.out.println(userdto.getUsername());
-				model.addAttribute("userId", userdto.getUsername());
-				model.addAttribute("accessToken", accessToken);
-				model.addAttribute("refreshToken", refreshToken);
-			}
-		}
+	public String myPage(Model model, @RequestParam(value = "auth") String auth) {
 		
 		if(auth != null) {
 			System.out.println("비밀번호 입력");
@@ -55,9 +44,15 @@ public class UserController {
 		return "user/myPage";
 	}
 	
-	public Map<String, Boolean> passwordCheck(){
-		
-		return null;
+	@RequestMapping(value="/myPageAuth.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> passwordCheck(HttpServletRequest req, String passwordChk){
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		HttpSession session = req.getSession();
+		System.out.println(passwordChk);
+		boolean checked = service.passwordChk(session.getAttribute("userId").toString(), passwordChk);
+		map.put("result", checked);
+		return map;
 	}
 
 }

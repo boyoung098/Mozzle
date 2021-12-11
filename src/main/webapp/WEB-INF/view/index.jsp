@@ -36,7 +36,7 @@
 </head>
 <body>
 	<jsp:include page="./comm/header.jsp" >
-		<jsp:param value="${userId}" name="userId"/>
+		<jsp:param value="${sessionScope.userId}" name="userId"/>
 	</jsp:include>
 	<section id="main-bg" class="container mt-3">
 		<div class="swiper-container main-bg-img">
@@ -45,7 +45,7 @@
 					<img src="<%=request.getContextPath()%>/resources/images/bn.png" />
 				</div>
 				<div class="swiper-slide">
-					<img src="bn.png" />
+					<img src="<%=request.getContextPath()%>/resources/images/bn.png" />
 				</div>
 			</div>
 		</div>

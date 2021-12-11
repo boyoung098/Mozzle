@@ -11,7 +11,6 @@ import com.mozzle.web.dto.users.UserDto;
 @Repository
 public class UserDaoImpl implements IUserDao{
 
-	
 	@Autowired
 	private SqlSessionTemplate session;
 	
@@ -37,6 +36,14 @@ public class UserDaoImpl implements IUserDao{
 	@Override
 	public int duplicationIdChk(String id) {
 		return session.selectOne(NS + "duplicationIdChk", id);
+	}
+
+	@Override
+	public boolean passwordChk(String id, String comparePw) {
+		String passwordEncoded = session.selectOne(NS + "passwordChk", id);
+		System.out.println(passwordEncoder);
+		System.out.println(passwordEncoder.matches(comparePw, passwordEncoded));
+		return passwordEncoder.matches(comparePw, passwordEncoded);
 	}
 
 }

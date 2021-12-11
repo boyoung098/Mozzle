@@ -34,8 +34,8 @@
 		<security:intercept-url pattern="/**"
 			access="permitAll" />
 
-		<security:custom-filter
-			ref="jwtAuthenticationFilter" before="FORM_LOGIN_FILTER" />
+<!-- 		<security:custom-filter
+			ref="jwtAuthenticationFilter" before="FORM_LOGIN_FILTER" /> -->
 
 		<security:form-login
 			login-processing-url="/logingo.do" login-page="/loginPage.do"
@@ -43,7 +43,7 @@
 			password-parameter="password"
 			authentication-failure-url="/loginPage.do?error"
 			always-use-default-target="true" />
-		<security:logout invalidate-session="true"
+		<security:logout invalidate-session="false"
 			logout-url="/logout.do" logout-success-url="/loginPage.do?logout"
 			delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE" />
 
