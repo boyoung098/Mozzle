@@ -6,10 +6,10 @@
 </div>
 <div class="my-page-menu">
 	<ul>
-		<li>정보수정</li>
-		<li>내가쓴글</li>
-		<li>북마크</li>
-		<li>멤버초대</li>
+		<li><a href="#">정보수정</a></li>
+		<li><a href="#">내가쓴글</a></li>
+		<li><a href="#">북마크</a></li>
+		<li><a href="#">멤버초대</a></li>
 	</ul>
 </div>
 </section>

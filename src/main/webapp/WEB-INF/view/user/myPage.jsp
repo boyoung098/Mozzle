@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <% 
 	Cookie[] cookies = request.getCookies();
 	if(cookies != null){
@@ -42,9 +43,18 @@
 	
 }
 .my-page-menu ul li{
-	padding: 20px 40px;
+	padding: 20px 0;
 	color: #fff;
 	display: inline-block;
+	cursor: pointer;
+}
+
+.my-page-menu ul li:hover{
+	background-color: #a00022;
+}
+
+.my-page-menu ul li a{
+	padding: 20px 40px;
 }
 .color-btn {
 	background: #e82d55;
@@ -76,7 +86,30 @@
 	display: flex;
 	font-size: 13px;
 }
+
+
+
+
 </style>
+
+
+<script type="text/javascript">
+
+	$(function(){
+		$("#mypage-pw-check").click(function(){
+			$.ajax({
+				url: "./passwordCheck.do",
+				type: "post",
+				data: {pw: $("#password-check").val()},
+				success: function(result){
+					console.log(result);
+				}
+			});
+		});
+		
+		
+	});
+</script>
 
 </head>
 
@@ -84,9 +117,33 @@
 	<jsp:include page="../comm/header.jsp" >
 		<jsp:param value="${userId}" name="userId"/>
 	</jsp:include>
-	<jsp:include page="../comm/myPage-header.jsp" />
-	<section class="container-login">
-	
+	<section class="container mt-3">
+		<div>
+			<img class="width-100" alt="모즐 이미지" src="<%=request.getContextPath()%>/resources/images/bn.png">
+		</div>
+		<div class="my-page-menu">
+			<ul>
+				<li><a href="#">정보수정</a></li>
+				<li><a href="#">내가쓴글</a></li>
+				<li><a href="#">북마크</a></li>
+				<li><a href="#">멤버초대</a></li>
+			</ul>
+		</div>
+	</section>
+	<section class="container content">
+		<c:if test="${auth == false}">
+			<h2>회원정보 입력</h2>
+			<label>정보 확인을 위해 비밀번호를 다시 입력해주세요<br /><br />
+				<input type="text" class="form-control input-login"
+					name="password-check" placeholder="비밀번호를 입력 해주세요" />
+				<button id="mypage-pw-check" class="color-btn input-login">확인</button>
+			</label>
+			<form action="/myPage.do" method="post">
+				<input type="hidden" name="auth" value="true"/>
+			</form>
+		</c:if>
+		
+		<c:if test="${auth == true}">
 		<form action="./updateUser.do" method="POST">
 				<div>
 					<label>아이디
@@ -131,6 +188,8 @@
 				</div>
 
 		</form>
+		</c:if>
+
 	</section>
 
 	<jsp:include page="../comm/footer.jsp" />

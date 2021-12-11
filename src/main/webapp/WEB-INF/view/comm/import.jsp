@@ -15,11 +15,15 @@
 section.content{
 	margin-top: 5%;
 	margin-bottom: 5%;
+	text-align: center;
 }
 .swiper-slide img{
 	width: 100%;
 }
 .width-100{
 	width: 100%;
+}
+.my-page-menu ul li a{
+	color: #fff;
 }
 </style>

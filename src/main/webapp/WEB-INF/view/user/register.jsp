@@ -120,7 +120,7 @@ $(function(){
 
 <body>
 	<jsp:include page="../comm/header.jsp" />
-	<section class="content container-login mt-3">
+	<section class="container-login mt-3">
 		<form id="login-form" action="./register.do" method="POST">
 
 				<h2>회원가입</h2>

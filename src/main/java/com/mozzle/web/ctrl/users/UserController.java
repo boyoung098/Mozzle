@@ -1,5 +1,7 @@
 package com.mozzle.web.ctrl.users;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class UserController {
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.POST)
 	public String myPage(Authentication user, Model model, 
-			@RequestParam(value = "auth", required = false) String auth) {
+			@RequestParam(value = "auth") String auth) {
 		// 로그인 상태인지 확인
 		if (user != null) {
 			UserDetails userdto = (UserDetails) user.getPrincipal();
@@ -49,7 +51,13 @@ public class UserController {
 		if(auth != null) {
 			System.out.println("비밀번호 입력");
 		}
+		model.addAttribute("auth", auth);
 		return "user/myPage";
+	}
+	
+	public Map<String, Boolean> passwordCheck(){
+		
+		return null;
 	}
 
 }

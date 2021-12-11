@@ -11,12 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mozzle.web.comm.JwtTokenProvider;
 import com.mozzle.web.dto.users.UserDto;
 import com.mozzle.web.service.users.IUserService;
 
 @Controller
+@SessionAttributes("userId")
 public class LoginController {
 
 	@Autowired

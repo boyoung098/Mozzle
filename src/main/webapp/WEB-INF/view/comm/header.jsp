@@ -106,7 +106,7 @@ input:focus, select:focus {
 					</c:if>
 				</ul>
 				<form id="myPageGo-form" action="<%=request.getContextPath()%>/user/myPage.do" method="post">
-					<input type="hidden" name="auth"/>
+					<input type="hidden" name="auth" value="false"/>
 				</form>
 			</div>
 		</div>
