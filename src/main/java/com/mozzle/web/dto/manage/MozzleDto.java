@@ -1,5 +1,7 @@
 package com.mozzle.web.dto.manage;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MozzleDto {
 
 	private String mozzle_id;
@@ -12,6 +14,8 @@ public class MozzleDto {
 	private String state;
 	private String delflag;
 	private String category_name;
+	private MultipartFile uploadFile;
+	
 	
 	public String getMozzle_id() {
 		return mozzle_id;
@@ -72,6 +76,12 @@ public class MozzleDto {
 	}
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
+	}
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
 	}
 	@Override
 	public String toString() {

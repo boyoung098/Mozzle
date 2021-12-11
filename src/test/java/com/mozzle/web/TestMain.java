@@ -20,7 +20,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 import com.mozzle.web.dao.users.IGuestDao;
-import com.mozzle.web.dao.users.IUserDao;
 import com.mozzle.web.dto.users.GuestDto;
 
 //김보영
@@ -28,8 +27,8 @@ import com.mozzle.web.dto.users.GuestDto;
 @ContextConfiguration(locations="file:src/main/webapp/WEB-INF/spring/**/*.xml")
 public class TestMain {
 
-	@Autowired
-	private IUserDao userDao;
+//	@Autowired
+//	private IUserDao userDao;
 	
 	@Autowired
 	private IGuestDao guestDao;
@@ -38,12 +37,14 @@ public class TestMain {
 	
 	@Test
 	public void test() {
-		GuestDto guestdto = guestDao.selectByUUID("ee");
-		log.info("GuestDto 값 {}",guestdto);
+		//GuestDto guestdto = guestDao.selectByUUID("ee");
+		//log.info("GuestDto 값 {}",guestdto);
 		//List<GuestDto> list = guestDao.selectGuest();
-		//assertEquals(list.size(), 1);
-		System.out.println(userDao.duplicationIdChk("qkrekfthsus"));
-
+		
+		int n = guestDao.guestInsert("1");
+		assertEquals(1, n);
+		
+		
 	}
 
 }
