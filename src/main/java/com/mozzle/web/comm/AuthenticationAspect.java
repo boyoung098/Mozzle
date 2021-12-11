@@ -10,7 +10,7 @@ public class AuthenticationAspect {
 	public void before(JoinPoint j) {
 		Logger log = LoggerFactory.getLogger(j.getTarget() + "");
 		System.out.println("로그인 확인 :ㅈ대롲ㄷ로ㅕㅈ도ㅕ랴ㅗㅕㅈㄷ로");
-		UserDetails userdto = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//UserDetails userdto = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		Object[] arg =  j.getArgs();
 		if(arg != null) {
