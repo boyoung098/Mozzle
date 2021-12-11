@@ -6,6 +6,7 @@
 	<typeAlias type="com.mozzle.web.dto.users.UserDto" alias="uDto"/>
 	<typeAlias type="com.mozzle.web.dto.users.GuestDto" alias="guestDto"/>
 	<typeAlias type="com.mozzle.web.dto.manage.MozzleDto" alias="mDto"/>
+	<typeAlias type="com.mozzle.web.dto.manage.CategoryDto" alias="cDto"/>
 </typeAliases>
 
 
@@ -13,7 +14,8 @@
 	<mapper resource="sql/User_mapper.xml"/>
 	<mapper resource="sql/Guest_mapper.xml"/>
 	<mapper resource="sql/Mozzle_mapper.xml"/>
-	<mapper resource="sql/Board_mapper.xml"/>
+	<mapper resource="sql/Category_mapper.xml"/>
+
 </mappers>
 
 </configuration>

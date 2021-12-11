@@ -3,26 +3,25 @@
 <mapper namespace="com.mozzle.web.dao.manage.ManageDaoImpl">
 	
 	<insert id="registMozzle" parameterType="mDto">
-		<selectKey keyProperty="seq" resultType="java.lang.Integer" order="BEFORE">
-			SELECT MOZZLE_SEQ.NEXTVAL FROM DUAL
+		<selectKey keyProperty="mozzle_id" resultType="java.lang.String" order="BEFORE">
+			SELECT MOZZLE_SEQ.NEXTVAL MOZZLE_ID FROM DUAL
 		</selectKey>
 			INSERT INTO MOZZLE
 						(MOZZLE_ID, MOZZLE_NAME, 
 						<if test="mozzle_intro != null">
 							MOZZLE_INTRO, 
 						</if>
-						<if test="image_orgin != null">
+						<if test="image_origin != null">
 						IMAGE_ORIGIN, IMAGE_SAVED,
 						</if>
 						CREATE_DATE, CATEGORY_CODE, 
 						STATE, DELFLAG)
-				VALUES(#{seq}, #{mozzle_id}, 
-						#{mozzle_name},
+				VALUES(#{mozzle_id}, #{mozzle_name},
 						<if test="mozzle_intro != null">
 						 	#{mozzle_intro}, 
 						</if>
-						<if test="image_orgin != null">
-						#{image_origin}, #{image_saved}
+						<if test="image_origin != null">
+						#{image_origin}, #{image_saved},
 						</if>
 						SYSDATE, #{category_code}, #{state}, 'N')	
 	</insert>
@@ -30,9 +29,11 @@
 	
 	<select id="selectMozzleByCreatDate" resultType="mDto">
 		SELECT MOZZLE_ID, MOZZLE_NAME, 
-			MOZZLE_INTRO, CREATE_DATE, IMAGE_SAVED, 
+			MOZZLE_INTRO, CREATE_DATE, 
+			IMAGE_ORIGIN, IMAGE_SAVED, 
 			CATEGORY_CODE, STATE
 		FROM MOZZLE
+		WHERE STATE = 'Y'
 		ORDER BY CREATE_DATE DESC
 	</select>
 
