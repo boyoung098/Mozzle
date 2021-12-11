@@ -13,7 +13,7 @@
 	<mapper resource="sql/User_mapper.xml"/>
 	<mapper resource="sql/Guest_mapper.xml"/>
 	<mapper resource="sql/Mozzle_mapper.xml"/>
-	<mapper resource="sql/Board_mapper.xml"/>
+	<!-- <mapper resource="sql/Board_mapper.xml"/> -->
 </mappers>
 
 </configuration>
