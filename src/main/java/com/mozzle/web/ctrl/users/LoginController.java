@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.mozzle.web.comm.JwtTokenProvider;
 import com.mozzle.web.dto.users.UserDto;
@@ -40,15 +41,14 @@ public class LoginController {
 	@RequestMapping(value = "/loginPage.do", method = RequestMethod.GET)
 	public String login(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout, Authentication user, Model model,
-			HttpServletRequest req) {
-		HttpSession session = req.getSession();
+			SessionStatus session) {
 		if (error != null) {
 			model.addAttribute("msg", "로그인 에러");
 		}
 
 		if (logout != null) {
 			model.addAttribute("msg", "로그아웃 성공");
-			session.invalidate();
+			session.setComplete();
 		}
 
 		if (user != null) {
@@ -58,7 +58,7 @@ public class LoginController {
 					String accessToken = jwtTokenProvider.createJwtAccessToken(userdto.getUsername());
 					String refreshToken = jwtTokenProvider.createJwtRefreshToken(userdto.getUsername());
 					System.out.println(userdto.getUsername());
-					session.setAttribute("userId", userdto.getUsername());
+					model.addAttribute("userId", userdto.getUsername());
 					model.addAttribute("accessToken", accessToken);
 					model.addAttribute("refreshToken", refreshToken);
 				}
