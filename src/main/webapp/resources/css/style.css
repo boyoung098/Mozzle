@@ -335,3 +335,6 @@ select:focus {
     align-items: center;
     cursor: pointer;
 }
+.user-profil {
+	width:250px;
+}

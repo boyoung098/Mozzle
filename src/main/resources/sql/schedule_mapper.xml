@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mozzle.web">
+<mapper namespace="com.mozzle.web.Schedule">
+
+	<!-- 상세보기 -->
+	<select id="scheduleselectAll">
+		
+	</select>
+
 
 	<!-- 일정추가 -->
 	<insert id="insertBoard.do" parameterType="java.lang.Integer">
@@ -13,4 +19,16 @@
 		SCHEDULES_ID_SEQ.NEXTVAL,${mozzle_id},${writer},${title},
 		${content},${schedule_date},SYSDATE,"N",${location_code};
 	</insert>
+
+	<!-- 일정개수 -->
+	<select id="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM SCHEDULES
+		WHERE ID= #{SCHEDULES_ID} AND SUBSTR(MDATE,1,8) =#{yyyymmdd}
+	</select>
+	
+	<!-- 일정리스트(개수보여주기) -->
+	
+	
+	
 </mapper>
