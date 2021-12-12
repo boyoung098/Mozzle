@@ -1,5 +1,6 @@
 package com.mozzle.web.dao.board;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
 import com.mozzle.web.dto.board.Board;
@@ -18,6 +19,7 @@ public interface IBoardDao {
 	public int replyIn(Board board);
 	public int replyUp(Board board);
 	public int replyDl(Board board);
+	public List<Board> replyview(Board board);
 	
-	public int reportBoard(Board board); 
+	public int reportBoard(Board board);
 }

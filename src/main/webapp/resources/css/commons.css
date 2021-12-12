@@ -124,6 +124,18 @@ footer {
     display: inline-block;
 }
 
+
+section.content{
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+.swiper-slide img{
+	width: 100%;
+}
+.width-100{
+	width: 100%;
+}
+
 @media (min-width: 768px) {
     .footer-bs .footer-nav,
     .footer-bs .footer-social,
@@ -199,7 +211,9 @@ a {
 .mt-2{
     margin-top: 20px;
 }
-
+.mt-3{
+    margin-top: 30px;
+}
 .mt-5 {
     margin-top: 50px;
 }

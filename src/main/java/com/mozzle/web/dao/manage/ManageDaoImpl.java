@@ -3,6 +3,8 @@ package com.mozzle.web.dao.manage;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,20 +14,20 @@ import com.mozzle.web.dto.manage.MozzleDto;
 public class ManageDaoImpl implements IManageDao{
 	
 	@Autowired
-	private SqlSessionTemplate sqlSession;
-	
+	private SqlSessionTemplate session;
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final String NS ="com.mozzle.web.dao.manage.ManageDaoImpl.";
 
 	@Override
 	public int registMozzle(MozzleDto mozzle) {
-		// TODO Auto-generated method stub
-		return 0;
+		logger.info("registMozzle {} ", mozzle);
+		return session.insert(NS + "registMozzle", mozzle);
 	}
 
 	@Override
 	public List<MozzleDto> selectMozzleByCreatDate() {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("selectMozzleByCreatDate ");
+		return session.selectList(NS + "selectMozzleByCreatDate");
 	}
 
 	
