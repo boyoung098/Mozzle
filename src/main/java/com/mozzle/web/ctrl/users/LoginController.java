@@ -33,7 +33,7 @@ public class LoginController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpServletRequest req) {
+	public String home(Model model) {
 		return "index";
 	}
 

@@ -38,7 +38,7 @@
 	<jsp:include page="./comm/header.jsp" >
 		<jsp:param value="${sessionScope.userId}" name="userId"/>
 	</jsp:include>
-	<section id="main-bg" class="container mt-3">
+	<section id="main-bg" class="container">
 		<div class="swiper-container main-bg-img">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">

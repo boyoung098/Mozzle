@@ -20,19 +20,7 @@
 <title>마이페이지</title>
 <jsp:include page="../comm/import.jsp" />
 <style>
-.container-login {
-	width: 350px;
-	margin: auto;
-}
 
-.login-result{
-	color:#e82d55;
-}
-.input-login {
-	height: 40px;
-	width: 350px;
-	margin-bottom: 10px;
-}
 .my-page-menu{
 	background-color: #e82d55;
 }
@@ -56,37 +44,6 @@
 .my-page-menu ul li a{
 	padding: 20px 40px;
 }
-.color-btn {
-	background: #e82d55;
-	color: #fff;
-	font-size: 15px;
-	border-radius: 4px;
-	border: none;
-}
-
-.ch-box {
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
-}
-
-.ch-box2 {
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
-}
-
-.ch-box label {
-	font-size: 13px;
-	vertical-align: middle;
-	padding-left: 10px;
-}
-
-.ch-box ul {
-	display: flex;
-	font-size: 13px;
-}
-
 
 
 
@@ -120,7 +77,7 @@
 	<jsp:include page="../comm/header.jsp" >
 		<jsp:param value="${sessionScope.userId}" name="userId"/>
 	</jsp:include>
-	<section class="container mt-3">
+	<section class="container">
 		<div>
 			<img class="width-100" alt="모즐 이미지" src="<%=request.getContextPath()%>/resources/images/bn.png">
 		</div>
@@ -150,7 +107,7 @@
 		</c:if>
 		
 		<c:if test="${auth == true}">
-		<div class="container-login">
+		<div id="update-user">
 			<form id="login-form" action="./updateUser.do" method="POST">
 				<h2>회원 정보 수정</h2>
 					<label>아이디
