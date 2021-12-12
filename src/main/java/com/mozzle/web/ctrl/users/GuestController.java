@@ -1,26 +1,83 @@
 package com.mozzle.web.ctrl.users;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fasterxml.uuid.Generators;
 import com.mozzle.web.dao.users.UuidUtil;
+import com.mozzle.web.dto.users.GuestDto;
+import com.mozzle.web.service.users.IGuestService;
 
 @Controller
 public class GuestController {
 
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private IGuestService guestService;
+	
 	@RequestMapping(value="/guestInvite.do", method = RequestMethod.GET)
-	public String guestInvite() {
+	public String guestInvite(Model model, HttpServletRequest req, String mozzle_id) {
+		UUID newuuid = UuidUtil.getTimeBasedUuid();
+		String uuid = newuuid.toString();
+		GuestDto guestDto = new GuestDto(mozzle_id,uuid);
+		guestService.guestInsert(guestDto);
 		
+		String url = req.getRequestURL().toString();
+		int n = url.lastIndexOf("/");
+		String nowurl = url.substring(0,n);
+		//임의로 추가한 mozzleEnter.do
+		String guesturl = nowurl+"/guestEnter.do?uuid="+uuid;
+		model.addAttribute("guesturl",guesturl);
 		return "mozzle/guestInvite";
+	}
+	
+	@GetMapping(value="/guestEnter.do")
+	public String guestCheck(String uuid,HttpServletResponse resp) throws IOException {
+		UUID ud = UUID.fromString(uuid); //String -> UUID(형변환)
+		Date date = (Date) UuidUtil.getDateFromUuid(ud); //UUID->Date
+		Date today = new Date();
+		int betweenDate = today.compareTo(UuidUtil.getDateFromUuid(ud));
+		log.info("오늘이랑 받은 값 날짜 비교 {}",betweenDate);
+		
+		if(betweenDate > 7) {
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = resp.getWriter();
+			writer.println("<script>alert('링크의 유효기간인 7일이 경과되었습니다.'); location.href='../MozzleProject/';</script>");
+			writer.flush();
+		} else {
+			//게스트가 들어갈수 있는 모즐메인페이지를 return시킨다
+			GuestDto guestDto = guestService.selectByUUID(uuid);
+			log.info("UUID를 통해 조회한 guestDto{}",guestDto);
+			
+		}
+		
+		return "redirect:/moveCheck.do";
+	}
+	
+	@GetMapping("/moveCheck.do")
+	public String moveCheck() {
+		
+		return "mozzle/mozzleCheck";
 	}
 	
 	public static void main(String[] args) {
@@ -44,12 +101,24 @@ public class GuestController {
 		//01ec56e6-abc0-1833-b9dc-5d74ac9e0caa
 		
 		
-		
+		//UUID생성 , 날짜로변환
 		//UUID tuid = UuidUtil.getTimeBasedUuid();
 		//System.out.println(tuid.toString());
 //e2b10cc1-58c8-11ec-bade-d9ac7fd025b4
 		//Date date = (Date) UuidUtil.getDateFromUuid(tuid);
 		//System.out.println(date.toLocaleString());
 		
+		//String -> UUID
+		
+		//UUID ud = UUID.fromString("e2b10cc1-58c8-11ec-bade-d9ac7fd025b4");
+		
+		//현재날짜
+		//Date today = new Date();
+		//System.out.println(today);
+		
+		//날짜비교하기
+		//System.out.println(UuidUtil.getDateFromUuid(ud).compareTo(today)); //-1
+		//System.out.println(today.compareTo(UuidUtil.getDateFromUuid(ud))); //1
+		//System.out.println(nowdate.toString());
 	}
 }

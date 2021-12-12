@@ -6,13 +6,15 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.mozzle.web.dto.board.Board;
 
+@Repository
 public class IBoardDaoImpl implements IBoardDao {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	private final String NS = "";
+	private final String NS = "com.mozzle.web.dto.board.Board.";
 	
 	@Autowired
 	private SqlSessionTemplate session;
@@ -38,6 +40,7 @@ public class IBoardDaoImpl implements IBoardDao {
 	@Override
 	public List<Board> selectOneBoard(Board board) {
 		logger.info("게시판 조회");
+		
 		return session.selectOne(NS+"selectOneBoard", board);
 	}
 	
@@ -80,12 +83,20 @@ public class IBoardDaoImpl implements IBoardDao {
 		logger.info("댓글 삭제");
 		return session.delete(NS+"replyDl", board);
 	}
-
+	
+	@Override
+	public List<Board> replyview(Board board) {
+		logger.info("댓글 출력");
+		return session.selectList(NS+"replyview", board);
+	}
+	
 	@Override
 	public int reportBoard(Board board) {
 		logger.info("신고");
 		return session.insert(NS+"reportBoard", board);
 	}
+
+	
 
 	
 	

@@ -65,6 +65,13 @@ public class IBoardServiceImpl implements IBoardService {
 		return dao.reportBoard(board);
 	}
 
+	@Override
+	public List<Board> replyview(Board board) {
+		return dao.replyview(board);
+	}
+
+	
+
 	
 
 }

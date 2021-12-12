@@ -66,8 +66,8 @@ $(function(){
 		if(idVal.indexOf(" ") != -1){
 			$("#id-duplicated-result").text("아이디에 공백은 포함될 수 없습니다");
 		}
-		//else if(idVal.length <= 5 || idVal.length > 20){
-		else if(!idRegEx.test(idVal)){
+		else if(idVal.length <= 5 || idVal.length > 20){
+		//else if(!idRegEx.test(idVal)){
 				$("#id-duplicated-result").text("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
 		}
 		else{
@@ -120,7 +120,7 @@ $(function(){
 
 <body>
 	<jsp:include page="../comm/header.jsp" />
-	<section class="content container-login mt-3">
+	<section class="container-login mt-3">
 		<form id="login-form" action="./register.do" method="POST">
 
 				<h2>회원가입</h2>

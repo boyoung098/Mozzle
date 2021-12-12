@@ -59,6 +59,7 @@ input:focus, select:focus {
 			e.preventDefault();
 			$("#myPageGo-form").submit();
 		});
+
 	});
 </script>
 
@@ -102,11 +103,11 @@ input:focus, select:focus {
 					<c:if test="${not empty param.userId}">
 						<li><a href="./">${param.userId}님</a></li>
 						<li><a id="myPageGo" href="#">마이페이지</a></li>
-						<li><a href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
+						<li><a id="logoutGo" href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
 					</c:if>
 				</ul>
 				<form id="myPageGo-form" action="<%=request.getContextPath()%>/user/myPage.do" method="post">
-					<input type="hidden" name="auth"/>
+					<input type="hidden" name="auth" value="false"/>
 				</form>
 			</div>
 		</div>

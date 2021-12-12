@@ -13,8 +13,6 @@ public class UserServiceImpl implements IUserService{
 	@Autowired
 	private IUserDao dao;
 	
-	
-	
 	@Override
 	public UserDto loginChk(String id) {
 		UserDto dto = dao.loginChk(id);
@@ -30,6 +28,11 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public int duplicationIdChk(String id) {
 		return dao.duplicationIdChk(id);
+	}
+
+	@Override
+	public boolean passwordChk(String id, String comparePw) {
+		return dao.passwordChk(id, comparePw);
 	}
 
 }
