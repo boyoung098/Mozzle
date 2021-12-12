@@ -10,12 +10,13 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <jsp:include page="./comm/import.jsp" />
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
 </head>
 <body>
-<!-- <script type="text/javascript" 	src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script> -->
+	<!-- <script type="text/javascript" 	src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script> -->
 	<jsp:include page="./comm/header.jsp">
 		<jsp:param value="${userId}" name="userId" />
 	</jsp:include>
@@ -63,14 +64,15 @@
 							<div class="col-sm-11 board-box-list">
 								<div class="meeber-thumbnail">
 									<img src="./resources/images/weast044_01.jpg" alt="하늘">
-								</div><span>${boardobj.user_id}</span> <span>${boardobj.regdate}</span>
+								</div>
+								<span>${boardobj.user_id}</span> <span>${boardobj.regdate}</span>
 							</div>
 							<div class="col-sm-1 drop-board-box">
 								<i class="xi-ellipsis-h xi-2x"></i>
 								<ul class="drop-board">
 									<li><button class="btn-invite" onclick="board_update()">수정</button></li>
 									<li><button class="btn-invite" onclick="board_delete()">삭제</button></li>
-									<li><button class="btn-invite" >주소복사</button></li>
+									<li><button class="btn-invite">주소복사</button></li>
 									<li><button id="myModal2" class="btn-invite no-padding"
 											data-toggle="modal" data-target="#myModal2">신고</button></li>
 								</ul>
@@ -79,11 +81,9 @@
 								<p>${boardobj.content}</p>
 							</div>
 							<!-- 댓글 -->
-								<div id="reply-comment">
-									
-								</div>
+							<div id="reply-comment"></div>
 							<!-- 댓글 -->
-							
+
 							<div class="board-cion">
 								<div class="comment-icon">
 									<i class="xi-star-o xi-2x"></i>
@@ -93,8 +93,10 @@
 								</div>
 								<div class="comment">
 									<form action="./reinboard.do" method="post" id="reply">
-										<input type="text" name="comment-id" id="comment-id" class="form-control comment-input" name="content"/> 
-										<input type="button" value="댓글" class="comment-btn" id="comment-btn" onclick="fn_comment(${boardobj.post_id})"/>
+										<input type="text" name="comment-id" id="comment-id"
+											class="form-control comment-input" name="content" /> <input
+											type="button" value="댓글" class="comment-btn" id="comment-btn"
+											onclick="fn_comment(${boardobj.post_id})" />
 									</form>
 								</div>
 							</div>
@@ -108,9 +110,11 @@
 			<div class="col-sm-3 sidenav">
 				<div class="input-group input-search" style="width: 86%;">
 					<form action="" method="post">
-						<input type="text" class="form-control" name="keyword" id="keyword" placeholder="모즐 게시글 검색" >
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button" onclick="return searchboard()">
+						<input type="text" class="form-control" name="keyword"
+							id="keyword" placeholder="모즐 게시글 검색"> <span
+							class="input-group-btn">
+							<button class="btn btn-default" type="button"
+								onclick="return searchboard()">
 								<span class="glyphicon glyphicon-search"></span>
 							</button>
 						</span>
@@ -159,7 +163,7 @@
 			</div>
 		</div>
 
-	</section> 
+	</section>
 	<form id="frm" action="/insert.jsp" method="post">
 		<table width="100%">
 			<tr>
@@ -176,30 +180,36 @@
 					type="button" value="취소" /></td>
 			</tr>
 			<tr>
-				<td>
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-				</td>
+				<td><input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" /></td>
 			</tr>
 		</table>
-	</form> 
+	</form>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Modal Header</h4>
+			<form action="./insertBoard.do" method="post" id="insertcontent">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Modal Header</h4>
+					</div>
+					<div class="modal-body">
+						
+						<div class="form-group">
+							<label>내용</label>
+							<textarea rows="5" class="form-control" id="content"
+								name="content"></textarea>
+						</div>
+						<div class="form-group">        
+					      <div class="col-sm-offset-2 col-sm-10">
+					        <button type="button" class="btn btn-primary btn-block" onclick="validateForm()">새글입력</button>
+					      </div>
+					    </div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<p>Some text in the modal.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-
+			</form>
 		</div>
 	</div>
 
@@ -232,7 +242,7 @@
 			});
 		});
 		 */
-		function fn_comment(post_id){
+		/* function fn_comment(post_id){
 			$.ajax({
 				url:"/reinboard.do",
 				type:"POST",
@@ -271,7 +281,14 @@
 					$("#reply").html(html);
 				}
 			})
+		} */
+		
+		function board_update(){
+			console.log("댓글 입력");
+			var up = document.getElementById("");
 		}
+		
+		
 		
 	</script>
 

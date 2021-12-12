@@ -1,13 +1,17 @@
 package com.mozzle.web.ctrl.board;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
+import java.io.PrintWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +45,27 @@ public class BoardCtrl {
 		
 		return "board";
 	}
+	
+	@PostMapping(value="/insertBoard.do")
+	public String insertBoard(Board board, HttpServletResponse resp) throws IOException {
+		int cnt = serviceImple.insertBoard(board);
+		if(cnt == 1) {
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+			out.println("<script>alert('성공적으로 새글이 입력되었습니다'); location.href='./boardList.do';</script>");
+			out.flush();
+			return "board";
+		}else {
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+			out.println("<script>alert('새글 입력 실패'); location.href='index.jsp';</script>");
+			out.flush();
+			return "board";
+		}
+		
+	}
+	
+	
 	
 	@RequestMapping(value="/reinboard.do")
 	@ResponseBody
