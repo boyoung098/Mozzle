@@ -9,14 +9,16 @@
 <title>모즐메인</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <jsp:include page="./comm/import.jsp" />
+<script type="text/javascript" 	src="<%=request.getContextPath()%>/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
 </head>
 <body>
-	<!-- <script type="text/javascript" 	src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script> -->
+	
 	<jsp:include page="./comm/header.jsp">
 		<jsp:param value="${userId}" name="userId" />
 	</jsp:include>
@@ -54,12 +56,13 @@
 
 				<div class="board-container" id="items">
 					<div class="board-top">
-						<select class="board-sel">
+						<select class="board-sel selectbox">
 							<option value="new1">최신 순</option>
 							<option value="new2">인기 순</option>
 						</select>
 					</div>
 					<c:forEach var="boardobj" items="${requestScope.boardlist}">
+					<section id="board-card-list">
 						<div class="borad-box row" id="borad-box">
 							<div class="col-sm-11 board-box-list">
 								<div class="meeber-thumbnail">
@@ -102,6 +105,7 @@
 							</div>
 
 						</div>
+						</section>
 					</c:forEach>
 				</div>
 
@@ -114,7 +118,7 @@
 							id="keyword" placeholder="모즐 게시글 검색"> <span
 							class="input-group-btn">
 							<button class="btn btn-default" type="button"
-								onclick="return searchboard()">
+								onclick="searchboard()">
 								<span class="glyphicon glyphicon-search"></span>
 							</button>
 						</span>
@@ -164,7 +168,7 @@
 		</div>
 
 	</section>
-	<form id="frm" action="/insert.jsp" method="post">
+ 	<form >
 		<table width="100%">
 			<tr>
 				<td>제목</td>
@@ -189,7 +193,7 @@
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 			<form action="./insertBoard.do" method="post" id="insertcontent">
-				<!-- Modal content-->
+				Modal content
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -204,44 +208,30 @@
 						</div>
 						<div class="form-group">        
 					      <div class="col-sm-offset-2 col-sm-10">
-					        <button type="button" class="btn btn-primary btn-block" onclick="validateForm()">새글입력</button>
+					        <button type="button" class="btn btn-primary btn-block" onclick="board_insert()">새글입력</button>
 					      </div>
 					    </div>
 					</div>
 				</div>
 			</form>
 		</div>
-	</div>
+	</div> 
 
 	</div>
 
 
 	<jsp:include page="./comm/footer.jsp" />
 	<script type="text/javascript">
-		/* var oEditors = [];
+		 var oEditors = [];
 		$(function() {
 			nhn.husky.EZCreator.createInIFrame({
-				oAppRef : oEditors,
-				elPlaceHolder : "ir1",
-				//SmartEditor2Skin.html 파일이 존재하는 경로 
-				sSkinURI : "/smarteditor2/SmartEditor2Skin.html",
-				htParams : {
-					// 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
-					bUseToolbar : true, // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
-					bUseVerticalResizer : true, // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
-					bUseModeChanger : true,
-					fOnBeforeUnload : function() {
-					}
-				},
-				fOnAppLoad : function() {
-					//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용 
-					oEditors.getById["ir1"].exec("PASTE_HTML",
-							[ "기존 DB에 저장된 내용을 에디터에 적용할 문구" ]);
-				},
-				fCreator : "createSEditor2"
+	            oAppRef: oEditors,
+	            elPlaceHolder: "ir1",
+	            sSkinURI : "<%=request.getContextPath()%>/smarteditor2/SmartEditor2Skin.html",
+	            fCreator: "createSEditor2"
 			});
 		});
-		 */
+		 
 		/* function fn_comment(post_id){
 			$.ajax({
 				url:"/reinboard.do",
@@ -291,6 +281,130 @@
 		
 		
 	</script>
+	<script type="text/javascript">
+	var $doc=$(document);    
+    var $win=$(window);
 
+    let startPage = 10;
+    let endPage = 18;
+    let addStar = 0;
+    let what = null;
+    
+    $(".selectbox").change(function(){
+        what = $(".selectbox option:selected").val();
+    });
+    
+    $(window).scroll(function(){ 
+        if ($doc.height()-$win.height()-$(this).scrollTop() == 0) {
+            let whatTemp = what;
+            let navNo = ${categoryList}[0].cateCode;
+            
+            $.ajax({
+                url:"infinityScroll.do",
+                data:{
+                    navNo:navNo,
+                    startPage : startPage,
+                    endPage : endPage,
+                    what:whatTemp
+                },
+                dataType:"json",
+                success:function(data){
+                    
+                    $cmtWrap = $(".Lsit-Saction");
+                    
+                    var $divF; // 1단계
+                    
+                    var $inputS; // 2단계
+                    var $aS; // 2-1단계
+                    var $divS; // 2-2단계
+                    
+                    var $divImg; // 3단계
+                    var $pT; // 3-1단계
+                    var $divT;    // 3-2 단계
+                    
+                    var $imgP; // 4단계
+                    var $imgR; // 4-1단계
+                    var $spanN; // 4-2단계
+                    var $spanS; // 4-3단계
+                    var $spanSN; // 4-4단계
+                    var $spanF; // 4-5단계
+                    
+                    var $spanC; // 5단계
+                    var $imgbuy; // 5단계
+                    
+                    console.log(data);
+
+                    if(data.length > 0){ // 게시글이 있을 경우
+                        for(var i in data){
+                            
+                            $divF = $("<div class='borad-box row'>"); 
+                            
+                            $inputS = $("<input type='hidden' class='pCategory'>").attr("value",data[i].category); // 2단계 hidden category
+                            $aS = $("<a class='thumbnail'>").attr("href", "productDetail.do?no=" + data[i].no); // 2-1단계 a 태그
+                            $divS = $("<div class='list_contents_marign'>"); // 2-2단계 div
+                            
+                            $divImg = $("<div class='list_img_div'>"); // 3단계 img container
+                            $pT = $("<p class='font_noto list_explain_index'>").html(data[i].title); // 3-1단계 p태그 제목
+                            $divT = $("<div>"); // 3-2단계 div 여러가지
+                            
+                            $imgP = $("<img class='list_contents_img_index'>").attr("src","resources/pUploadFiles/" + data[i].renamePic ); // 4단계 상품 사진
+                            
+                            $imgR = $("<img class='list_rank_index'>").attr("src","resources/img/lv1.png"); // 4단계 계급사진
+                            $spanN = $("<span class='font_noto'>").html(data[i].nickName); // 4단계 닉네임
+                            $spanS = $("<span class='list_star_container_index'>").addClass("list_star" + addStar); // 4단계 별 컨테이너
+                            $spanSN = $("<span class='font_noto starNum'>").html("(" + parseFloat(data[i].star).toFixed(1) + ")").addClass("starclass" + addStar); // 4단계 별점
+                            $spanF = $("<span>");    // 4단계 span 태그
+                            
+                            $spanC = $("<span class='font_noto'>").html(data[i].count + "명선택"); // 5단계 몇명 선택
+                            $imgbuy = $("<img src='resources/img/buy.png' class='list_choice_img_index'>"); // 선택 이미지
+                            
+                            // ---------------------------------------------------
+                            
+                            $spanF.append($spanC); // 5단계 추가
+                            $spanF.append($imgbuy); // 5단계 추가
+                            
+                            $divT.append($imgR); // 4단계 추가
+                            $divT.append("&nbsp;");
+                            $divT.append($spanN); // 4단계 추가
+                            $divT.append("&nbsp;");
+                            $divT.append($spanS); // 4단계 추가
+                            $divT.append("&nbsp;");
+                            $divT.append($spanSN); // 4단계 추가
+                            $divT.append("&nbsp;");
+                            $divT.append($spanF); // 4단계 추가
+                            
+                            $divImg.append($imgP); // 4단계 추가
+                            
+                            $aS.append($divImg); // 3단계 추가
+                            $divS.append($pT); // 3단계 추가
+                            $divS.append($divT); // 3단계 추가
+                            
+                            $divF.append($inputS); // 2단계 추가
+                            $divF.append($aS); // 2단계 추가
+                            $divF.append($divS); // 2단계 추가
+                            
+                            $cmtWrap.append($divF);
+                        }
+                    
+                    }
+                    
+                    // 시작 페이지 ROWNUM + 9
+                     startPage = startPage + 9;
+                    // 끝 페이지  ROWNUM + 9
+                     endPage  = endPage + 9; 
+                    // 별 계산해주는 함수
+                     addedStar("list_star" + addStar, ".product" + addStar, "starclass" + addStar);
+                    // 로딩 될 때마다 불러오는 클래스 값 변경해주기.
+                    addStar++;
+                    
+                    filter();
+                     
+                },error:function(request,status,errorData){
+                    console.log(request.status + ":" + errorData);
+                }
+            });
+        }
+    });
+	</script>
 </body>
 </html>

@@ -40,8 +40,8 @@ public class BoardCtrl {
 	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String boardList(Model model) {
 		logger.info("모즐메인 게시판");
-		List<Board> boardlist = serviceImple.selectAllBoard();
-		model.addAttribute("boardlist",boardlist);
+		//List<Board> boardlist = serviceImple.selectAllBoard();
+		model.addAttribute("boardlist", serviceImple.selectAllBoard());
 		
 		return "board";
 	}
@@ -52,13 +52,13 @@ public class BoardCtrl {
 		if(cnt == 1) {
 			resp.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = resp.getWriter();
-			out.println("<script>alert('성공적으로 새글이 입력되었습니다'); location.href='./boardList.do';</script>");
+			out.println("<script>alert('성공적으로 새글이 입력되었습니다'); location.href='./board.do';</script>");
 			out.flush();
 			return "board";
 		}else {
 			resp.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = resp.getWriter();
-			out.println("<script>alert('새글 입력 실패'); location.href='index.jsp';</script>");
+			out.println("<script>alert('새글 입력 실패'); location.href='./board.do';</script>");
 			out.flush();
 			return "board";
 		}
