@@ -5,12 +5,13 @@
 <typeAliases>
 	<typeAlias type="com.mozzle.web.dto.users.UserDto" alias="uDto"/>
 	<typeAlias type="com.mozzle.web.dto.users.GuestDto" alias="guestDto"/>
+	<!-- <typeAlias type="com.mozzle.web.dto.schedule.ScheduleDto" alias="scheduleDto"/> -->
 </typeAliases>
-
 
 <mappers>
 	<mapper resource="sql/User_mapper.xml"/>
 	<mapper resource="sql/Guest_mapper.xml"/>
+	<!-- <mapper resource="sql/schedule_mapper.xml"/> -->
 </mappers>
-
+ 
 </configuration>
