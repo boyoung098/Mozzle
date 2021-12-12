@@ -16,6 +16,7 @@
 	<mapper resource="sql/Guest_mapper.xml"/>
 	<mapper resource="sql/Mozzle_mapper.xml"/>
 	<mapper resource="sql/Category_mapper.xml"/>
+	<mapper resource="sql/Board_mapper.xml"/>
 
 </mappers>
 
