@@ -8,6 +8,6 @@ public interface IManageService {
 	
 	public int registMozzle(MozzleDto mozzle);
 	public List<MozzleDto> selectMozzleByCreatDate();
-	
+	public MozzleDto selectMozzleByMozzleId(String mozzle_id);
 
 }
