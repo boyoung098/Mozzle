@@ -41,9 +41,6 @@ public class TestMain {
 		//log.info("GuestDto 값 {}",guestdto);
 		//List<GuestDto> list = guestDao.selectGuest();
 		
-		int n = guestDao.guestInsert("1");
-		assertEquals(1, n);
-		
 		
 	}
 

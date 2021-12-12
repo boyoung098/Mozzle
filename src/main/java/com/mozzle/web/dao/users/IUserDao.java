@@ -7,6 +7,7 @@ public interface IUserDao {
 	
 	public UserDto loginChk(String id);
 	
+	public boolean passwordChk(String id, String comparePw);
 
 	public boolean signUp(UserDto dto);
 	

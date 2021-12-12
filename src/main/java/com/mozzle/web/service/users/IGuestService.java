@@ -8,5 +8,5 @@ public interface IGuestService {
 
 	public GuestDto selectByUUID(String uuid);
 	public List<GuestDto> selectGuest();
-	public int guestInsert(String mozzle_id);
+	public int guestInsert(GuestDto dto);
 }

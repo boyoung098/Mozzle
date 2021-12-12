@@ -36,16 +36,10 @@ public class GuestDaoImpl implements IGuestDao {
 	}
 
 	@Override
-	public int guestInsert(String mozzle_id) {
-		UUID uuid = UuidUtil.getTimeBasedUuid();
-		GuestDto guestDto = new GuestDto();
-		guestDto.setMozzle_id(mozzle_id);
-		String uuidString =  uuid.toString();
-		guestDto.setUuid(uuidString);
-		log.info("GuestDaoImpl guestInsert 넣는 값 {}", guestDto);
+	public int guestInsert(GuestDto dto) {
+		log.info("GuestDaoImpl guestInsert 넣는 값 {}", dto);
 		
-		
-		return session.insert(NS+"guestInsert", guestDto);
+		return session.insert(NS+"guestInsert", dto);
 	}
 
 }

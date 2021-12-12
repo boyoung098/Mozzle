@@ -27,9 +27,9 @@ public class GuestServiceImpl implements IGuestService {
 	}
 
 	@Override
-	public int guestInsert(String mozzle_id) {
+	public int guestInsert(GuestDto dto) {
 		
-		return guestDao.guestInsert(mozzle_id);
+		return guestDao.guestInsert(dto);
 	}
 
 }

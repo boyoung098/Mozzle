@@ -17,6 +17,13 @@ public class GuestDto {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
+	
+	public GuestDto(String mozzle_id, String uuid) {
+		super();
+		this.mozzle_id = mozzle_id;
+		this.uuid = uuid;
+	}
+	
 	@Override
 	public String toString() {
 		return "GuestDto [mozzle_id=" + mozzle_id + ", uuid=" + uuid + "]";
