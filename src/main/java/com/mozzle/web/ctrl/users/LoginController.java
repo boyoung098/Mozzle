@@ -1,6 +1,7 @@
 package com.mozzle.web.ctrl.users;
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,19 @@ public class LoginController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Authentication user, Model model) {
+		if (user != null) {
+			UserDetails userdto = (UserDetails) user.getPrincipal();
+			// 로그인 결과가 유효하다면
+			if (userdto != null) {
+				String accessToken = jwtTokenProvider.createJwtAccessToken(userdto.getUsername());
+				String refreshToken = jwtTokenProvider.createJwtRefreshToken(userdto.getUsername());
+				System.out.println(userdto.getUsername());
+				model.addAttribute("userId", userdto.getUsername());
+				model.addAttribute("accessToken", accessToken);
+				model.addAttribute("refreshToken", refreshToken);
+			}
+		}
 		return "index";
 	}
 
