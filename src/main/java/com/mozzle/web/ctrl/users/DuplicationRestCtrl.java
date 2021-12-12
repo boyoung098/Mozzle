@@ -14,7 +14,7 @@ import com.mozzle.web.service.users.UserServiceImpl;
 
 @RestController
 @RequestMapping(value="/duplication")
-public class DuplicationChkController {
+public class DuplicationRestCtrl {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	

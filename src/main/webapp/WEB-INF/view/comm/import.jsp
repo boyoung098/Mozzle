@@ -11,3 +11,19 @@
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
 	
 	
+<style>
+section.content{
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+.swiper-slide img{
+	width: 100%;
+}
+.width-100{
+	width: 100%;
+}
+.my-page-menu ul li a{
+	color: #fff;
+}
+</style>
+
