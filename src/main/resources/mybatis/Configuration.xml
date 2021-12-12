@@ -7,6 +7,7 @@
 	<typeAlias type="com.mozzle.web.dto.users.GuestDto" alias="guestDto"/>
 	<typeAlias type="com.mozzle.web.dto.manage.MozzleDto" alias="mDto"/>
 	<typeAlias type="com.mozzle.web.dto.manage.CategoryDto" alias="cDto"/>
+	<typeAlias type="com.mozzle.web.dto.board.Board" alias="board"/>
 </typeAliases>
 
 

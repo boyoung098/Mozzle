@@ -1,6 +1,7 @@
 package com.mozzle.web.dao.users;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -23,11 +24,8 @@ public class GuestDaoImpl implements IGuestDao {
 	@Override
 	public GuestDto selectByUUID(String uuid) {
 		log.info("GuestDaoImpl UUID넣어서 select {}",uuid);
-		GuestDto guestDto = session.selectOne(NS+"selectByUUID", uuid);
-		if(guestDto==null) {
-			guestDto = new GuestDto();
-		}
-		return guestDto;
+		
+		return session.selectOne(NS+"selectByUUID", uuid);
 	}
 
 	@Override
@@ -38,9 +36,16 @@ public class GuestDaoImpl implements IGuestDao {
 	}
 
 	@Override
-	public int guestInsert(GuestDto guestDto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int guestInsert(String mozzle_id) {
+		UUID uuid = UuidUtil.getTimeBasedUuid();
+		GuestDto guestDto = new GuestDto();
+		guestDto.setMozzle_id(mozzle_id);
+		String uuidString =  uuid.toString();
+		guestDto.setUuid(uuidString);
+		log.info("GuestDaoImpl guestInsert 넣는 값 {}", guestDto);
+		
+		
+		return session.insert(NS+"guestInsert", guestDto);
 	}
 
 }

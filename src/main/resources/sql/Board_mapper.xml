@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="">
+<mapper namespace="com.mozzle.web.dto.board.Board">
   	<!-- 게시판 -->
-  	<select id="selectAllBoard" resultType="Board">
+  	<select id="selectAllBoard" resultType="board">
   		SELECT POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, DEPTH, REGDATE
 		FROM MOZZLE_POST
   	</select>
-  	<select id="selectOneBoard" parameterType="java.lang.String" resultType="Board">
+  	<select id="selectOneBoard" parameterType="java.lang.String" resultType="board">
   		SELECT POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, DEPTH, REGDATE
 		FROM MOZZLE_POST
 		WHERE TITLE LIKE #{title} AND CONTENT LIKE #{content}
   	</select>
   	
-  	<insert id="insertBoard" parameterType="Board" >
+  	<insert id="insertBoard" parameterType="board" >
   		INSERT INTO MOZZLE_POST
-		(POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, "DEPTH", REGDATE)
+		(POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, DEPTH, REGDATE)
 		VALUES(MOZZLE_POST_SEQ.NEXTVAL, #{mozzle_id}, #{user_id}, #{title}, #{content}, (SELECT NVL(MAX(POST_ID),0)+1 FROM MOZZLE_POST), 0, 0, SYSDATE)
   	</insert>
   	
-  	<update id="updateBoard" parameterType="Board" >
+  	<update id="updateBoard" parameterType="board" >
   		UPDATE MOZZLE_POST
 		SET TITLE=#{title}, CONTENT=#{content}
 		WHERE POST_ID=#{post_id} AND MOZZLE_ID =#{mozzle_id}
@@ -30,37 +30,45 @@
   	</delete>
   	
   	<!-- 북마크 -->
-  	<insert id="bookmarkInsert" parameterType="Board">
+  	<insert id="bookmarkInsert" parameterType="board">
   		INSERT INTO BOOKMARK
 		(SEQ, USER_ID, POST_ID)
 		VALUES(BOOKMARK_SEQ.NEXTVAL, #{user_id}, #{post_id})
   	</insert>
-  	<delete id="bookmarkDelete" parameterType="Board">
+  	<delete id="bookmarkDelete" parameterType="board">
   		DELETE FROM BOOKMARK
 		WHERE SEQ=#{seq} AND USER_ID=#{user_id}
   	</delete>
   	
   	<!--게시글 댓글 -->
-  	<insert id="replyIn" parameterType="Board">
+  	<insert id="replyIn" parameterType="board">
   		INSERT INTO MOZZLE_POST
 		(POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, "DEPTH", REGDATE)
 		VALUES(MOZZLE_POST_SEQ.NEXTVAL, #{mozzle_id}, #{user_id}, '#{title}, #{content}, 
-		(SELECT REFER FROM MOZZLE_POST WHERE POST_ID=#{post_id}), (SELECT STEP+1 FROM MOZZLE_POST WHERE POST_ID=#{post_id}), (SELECT "DEPTH"+1 FROM MOZZLE_POST WHERE POST_ID=#{post_id}), SYSDATE);
+		(SELECT REFER FROM MOZZLE_POST WHERE POST_ID=#{post_id}), (SELECT STEP+1 FROM MOZZLE_POST WHERE POST_ID=#{post_id}), (SELECT "DEPTH"+1 FROM MOZZLE_POST WHERE POST_ID=#{post_id}), SYSDATE)
   	</insert>
-  	<update id="replyUp" parameterType="Board">
+  	<update id="replyUp" parameterType="board">
   		UPDATE MOZZLE_POST
 		SET TITLE=#{title}, CONTENT=#{content}
-		WHERE POST_ID=#{post_id} AND MOZZLE_ID =#{mozzle_id} AND USER_ID=#{user_id};
+		WHERE POST_ID=#{post_id} AND MOZZLE_ID =#{mozzle_id} AND USER_ID=#{user_id}
   	</update>
-  	<delete id="replyDl" parameterType="Board">
+  	<delete id="replyDl" parameterType="board">
   		DELETE FROM MOZZLE_POST
-		WHERE POST_ID=#{post_id} AND MOZZLE_ID =#{mozzle_id} AND USER_ID=#{user_id};
+		WHERE POST_ID=#{post_id} AND MOZZLE_ID =#{mozzle_id} AND USER_ID=#{user_id}
   	</delete>
+  	<select id="replyview" parameterType="java.lang.Integer" resultType="board">
+  		SELECT POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, "DEPTH", REGDATE
+		FROM MOZZLE_POST
+		WHERE REFER=#{refer} AND STEP=#{step}
+  	</select>
+  	
   	
   	<!-- 게시글 신고 -->
-  	<insert id="reportBoard" parameterType="Board">
+  	<insert id="reportBoard" parameterType="board">
   		INSERT INTO POST_REPORT
 		(REPORT_ID, POST_ID, REPORT_TIME, REPORTER, REASON)
 		VALUES(POST_REPORT_SEQ.NEXTVAL, #{post_id}, TO_CHAR(SYSDATE, 'YYYY.MM.DD'), #{user_id}, #{reason})
   	</insert>
+  	
+  	
 </mapper>

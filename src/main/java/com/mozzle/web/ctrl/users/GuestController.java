@@ -2,6 +2,7 @@ package com.mozzle.web.ctrl.users;
 
 import java.sql.Timestamp;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
@@ -44,12 +45,24 @@ public class GuestController {
 		//01ec56e6-abc0-1833-b9dc-5d74ac9e0caa
 		
 		
-		
+		//UUID생성 , 날짜로변환
 		//UUID tuid = UuidUtil.getTimeBasedUuid();
 		//System.out.println(tuid.toString());
 //e2b10cc1-58c8-11ec-bade-d9ac7fd025b4
 		//Date date = (Date) UuidUtil.getDateFromUuid(tuid);
 		//System.out.println(date.toLocaleString());
 		
+		//String -> UUID
+		
+		UUID ud = UUID.fromString("e2b10cc1-58c8-11ec-bade-d9ac7fd025b4");
+		
+		//현재날짜
+		Date today = new Date();
+		System.out.println(today);
+		
+		//날짜비교하기
+		System.out.println(UuidUtil.getDateFromUuid(ud).compareTo(today)); //-1
+		System.out.println(today.compareTo(UuidUtil.getDateFromUuid(ud))); //1
+		//System.out.println(nowdate.toString());
 	}
 }

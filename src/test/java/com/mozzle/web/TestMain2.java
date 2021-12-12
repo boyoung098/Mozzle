@@ -18,6 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mozzle.web.dao.manage.IManageDao;
 import com.mozzle.web.dto.manage.MozzleDto;
+import com.mozzle.web.dao.board.IBoardDao;
+import com.mozzle.web.dto.board.Board;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

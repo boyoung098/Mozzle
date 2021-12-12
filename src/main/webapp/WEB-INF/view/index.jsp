@@ -56,7 +56,7 @@
 		<div class="swiper-container sw-new-mozzle">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
-					<a href="./home.do"><img class="card" src="./resources/images/g1.png" alt="" /><br />
+					<a href="./board.do"><img class="card" src="./resources/images/g1.png" alt="" /><br />
 						<p class="mozzle_title">로아 하는 로아인 모여!</p>
 						<p>리더 : 로아로아&nbsp;&nbsp;멤버 : 101</p>
 						<p>혼자하기 어려운 레이드, 던전 같이 해요! 옾톡, 디코 필수입니다!!</p> 
@@ -126,7 +126,7 @@
 
 	<div>
 		<h1>임의로 만든 이동페이지</h1>
-		<a href="./guestInvite.do">김보영-게스트URI뿌리는 곳으로 이동</a>
+		<a href="./guestInvite.do?mozzle_id=1">김보영-게스트URI뿌리는 곳으로 이동</a>
 	</div>
 </body>
 </html>
