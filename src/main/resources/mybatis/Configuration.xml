@@ -5,19 +5,19 @@
 <typeAliases>
 	<typeAlias type="com.mozzle.web.dto.users.UserDto" alias="uDto"/>
 	<typeAlias type="com.mozzle.web.dto.users.GuestDto" alias="guestDto"/>
+	<typeAlias type="com.mozzle.web.dto.schedule.ScheduleDto" alias="scheduleDto"/>
 	<typeAlias type="com.mozzle.web.dto.manage.MozzleDto" alias="mDto"/>
 	<typeAlias type="com.mozzle.web.dto.manage.CategoryDto" alias="cDto"/>
 	<typeAlias type="com.mozzle.web.dto.board.Board" alias="board"/>
 </typeAliases>
 
-
 <mappers>
 	<mapper resource="sql/User_mapper.xml"/>
 	<mapper resource="sql/Guest_mapper.xml"/>
+	<mapper resource="sql/schedule_mapper.xml"/>
 	<mapper resource="sql/Mozzle_mapper.xml"/>
 	<mapper resource="sql/Category_mapper.xml"/>
 	<mapper resource="sql/Board_mapper.xml"/>
-
 </mappers>
-
+ 
 </configuration>
