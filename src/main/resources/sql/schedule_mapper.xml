@@ -2,14 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mozzle.web.Schedule">
 
-	<!-- 상세보기 -->
-	<select id="scheduleselectAll">
-		
+	<!--  -->
+	<select id="scheduleselectAll" resultType="ScheduleDto">
+		SELECT SCHEDULES_ID,WRITER,TITLE,CONTENT,
+		SCHEDULES_DATE,REGDATE,SCHEDULE_INFO.ADDRESS
+		FROM SCHEDULES
 	</select>
 
 
 	<!-- 일정추가 -->
-	<insert id="insertBoard.do" parameterType="java.lang.Integer">
+	<insert id="scheduleinsert" parameterType="java.lang.Integer">
 		INSERT INTO SCHEDULES
 		(SCHEDULES_ID,MOZZLE_ID,WRITER,SCHEDULES_TITLE,
 		SCHEDULES_CONTENT,
@@ -21,14 +23,15 @@
 	</insert>
 
 	<!-- 일정개수 -->
-	<select id="java.lang.Integer">
+	<select id="schedulecount">
 		SELECT COUNT(*)
 		FROM SCHEDULES
-		WHERE ID= #{SCHEDULES_ID} AND SUBSTR(MDATE,1,8) =#{yyyymmdd}
+		WHERE ID=
+		#{SCHEDULES_ID} AND SUBSTR(MDATE,1,8) =#{yyyymmdd}
 	</select>
-	
+
 	<!-- 일정리스트(개수보여주기) -->
-	
-	
-	
+
+
+
 </mapper>
