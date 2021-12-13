@@ -446,7 +446,7 @@
 				//console.log(jval.mozzleuserList[0].nickname);
 			},
 			error:function(){
-				alert("잘못되었어");
+				alert("잘못되었어!");
 			}
 			
 		});
