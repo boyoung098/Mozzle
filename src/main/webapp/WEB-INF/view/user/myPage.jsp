@@ -173,7 +173,7 @@
 
 	</section>
 
-	<jsp:include page="../comm/footer.jsp" />
+	<jsp:include page="../comm/footer.jsp"/>
 
 </body>
 </html>
