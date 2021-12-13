@@ -24,6 +24,8 @@ public class ManageServiceImpl implements IManageService {
 		return dao.selectMozzleByCreatDate();
 	}
 
-	
-	
+	@Override
+	public MozzleDto selectMozzleByMozzleId(String mozzle_id) {
+		return dao.selectMozzleByMozzleId(mozzle_id);
+	}
 }

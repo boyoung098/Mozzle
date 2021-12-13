@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * Model
  * Schedule 게시판에서 사용하는 Data Transfer Object
  * POJO
  * DTO 혹은 VO

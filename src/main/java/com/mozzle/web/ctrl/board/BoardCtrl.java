@@ -45,7 +45,7 @@ public class BoardCtrl {
 		//List<Board> boardlist = serviceImple.selectAllBoard();
 		model.addAttribute("boardlist", serviceImple.selectAllBoard());
 		
-		return "board";
+		return "board_test";
 	}
 	
 	@PostMapping(value="/insertBoard.do")

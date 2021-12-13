@@ -14,7 +14,6 @@
 	width: 90%;
 	height: 200px;
 }
-
 .image-wrap1 {
     text-align:center;
     display:table;
@@ -23,17 +22,14 @@
     height:100%px;
     border-radius: 5px;
 }
-
 .image-wrap2 {
     display:table-cell;
     vertical-align:middle;
 }
-
 #image {
     max-width:100%;
     max-height:100%;
 }
-
 </style>
 <script>
 	window.onload = function() {
@@ -85,7 +81,7 @@
 									<div class="image-wrap1">
 										<div class="image-wrap2">
 											<img class="card"
-												src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_origin}"
+												src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"
 												alt="img" />
 										</div>
 									</div>
@@ -117,7 +113,7 @@
 									<div class="image-wrap1">
 										<div class="image-wrap2">
 											<img class="card"
-												src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_origin}"
+												src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"
 												alt="img" />
 										</div>
 									</div>

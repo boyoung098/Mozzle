@@ -20,7 +20,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 import com.mozzle.web.dao.users.IGuestDao;
+import com.mozzle.web.dao.users.IMozzleUserDao;
 import com.mozzle.web.dto.users.GuestDto;
+import com.mozzle.web.dto.users.MozzleUserDto;
 
 //김보영
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,6 +35,9 @@ public class TestMain {
 	@Autowired
 	private IGuestDao guestDao;
 	
+	@Autowired
+	private IMozzleUserDao mozzleUserDao;
+	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Test
@@ -41,7 +46,14 @@ public class TestMain {
 		//log.info("GuestDto 값 {}",guestdto);
 		//List<GuestDto> list = guestDao.selectGuest();
 		
-		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("mozzle_id", "1");
+		map.put("nickname", " ");
+		List<MozzleUserDto> userList = mozzleUserDao.selectListMozzleUser(map);
+		//for (MozzleUserDto mozzleUserDto : userList) {
+		//	log.info("mozzle의 회원 dto{}",mozzleUserDto);
+		//}
+		log.info("찍은 값의 사이쯔{}",userList.size());
 	}
 
 }

@@ -11,7 +11,6 @@
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/board.js"></script>
 	
-	
 <style>
 section.content{
 	margin-top: 5%;

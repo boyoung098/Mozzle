@@ -20,19 +20,7 @@
 <title>마이페이지</title>
 <jsp:include page="../comm/import.jsp" />
 <style>
-.container-login {
-	width: 350px;
-	margin: auto;
-}
 
-.login-result{
-	color:#e82d55;
-}
-.input-login {
-	height: 40px;
-	width: 350px;
-	margin-bottom: 10px;
-}
 .my-page-menu{
 	background-color: #e82d55;
 }
@@ -49,53 +37,27 @@
 	cursor: pointer;
 }
 
-.my-page-menu ul li:hover{
+.my-page-menu ul li a:hover, .my-page-menu ul li a.active{
 	background-color: #a00022;
 }
 
 .my-page-menu ul li a{
 	padding: 20px 40px;
 }
-.color-btn {
-	background: #e82d55;
-	color: #fff;
-	font-size: 15px;
-	border-radius: 4px;
-	border: none;
+
+.my-thread{
+	display
 }
-
-.ch-box {
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
-}
-
-.ch-box2 {
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
-}
-
-.ch-box label {
-	font-size: 13px;
-	vertical-align: middle;
-	padding-left: 10px;
-}
-
-.ch-box ul {
-	display: flex;
-	font-size: 13px;
-}
-
-
 
 
 </style>
 
 
 <script type="text/javascript">
-
+	
 	$(function(){
+		
+		// auth Ajax
 		$("#mypage-pw-check").click(function(){
 			$.ajax({
 				url: "./myPageAuth.do",
@@ -110,6 +72,29 @@
 			});
 		});
 		
+		// menu
+		var menu = "${menu}";
+		console.log(menu);
+		var menulist = [];
+		$(".my-page-menu ul li a").each((idx, item) => {
+			menulist.push($(item).text());
+			if(menu == $(item).text()){
+				$(item).addClass("active");
+			}
+			
+			$(item).click(function(e){
+				e.preventDefault();
+				if(!${auth}){
+					$("input[name=auth]").val(${auth});
+				}
+				$("input[name=menu]").val($(this).text());
+				$("#myPageAuth-success").submit();
+			})
+			
+		});
+
+		console.log(menulist);
+		
 		
 	});
 </script>
@@ -120,7 +105,7 @@
 	<jsp:include page="../comm/header.jsp" >
 		<jsp:param value="${sessionScope.userId}" name="userId"/>
 	</jsp:include>
-	<section class="container mt-3">
+	<section class="container">
 		<div>
 			<img class="width-100" alt="모즐 이미지" src="<%=request.getContextPath()%>/resources/images/bn.png">
 		</div>
@@ -133,8 +118,9 @@
 			</ul>
 		</div>
 	</section>
-	<section class="container">
-		
+	
+	
+	<section class="container">	
 		<c:if test="${auth == false}">
 		<div class="text-center mt-5 bt-5">
 			<h2>회원정보 입력</h2>
@@ -143,58 +129,46 @@
 					name="passwordChk" placeholder="비밀번호를 입력 해주세요" />
 				<button id="mypage-pw-check" class="color-btn input-login">확인</button>
 			</label>
-			<form id="myPageAuth-success" action="./myPage.do" method="post">
-				<input type="hidden" name="auth" value="true"/>
-			</form>
 		</div>
 		</c:if>
+		<form id="myPageAuth-success" action="./myPage.do" method="post">
+			<input type="hidden" name="auth" value="true"/>
+			<input type="hidden" name="menu" value="정보수정"/>
+		</form>
 		
 		<c:if test="${auth == true}">
-		<div class="container-login">
-			<form id="login-form" action="./updateUser.do" method="POST">
-				<h2>회원 정보 수정</h2>
-					<label>아이디
-					<input type="text" class="form-control input-login"
-						name="user_id" placeholder="아이디를 입력 해주세요" />
-					</label>
-					<p id="id-duplicated-result"></p>
-					<label>비밀번호
-					<input type="password"
-							class="form-control input-login" name="user_pw"
-							placeholder="비밀번호를 입력 해주세요" />
-					</label>
-					<p id="pw-regex-result"></p>
-					<label>비밀번호 확인
-					<input type="password"
-							class="form-control input-login" name="password-confirm"
-							placeholder="비밀번호를 한번 더 입력 해주세요" />
-					</label>
-					<p id="pw-confirm-result"></p>
-					<label>이름
-					<input type="text"
-							class="form-control input-login" name="user_name"
-							placeholder="이름을 입력 해주세요" />
-					</label>
-					<label>생년월일
-					<input type="text"
-							class="form-control input-login m-datepicker" name="birth"
-							placeholder="생년월일을 입력 해주세요" />
-					</label>
-					<label>연락처
-					<input type="tel"
-							class="form-control input-login m-datepicker" name="tel"
-							placeholder="휴대폰 번호를 입력 해주세요(010-xxxx-xxxx)" />
-					</label>
-					<label>이메일
-					<input type="email"
-							class="form-control input-login m-datepicker" name="email"
-							placeholder="이메일을 입력 해주세요" />
-					</label>
-					
-					<input type="submit" class="color-btn input-login" value="정보수정" />
+			<c:if test="${menu == '정보수정'}">
+			<div class="container-login">
+				<form id="login-form" action="./updateUser.do" method="POST">
+					<h2>회원 정보 수정</h2>
 	
-			</form>
-		</div>
+					<jsp:include page="../comm/userInfoForm.jsp" />	
+					<input type="submit" class="color-btn input-login" value="정보수정" />
+		
+				</form>
+			</div>
+			</c:if>
+			<c:if test="${menu == '내가쓴글'}">
+			<div class="content">
+				<h2>내가쓴글</h2>
+	
+		
+			</div>
+			</c:if>
+			<c:if test="${menu == '북마크'}">
+				<div class="content">
+				<h2>북마크</h2>
+	
+		
+				</div>
+			</c:if>
+			<c:if test="${menu == '멤버초대'}">
+				<div class="content">
+				<h2>멤버초대</h2>
+	
+		
+				</div>
+			</c:if>
 		</c:if>
 
 	</section>

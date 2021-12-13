@@ -36,9 +36,9 @@
 </head>
 <body>
 	<jsp:include page="./comm/header.jsp" >
-		<jsp:param value="${sessionScope.userId}" name="userId"/>
+		<jsp:param value="${userId}" name="userId"/>
 	</jsp:include>
-	<section id="main-bg" class="container mt-3">
+	<section id="main-bg" class="container">
 		<div class="swiper-container main-bg-img">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
@@ -127,6 +127,7 @@
 	<div>
 		<h1>임의로 만든 이동페이지</h1>
 		<a href="./guestInvite.do?mozzle_id=1">김보영-게스트URI뿌리는 곳으로 이동</a>
+		<a href="./mozzle/mozzleMove.do?mozzle_id=1">모즐1 메인이동</a>
 	</div>
 </body>
 </html>

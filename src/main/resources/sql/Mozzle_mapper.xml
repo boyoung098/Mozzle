@@ -36,6 +36,15 @@
 		WHERE STATE = 'Y'
 		ORDER BY CREATE_DATE DESC
 	</select>
+	
+	<select id="selectMozzleByMozzleId" parameterType="java.lang.String" resultType="mDto">
+		SELECT MOZZLE_ID, MOZZLE_NAME, 
+			MOZZLE_INTRO, CREATE_DATE, 
+			IMAGE_ORIGIN, IMAGE_SAVED, 
+			CATEGORY_CODE, STATE
+		FROM MOZZLE
+		WHERE MOZZLE_ID = #{mozzle_id}
+	</select>
 
 
 </mapper>

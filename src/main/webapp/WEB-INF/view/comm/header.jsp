@@ -51,6 +51,16 @@ input:focus, select:focus {
 	border: none;
 	background-color: rgba(0, 0, 0, 0);
 }
+.navbar-right li{
+	text-align: center;
+}
+.dropdown-menu {
+  left: 50% !important;
+  right: auto !important;
+  text-align: center;
+  transform: translate(-50%, 0);
+}
+
 </style>
 
 <script>
@@ -101,7 +111,13 @@ input:focus, select:focus {
 						<li><a href="<%=request.getContextPath()%>/registerPage.do">회원가입</a></li>
 					</c:if>
 					<c:if test="${not empty param.userId}">
-						<li><a href="./">${param.userId}님</a></li>
+						<li><a href="#" data-toggle="dropdown">${param.userId}님</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">HTML</a></li>
+      							<li><a href="#">CSS</a></li>
+      							<li><a href="#">JavaScript</a></li>
+							</ul>
+						</li>
 						<li><a id="myPageGo" href="#">마이페이지</a></li>
 						<li><a id="logoutGo" href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
 					</c:if>

@@ -30,5 +30,11 @@ public class ManageDaoImpl implements IManageDao{
 		return session.selectList(NS + "selectMozzleByCreatDate");
 	}
 
+	@Override
+	public MozzleDto selectMozzleByMozzleId(String mozzle_id) {
+		logger.info("selectMozzleByCreatDate {} ", mozzle_id);
+		return session.selectOne(NS + "selectMozzleByMozzleId", mozzle_id) ;
+	}
+
 	
 }

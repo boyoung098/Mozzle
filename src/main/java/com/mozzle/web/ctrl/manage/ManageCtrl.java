@@ -16,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mozzle.web.dto.manage.MozzleDto;
@@ -81,10 +83,10 @@ public class ManageCtrl {
 
 			Resource resource = resourceLoader.getResource("resources/upload/");	
 	
-			File file = new File(resource.getFile().getPath() +"\\"+ image_origin);
+			File file = new File(resource.getFile().getPath() +"\\"+ image_saved);
 			
 			System.out.println("====================================>"+ image_origin);
-			System.out.println(resource.getFile().getPath() + "\\"+ image_origin);
+			System.out.println(resource.getFile().getPath() + "\\"+ image_saved);
 			System.out.println("====================================>"+ image_saved); 
 			
 			uploadImage.transferTo(file);
@@ -112,8 +114,18 @@ public class ManageCtrl {
 //			out.println("<script>alert('등록을 실패했습니다');</script>");
 //			out.flush();
 			return "manage/registMozzleForm";
-		}
+		}	
+	}
 	
+	@RequestMapping(value = "/modifyMozzleForm.do", method= RequestMethod.GET)
+	public String modifyMozzleForm(@RequestParam String mozzle_id, Model model) {
+		
+		logger.info("modifyMozzleForm.do");
+		
+		MozzleDto mDto = service.selectMozzleByMozzleId(mozzle_id);
+		model.addAttribute("mDto", mDto);
+		
+		return "manage/modifyMozzleForm";
 	}
 	
 }
