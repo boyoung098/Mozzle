@@ -44,13 +44,14 @@ public class ManageCtrl {
 	public String home(Model model) {
 		
 		//My 모즐
-		List<MozzleDto> myMozzleList = service.selectMozzleByCreatDate();
+		//List<MozzleDto> myMozzleList = service.selectMozzleByCreatDate();
 		//새로 생긴 모즐
 		List<MozzleDto> newMozzleList = service.selectMozzleByCreatDate();
 		//HOT 모즐
 		List<MozzleDto> hotMozzleList = service.selectMozzleByUserNumber();
 		
-		model.addAttribute("mList", mList);
+		model.addAttribute("newMozzleList", newMozzleList);
+		model.addAttribute("hotMozzleList", hotMozzleList);
 		
 		return "manage/index";
 	}

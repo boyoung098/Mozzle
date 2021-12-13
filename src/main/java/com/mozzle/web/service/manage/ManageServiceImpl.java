@@ -31,6 +31,7 @@ public class ManageServiceImpl implements IManageService {
 
 	@Override
 	public List<MozzleDto> selectMozzleByUserNumber() {
-		return dao.selectMozzleByUserNumber();
+		List<String> lists = dao.selectMozzleIdByUserNumber();
+		return dao.selectMozzleByUserNumber(lists);
 	}
 }

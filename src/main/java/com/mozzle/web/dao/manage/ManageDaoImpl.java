@@ -37,9 +37,15 @@ public class ManageDaoImpl implements IManageDao{
 	}
 
 	@Override
-	public List<MozzleDto> selectMozzleByUserNumber() {
+	public List<String> selectMozzleIdByUserNumber() {
 		logger.info("selectMozzleByUserNumber");
-		return session.selectList(NS + "selectMozzleByUserNumber") ;
+		return session.selectList(NS + "selectMozzleIdByUserNumber") ;
+	}
+
+	@Override
+	public List<MozzleDto> selectMozzleByUserNumber(List<String> lists) {
+		logger.info("selectMozzleByUserNumber {}", lists);
+		return session.selectList(NS + "selectMozzleByUserNumber", lists) ;
 	}
 
 	

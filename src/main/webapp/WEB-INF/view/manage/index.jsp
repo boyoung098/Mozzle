@@ -67,7 +67,7 @@
 			</div>
 		</div>
 	</section>
-	<section class="container mt-3" id="new-mozzle">
+<%-- 	<section class="container mt-3" id="new-mozzle">
 		<h4>My 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle">
 		
@@ -98,14 +98,14 @@
 				</c:forEach>
 			</div> 
 		</div>
-	</section>
+	</section> --%>
 
 	<section class="container mt-3" id="new-mozzle">
 		<h4>새로 생긴 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle">
 		
 			<div class="swiper-wrapper">
-				<c:forEach var="mozzle" items="${mList}">
+				<c:forEach var="mozzle" items="${newMozzleList}">
 					<div class="swiper-slide">
 						<a href="./home.do">
 							<c:choose>
@@ -137,7 +137,7 @@
 		<h4>Best 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle2">
 			<div class="swiper-wrapper">
-				<c:forEach var="mozzle" items="${mList}">
+				<c:forEach var="mozzle" items="${hotMozzleList}">
 					<div class="swiper-slide">
 						<a href="./home.do">
 							<c:choose>

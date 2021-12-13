@@ -9,6 +9,7 @@ public interface IManageDao {
 	public int registMozzle(MozzleDto mozzle);
 	public List<MozzleDto> selectMozzleByCreatDate();
 	public MozzleDto selectMozzleByMozzleId(String mozzle_id);
-	public List<MozzleDto> selectMozzleByUserNumber();
+	public List<String> selectMozzleIdByUserNumber();
+	public List<MozzleDto> selectMozzleByUserNumber(List<String> lists);
 	
 }
