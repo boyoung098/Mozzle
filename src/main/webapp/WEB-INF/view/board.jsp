@@ -218,7 +218,7 @@
 		</div>
 	</div> 
 
-	</div>
+	
 
 
 	<jsp:include page="./comm/footer.jsp" />
