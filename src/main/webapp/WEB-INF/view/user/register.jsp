@@ -82,14 +82,14 @@ $(function(){
 				<h2>회원가입</h2>
 				<div>
 					
-					<jsp:include page="../comm/userInfoForm.jsp" />
+					<%-- <jsp:include page="../comm/userInfoForm.jsp" /> --%>
 					<input type="submit" class="color-btn input-login" value="회원가입" />
 				</div>
 
 		</form>
 	</section>
 
-	<jsp:include page="../comm/footer.jsp" />
+	<jsp:include page="../comm/footer.jsp"/>
 
 </body>
 </html>

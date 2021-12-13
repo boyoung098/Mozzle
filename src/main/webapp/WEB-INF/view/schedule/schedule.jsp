@@ -3,6 +3,8 @@
 <%@page import="com.mozzle.web.dao.schedule.IScheduleDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.Calendar" %>
 <!DOCTYPE html>
 <html>
@@ -30,6 +32,9 @@
 </style>
 </head>
 <body>
+	<form action="/scheduleselectAll" method="get">
+		
+	</form>
 	<!-- JS를 밑에 두면 안먹힌다. -->
 	<!-- 36분39초 -->
 	<h1>캘린더</h1>
