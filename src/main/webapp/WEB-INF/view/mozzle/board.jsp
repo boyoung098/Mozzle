@@ -91,11 +91,9 @@
 								<div class="comment-icon">
 									<i class="xi-star-o xi-2x"></i>
 								</div>
-								<div class="comment-icon
-								 comment-write">
+								<div class="comment-icon comment-write">
 									<i class="xi-speech-o xi-2x"></i>
 								</div>
-								아아
 								<div class="comment">
 									<form action="./reinboard.do" method="post" id="reply">
 										<input type="text" name="comment-id" id="comment-id"
