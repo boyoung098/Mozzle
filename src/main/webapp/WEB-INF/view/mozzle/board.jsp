@@ -95,6 +95,7 @@
 								 comment-write">
 									<i class="xi-speech-o xi-2x"></i>
 								</div>
+								아아
 								<div class="comment">
 									<form action="./reinboard.do" method="post" id="reply">
 										<input type="text" name="comment-id" id="comment-id"
