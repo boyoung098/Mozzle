@@ -52,5 +52,29 @@ public class UserController {
 		map.put("result", checked);
 		return map;
 	}
+	
+	@RequestMapping(value="/updateUser.do", method=RequestMethod.GET)
+	public String updateUser() {
+		
+		return "user/updateUser";
+	}
+	
+	@RequestMapping(value="/myThread.do", method=RequestMethod.GET)
+	public String myThread() {
+		
+		return "user/myThread";
+	}
+	
+	@RequestMapping(value="/bookmark.do", method=RequestMethod.GET)
+	public String bookmark() {
+		
+		return "user/bookmark";
+	}
+	
+	@RequestMapping(value="/inviteUser.do", method=RequestMethod.GET)
+	public String inviteUser() {
+		
+		return "user/inviteUser";																																															
+	}
 
 }
