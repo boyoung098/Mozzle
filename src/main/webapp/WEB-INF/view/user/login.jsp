@@ -7,10 +7,7 @@
 <title>로그인 페이지</title>
 <jsp:include page="../comm/import.jsp" />
 <style>
-.container-login {
-	width: 350px;
-	margin: auto;
-}
+
 
 .login-result{
 	color:#e82d55;

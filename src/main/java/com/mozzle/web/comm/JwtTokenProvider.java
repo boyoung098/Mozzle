@@ -84,7 +84,7 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
     
-    // 토큰으로부터 사용자 ID를 가져옴
+    // 토큰으로부터 사용자 ID를 가져옴 
     public String getUserId(String token) {
         return getClaimsFromJwtToken(token).getBody().getSubject();
     }

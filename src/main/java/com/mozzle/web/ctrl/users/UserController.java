@@ -35,12 +35,10 @@ public class UserController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.POST)
-	public String myPage(Model model, @RequestParam(value = "auth") String auth) {
+	public String myPage(Model model, @RequestParam(value = "auth") boolean auth, @RequestParam(value = "menu", required = false) String menu) {
 		
-		if(auth != null) {
-			System.out.println("비밀번호 입력");
-		}
 		model.addAttribute("auth", auth);
+		model.addAttribute("menu", menu);
 		return "user/myPage";
 	}
 	
