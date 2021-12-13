@@ -43,7 +43,12 @@ public class ManageCtrl {
 	@RequestMapping(value = "/home.do", method= RequestMethod.GET)
 	public String home(Model model) {
 		
-		List<MozzleDto> mList = service.selectMozzleByCreatDate();
+		//My 모즐
+		List<MozzleDto> myMozzleList = service.selectMozzleByCreatDate();
+		//새로 생긴 모즐
+		List<MozzleDto> newMozzleList = service.selectMozzleByCreatDate();
+		//HOT 모즐
+		List<MozzleDto> hotMozzleList = service.selectMozzleByUserNumber();
 		
 		model.addAttribute("mList", mList);
 		

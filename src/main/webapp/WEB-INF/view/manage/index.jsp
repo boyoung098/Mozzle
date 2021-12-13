@@ -67,6 +67,38 @@
 			</div>
 		</div>
 	</section>
+	<section class="container mt-3" id="new-mozzle">
+		<h4>My 모즐!</h4>
+		<div class="swiper-container sw-new-mozzle">
+		
+			<div class="swiper-wrapper">
+				<c:forEach var="mozzle" items="${mList}">
+					<div class="swiper-slide">
+						<a href="./home.do">
+							<c:choose>
+								<c:when test="${not empty mozzle.image_saved}">
+									<div class="image-wrap1">
+										<div class="image-wrap2">
+											<img class="card"
+												src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"
+												alt="img" />
+										</div>
+									</div>
+
+								</c:when>
+								<c:otherwise>
+									<img class="card" src="<%=request.getContextPath()%>/resources/upload/basic.png" alt="img" /><br />
+	   							</c:otherwise>
+							</c:choose>
+							<p class="mozzle_title">${mozzle.mozzle_name}</p>
+							<p>리더 : ${mozzle.mozzle_id}&nbsp;&nbsp;멤버 : ${mozzle.memberCnt}</p>
+							<p>${mozzle.mozzle_intro}</p> 
+						</a> 
+					</div>  
+				</c:forEach>
+			</div> 
+		</div>
+	</section>
 
 	<section class="container mt-3" id="new-mozzle">
 		<h4>새로 생긴 모즐!</h4>

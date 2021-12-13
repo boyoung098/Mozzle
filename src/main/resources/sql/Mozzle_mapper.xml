@@ -45,6 +45,16 @@
 		FROM MOZZLE
 		WHERE MOZZLE_ID = #{mozzle_id}
 	</select>
+	
+	<select id="selectMozzleByUserNumber" resultType="mDto">
+		SELECT MOZZLE_ID 
+			FROM (
+				SELECT MOZZLE_ID 
+					FROM USER_MOZZLE 
+						GROUP BY MOZZLE_ID 
+							ORDER BY COUNT(*) DESC)
+	</select>
+	
 
 
 </mapper>
