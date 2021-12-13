@@ -91,7 +91,8 @@
 								<div class="comment-icon">
 									<i class="xi-star-o xi-2x"></i>
 								</div>
-								<div class="comment-icon comment-write">
+								<div class="comment-icon
+								 comment-write">
 									<i class="xi-speech-o xi-2x"></i>
 								</div>
 								<div class="comment">
