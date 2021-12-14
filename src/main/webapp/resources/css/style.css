@@ -152,7 +152,8 @@ select:focus {
 }
 .borad-box{
     border:1px solid #ddd;
-    border-top: none;
+    /* border-top: none; */
+    border-collapse: collapse;
     padding: 10px;
     margin:auto;
 }

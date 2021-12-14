@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mozzle.web.Users">
 
-
+<!-- 나중에 권한까지 체크 -->
 <select id="loginChk" parameterType="java.lang.String" resultType="uDto">
   SELECT USER_PW 
 	FROM USERS
@@ -27,7 +27,8 @@
 </select>
 
 <select id="selectUserById" parameterType="java.lang.String" resultType="uDto">
-
+	SELECT USER_NAME, BIRTH, EMAIL, TEL
+	FROM USERS WHERE USER_ID = #{id}
 </select>
 
 </mapper>

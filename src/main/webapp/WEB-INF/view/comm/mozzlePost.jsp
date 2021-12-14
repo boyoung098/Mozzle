@@ -5,9 +5,9 @@
 	<div class="borad-box row" id="borad-box">
 		<div class="col-sm-11 board-box-list">
 			<div class="meeber-thumbnail">
-				<img src="./resources/images/weast044_01.jpg" alt="하늘">
+				<img src="../resources/images/weast044_01.jpg" alt="하늘">
 			</div>
-			<span>${boardobj.user_id}</span> <span>${boardobj.regdate}</span>
+			<span>${sessionScope.userId}</span> <span>${boardobj.regdate}</span>
 		</div>
 		<div class="col-sm-1 drop-board-box">
 			<i class="xi-ellipsis-h xi-2x"></i>
@@ -23,7 +23,7 @@
 			<p>${boardobj.content}</p>
 		</div>
 		<!-- 댓글 -->
-		<div id="reply-comment"></div>
+		<div id="reply-comment">wefwfwefewf</div>
 		<!-- 댓글 -->
 
 		<div class="board-cion">
@@ -34,7 +34,7 @@
 				<i class="xi-speech-o xi-2x"></i>
 			</div>
 			<div class="comment">
-				<form action="./reinboard.do" method="post" id="reply">
+				<form action="../reinboard.do" method="post" id="reply">
 					<input type="text" name="comment-id" id="comment-id"
 						class="form-control comment-input" name="content" /> <input
 						type="button" value="댓글" class="comment-btn" id="comment-btn"
