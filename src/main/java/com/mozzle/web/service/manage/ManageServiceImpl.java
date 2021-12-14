@@ -28,4 +28,10 @@ public class ManageServiceImpl implements IManageService {
 	public MozzleDto selectMozzleByMozzleId(String mozzle_id) {
 		return dao.selectMozzleByMozzleId(mozzle_id);
 	}
+
+	@Override
+	public List<MozzleDto> selectMozzleByUserNumber() {
+		List<String> lists = dao.selectMozzleIdByUserNumber();
+		return dao.selectMozzleByUserNumber(lists);
+	}
 }

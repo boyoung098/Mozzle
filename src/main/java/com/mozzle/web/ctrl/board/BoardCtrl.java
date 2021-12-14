@@ -22,9 +22,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mozzle.web.dto.board.Board;
 import com.mozzle.web.dto.users.UserDto;
@@ -65,38 +67,51 @@ public class BoardCtrl {
 		
 	}
 	
+	@PostMapping(value="/deleteBoard.do")
+	public String deleteBoard(int num, RedirectAttributes rttr) {
+		logger.info("게시글 삭제");
+		serviceImple.deleteBoard(num);
+		rttr.addFlashAttribute("result", "delete success");
+		return "redirect:/board";
+	}
 	
 	
-	@RequestMapping(value="/reinboard.do")
+	
+	
+	
+	
+	
+	@RequestMapping(value="/reinboard.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String replyBoard(@ModelAttribute("board") Board board, HttpSession session, HttpServletRequest req) {
+	public String replyBoard(@RequestBody Board board, HttpSession session) {
 			logger.info("댓글 등록!!!!!!!!!!!!!!!!!!!!!!!!");
-			UserDto user = (UserDto) session.getAttribute("user_id");
+			//System.out.println(board.getUser_id());
+			String writer = (String) session.getAttribute("user_id");
 			
-			board.setUser_id(user.getUser_id());
+			board.setUser_id(writer);
 			serviceImple.reply(board);
-			return "redirect:/board";
+			return "board";
 		
 	}
 	
-	@RequestMapping(value="/reviewboard.do")
-	@ResponseBody
-	public ResponseEntity replyviewBoard(@ModelAttribute("board") Board board, HttpServletRequest req) {
-		logger.info("댓글 보이기");
-		HttpHeaders header = new HttpHeaders();
-		ArrayList<HashMap> relist = new ArrayList<HashMap>();
-		
-		List<Board> boardvo = serviceImple.replyview(board);
-		if(boardvo.size()>0){
-			for (int i = 0; i < boardvo.size(); i++) {
-				HashMap hm = new HashMap();
-				hm.put("content", boardvo.get(i).getContent());
-				
-				relist.add(hm);
-			}
-		}
-		JSONArray json = new JSONArray(relist);
-		return new ResponseEntity(json.toString(), header, HttpStatus.CREATED);
-	}
+//	@RequestMapping(value="/reviewboard.do", produces = "application/json; charset=utf8")
+//	@ResponseBody
+//	public String replyviewBoard(@ModelAttribute("board") Board board, HttpServletRequest req) {
+//		logger.info("댓글 보이기");
+//		ArrayList<HashMap> relist = new ArrayList<HashMap>();
+//		
+//		List<Board> boardvo = serviceImple.replyview(board);
+//		if(boardvo.size()>0){
+//			for (int i = 0; i < boardvo.size(); i++) {
+//				HashMap hm = new HashMap();
+//				hm.put("content", boardvo.get(i).getContent());
+//				hm.put("regdate", boardvo.get(i).getRegdate());
+//				
+//				relist.add(hm);
+//			}
+//		}
+//		JSONArray json = new JSONArray(relist);
+//		return "board";
+//	}
 	
 }
