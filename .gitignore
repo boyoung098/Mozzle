@@ -95,5 +95,7 @@ buildNumber.properties
 
 ### Mail Properties ###
 mail.properties
+### Database Properties ###
+db.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,maven,dbeaver
