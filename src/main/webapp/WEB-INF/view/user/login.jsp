@@ -66,7 +66,7 @@
 					<div class="ch-box">
 						<div>
 							<input type="checkbox" id="ch" name="remember-me" value="true"><label
-								for="ch">아이디 저장</label>
+								for="ch">자동 로그인</label>
 						</div>
 						<ul>
 							<li><a href="#">아이디 ㅣ</a></li>
