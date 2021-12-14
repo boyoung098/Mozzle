@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,70 +49,51 @@ public class BoardCtrl {
 		return "board";
 	}
 	
-	@PostMapping(value="/insertBoard.do")
-	public String insertBoard(Board board, HttpServletResponse resp) throws IOException {
-		int cnt = serviceImple.insertBoard(board);
-		if(cnt == 1) {
-			resp.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = resp.getWriter();
-			out.println("<script>alert('성공적으로 새글이 입력되었습니다'); location.href='./board.do';</script>");
-			out.flush();
-			return "board";
-		}else {
-			resp.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = resp.getWriter();
-			out.println("<script>alert('새글 입력 실패'); location.href='./board.do';</script>");
-			out.flush();
-			return "board";
-		}
-		
-	}
-	
-	@PostMapping(value="/deleteBoard.do")
-	public String deleteBoard(int num, RedirectAttributes rttr) {
-		logger.info("게시글 삭제");
-		serviceImple.deleteBoard(num);
-		rttr.addFlashAttribute("result", "delete success");
-		return "redirect:/board";
-	}
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value="/reinboard.do", method = RequestMethod.POST)
-	@ResponseBody
-	public String replyBoard(@RequestBody Board board, HttpSession session) {
-			logger.info("댓글 등록!!!!!!!!!!!!!!!!!!!!!!!!");
-			//System.out.println(board.getUser_id());
-			String writer = (String) session.getAttribute("user_id");
-			
-			board.setUser_id(writer);
-			serviceImple.reply(board);
-			return "board";
-		
-	}
-	
-//	@RequestMapping(value="/reviewboard.do", produces = "application/json; charset=utf8")
-//	@ResponseBody
-//	public String replyviewBoard(@ModelAttribute("board") Board board, HttpServletRequest req) {
-//		logger.info("댓글 보이기");
-//		ArrayList<HashMap> relist = new ArrayList<HashMap>();
-//		
-//		List<Board> boardvo = serviceImple.replyview(board);
-//		if(boardvo.size()>0){
-//			for (int i = 0; i < boardvo.size(); i++) {
-//				HashMap hm = new HashMap();
-//				hm.put("content", boardvo.get(i).getContent());
-//				hm.put("regdate", boardvo.get(i).getRegdate());
-//				
-//				relist.add(hm);
-//			}
+//	@PostMapping(value="/insertBoard.do")
+//	public String insertBoard(Board board, HttpServletResponse resp) throws IOException {
+//		int cnt = serviceImple.insertBoard(board);
+//		if(cnt == 1) {
+//			resp.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = resp.getWriter();
+//			out.println("<script>alert('성공적으로 새글이 입력되었습니다'); location.href='./board.do';</script>");
+//			out.flush();
+//			return "board";
+//		}else {
+//			resp.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = resp.getWriter();
+//			out.println("<script>alert('새글 입력 실패'); location.href='./board.do';</script>");
+//			out.flush();
+//			return "board";
 //		}
-//		JSONArray json = new JSONArray(relist);
-//		return "board";
+//		
 //	}
+	
+//	@PostMapping(value="/deleteBoard.do")
+//	public String deleteBoard(int num, RedirectAttributes rttr) {
+//		logger.info("게시글 삭제");
+//		serviceImple.deleteBoard(num);
+//		rttr.addFlashAttribute("result", "delete success");
+//		return "redirect:/board";
+//	}
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value="/reinboard.do", method=RequestMethod.POST)
+	public Map<String, Object> replyBoard(Board board) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			int cnt = serviceImple.replyview(board);
+			
+			logger.info("댓글 등록!!!!!!!!!!!!!!!!!!!!!!!! :{}", board);
+			map.put("result", board);
+			
+			return map;
+		
+	}
+	
+
 	
 }
