@@ -72,28 +72,35 @@
 			});
 		});
 		
-		// menu
-		var menu = "${menu}";
-		console.log(menu);
-		var menulist = [];
-		$(".my-page-menu ul li a").each((idx, item) => {
-			menulist.push($(item).text());
-			if(menu == $(item).text()){
-				$(item).addClass("active");
-			}
-			
-			$(item).click(function(e){
-				e.preventDefault();
-				if(!${auth}){
-					$("input[name=auth]").val(${auth});
-				}
-				$("input[name=menu]").val($(this).text());
-				$("#myPageAuth-success").submit();
-			})
-			
-		});
-
-		console.log(menulist);
+		var auth = "${auth}";
+		
+		if(auth){
+			var menu = "updateUser";
+			$(".my-page-menu ul li a").each((idx, item) => {
+				$(item).click(function(e){
+					e.preventDefault();
+					console.log($(this).children("input").val());
+					if(auth){
+						$("#load-content").load($(item).children("input").val() + ".do");
+						menu = $(item).children("input").val();
+						$(".my-page-menu ul li a").each((idx, item) => {
+							if(menu == $(item).children("input").val()){
+								$(item).addClass("active");
+							}
+							else{
+								$(item).removeClass("active");
+							}
+						});
+					}
+				})
+				
+			});
+			// 비밀번호 입력 후 디폴트 메뉴
+			$("#default-mypage-menu").trigger("click");
+		}
+		
+	
+		// $("#load-test").load("../");
 		
 		
 	});
@@ -111,15 +118,15 @@
 		</div>
 		<div class="my-page-menu">
 			<ul>
-				<li><a href="#">정보수정</a></li>
-				<li><a href="#">내가쓴글</a></li>
-				<li><a href="#">북마크</a></li>
-				<li><a href="#">멤버초대</a></li>
+				<li><a href="#" id="default-mypage-menu">정보수정<input type="hidden" name="menu" value="updateUser"/></a></li>
+				<li><a href="#">내가쓴글<input type="hidden" name="menu" value="myThread"/></a></li>
+				<li><a href="#">북마크<input type="hidden" name="menu" value="bookmark"/></a></li>
+				<li><a href="#">멤버초대<input type="hidden" name="menu" value="inviteUser"/></a></li>
 			</ul>
 		</div>
 	</section>
 	
-	
+
 	<section class="container">	
 		<c:if test="${auth == false}">
 		<div class="text-center mt-5 bt-5">
@@ -131,18 +138,19 @@
 			</label>
 		</div>
 		</c:if>
+		
+		
 		<form id="myPageAuth-success" action="./myPage.do" method="post">
 			<input type="hidden" name="auth" value="true"/>
-			<input type="hidden" name="menu" value="정보수정"/>
 		</form>
 		
-		<c:if test="${auth == true}">
+		<%-- <c:if test="${auth == true}">
 			<c:if test="${menu == '정보수정'}">
 			<div class="container-login">
 				<form id="login-form" action="./updateUser.do" method="POST">
 					<h2>회원 정보 수정</h2>
 	
-					<%-- <jsp:include page="../comm/userInfoForm.jsp" />	 --%>
+					<jsp:include page="../comm/userInfoForm.jsp" />
 					<input type="submit" class="color-btn input-login" value="정보수정" />
 		
 				</form>
@@ -150,25 +158,12 @@
 			</c:if>
 			<c:if test="${menu == '내가쓴글'}">
 			<div class="content">
-				<h2>내가쓴글</h2>
-	
+				<h2>내가쓴글</h2> 
+	--%>
+
 		
-			</div>
-			</c:if>
-			<c:if test="${menu == '북마크'}">
-				<div class="content">
-				<h2>북마크</h2>
-	
-		
-				</div>
-			</c:if>
-			<c:if test="${menu == '멤버초대'}">
-				<div class="content">
-				<h2>멤버초대</h2>
-	
-		
-				</div>
-			</c:if>
+		<c:if test="${auth == true}">
+			<div id="load-content"></div>
 		</c:if>
 
 	</section>
