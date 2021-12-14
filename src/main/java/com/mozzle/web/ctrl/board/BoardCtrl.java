@@ -45,36 +45,33 @@ public class BoardCtrl {
 		logger.info("모즐메인 게시판");
 		//List<Board> boardlist = serviceImple.selectAllBoard();
 		model.addAttribute("boardlist", serviceImple.selectAllBoard());
-		
 		return "board";
 	}
 	
-//	@PostMapping(value="/insertBoard.do")
-//	public String insertBoard(Board board, HttpServletResponse resp) throws IOException {
-//		int cnt = serviceImple.insertBoard(board);
-//		if(cnt == 1) {
-//			resp.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = resp.getWriter();
-//			out.println("<script>alert('성공적으로 새글이 입력되었습니다'); location.href='./board.do';</script>");
-//			out.flush();
-//			return "board";
-//		}else {
-//			resp.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = resp.getWriter();
-//			out.println("<script>alert('새글 입력 실패'); location.href='./board.do';</script>");
-//			out.flush();
-//			return "board";
-//		}
-//		
-//	}
+	@PostMapping(value="/insertBoard.do")
+	public String insertBoard(Board board){
+		logger.info("insertBoard 입력됨????=================== {}", board);
+		serviceImple.insertBoard(board);
+		return "redirect:/board";
+	}
 	
-//	@PostMapping(value="/deleteBoard.do")
-//	public String deleteBoard(int num, RedirectAttributes rttr) {
-//		logger.info("게시글 삭제");
-//		serviceImple.deleteBoard(num);
-//		rttr.addFlashAttribute("result", "delete success");
-//		return "redirect:/board";
-//	}
+	@PostMapping(value="/updateboard.do")
+	public String updateboard(Board board, RedirectAttributes rttr) {
+		logger.info("updateboard 수정되었습니다. {}", board);
+		serviceImple.updateBoard(board);
+		rttr.addFlashAttribute("update","update");
+		return "redirect:/board";
+	}
+	
+	
+	
+	@RequestMapping(value="/deleteBoard.do")
+	public String deleteBoard(int num, RedirectAttributes rttr) {
+		logger.info("게시글 삭제");
+		serviceImple.deleteBoard(num);
+		rttr.addFlashAttribute("result", "delete success");
+		return "redirect:/board";
+	}
 	
 	
 	
@@ -83,7 +80,7 @@ public class BoardCtrl {
 	
 	
 	@RequestMapping(value="/reinboard.do", method=RequestMethod.POST)
-	public Map<String, Object> replyBoard(Board board) {
+	public Map<String, Object> replyBoard(@RequestBody Board board) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int cnt = serviceImple.replyview(board);
 			

@@ -16,7 +16,7 @@
 
 </head>
 <body>
-	<script type="text/javascript" 	src="./resources/js/HuskyEZCreator.js" charset="utf-8"></script> 
+	<!-- <script type="text/javascript" 	src="./resources/js/HuskyEZCreator.js" charset="utf-8"></script>  -->
 	<jsp:include page="./comm/header.jsp">
 		<jsp:param value="${userId}" name="userId" />
 	</jsp:include>
@@ -48,12 +48,23 @@
 						</ul>
 					</div>
 				</div>
-				<div class="txt mt-3">
-					<button data-toggle="modal" data-target="#myModal">글쓰기</button>
-				</div>
-
 				<div class="board-container" id="items">
-					<div class="board-top">
+				<div class="txt mt-3">
+					<form action="./insertBoard.do" method="post" id="insertcontent">
+						<div class="">
+							<div class="form-group">
+								<label>게시글 작성</label>
+								<textarea rows="5" class="form-control" id="content" name="content"></textarea>
+							</div>
+							<input type="submit" class="btn btn-block btn-bg" value="새 글작성">
+						</div>
+					</form>
+					<%-- <form action="./updateboard.do" method="get" id="hupdate">
+						<input type="hidden" id="post_id" name="post_id" value="${boardlist.content}">
+					</form> --%>
+				</div>
+				
+					<div class="board-top mt-3">
 						<select class="board-sel selectbox">
 							<option value="new1">최신 순</option>
 							<option value="new2">인기 순</option>
@@ -71,9 +82,9 @@
 							<div class="col-sm-1 drop-board-box">
 								<i class="xi-ellipsis-h xi-2x"></i>
 								<ul class="drop-board">
-									<li><button class="btn-invite" onclick="board_update()">수정</button></li>
-									<li><button class="btn-invite" id="board_delete">삭제</button></li>
-									<li><button class="btn-invite">주소복사</button></li>
+									<li><a class="btn-invite" id="board_update">수정</a></li>
+									<li><a class="btn-invite" id="board_delete">삭제</a></li>
+									<!-- <li><button class="btn-invite">주소복사</button></li> -->
 									<li><button id="myModal2" class="btn-invite no-padding"
 											data-toggle="modal" data-target="#myModal2">신고</button></li>
 								</ul>
@@ -97,7 +108,7 @@
 								</div>
 								<div class="comment">
 									<form id="reply" action="./reinboard.do" method="post">
-										<input type="text" id="content"class="form-control comment-input" name="content" /> 
+										<input type="text" id="contentId"class="form-control comment-input" name="contentId" /> 
 										<input type="submit" value="댓글" class="comment-btn" id="comment-btn"/>
 									</form>
 								</div>
@@ -188,65 +199,37 @@
 			</tr>
 		</table>
 	</form>  --%>
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-			<form action="./insertBoard.do" method="post" id="insertcontent">
-				Modal content
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Modal Header</h4>
-					</div>
-					<div class="modal-body">
-						
-						<div class="form-group">
-							<label>내용</label>
-							<textarea rows="5" class="form-control" id="content"
-								name="content"></textarea>
-						</div>
-						<div class="form-group">        
-					      <div class="col-sm-offset-2 col-sm-10">
-					        <button type="button" class="btn btn-primary btn-block" onclick="board_insert()">새글입력</button>
-					      </div>
-					    </div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div> 
+	
 
 	
 
 
 	<jsp:include page="./comm/footer.jsp" />
 	<script type="text/javascript">
-		$(document).ready(function(){
+		/* $(document).ready(function(){
 			$("#comment-btn").click(function(){
 				console.log("들어 온다?");
-				//let data = $("input[name=content]").val();
-				var mdata = document.getElementById('content').value;
+				
+				
+			 	var mdata = document.getElementById('content').value;
 				console.log(mdata);
 				$.ajax({
 					url:"./reinboard.do",
 					type:"POST",
-					data:data,
-					dataType:"json",
+					data: mdata,
+					dataType:"JSON",
 					async : true,
 					success: function(){
+						console.log(result.result);
 						$("#content").val('');
 					},
 					error: function(error){
 						console.log("에러 : " + error);
 					}
-				})
+				})  
 				
-				/* return false; */
 			});
-			
-			
-			
-		});
+		}); */
 			
 		
 	</script>
