@@ -2,13 +2,9 @@ package com.mozzle.web.ctrl.manage;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
-
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,13 +38,16 @@ public class ManageCtrl {
 	@RequestMapping(value = "/home.do", method= RequestMethod.GET)
 	public String home(Model model) {
 		
+		//임시 저장
+		String user_id = "user01";
 		//My 모즐
-		//List<MozzleDto> myMozzleList = service.selectMozzleByCreatDate();
+		List<MozzleDto> myMozzleList = service.selectMyMozzle(user_id);
 		//새로 생긴 모즐
 		List<MozzleDto> newMozzleList = service.selectMozzleByCreatDate();
 		//HOT 모즐
 		List<MozzleDto> hotMozzleList = service.selectMozzleByUserNumber();
 		
+		model.addAttribute("myMozzleList", myMozzleList);
 		model.addAttribute("newMozzleList", newMozzleList);
 		model.addAttribute("hotMozzleList", hotMozzleList);
 		
