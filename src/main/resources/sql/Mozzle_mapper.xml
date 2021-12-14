@@ -45,6 +45,26 @@
 		FROM MOZZLE
 		WHERE MOZZLE_ID = #{mozzle_id}
 	</select>
-
+	
+	<select id="selectMozzleIdByUserNumber" resultType="java.lang.String">
+		SELECT MOZZLE_ID 
+			FROM (
+				SELECT MOZZLE_ID 
+					FROM USER_MOZZLE 
+						GROUP BY MOZZLE_ID 
+							ORDER BY COUNT(*) DESC)
+	</select>
+	
+	<select id="selectMozzleByUserNumber" parameterType="java.util.List" resultType="mDto">
+		SELECT MOZZLE_ID, MOZZLE_NAME, 
+			MOZZLE_INTRO, CREATE_DATE, 
+			IMAGE_ORIGIN, IMAGE_SAVED, 
+			CATEGORY_CODE, STATE
+		FROM MOZZLE
+		WHERE MOZZLE_ID IN
+		<foreach collection="list" item="mozzle_id" open="(" separator="," close=")">
+			#{mozzle_id}
+		</foreach>
+	</select>
 
 </mapper>

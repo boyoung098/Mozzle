@@ -144,6 +144,23 @@
 			<input type="hidden" name="auth" value="true"/>
 		</form>
 		
+		<%-- <c:if test="${auth == true}">
+			<c:if test="${menu == '정보수정'}">
+			<div class="container-login">
+				<form id="login-form" action="./updateUser.do" method="POST">
+					<h2>회원 정보 수정</h2>
+	
+					<jsp:include page="../comm/userInfoForm.jsp" />
+					<input type="submit" class="color-btn input-login" value="정보수정" />
+		
+				</form>
+			</div>
+			</c:if>
+			<c:if test="${menu == '내가쓴글'}">
+			<div class="content">
+				<h2>내가쓴글</h2> 
+	--%>
+
 		
 		<c:if test="${auth == true}">
 			<div id="load-content"></div>
@@ -151,7 +168,7 @@
 
 	</section>
 
-	<jsp:include page="../comm/footer.jsp" />
+	<jsp:include page="../comm/footer.jsp"/>
 
 </body>
 </html>
