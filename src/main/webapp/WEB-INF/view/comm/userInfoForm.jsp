@@ -2,8 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<label>아이디 <input type="text" class="form-control input-login"
-	name="user_id" placeholder="아이디를 입력 해주세요" />
+<label>아이디 
+	<input type="text" class="form-control input-login"
+		name="user_id" placeholder="아이디를 입력 해주세요" value="${sessionScope.userId}" ${sessionScope.userId != null ? "readonly": ""}/>
 </label>
 <p id="id-duplicated-result"></p>
 <label>비밀번호 <input type="password"
