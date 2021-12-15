@@ -206,7 +206,7 @@
 
 	<jsp:include page="./comm/footer.jsp" />
 	<script type="text/javascript">
-		/* $(document).ready(function(){
+		 $(document).ready(function(){
 			$("#comment-btn").click(function(){
 				console.log("들어 온다?");
 				
@@ -229,7 +229,7 @@
 				})  
 				
 			});
-		}); */
+		}); 
 			
 		
 	</script>
