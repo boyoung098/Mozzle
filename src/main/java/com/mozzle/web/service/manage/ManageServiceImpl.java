@@ -34,4 +34,21 @@ public class ManageServiceImpl implements IManageService {
 		List<String> lists = dao.selectMozzleIdByUserNumber();
 		return dao.selectMozzleByUserNumber(lists);
 	}
+
+	@Override
+	public List<MozzleDto> selectMyMozzle(String user_id) {;
+		return dao.selectMyMozzle(user_id);
+	}
+
+	@Override
+	public List<MozzleDto> selectMozzleBySearchBasedeOnImportance(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MozzleDto> selectMozzleBySearchFromTheLastest(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
