@@ -19,7 +19,7 @@ public interface IBoardDao {
 	public int replyIn(Board board);
 	public int replyUp(Board board);
 	public int replyDl(Board board);
-	public List<Board> replyview(Board board);
+	public int replyview(Board board);
 	
 	public int reportBoard(Board board);
 }

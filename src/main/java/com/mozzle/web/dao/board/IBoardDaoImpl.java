@@ -85,9 +85,9 @@ public class IBoardDaoImpl implements IBoardDao {
 	}
 	
 	@Override
-	public List<Board> replyview(Board board) {
+	public int replyview(Board board) {
 		logger.info("댓글 출력");
-		return session.selectList(NS+"replyview", board);
+		return session.insert(NS+"replyview", board);
 	}
 	
 	@Override

@@ -16,7 +16,7 @@
 
 </head>
 <body>
-	<script type="text/javascript" 	src="./resources/js/HuskyEZCreator.js" charset="utf-8"></script> 
+	<!-- <script type="text/javascript" 	src="./resources/js/HuskyEZCreator.js" charset="utf-8"></script>  -->
 	<jsp:include page="./comm/header.jsp">
 		<jsp:param value="${userId}" name="userId" />
 	</jsp:include>
@@ -48,12 +48,23 @@
 						</ul>
 					</div>
 				</div>
-				<div class="txt mt-3">
-					<button data-toggle="modal" data-target="#myModal">글쓰기</button>
-				</div>
-
 				<div class="board-container" id="items">
-					<div class="board-top">
+				<div class="txt mt-3">
+					<form action="./insertBoard.do" method="post" id="insertcontent">
+						<div class="">
+							<div class="form-group">
+								<label>게시글 작성</label>
+								<textarea rows="5" class="form-control" id="content" name="content"></textarea>
+							</div>
+							<input type="submit" class="btn btn-block btn-bg" value="새 글작성">
+						</div>
+					</form>
+					<%-- <form action="./updateboard.do" method="get" id="hupdate">
+						<input type="hidden" id="post_id" name="post_id" value="${boardlist.content}">
+					</form> --%>
+				</div>
+				
+					<div class="board-top mt-3">
 						<select class="board-sel selectbox">
 							<option value="new1">최신 순</option>
 							<option value="new2">인기 순</option>
@@ -71,21 +82,22 @@
 							<div class="col-sm-1 drop-board-box">
 								<i class="xi-ellipsis-h xi-2x"></i>
 								<ul class="drop-board">
-									<li><button class="btn-invite" onclick="board_update()">수정</button></li>
-									<li><button class="btn-invite" id="board_delete">삭제</button></li>
-									<li><button class="btn-invite">주소복사</button></li>
+									<li><a class="btn-invite" id="board_update">수정</a></li>
+									<li><a class="btn-invite" id="board_delete">삭제</a></li>
+									<!-- <li><button class="btn-invite">주소복사</button></li> -->
 									<li><button id="myModal2" class="btn-invite no-padding"
 											data-toggle="modal" data-target="#myModal2">신고</button></li>
 								</ul>
 							</div>
 							<div class="board-text-container">
 								<p>${boardobj.content}</p>
+								<!-- 댓글 -->
+								<div id="reply-comment">
+								 ${result.content}
+								 ${result.regdate}
+								</div>
+								<!-- 댓글 -->
 							</div>
-							<!-- 댓글 -->
-							<div id="reply-comment">
-							 ${value}
-							</div>
-							<!-- 댓글 -->
 
 							<div class="board-cion">
 								<div class="comment-icon">
@@ -95,16 +107,13 @@
 									<i class="xi-speech-o xi-2x"></i>
 								</div>
 								<div class="comment">
-									<form id="reply">
-										<input type="text" name="commentId" id="commentId"
-											class="form-control comment-input" name="content" /> 
-										<input
-											type="submit" value="댓글" class="comment-btn" id="comment-btn"
-											 />
+									<form id="reply" action="./reinboard.do" method="post">
+										<input type="text" id="contentId"class="form-control comment-input" name="contentId" /> 
+										<input type="submit" value="댓글" class="comment-btn" id="comment-btn"/>
 									</form>
 								</div>
 							</div>
-
+							
 						</div>
 						</section>
 					</c:forEach>
@@ -169,7 +178,7 @@
 		</div>
 
 	</section>
-	<form >
+<%-- 	<form >
 		<table width="100%">
 			<tr>
 				<td>제목</td>
@@ -189,108 +198,46 @@
 					value="${_csrf.token}" /></td>
 			</tr>
 		</table>
-	</form> 
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-			<form action="./insertBoard.do" method="post" id="insertcontent">
-				Modal content
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Modal Header</h4>
-					</div>
-					<div class="modal-body">
-						
-						<div class="form-group">
-							<label>내용</label>
-							<textarea rows="5" class="form-control" id="content"
-								name="content"></textarea>
-						</div>
-						<div class="form-group">        
-					      <div class="col-sm-offset-2 col-sm-10">
-					        <button type="button" class="btn btn-primary btn-block" onclick="board_insert()">새글입력</button>
-					      </div>
-					    </div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div> 
+	</form>  --%>
+	
 
 	
 
 
 	<jsp:include page="./comm/footer.jsp" />
 	<script type="text/javascript">
-		 var oEditors = [];
-		$(function() {
-			nhn.husky.EZCreator.createInIFrame({
-				oAppRef : oEditors,
-				elPlaceHolder : "ir1",
-				//SmartEditor2Skin.html 파일이 존재하는 경로 
-				sSkinURI : "/smarteditor2/SmartEditor2Skin.html",
-				htParams : {
-					// 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
-					bUseToolbar : true, // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
-					bUseVerticalResizer : true, // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
-					bUseModeChanger : true,
-					fOnBeforeUnload : function() {
+		/* $(document).ready(function(){
+			$("#comment-btn").click(function(){
+				console.log("들어 온다?");
+				
+				
+			 	var mdata = document.getElementById('content').value;
+				console.log(mdata);
+				$.ajax({
+					url:"./reinboard.do",
+					type:"POST",
+					data: mdata,
+					dataType:"JSON",
+					async : true,
+					success: function(){
+						console.log(result.result);
+						$("#content").val('');
+					},
+					error: function(error){
+						console.log("에러 : " + error);
 					}
-				},
-				fOnAppLoad : function() {
-					//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용 
-					oEditors.getById["ir1"].exec("PASTE_HTML",
-							[ "기존 DB에 저장된 내용을 에디터에 적용할 문구" ]);
-				},
-				fCreator : "createSEditor2"
+				})  
+				
 			});
-		});
-/* 		
-		 function fn_comment(){
-		 
-			 data["commentId"]=value;
-			 
-			 $.ajax({
-				url:"./reinboard.do",
-				type:"POST",
-				dataType : "json",
-				contentType:"application/json;charset=UTF-8",
-				async : false,
-				data : JSON.stringify(data),
-				success: function(data) {
-					
-					if (data.result == "ok") {
-						// 리스트 업데이트하는 getList()를 실행시킨다.
-						getList();
-					}
-
-				},
-				error : function(){
-		               alert("통신실패");
-		           }
-			});
-			  */
-			 
-			 
- 			 $(function () {
-			        $('#reply').submit(function(e){
-			            $('input[name="commentId"]').val("1")
-			            // alert('댓글쓰기 완료');
-			            url = $(this).attr('action'); //원래 다녀와야하는 url
-			            params = $(this).serialize(); //현재 폼에 담겨있는 값들을 가지고 올 수 있게 해준다.
-			            $.ajax({
-			                url:"./reinboard.do",
-			                method : "POST",
-			                data: params,
-
-			            })
-		
-			            
-			        });
-	
+		}); */
+			
 		
 	</script>
+	
+	
+	
+	
+	
 	
 </body>
 </html>
