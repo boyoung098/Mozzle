@@ -12,4 +12,6 @@ public interface IUserService {
 	public boolean signUp(UserDto dto);
 	
 	public int duplicationIdChk(String id);
+	
+	public UserDto selectUserById(String id);
 }
