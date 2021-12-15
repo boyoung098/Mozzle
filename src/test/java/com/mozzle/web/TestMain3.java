@@ -61,8 +61,8 @@ public class TestMain3 {
 				new ScheduleDto();
 		dao.scheduleinsert(dto);
 
-		List<Board> boardlist = dao.selectAllBoard();
-		assertNotNull(boardlist);
+		//List<Board> boardlist = dao.selectAllBoard();
+		//assertNotNull(boardlist);
 
 
 	}
