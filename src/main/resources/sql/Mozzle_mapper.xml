@@ -79,7 +79,7 @@
 			AND um.USER_ID = #{user_id}
 	</select>
 	
-	<select id="selectMozzleBySearchBasedeOnImportance" parameterType="java.lang.String" resultType="mDto">
+	<select id="selectMozzleBySearchBasedOnImportance" parameterType="java.lang.String" resultType="mDto">
 		SELECT
 			MOZZLE_ID , MOZZLE_NAME,
 			MOZZLE_INTRO, CREATE_DATE,
@@ -117,35 +117,21 @@
 	</select>
 	
 	<select id="selectMozzleBySearchFromTheLastest" parameterType="java.lang.String" resultType="mDto">
-		SELECT MOZZLE_ID , MOZZLE_NAME,
-			MOZZLE_INTRO, CREATE_DATE,
-			IMAGE_ORIGIN, IMAGE_SAVED, 
-			CATEGORY_CODE
-		FROM (SELECT MOZZLE_ID , MOZZLE_NAME,
-			MOZZLE_INTRO, CREATE_DATE,
-			IMAGE_ORIGIN, IMAGE_SAVED, 
-			CATEGORY_CODE
-			FROM MOZZLE m 
-		WHERE STATE = 'Y' 
-		 	AND MOZZLE_NAME LIKE '%'||#{keyword}||'%' 
-		UNION 	 	 	
-		SELECT MOZZLE_ID , MOZZLE_NAME,
-			MOZZLE_INTRO, CREATE_DATE,
-			IMAGE_ORIGIN, IMAGE_SAVED, 
-			CATEGORY_CODE
-			FROM MOZZLE m 
-		WHERE STATE = 'Y' 
-		 	AND MOZZLE_INTRO LIKE '%'||#{keyword}||'%' 	
-		UNION
-		SELECT m.MOZZLE_ID, m.MOZZLE_NAME,
-			m.MOZZLE_INTRO, m.CREATE_DATE,
+		SELECT m.MOZZLE_ID, m.MOZZLE_NAME, 
+			m.MOZZLE_INTRO, m.CREATE_DATE, 
 			m.IMAGE_ORIGIN, m.IMAGE_SAVED, 
 			m.CATEGORY_CODE
-		FROM MOZZLE m JOIN CATEGORY c
+			FROM MOZZLE m JOIN CATEGORY c
 		ON m.CATEGORY_CODE = c.CATEGORY_CODE
-		WHERE m.STATE = 'Y'
-		AND CATEGORY_NAME LIKE '%'||#{keyword}||'%')
+		WHERE (m.MOZZLE_NAME LIKE '%'||#{keyword}||'%'  
+		 	OR m.MOZZLE_INTRO LIKE '%'||#{keyword}||'%'
+		 	OR c.CATEGORY_NAME LIKE '%'||#{keyword}||'%')
+		AND m.STATE = 'Y' 	
 		ORDER BY CREATE_DATE DESC 
-	</select>                             
+	</select>
+	
+	<select id="selectCategory" resultType="java.lang.String">
+		SELECT CATEGORY_CODE FROM MOZZLE m 
+	</select>
 
 </mapper>

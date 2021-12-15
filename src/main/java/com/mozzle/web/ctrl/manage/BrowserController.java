@@ -26,11 +26,30 @@ public class BrowserController {
 	@RequestMapping(value = "/browseMozzlePage.do", method= RequestMethod.GET)
 	public String searchMozzleByWord(Model model) {
 		
-		String keyword = "커피";
+		String keyword = "커";
 		logger.info("BrowserController의 searchMozzleByWord");
 		List<MozzleDto> mLists = service.selectMozzleBySearchFromTheLastest(keyword);
 		model.addAttribute("mLists", mLists);
 		
 		return "manage/browseMozzlePage";
+	}
+	
+	@RequestMapping(value = "/browseMozzleFromTheLastest.do", method= RequestMethod.GET)
+	public String searchMozzleByWord2(Model model) {
+		
+		String keyword = "커";
+		logger.info("BrowserController의 searchMozzleByWord2");
+		List<MozzleDto> mLists = service.selectMozzleBySearchBasedeOnImportance(keyword);
+		model.addAttribute("mLists", mLists);
+		
+		return "manage/browseMozzlePage";
+	}
+	
+	@RequestMapping(value = "/selectCategoryRank.do", method= RequestMethod.GET)
+	public String selectCategoryRank() {
+		
+		logger.info("BrowserController의 searchMozzleByWord2");;
+		
+		return null;
 	}
 }

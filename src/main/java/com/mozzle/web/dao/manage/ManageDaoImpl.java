@@ -55,7 +55,7 @@ public class ManageDaoImpl implements IManageDao{
 	}
 
 	@Override
-	public List<MozzleDto> selectMozzleBySearchBasedeOnImportance(String keyword) {
+	public List<MozzleDto> selectMozzleBySearchBasedOnImportance(String keyword) {
 		logger.info("selectMozzleBySearchBasedeOnImportance {}", keyword);
 		return session.selectList(NS + "selectMozzleBySearchBasedeOnImportance", keyword);
 	}
@@ -64,6 +64,12 @@ public class ManageDaoImpl implements IManageDao{
 	public List<MozzleDto> selectMozzleBySearchFromTheLastest(String keyword) {
 		logger.info("selectMozzleBySearchFromTheLastest {}", keyword);
 		return session.selectList(NS + "selectMozzleBySearchFromTheLastest", keyword);
+	}
+
+	@Override
+	public String[] selectCategory() {
+		logger.info("selectCategory");
+		return null;
 	}
 
 }
