@@ -16,6 +16,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+
+import com.mozzle.web.dao.schedule.IScheduleDao;
+import com.mozzle.web.dao.schedule.IScheduleDaoImpl;
+import com.mozzle.web.dto.schedule.ScheduleDto;
+
 import com.mozzle.web.dao.board.IBoardDao;
 import com.mozzle.web.dto.board.Board;
 
@@ -32,8 +37,33 @@ public class TestMain3 {
 	
 	@Test
 	public void test() {
+
+		SqlSessionTemplate session = context.getBean("sqlSessionTemplate",SqlSessionTemplate.class);
+		System.out.println("session 값="+session);
+		
+		assertNotNull(session);
+		
+		IScheduleDao dao = new IScheduleDaoImpl();
+		
+		/**
+		 * 일정리스트 전부 출력
+		 */
+//		Map<String,String> map = new HashMap<String, String>();
+//		map.put("schedule_id", "id의값");//똑같은 값 가져와야한다.
+//		map.put("yyyymmdd", "20211207");
+//		
+//		System.out.println(dao.scheduleselectAll(map).hashCode());
+		
+		/**
+		 * 일정등록
+		 */
+		ScheduleDto dto = 
+				new ScheduleDto();
+		dao.scheduleinsert(dto);
+
 		List<Board> boardlist = dao.selectAllBoard();
 		assertNotNull(boardlist);
+
 
 	}
 
