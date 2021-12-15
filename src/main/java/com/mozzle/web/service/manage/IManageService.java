@@ -10,5 +10,8 @@ public interface IManageService {
 	public List<MozzleDto> selectMozzleByCreatDate();
 	public MozzleDto selectMozzleByMozzleId(String mozzle_id);
 	public List<MozzleDto> selectMozzleByUserNumber();
+	public List<MozzleDto> selectMyMozzle(String user_id);
+	public List<MozzleDto> selectMozzleBySearchBasedeOnImportance(String keyword);
+	public List<MozzleDto> selectMozzleBySearchFromTheLastest(String keyword);
 
 }

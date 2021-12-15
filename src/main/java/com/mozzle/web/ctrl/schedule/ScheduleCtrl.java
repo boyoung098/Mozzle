@@ -27,7 +27,12 @@ public class ScheduleCtrl{
 	@Autowired
 	private IScheduleServiceImpl schedule;
 	
-	@RequestMapping(value="/scheduleselectAll", method = RequestMethod.GET)
+	/**
+	 * 일정 전체 리스트
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/scheduleselectAll.do", method = RequestMethod.GET)
 	public String scheduleselectAll(Model model) {
 		logger.info("ScheduleController 캘린더 출력");
 		List<ScheduleDto> list = schedule.scheduleselectAll(null);
