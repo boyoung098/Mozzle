@@ -10,4 +10,18 @@ public class ScheduleUtil {
 		
 	}
 	
+	//달력에 토요일 일요일 평일 글자색 변경
+	public static String fontColor(int date, int dayofWeek) {
+		int dayCal = (dayofWeek-1+date)%-7;
+		if(dayCal==0) {
+			//토요일
+			return "bule";
+		}else if(dayCal==1) {
+			//일요일
+			return "red";
+			//평일
+		}else {
+			return "";
+		}
+	}
 }
