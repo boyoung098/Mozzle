@@ -14,7 +14,7 @@
 <script type="text/javascript" 	src="<%=request.getContextPath()%>/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -38,9 +38,20 @@
 								<li>리더 : 로아로아</li>
 								<li>멤버 : 101</li>
 							</ul>
-							<button class="join-btn">가입요청</button>
+							<button class="join-btn" onclick="userSessionCheck()" id="joinbtn">가입요청</button>
 						</div>
 					</div>
+					
+					
+					<!--  -->
+					  <!-- Modal -->
+					<jsp:include page="./mozzleJoinForm.jsp"/>
+					
+  
+					
+					
+					
+					
 					<div class="mo-list">
 						<ul>
 							<li>게시글</li>
@@ -451,6 +462,21 @@
 			
 		});
 	}
+	
+	function userSessionCheck(){
+		var userId = '<%=(String)session.getAttribute("userId")%>';
+		console.log(userId);
+		if(userId=='null'){
+// 			console.log(userId+"ss");
+			alert('로그인이 되어있지 않습ㄴ디ㅏ.');
+			location.href='../loginPage.do'; //로그인페이지로 이동해야함
+		}else{
+			 $('#joinModal').modal();
+		}
+		
+	}
+	
+	
 	</script>
 </body>
 </html>
