@@ -9,7 +9,6 @@
 <title>모즐메인</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-
 <jsp:include page="../comm/import.jsp" />
 <script type="text/javascript" 	src="<%=request.getContextPath()%>/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript"
@@ -466,7 +465,7 @@
 	function userSessionCheck(){
 		var userId = '<%=(String)session.getAttribute("userId")%>';
 		console.log(userId);
-		if(userId=='null'){
+		if(userId!='null'){
 // 			console.log(userId+"ss");
 			alert('로그인이 되어있지 않습ㄴ디ㅏ.');
 			location.href='../loginPage.do'; //로그인페이지로 이동해야함
