@@ -126,20 +126,18 @@ select:focus {
 .mo-list ul li:hover{
    color:#e82d55;
 }
-.txt{
-    display: flex;
-    justify-content: right;
-}
-.txt button{
-    width:100px;
-    height: 40px;
-    border-radius: 100px;
-    background: #fff;
-    border:1px solid #ddd
-}
+
 .board-container{
     margin-top: 20px;
    
+}
+.btn-bg {
+	background:#999;
+	color:#fff;
+}
+.btn-bg:hover{
+	background:#999;
+	color:#fff;
 }
 .board-top{
     border:1px solid #ddd;
@@ -218,6 +216,7 @@ select:focus {
 }
 .drop-board li {
     padding:2px 0px;
+    cursor: pointer;
 }
 .comment-icon {
     display: inline-block;

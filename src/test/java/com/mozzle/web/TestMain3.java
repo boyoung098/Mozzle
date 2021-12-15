@@ -16,9 +16,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+
 import com.mozzle.web.dao.schedule.IScheduleDao;
 import com.mozzle.web.dao.schedule.IScheduleDaoImpl;
 import com.mozzle.web.dto.schedule.ScheduleDto;
+
+import com.mozzle.web.dao.board.IBoardDao;
+import com.mozzle.web.dto.board.Board;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,8 +32,12 @@ public class TestMain3 {
 	@Autowired
 	private ApplicationContext context;
 	
+	@Autowired
+	private IBoardDao dao;
+	
 	@Test
 	public void test() {
+
 		SqlSessionTemplate session = context.getBean("sqlSessionTemplate",SqlSessionTemplate.class);
 		System.out.println("session 값="+session);
 		
@@ -52,6 +60,11 @@ public class TestMain3 {
 		ScheduleDto dto = 
 				new ScheduleDto();
 		dao.scheduleinsert(dto);
+
+		List<Board> boardlist = dao.selectAllBoard();
+		assertNotNull(boardlist);
+
+
 	}
 
 }
