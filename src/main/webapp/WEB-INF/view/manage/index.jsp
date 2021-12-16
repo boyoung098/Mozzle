@@ -67,6 +67,7 @@
 			</div>
 		</div>
 	</section>
+	<c:if test="${userId != null}" >
  	<section class="container mt-3" id="new-mozzle">
 		<h4>My 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle">
@@ -99,6 +100,7 @@
 			</div> 
 		</div>
 	</section> 
+	</c:if>
 
 	<section class="container mt-3" id="new-mozzle">
 		<h4>새로 생긴 모즐!</h4>
