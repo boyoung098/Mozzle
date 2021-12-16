@@ -2,7 +2,9 @@ package com.mozzle.web.ctrl.manage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,9 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mozzle.web.dto.manage.CategoryDto;
 import com.mozzle.web.dto.manage.MozzleDto;
+import com.mozzle.web.service.manage.ICategoryService;
 import com.mozzle.web.service.manage.IManageService;
 
 import org.springframework.core.io.Resource;
@@ -31,6 +36,9 @@ public class ManageCtrl {
 
 	@Autowired
 	private IManageService service;
+	
+	@Autowired
+	private ICategoryService service2;
 	
 	@Autowired
 	ResourceLoader resourceLoader;
@@ -178,4 +186,19 @@ public class ManageCtrl {
 			return "manage/modifyMozzleForm";
 		}	
 	}
+	
+	
+	@RequestMapping(value = "/searchCategory.do", method= RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> searchCategory() {
+		
+		logger.info("AdminController의 home");
+		List<CategoryDto> cList = service2.seletCategoryAll();
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("cList", cList);
+
+		return response;
+	}
+	
+
 }

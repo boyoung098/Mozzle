@@ -29,9 +29,11 @@
 	<jsp:include page="../comm/header.jsp" />
 
 	<div class="register-container">
-		<form id="submitMozzleForm" action="./modifyMozzle.do" method="post" enctype="multipart/form-data">
+		<form id="submitMozzleForm" action="./modifyMozzle.do" method="post"
+			enctype="multipart/form-data">
 			<input type="hidden" id="save_result" name="result" value="${result}" />
-			<input type="hidden" id="save_infor" name="mozzle_id" value="${mozzle_id}" />
+			<input type="hidden" id="save_infor" name="mozzle_id"
+				value="${mozzle_id}" />
 			<div class="register-inner">
 				<h4>모즐 생성</h4>
 			</div>
@@ -40,18 +42,20 @@
 			</div>
 			<div class="image-wrap1">
 				<div class="image-wrap2">
-					<img class="image" id="image" src ="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}";/>
+					<img class="image" id="image"
+						src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}" ;/>
 				</div>
 			</div>
 
 
- 			<div class="register-input" id="imagebox">
+			<div class="register-input" id="imagebox">
 				<div class="box-file-input" style="margin-top: 5px">
 					<label> <input type="file" name="uploadFile"
-						class="file-input" accept="image/*" id="img" value="${mozzle.image_origin}">
+						class="file-input" accept="image/*" id="img"
+						value="${mozzle.image_origin}">
 					</label> <span class="filename"></span>
 				</div>
-			</div> 
+			</div>
 
 			<br>
 			<div class="register-input" id="public-choice">
@@ -61,8 +65,8 @@
 
 				</div>
 				<div id="slider-box">
-					<label class="switch"> <input type="checkbox" name="state" ${mozzle.state}>
-						<span class="slider round"></span>
+					<label class="switch"> <input type="checkbox" name="state"
+						${mozzle.state}> <span class="slider round"></span>
 					</label>
 					<p id="on">ON</p>
 				</div>
@@ -72,16 +76,16 @@
 			</div>
 			<div class="register-input">
 				<input type="text" id="category" name="category_code"
-					style="width: 83%;" value="${mozzle.category_code}"/>
-				<button type="button" class="btn" id="bt"
-					style="margin-left: 5px; width: 15%;">등록</button>
-			</div> 
+					style="width: 100%;" placeholder="카테고리를 입력해주세요"
+					value="${mozzle.category_code}" />
+			</div>
 			<div class="register-name">
 				<h5>이름</h5>
 			</div>
 			<div class="register-input">
-				<input type="text" class="form-control" id="mozzle_name" name="mozzle_name"
-					placeholder="모즐 이름을 입력해주세요"  value="${mozzle.mozzle_name}"/>
+				<input type="text" class="form-control" id="mozzle_name"
+					name="mozzle_name" placeholder="모즐 이름을 입력해주세요"
+					value="${mozzle.mozzle_name}" />
 			</div>
 			<div class="register-name">
 				<h5>모즐소개</h5>
@@ -100,66 +104,36 @@
 			</div>
 		</form>
 	</div>
-	
+
 	<script>
-		$(document).ready(
-				function() {
-					var empArray = [ {
-						id : '1',
-						text : '자바'
-					}, {
-						id : '2',
-						text : '자바스크립트'
-					}, {
-						id : '3',
-						text : '자바스프링'
-					}, {
-						id : '4',
-						text : '컴퓨터'
-					}, {
-						id : '5',
-						text : '등산'
-					}, {
-						id : '6',
-						text : '산악회'
-					},
-					
-					 {
-						id : '7',
-						text : '커피'
-					},
-					 {
-						id : '8',
-						text : '카페'
-					},
-					 {
-						id : '9',
-						text : '바리스타'
-					} ];
+		var dataList = [];
+		$(document).ready(function() {
+				console.log('ready');
+				
+				$.ajax({
+					url: "./searchCategory.do",
+					type: "POST",	
+					dataType: "JSON",
+					success: function(result) {
+						console.log("성공");
+						var categoryList = result.cList;
+						for (var i = 0; i < categoryList.length; i++) {
+							var Obj = {};
+							Obj.id = categoryList[i].category_code;
+							Obj.text = categoryList[i].category_name;
+							dataList.push(Obj);
+						}	
+					}
+				});
 
+				console.log(dataList);
+				
 					$("#category").select2({
-						data : empArray,
+						data : dataList,
 						multiple : true,
-						placeholder : '카테고리를 입력해주세요'
+
 					});
-
-					$('#bt').click(
-							function() {
-								$('#lbl').empty();
-								$('#lbl').append("You have selected: <br />");
-								var iCnt = 0;
-								var data = $('#Books').select2('data');
-
-								$.each(data,
-										function() {
-											var empName = $('#Books').select2(
-													'data')[iCnt]['text']
-													+ '<br />';
-											$('#lbl').append(empName);
-											iCnt += 1;
-										});
-							});
-					
+				
 					if($('#save_result').val() != '') {
 						console.log($('#save_result').val());
 						
@@ -174,6 +148,7 @@
 					}
 					
 				});
+		
 	
 
 	<%-- 	window.onload = function() {
