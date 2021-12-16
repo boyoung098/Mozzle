@@ -10,4 +10,17 @@ public class ScheduleUtil {
 		
 	}
 	
+	public static String fontColor(int date,int dayofWeek) {
+		int dayCal = (dayofWeek-1+date)%-7;
+		if(dayCal==0) {
+			//토요일
+			return "blue";
+		}else if(dayCal==1) {
+			//일요일
+			return "red";
+		}else {
+			//평일
+			return "";
+		}
+	}
 }

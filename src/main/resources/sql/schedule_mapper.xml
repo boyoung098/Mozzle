@@ -2,24 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mozzle.web.Schedule">
 
-	<!-- 일정리스트  -->
+	<!-- 일정리스트 -->
 	<select id="scheduleselectAll" resultType="ScheduleDto">
-		SELECT SCHEDULES_ID,WRITER,TITLE,CONTENT,
-		SCHEDULES_DATE,REGDATE,SCHEDULE_INFO.ADDRESS
-		FROM SCHEDULES
+		SELECT
+		S.SCHEDULE_ID,S.WRITER,S.TITLE,S.CONTENT,
+		S.SCHEDULE_DATE ,S.REGDATE,
+		si.ADDRESS
+		FROM SCHEDULES S
+		INNER JOIN SCHEDULE_INFO si
+		ON
+		S.LOCATION_CODE = si.LOCATION_CODE ;
 	</select>
 
 
 	<!-- 일정추가 -->
 	<insert id="scheduleinsert" parameterType="java.lang.Integer">
+		INSERT INTO
+		SCHEDULE_INFO
+		(LOCATION_CODE ,LOCATION_NAME ,ADDRESS ,ADDRESS2 ,PHONE
+		,LOGUI ,LAT)
+		VALUES(SCHEDULE_INFO_SEQ.NEXTVAL,#{location_name},#{address},#{address2},#{phone},#{logui},#{lat});
+
 		INSERT INTO SCHEDULES
-		(SCHEDULES_ID,MOZZLE_ID,WRITER,SCHEDULES_TITLE,
-		SCHEDULES_CONTENT,
-		SCHEDULES_LOCATION,SCHEDULES_DATE,
-		SCHEDULES_REGDATE,SCHEDULES_DELFLAG)
-		VALUES(
-		SCHEDULES_ID_SEQ.NEXTVAL,${mozzle_id},${writer},${title},
-		${content},${schedule_date},SYSDATE,"N",${location_code};
+		(SCHEDULE_ID, MOZZLE_ID, WRITER, TITLE, CONTENT, SCHEDULE_DATE, REGDATE, DELFLAG,
+		LOCATION_CODE)
+		VALUES(SCHEDULE_SEQ.NEXTVAL, MOZZLE_ID?? , #{writer}, #{title}, #{content}, #{schedule_date}, SYSDATE, 'N',
+		#{location_code});
 	</insert>
 
 	<!-- 일정개수 -->

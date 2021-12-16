@@ -1,6 +1,9 @@
 package com.mozzle.web.ctrl.schedule;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mozzle.web.dto.schedule.ScheduleDto;
 import com.mozzle.web.service.schedule.IScheduleServiceImpl;
 
 /**
@@ -29,16 +31,12 @@ public class ScheduleCtrl{
 	
 	/**
 	 * 일정 전체 리스트
-	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/scheduleselectAll.do", method = RequestMethod.GET)
-	public String scheduleselectAll(Model model) {
+	@RequestMapping(value="/calendar.do", method = RequestMethod.GET)
+	public String scheduleselectAll(HttpServletRequest request) {
 		logger.info("ScheduleController 캘린더 출력");
-		List<ScheduleDto> list = schedule.scheduleselectAll(null);
-		model.addAttribute("list", list);
-		return "list";
+		
+		return "schedule/calendar";
 	}
-	
-	
 }
