@@ -35,19 +35,22 @@ public class TestMain2 {
 	@Test
 	public void test() {
 		SqlSessionTemplate session = context.getBean("sqlSessionTemplate",SqlSessionTemplate.class);
-		System.out.println("session 값="+session);
+		/*
+		 * System.out.println("session 값="+session);
+		 * 
+		 * assertNotNull(dao.selectMozzleByCreatDate());
+		 * 
+		 * MozzleDto mdto = new MozzleDto`();
+		 * 
+		 * mdto.setCategory_code("1/2/3"); mdto.setMozzle_intro("TEST01 MOZZLE입니다");
+		 * mdto.setMozzle_name("TEST01 MOZZLE"); mdto.setState("Y");
+		 * 
+		 * assertEquals(1, dao.registMozzle(mdto));
+		 */
+	
+		assertNotNull(dao.selectMozzleBySearchFromTheLastest("커피"));
 		
-		assertNotNull(dao.selectMozzleByCreatDate());
-		
-		MozzleDto mdto = new MozzleDto();
-		
-		mdto.setCategory_code("1/2/3");
-		mdto.setMozzle_intro("TEST01 MOZZLE입니다");
-		mdto.setMozzle_name("TEST01 MOZZLE");
-		mdto.setState("Y");
-		
-		assertEquals(1, dao.registMozzle(mdto));
+		assertNotNull(dao.selectMozzleBySearchBasedOnImportance("커피"));
 
 	}
-
 }

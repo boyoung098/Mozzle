@@ -18,16 +18,17 @@
 		<property name="driverClassName" value="${driver}" /> <property name="url" 
 		value="${url}" /> <property name="username" value="${user}" /> <property 
 		name="password" value="${pw}" /> </bean> -->
- <bean id="dataSource" class="oracle.ucp.jdbc.PoolDataSourceImpl">
-        <property name="connectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
-        <!-- Connection URL uses a TNS alias -->
-        <property name="URL" value="${url}" />
-        <property name="user" value="${user}" />
-        <property name="password" value="${pw}" />
-        <property name="minPoolSize" value="5" />
-        <property name="maxPoolSize" value="10" />
-        <property name="initialPoolSize" value="5" />
-    </bean>
+	<bean id="dataSource" class="oracle.ucp.jdbc.PoolDataSourceImpl">
+		<property name="connectionFactoryClassName"
+			value="oracle.jdbc.pool.OracleDataSource" />
+		<!-- Connection URL uses a TNS alias -->
+		<property name="URL" value="${url}" />
+		<property name="user" value="${user}" />
+		<property name="password" value="${pw}" />
+		<property name="minPoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+		<property name="initialPoolSize" value="5" />
+	</bean>
 
 	<bean id="sqlSessionFactoryBean"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -55,4 +56,30 @@
 				rollback-for="Exeption" />
 		</tx:attributes>
 	</tx:advice>
+	
+	<!-- 메일 보내기 -->
+	<!-- 서버의 정보를 입력해주면 됨 -->
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="dlwhdvy123@gmail.com"/>
+		<property name="password" value="qkrekfthsus" />
+				<!-- 만약 비밀번호 특수문자가 있다면 CDATA형식으로 변경 -->
+		<!-- 
+		<property name="password">
+			<value>
+				<![CDATA[adfadf]]>
+			</value>
+		</property>
+		-->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.debug">true</prop><!-- 메일을 보낼때 log -->
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<!-- 만약 TLS 문제가 발생하면 false로 해도됨 인증키를 생성 -->
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
 </beans>
