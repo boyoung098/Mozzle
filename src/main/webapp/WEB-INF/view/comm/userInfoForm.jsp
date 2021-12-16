@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<style>
+	.side-input{
+		width:275px;
+	}
+	.side-btn{
+		width: 75px;
+	}
+	.inline-flex{
+		display: inline-flex;
+	}
+</style>
 <label>아이디 
 	<input type="text" class="form-control input-login"
 		name="user_id" placeholder="아이디를 입력 해주세요" value="${sessionScope.userId}" ${sessionScope.userId != null ? "readonly": ""}/>
@@ -21,14 +31,18 @@
 	name="user_name" placeholder="이름을 입력 해주세요" />
 </label>
 <label>생년월일 <input type="date"
-	class="form-control input-login m-datepicker" name="birth"
+	class="form-control input-login" name="birth"
 	placeholder="생년월일을 입력 해주세요" />
 </label>
 <label>연락처 <input type="tel"
-	class="form-control input-login m-datepicker" name="tel"
+	class="form-control input-login" name="tel"
 	placeholder="휴대폰 번호를 입력 해주세요(010-xxxx-xxxx)" />
 </label>
-<label>이메일 <input type="email"
-	class="form-control input-login m-datepicker" name="email"
+<label>이메일 
+	<span class="inline-flex">
+	<input type="email"
+	class="form-control input-login side-input" name="email"
 	placeholder="이메일을 입력 해주세요" />
+	<button id="email-auth" class="color-btn input-login side-btn">인증하기</button></span>
 </label>
+<p id="mail-duplicated-result"></p>

@@ -23,7 +23,7 @@ public class MyPageRestController {
 
 	@RequestMapping(value="/userInfo.do", method=RequestMethod.POST)
 	public UserDto getUserInfo(String id){
-		UserDto dto = service.selectUserById(id);
+		UserDto dto = service.getUserInfo(id);
 		
 		return dto;
 	}
