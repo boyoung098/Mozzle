@@ -162,18 +162,18 @@
 						console.log($('#save_result').val());
 						
 						if($('#save_result').val() == 'true') {
-							alert('모즐이 성공적으로 등록되었습니다.');
+							alert('모즐이 성공적으로 수정되었습니다.');
 							$('#save_result').val('');
 							location.href = "./home.do";
 						} else {
-							alert('등록을 실패했습니다.');
+							alert('수정을 실패했습니다.');
 							$('#save_result').val('');
 						} 
 					}
 					
 				});
 
-		window.onload = function() {
+			window.onload = function() {
 			document.getElementById("image").src = "<%=request.getContextPath()%>/resources/images/img.png";
 		};
 
@@ -189,13 +189,13 @@
 			if(this.files != undefined && this.files[0] != null) {
 				reader.readAsDataURL(this.files[0]);
 			} else {
-				document.getElementById("image").src = "./resources/images/img.png";			}
+				document.getElementById("image").src = "./resources/images/img.png";
+			}
 		};
 		
 		function checkSubmit() {
 			alert($('#submitMozzleForm').val());
 		}
 	</script>
-
 </body>
 </html>

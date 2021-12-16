@@ -55,4 +55,9 @@ public class ManageServiceImpl implements IManageService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int updateMozzle(MozzleDto mozzle) {
+		return dao.updateMozzle(mozzle);
+	}
 }
