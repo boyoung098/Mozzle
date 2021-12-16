@@ -32,7 +32,7 @@
 </select>
 
 <select id="duplicationMailChk" parameterType="java.lang.String" resultType="java.lang.Integer">
-	SELECT COUNT(*) FROM USERS WHERE EMAIl = #{email}
+	SELECT COUNT(*) FROM USERS WHERE EMAIL = #{email}
 </select>
 
 </mapper>

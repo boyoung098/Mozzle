@@ -6,7 +6,7 @@
 <title>메인페이지</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<jsp:include page="./comm/import.jsp" />
+<%@ include file="./comm/import.jsp" %>
 
 <style>
 .card {

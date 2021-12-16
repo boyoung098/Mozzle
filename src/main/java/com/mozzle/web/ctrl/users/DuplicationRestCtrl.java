@@ -39,8 +39,8 @@ public class DuplicationRestCtrl {
 	@RequestMapping(value="/chkmail.do", method=RequestMethod.POST)
 	public Map<String, Boolean> chkmail(String email){
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		
-		int cnt = service.duplicationIdChk(email);
+
+		int cnt = service.duplicationMailChk(email);
 		logger.info("DuplicationChkController 입력 이메일 : {}", email);
 		logger.info("DuplicationChkController 중복 이메일 갯수 : {}", cnt);
 		

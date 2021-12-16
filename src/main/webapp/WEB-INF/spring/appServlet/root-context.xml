@@ -12,9 +12,7 @@
 	<mvc:annotation-driven />
 	<!-- 위쪽의 파일은 classpath! -->
 	<context:property-placeholder
-		location="classpath:properties/db.properties" />
-	<context:property-placeholder
-		location="classpath:properties/mail.properties" />
+		location="classpath:properties/*.properties" />
 
 	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"> 
 		<property name="driverClassName" value="${driver}" /> <property name="url" 
