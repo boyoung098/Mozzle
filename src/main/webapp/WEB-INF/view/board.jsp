@@ -10,17 +10,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <jsp:include page="./comm/import.jsp" />
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
-
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/HuskyEZCreator.js"></script>
 </head>
 <body>
-	<!-- <script type="text/javascript" 	src="./resources/js/HuskyEZCreator.js" charset="utf-8"></script>  -->
-	<jsp:include page="./comm/header.jsp">
-		<jsp:param value="${userId}" name="userId" />
-	</jsp:include>
-	<section class="container mt-3" id="new-mozzle2">
+	 <section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
 			<div class="col-sm-9">
 				<div class="mo-img">
@@ -54,7 +47,7 @@
 						<div class="">
 							<div class="form-group">
 								<label>게시글 작성</label>
-								<textarea rows="5" class="form-control" id="content" name="content"></textarea>
+								<textarea name="ir1" id="ir1" rows="10" cols="100">에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.</textarea>
 							</div>
 							<input type="submit" class="btn btn-block btn-bg" value="새 글작성">
 						</div>
@@ -177,35 +170,14 @@
 			</div>
 		</div>
 
-	</section>
-<%-- 	<form >
-		<table width="100%">
-			<tr>
-				<td>제목</td>
-				<td><input type="text" id="title" /></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea rows="10" cols="30" id="ir1" name="contents"
-						style="width: 766px; height: 412px;"></textarea></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="button" id="save" value="저장" /> <input
-					type="button" value="취소" /></td>
-			</tr>
-			<tr>
-				<td><input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" /></td>
-			</tr>
-		</table>
-	</form>  --%>
-	
+	</section> 
+
 
 	
 
 
-	<jsp:include page="./comm/footer.jsp" />
-	<script type="text/javascript">
+	<%-- <jsp:include page="./comm/footer.jsp" /> --%>
+	<!-- <script type="text/javascript">
 		 $(document).ready(function(){
 			$("#comment-btn").click(function(){
 				console.log("들어 온다?");
@@ -232,9 +204,17 @@
 		}); 
 			
 		
-	</script>
+	</script> -->
 	
-	
+<script type="text/javascript">
+	var oEditors = [];
+	nhn.husky.EZCreator.createInIFrame({
+		oAppRef : oEditors,
+		elPlaceHolder : "ir1",
+		sSkinURI : '<%=request.getContextPath()%>/resources/smarteditor2/SmartEditor2Skin.html',
+		fCreator : "createSEditor2"
+	});
+</script>
 	
 	
 	
