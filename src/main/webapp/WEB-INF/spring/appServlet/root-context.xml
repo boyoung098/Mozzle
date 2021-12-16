@@ -64,6 +64,10 @@
 		<property name="port" value="${mail_port}" />
 		<property name="username" value="${mail_username}"/>
 		<property name="password" value="${mail_password}" />
+
+		<!--<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" /> -->
+
 				<!-- 만약 비밀번호 특수문자가 있다면 CDATA형식으로 변경 -->
 		<!-- 
 		<property name="password">
