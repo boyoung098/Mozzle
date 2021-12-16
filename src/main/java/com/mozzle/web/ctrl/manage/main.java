@@ -9,5 +9,7 @@ public class main {
 		
 		IManageDao dao = new ManageDaoImpl();
 		System.out.println(dao.selectMozzleBySearchFromTheLastest("커피"));
+		
+		System.out.println();
 	}
 }

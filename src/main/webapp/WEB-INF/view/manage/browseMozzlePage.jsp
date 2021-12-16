@@ -13,12 +13,14 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/broweCategory.js"></script>
 <jsp:include page="../comm/import.jsp" />
+
 
 <style>
 .card {
-	width: 90%;
-	height: 80px;
+	width: 100%;
+	height: 70px;
 }
 
 .image-wrap1 {
@@ -39,6 +41,11 @@
 	max-width: 100%;
 	max-height: 100%;
 }
+
+a:hover {
+	color: blue;
+	text-decoration: underline;
+}
 </style>
 </head>
 <body>
@@ -49,61 +56,39 @@
 		<div class="container-fluid">
 			<div class="row content">
 				<div class="col-sm-9 sidenav">
-					<h5>
-						<small>모즐검색결과</small>
-					</h5>
+					<h4>모즐검색결과</h4>
+					<a href=#>관련도순</a><a href="./browseMozzleFromTheLastest.do">최신순</a>
 					<hr>
-					<ul class="nav nav-pills nav-stacked">
-						<c:forEach var="mozzle" items="mLists">
-						<li>
-							<div class="container-fluid">
-								<div class="row">
-									<div class="col-sm-2">
-										<img class="card"
-											src="<%=request.getContextPath()%>/resources/upload/basic.png"
-											alt="img" />
-									</div>
-									<div class="col-sm-9">
-										<ul>
-											<li>${mozzle.mozzle_name}</li>
-											<li>${mozzle.mozzle_intro}</li>
-										</ul>	
+					<c:forEach var="mozzle" items="${mLists}">
+						<ul class="nav nav-pills nav-stacked">
+							<li>
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-sm-1">
+											<a href=#><img class="card"
+												src="<%=request.getContextPath()%>/resources/upload/basic.png"
+												alt="img" /></a>
+										</div>
+										<div class="col-sm-9"
+											style="align-items: center; justify-content: center;">
+											<ul>
+												<li><a href=#>${mozzle.mozzle_name}</a></li>
+												<li><a href=#>${mozzle.mozzle_intro}</a></li>
+												<li>회원수 : 110 <span></span> 리더 : 홍길동
+												</li>
+											</ul>
+
+										</div>
 									</div>
 								</div>
-							</div>
-						</li>
-						</c:forEach>
-					</ul>
+							</li>
+						</ul>
+					</c:forEach>
 					<br>
 				</div>
 
 				<div class="col-sm-3">
 
-					<h2>I Love Food</h2>
-					<h5>
-						<span class="glyphicon glyphicon-time"></span> Post by Jane Dane,
-						Sep 27, 2015.
-					</h5>
-					<h5>
-						<span class="label label-danger">Food</span> <span
-							class="label label-primary">Ipsum</span>
-					</h5>
-					<br>
-					<p>Food is my passion. Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-						dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Excepteur sint occaecat cupidatat non proident, sunt in
-						culpa qui officia deserunt mollit anim id est laborum consectetur
-						adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-						dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat.</p>
-					<br> <br>
-
-					<h4>
-						<small>RECENT POSTS</small>
-					</h4>
 					<hr>
 					<h2>Officially Blogging</h2>
 					<h5>
@@ -114,77 +99,28 @@
 						<span class="label label-success">Lorem</span>
 					</h5>
 					<br>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-						do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-						enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat
-						cupidatat non proident, sunt in culpa qui officia deserunt mollit
-						anim id est laborum consectetur adipiscing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-						minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-						aliquip ex ea commodo consequat.</p>
-					<hr>
 
-					<h4>Leave a Comment:</h4>
-					<form role="form">
-						<div class="form-group">
-							<textarea class="form-control" rows="3" required></textarea>
-						</div>
-						<button type="submit" class="btn btn-success">Submit</button>
-					</form>
-					<br> <br>
+					<h4>실시간 BEST 카테고리</h4>
 
-					<p>
-						<span class="badge">2</span> Comments:
-					</p>
-					<br>
+					<table>
+						<ul>
+							<li>1. 운동</li>
+							<li>2. 취미</li>
+							<li>3. 여행</li>
+							<li>4. 반려동물</li>
+							<li>5. 자기개발</li>
+							<li>6. 독서</li>
+							<li>7. 육아</li>
+							<li>8. 음악</li>
+							<li>9. 예술</li>
+							<li>10. 그림</li>
+							<li>11. 서핑</li>
+							<li>12. 친구찾기</li>
+						</ul>
+					</table>
 
-					<div class="row">
-						<div class="col-sm-2 text-center">
-							<img src="bandmember.jpg" class="img-circle" height="65"
-								width="65" alt="Avatar">
-						</div>
-						<div class="col-sm-10">
-							<h4>
-								Anja <small>Sep 29, 2015, 9:12 PM</small>
-							</h4>
-							<p>Keep up the GREAT work! I am cheering for you!! Lorem
-								ipsum dolor sit amet, consectetur adipiscing elit, sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-							<br>
-						</div>
-						<div class="col-sm-2 text-center">
-							<img src="bird.jpg" class="img-circle" height="65" width="65"
-								alt="Avatar">
-						</div>
-						<div class="col-sm-10">
-							<h4>
-								John Row <small>Sep 25, 2015, 8:25 PM</small>
-							</h4>
-							<p>I am so happy for you man! Finally. I am looking forward
-								to read about your trendy life. Lorem ipsum dolor sit amet,
-								consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-								labore et dolore magna aliqua.</p>
-							<br>
-							<p>
-								<span class="badge">1</span> Comment:
-							</p>
-							<br>
-							<div class="row">
-								<div class="col-sm-2 text-center">
-									<img src="bird.jpg" class="img-circle" height="65" width="65"
-										alt="Avatar">
-								</div>
-								<div class="col-xs-10">
-									<h4>
-										Nested Bro <small>Sep 25, 2015, 8:28 PM</small>
-									</h4>
-									<p>Me too! WOW!</p>
-									<br>
-								</div>
-							</div>
-						</div>
-					</div>
+
+
 				</div>
 			</div>
 		</div>

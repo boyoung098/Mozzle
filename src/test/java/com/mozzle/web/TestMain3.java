@@ -57,6 +57,14 @@ public class TestMain3 {
 		/**
 		 * 일정등록
 		 */
+
+		ScheduleDto dto = 
+				new ScheduleDto();
+		dao.scheduleinsert(dto);
+
+		//List<Board> boardlist = dao.selectAllBoard();
+		//assertNotNull(boardlist);
+
 		/*
 		 * ScheduleDto dto = new ScheduleDto(); dao.scheduleinsert(dto);
 		 * 

@@ -9,7 +9,6 @@
 		FROM SCHEDULES
 	</select>
 
-
 	<!-- 일정추가 -->
 	<insert id="scheduleinsert" parameterType="java.lang.Integer">
 		INSERT INTO SCHEDULES
