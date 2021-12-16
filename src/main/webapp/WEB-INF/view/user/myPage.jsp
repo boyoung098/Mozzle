@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../comm/import.jsp" %>
 <%-- <% 
 	Cookie[] cookies = request.getCookies();
 	if(cookies != null){
@@ -18,7 +19,6 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<jsp:include page="../comm/import.jsp" />
 <style>
 
 .my-page-menu{

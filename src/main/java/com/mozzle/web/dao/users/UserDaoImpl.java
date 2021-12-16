@@ -37,6 +37,11 @@ public class UserDaoImpl implements IUserDao{
 	public int duplicationIdChk(String id) {
 		return session.selectOne(NS + "duplicationIdChk", id);
 	}
+	
+	@Override
+	public int duplicationMailChk(String mail) {
+		return session.selectOne(NS + "duplicationMailChk", mail);
+	}
 
 	@Override
 	public boolean passwordChk(String id, String comparePw) {
@@ -47,8 +52,8 @@ public class UserDaoImpl implements IUserDao{
 	}
 
 	@Override
-	public UserDto selectUserById(String id) {
-		return session.selectOne(NS + "selectUserById", id);
+	public UserDto getUserInfo(String id) {
+		return session.selectOne(NS + "getUserInfo", id);
 	}
 
 }

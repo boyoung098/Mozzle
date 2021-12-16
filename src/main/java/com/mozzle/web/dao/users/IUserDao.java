@@ -13,5 +13,7 @@ public interface IUserDao {
 	
 	public int duplicationIdChk(String id);
 	
-	public UserDto selectUserById(String id);
+	public int duplicationMailChk(String mail);
+	
+	public UserDto getUserInfo(String id);
 }

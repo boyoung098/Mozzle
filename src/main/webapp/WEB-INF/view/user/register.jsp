@@ -63,6 +63,37 @@ $(function(){
 		}
 	});
 	
+	// 이메일 중복 체크
+	$(document).on("input", "input[name=email]", function(e){
+		var idRegEx = /^[A-Za-z]{1}[A-Za-z0-9]{5,19}$/g;
+		var idVal = $(this).val();
+		console.log(idVal);
+		var result = idRegEx.test(idVal);
+		if(idVal.indexOf(" ") != -1){
+			$("#id-duplicated-result").text("아이디에 공백은 포함될 수 없습니다");
+		}
+		//else if(idVal.length <= 5 || idVal.length > 20){
+		else if(result){
+			e.preventDefault();
+			$.ajax({
+				url:"./duplication/chkid.do",
+				type:"post",
+				data:{id: idVal},
+				success: function(result){
+					if(result.duplicated){
+						$("#id-duplicated-result").text("사용할 수 없는 아이디입니다.");
+					}
+					else{
+						$("#id-duplicated-result").text("사용가능한 아이디입니다.");
+					}
+				}
+			});
+		}
+		else{
+			$("#id-duplicated-result").text("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
+		}
+	});
+	
 	
 });
 </script>
@@ -77,7 +108,7 @@ $(function(){
 				<h2>회원가입</h2>
 				<div>
 					
-					<%-- <jsp:include page="../comm/userInfoForm.jsp" /> --%>
+					<jsp:include page="../comm/userInfoForm.jsp" />
 					<input type="submit" class="color-btn input-login" value="회원가입" />
 				</div>
 
