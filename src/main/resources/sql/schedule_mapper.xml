@@ -14,7 +14,6 @@
 		S.LOCATION_CODE = si.LOCATION_CODE ;
 	</select>
 
-
 	<!-- 일정추가 -->
 	<insert id="scheduleinsert" parameterType="java.lang.Integer">
 		INSERT INTO

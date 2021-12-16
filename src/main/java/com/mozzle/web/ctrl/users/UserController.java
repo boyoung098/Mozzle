@@ -48,6 +48,7 @@ public class UserController {
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		HttpSession session = req.getSession();
 		System.out.println(passwordChk);
+		System.out.println(service);
 		boolean checked = service.passwordChk(session.getAttribute("userId").toString(), passwordChk);
 		map.put("result", checked);
 		return map;
@@ -56,7 +57,7 @@ public class UserController {
 	@RequestMapping(value="/updateUser.do", method=RequestMethod.GET)
 	public String updateUser(Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		model.addAttribute("userDto", service.selectUserById(session.getAttribute("userId").toString()));
+		model.addAttribute("userDto", service.getUserInfo(session.getAttribute("userId").toString()));
 		return "user/updateUser";
 	}
 	

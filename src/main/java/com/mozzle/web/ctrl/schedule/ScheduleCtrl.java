@@ -33,10 +33,20 @@ public class ScheduleCtrl{
 	 * 일정 전체 리스트
 	 * @return
 	 */
+
 	@RequestMapping(value="/calendar.do", method = RequestMethod.GET)
 	public String scheduleselectAll(HttpServletRequest request) {
 		logger.info("ScheduleController 캘린더 출력");
 		
 		return "schedule/calendar";
+  }
+
+	@RequestMapping(value="/scheduleselectAll", method = RequestMethod.GET)
+	public String scheduleselectAll(Model model) {
+		logger.info("ScheduleController 캘린더 출력");
+		List<ScheduleDto> list = schedule.scheduleselectAll(null);
+		model.addAttribute("list", list);
+		return "schedule/schedule";
+
 	}
 }

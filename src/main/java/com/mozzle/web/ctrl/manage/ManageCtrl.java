@@ -61,11 +61,7 @@ public class ManageCtrl {
 	}
 	
 	@PostMapping("/imageUpload.do")
-	public String registMozzle(MozzleDto mozzle, Model model, HttpServletRequest request
-			/*
-								 * HttpServletRequest request, HttpServletResponse
-								 * response, @RequestParam("uploadFile") MultipartFile file
-								 */) throws IllegalStateException, IOException{
+	public String registMozzle(MozzleDto mozzle, Model model, HttpServletRequest request) throws IllegalStateException, IOException{
 		
 		logger.info("imageUpload.do");
 		logger.info("ManageCtrl의 registMozzle {}", mozzle);
@@ -109,27 +105,77 @@ public class ManageCtrl {
 	
 		if (n == 1) {
 			model.addAttribute("result", "true");
-//			out.println("<script>alert('모즐이 성공적으로 등록되었습니다');</script>");
-//			out.flush();
-//			return "redirect:/manage/home.do";
 			return "manage/registMozzleForm";
 		} else {
 			model.addAttribute("result", "false");
-//			out.println("<script>alert('등록을 실패했습니다');</script>");
-//			out.flush();
 			return "manage/registMozzleForm";
 		}	
 	}
 	
 	@RequestMapping(value = "/modifyMozzleForm.do", method= RequestMethod.GET)
-	public String modifyMozzleForm(@RequestParam String mozzle_id, Model model) {
-		
+	public String modifyMozzleForm(Model model) {
+		//모즐 아이디 1로 설정 (연결 후 삭제)
+		String mozzle_id ="1";
 		logger.info("modifyMozzleForm.do");
 		
 		MozzleDto mDto = service.selectMozzleByMozzleId(mozzle_id);
-		model.addAttribute("mDto", mDto);
+		
+		if(mDto.getState().equals("Y")) {
+			mDto.setState("checked");
+			
+		} else {
+			mDto.setState(null);
+		}
+		
+		model.addAttribute("mozzle", mDto);
+		model.addAttribute("mozze_id", mozzle_id);
 		
 		return "manage/modifyMozzleForm";
 	}
 	
+	@RequestMapping(value = "/modifyMozzle.do", method= RequestMethod.POST)
+	public String modifyMozzle(MozzleDto mozzle, Model model, HttpServletRequest request) throws IOException {
+		
+		logger.info("ManageCtrl의 modifyMozzle {}", mozzle);
+		
+		String image_origin = null; 
+		String image_saved= null; 
+		MultipartFile uploadImage = mozzle.getUploadFile();
+		
+		if(!uploadImage.isEmpty()) { 
+			image_origin = uploadImage.getOriginalFilename(); 
+			String image_origin_extension = image_origin.substring(image_origin.lastIndexOf(".")); 
+			image_saved = UUID.randomUUID().toString().replace("-", "") + image_origin_extension;
+
+			Resource resource = resourceLoader.getResource("resources/upload/");	
+	
+			File file = new File(resource.getFile().getPath() +"\\"+ image_saved);
+			
+			System.out.println("====================================>"+ image_origin);
+			System.out.println(resource.getFile().getPath() + "\\"+ image_saved);
+			System.out.println("====================================>"+ image_saved); 
+			
+			uploadImage.transferTo(file);
+			
+			mozzle.setImage_origin(image_origin);
+			mozzle.setImage_saved(image_saved);
+		}	
+		
+		if(mozzle.getState() != null) {
+			mozzle.setState("Y");	
+		} else {
+			mozzle.setState("N");
+		}
+			
+		int n = service.updateMozzle(mozzle);
+		
+		if(n==1) {
+			model.addAttribute("result", "true");
+			return "manage/modifyMozzleForm";
+			
+		} else {
+			model.addAttribute("result", "false");
+			return "manage/modifyMozzleForm";
+		}	
+	}
 }
