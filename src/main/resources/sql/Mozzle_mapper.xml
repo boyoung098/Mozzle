@@ -24,8 +24,15 @@
 						#{image_origin}, #{image_saved},
 						</if>
 						SYSDATE, #{category_code}, #{state}, 'N')	
-	</insert>
-
+	</insert>	
+	
+	<update id="updateMozzle" parameterType="mDto">
+		UPDATE ADMIN.MOZZLE
+			SET MOZZLE_NAME=#{mozzle_name}, MOZZLE_INTRO=#{mozzle_intro}, 
+			IMAGE_ORIGIN=#{image_origin}, IMAGE_SAVED=#{image_saved}, 
+			CATEGORY_CODE=#{category_code}, STATE=#{state}
+				WHERE MOZZLE_ID= #{mozzle_id}
+	</update>
 	
 	<select id="selectMozzleByCreatDate" resultType="mDto">
 		SELECT MOZZLE_ID, MOZZLE_NAME, 
