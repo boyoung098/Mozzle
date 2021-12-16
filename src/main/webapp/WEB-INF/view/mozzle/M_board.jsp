@@ -9,14 +9,12 @@
 <title>모즐메인</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" type="image/png" sizes="16x16"
-	href="<%=request.getContextPath()%>/resources/images/logo/favicon.png">
-<jsp:include page="./comm/import.jsp" />
-<%-- <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/HuskyEZCreator.js"></script> --%>
-<script src="./resources/js/summernote/summernote-lite.js"></script>
-<script src="./resources/js/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/resources/images/logo/favicon.png">
+<%@ include file="../comm/import.jsp"%>
+<script src="<%=request.getContextPath()%>/resources/js/summernote/summernote-lite.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 
-<link rel="stylesheet" href="./resources/css/summernote/summernote-lite.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/summernote/summernote-lite.css">
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -38,7 +36,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<jsp:include page="./comm/header.jsp" >
+	<jsp:include page="../comm/header.jsp" >
 		<jsp:param value="${userId}" name="userId"/>
 	</jsp:include>
 	<section class="container mt-3" id="new-mozzle2">
@@ -48,7 +46,7 @@ $(document).ready(function() {
 					<img src="<%=request.getContextPath()%>/resources/images/main.png"
 						alt="메인" />
 					<div class="mo-text">
-						<h4>로아하는 로아인 모여!<a href="./manage/modifyMozzleForm.do" style="color:red; font-size:12px;">모즐 설정</a></h4>
+						<h4>로아하는 로아인 모여!1111<a href="./manage/modifyMozzleForm.do" style="color:red; font-size:12px;">모즐 설정</a></h4>
 						<p>그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되려니와 그와 같지
 							못하고그림자가 사라지지 않는 것이다 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되
 						</p>
@@ -206,9 +204,8 @@ $(document).ready(function() {
 
 
 
+	<%@include file="../comm/footer.jsp" %>
 
-
-	<%-- <jsp:include page="./comm/footer.jsp" /> --%>
 	<!-- <script type="text/javascript">
 		 $(document).ready(function(){
 			$("#comment-btn").click(function(){
