@@ -20,16 +20,17 @@
 		<property name="driverClassName" value="${driver}" /> <property name="url" 
 		value="${url}" /> <property name="username" value="${user}" /> <property 
 		name="password" value="${pw}" /> </bean> -->
- <bean id="dataSource" class="oracle.ucp.jdbc.PoolDataSourceImpl">
-        <property name="connectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
-        <!-- Connection URL uses a TNS alias -->
-        <property name="URL" value="${url}" />
-        <property name="user" value="${user}" />
-        <property name="password" value="${pw}" />
-        <property name="minPoolSize" value="5" />
-        <property name="maxPoolSize" value="10" />
-        <property name="initialPoolSize" value="5" />
-    </bean>
+	<bean id="dataSource" class="oracle.ucp.jdbc.PoolDataSourceImpl">
+		<property name="connectionFactoryClassName"
+			value="oracle.jdbc.pool.OracleDataSource" />
+		<!-- Connection URL uses a TNS alias -->
+		<property name="URL" value="${url}" />
+		<property name="user" value="${user}" />
+		<property name="password" value="${pw}" />
+		<property name="minPoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+		<property name="initialPoolSize" value="5" />
+	</bean>
 
 	<bean id="sqlSessionFactoryBean"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
