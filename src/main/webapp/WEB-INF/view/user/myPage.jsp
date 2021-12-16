@@ -18,7 +18,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<jsp:include page="../comm/import.jsp" />
+<%@ include file="../comm/import.jsp" %>
 <style>
 
 .my-page-menu{

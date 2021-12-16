@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
-<jsp:include page="../comm/import.jsp" />
+<%@ include file="../comm/import.jsp" %>
 
 <script type="text/javascript">
 
@@ -63,6 +63,39 @@ $(function(){
 		}
 	});
 	
+	// 이메일 중복 체크
+	$(document).on("click", "#email-auth", function(e){
+		e.preventDefault();
+		var emailRegEx = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		var emailVal = $("input[name=email]").val();
+		console.log(emailVal);
+		var result = emailRegEx.test(emailVal);
+		if(emailVal.indexOf(" ") != -1){
+			$("#mail-duplicated-result").text("이메일에 공백은 포함될 수 없습니다");
+		}
+		//else if(idVal.length <= 5 || idVal.length > 20){
+		else if(result){
+			e.preventDefault();
+			$.ajax({
+				url:"./duplication/chkmail.do",
+				type:"post",
+				data:{email: emailVal},
+				success: function(result){
+					if(result.duplicated){
+						$("#mail-duplicated-result").text("사용할 수 없는 이메일입니다.");
+					}
+					else{
+						
+						$("#mail-duplicated-result").text("사용가능한 이메일입니다.");
+					}
+				}
+			});
+		}
+		else{
+			$("#mail-duplicated-result").text("이메일 형식에 맞게 입력해주세요.");
+		}
+	});
+	
 	
 });
 </script>
@@ -77,7 +110,7 @@ $(function(){
 				<h2>회원가입</h2>
 				<div>
 					
-					<%-- <jsp:include page="../comm/userInfoForm.jsp" /> --%>
+					<jsp:include page="../comm/userInfoForm.jsp" />
 					<input type="submit" class="color-btn input-login" value="회원가입" />
 				</div>
 

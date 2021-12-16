@@ -26,9 +26,13 @@
 	SELECT COUNT(*) FROM USERS WHERE USER_ID = #{id}
 </select>
 
-<select id="selectUserById" parameterType="java.lang.String" resultType="uDto">
+<select id="getUserInfo" parameterType="java.lang.String" resultType="uDto">
 	SELECT USER_NAME, BIRTH, EMAIL, TEL
 	FROM USERS WHERE USER_ID = #{id}
+</select>
+
+<select id="duplicationMailChk" parameterType="java.lang.String" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM USERS WHERE EMAIL = #{email}
 </select>
 
 </mapper>

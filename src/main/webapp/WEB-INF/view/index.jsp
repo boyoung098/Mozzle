@@ -6,8 +6,10 @@
 <title>메인페이지</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<%@ include file="./comm/import.jsp" %>
 <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/resources/images/logo/favicon.png">
-<jsp:include page="./comm/import.jsp" />
+<!-- <jsp:include page="./comm/import.jsp" /> -->
+
 
 <style>
 .card {

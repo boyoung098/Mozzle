@@ -29,6 +29,11 @@ public class UserServiceImpl implements IUserService{
 	public int duplicationIdChk(String id) {
 		return dao.duplicationIdChk(id);
 	}
+	
+	@Override
+	public int duplicationMailChk(String mail) {
+		return dao.duplicationMailChk(mail);
+	}
 
 	@Override
 	public boolean passwordChk(String id, String comparePw) {
@@ -36,8 +41,8 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public UserDto selectUserById(String id) {
-		return dao.selectUserById(id);
+	public UserDto getUserInfo(String id) {
+		return dao.getUserInfo(id);
 	}
 
 }

@@ -12,7 +12,7 @@
 	<mvc:annotation-driven />
 	<!-- 위쪽의 파일은 classpath! -->
 	<context:property-placeholder
-		location="classpath:properties/db.properties" />
+		location="classpath:properties/*.properties" />
 
 	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"> 
 		<property name="driverClassName" value="${driver}" /> <property name="url" 
@@ -60,8 +60,14 @@
 	<!-- 메일 보내기 -->
 	<!-- 서버의 정보를 입력해주면 됨 -->
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
+		<property name="host" value="${mail_host}" />
+		<property name="port" value="${mail_port}" />
+		<property name="username" value="${mail_username}"/>
+		<property name="password" value="${mail_password}" />
+
+		<!--<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" /> -->
+
 				<!-- 만약 비밀번호 특수문자가 있다면 CDATA형식으로 변경 -->
 		<!-- 
 		<property name="password">
