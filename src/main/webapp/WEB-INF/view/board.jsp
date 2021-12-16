@@ -9,11 +9,32 @@
 <title>모즐메인</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" sizes="16x16"
+	href="<%=request.getContextPath()%>/resources/images/logo/favicon.png">
 <jsp:include page="./comm/import.jsp" />
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/HuskyEZCreator.js"></script>
+<%-- <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/HuskyEZCreator.js"></script> --%>
+<script src="./resources/js/summernote/summernote-lite.js"></script>
+<script src="./resources/js/summernote/lang/summernote-ko-KR.js"></script>
+
+<link rel="stylesheet" href="./resources/css/summernote/summernote-lite.css">
+
+<script type="text/javascript">
+$(document).ready(function() {
+	//여기 아래 부분
+	$('#summernote').summernote({
+		  height: 300,                 // 에디터 높이
+		  minHeight: null,             // 최소 높이
+		  maxHeight: null,             // 최대 높이
+		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",					// 한글 설정
+		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+          
+	});
+});
+</script>
 </head>
 <body>
-	 <section class="container mt-3" id="new-mozzle2">
+	<section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
 			<div class="col-sm-9">
 				<div class="mo-img">
@@ -42,21 +63,25 @@
 					</div>
 				</div>
 				<div class="board-container" id="items">
-				<div class="txt mt-3">
-					<form action="./insertBoard.do" method="post" id="insertcontent">
+					<div class="txt mt-3">
+						<!-- <form action="./insertBoard.do" method="post" id="insertcontent">
 						<div class="">
 							<div class="form-group">
 								<label>게시글 작성</label>
-								<textarea name="ir1" id="ir1" rows="10" cols="100">에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.</textarea>
+								<textarea name="ir1" id="ir1" rows="10" cols="100">내용을 입력해주세요.</textarea>
 							</div>
 							<input type="submit" class="btn btn-block btn-bg" value="새 글작성">
 						</div>
-					</form>
-					<%-- <form action="./updateboard.do" method="get" id="hupdate">
+					</form> -->
+						<form method="post" action="./insertBoard.do">
+							<textarea id="summernote" name="content"></textarea>
+							<button id="subBtn" type="button">글 작성</button>
+						</form>
+						<%-- <form action="./updateboard.do" method="get" id="hupdate">
 						<input type="hidden" id="post_id" name="post_id" value="${boardlist.content}">
 					</form> --%>
-				</div>
-				
+					</div>
+
 					<div class="board-top mt-3">
 						<select class="board-sel selectbox">
 							<option value="new1">최신 순</option>
@@ -64,50 +89,50 @@
 						</select>
 					</div>
 					<c:forEach var="boardobj" items="${requestScope.boardlist}">
-					<section id="board-card-list">
-						<div class="borad-box row" id="borad-box">
-							<div class="col-sm-11 board-box-list">
-								<div class="meeber-thumbnail">
-									<img src="./resources/images/weast044_01.jpg" alt="하늘">
+						<section id="board-card-list">
+							<div class="borad-box row" id="borad-box">
+								<div class="col-sm-11 board-box-list">
+									<div class="meeber-thumbnail">
+										<img src="./resources/images/weast044_01.jpg" alt="하늘">
+									</div>
+									<span>${boardobj.user_id}</span> <span>${boardobj.regdate}</span>
 								</div>
-								<span>${boardobj.user_id}</span> <span>${boardobj.regdate}</span>
-							</div>
-							<div class="col-sm-1 drop-board-box">
-								<i class="xi-ellipsis-h xi-2x"></i>
-								<ul class="drop-board">
-									<li><a class="btn-invite" id="board_update">수정</a></li>
-									<li><a class="btn-invite" id="board_delete">삭제</a></li>
-									<!-- <li><button class="btn-invite">주소복사</button></li> -->
-									<li><button id="myModal2" class="btn-invite no-padding"
-											data-toggle="modal" data-target="#myModal2">신고</button></li>
-								</ul>
-							</div>
-							<div class="board-text-container">
-								<p>${boardobj.content}</p>
-								<!-- 댓글 -->
-								<div id="reply-comment">
-								 ${result.content}
-								 ${result.regdate}
+								<div class="col-sm-1 drop-board-box">
+									<i class="xi-ellipsis-h xi-2x"></i>
+									<ul class="drop-board">
+										<li><a class="btn-invite" id="board_update">수정</a></li>
+										<li><a class="btn-invite" id="board_delete">삭제</a></li>
+										<!-- <li><button class="btn-invite">주소복사</button></li> -->
+										<li><button id="myModal2" class="btn-invite no-padding"
+												data-toggle="modal" data-target="#myModal2">신고</button></li>
+									</ul>
 								</div>
-								<!-- 댓글 -->
-							</div>
+								<div class="board-text-container">
+									<p>${boardobj.content}</p>
+									<!-- 댓글 -->
+									<div id="reply-comment">${result.content}
+										${result.regdate}</div>
+									<!-- 댓글 -->
+								</div>
 
-							<div class="board-cion">
-								<div class="comment-icon">
-									<i class="xi-star-o xi-2x"></i>
+								<div class="board-cion">
+									<div class="comment-icon">
+										<i class="xi-star-o xi-2x"></i>
+									</div>
+									<div class="comment-icon comment-write">
+										<i class="xi-speech-o xi-2x"></i>
+									</div>
+									<div class="comment">
+										<form id="reply" action="./reinboard.do" method="post">
+											<input type="text" id="contentId"
+												class="form-control comment-input" name="contentId" /> <input
+												type="submit" value="댓글" class="comment-btn"
+												id="comment-btn" />
+										</form>
+									</div>
 								</div>
-								<div class="comment-icon comment-write">
-									<i class="xi-speech-o xi-2x"></i>
-								</div>
-								<div class="comment">
-									<form id="reply" action="./reinboard.do" method="post">
-										<input type="text" id="contentId"class="form-control comment-input" name="contentId" /> 
-										<input type="submit" value="댓글" class="comment-btn" id="comment-btn"/>
-									</form>
-								</div>
+
 							</div>
-							
-						</div>
 						</section>
 					</c:forEach>
 				</div>
@@ -170,10 +195,10 @@
 			</div>
 		</div>
 
-	</section> 
+	</section>
 
 
-	
+
 
 
 	<%-- <jsp:include page="./comm/footer.jsp" /> --%>
@@ -205,19 +230,21 @@
 			
 		
 	</script> -->
+	<script type="text/javascript">
+		function goWrite(frm){
+			var content = frm.content.value;
+			
+			if(content.eqauls == ""){
+				alert("내용을 입력해주세요.");
+				return false;
+			}
+			frm.submit();
+		}
+	</script>
 	
-<script type="text/javascript">
-	var oEditors = [];
-	nhn.husky.EZCreator.createInIFrame({
-		oAppRef : oEditors,
-		elPlaceHolder : "ir1",
-		sSkinURI : '<%=request.getContextPath()%>/resources/smarteditor2/SmartEditor2Skin.html',
-		fCreator : "createSEditor2"
-	});
-</script>
-	
-	
-	
-	
+
+
+
+
 </body>
 </html>
