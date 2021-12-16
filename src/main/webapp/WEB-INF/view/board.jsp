@@ -30,10 +30,17 @@ $(document).ready(function() {
 		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
           
 	});
+	
+	$("#invite-user").click(function(){
+		location.href="./guestInvite.do?mozzle_id=1";
+	})
 });
 </script>
 </head>
 <body>
+	<jsp:include page="./comm/header.jsp" >
+		<jsp:param value="${userId}" name="userId"/>
+	</jsp:include>
 	<section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
 			<div class="col-sm-9">
@@ -41,7 +48,7 @@ $(document).ready(function() {
 					<img src="<%=request.getContextPath()%>/resources/images/main.png"
 						alt="메인" />
 					<div class="mo-text">
-						<h4>로아하는 로아인 모여!</h4>
+						<h4>로아하는 로아인 모여!<a href="./manage/modifyMozzleForm.do" style="color:red; font-size:12px;">모즐 설정</a></h4>
 						<p>그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되려니와 그와 같지
 							못하고그림자가 사라지지 않는 것이다 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되
 						</p>
@@ -57,8 +64,8 @@ $(document).ready(function() {
 						<ul>
 							<li>게시글</li>
 							<li>사진첩</li>
-							<li>일정</li>
-							<!-- <li>정보</li> -->
+							<li><a href="./calendar.do">일정</a></li>
+							<li>설정</li>
 						</ul>
 					</div>
 				</div>
@@ -170,7 +177,7 @@ $(document).ready(function() {
 							<h4>멤버</h4>
 							<span>123</span>
 						</div>
-						<button type="button" class="btn-invite">멤버 초대</button>
+						<button type="button" id="invite-user" class="btn-invite">멤버 초대</button>
 					</div>
 					<div class="member-box input-search">
 						<form action="" method="">
