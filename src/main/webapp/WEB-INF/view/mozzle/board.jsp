@@ -10,7 +10,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <jsp:include page="../comm/import.jsp" />
-<script type="text/javascript" 	src="<%=request.getContextPath()%>/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -31,6 +30,7 @@
 						<h4>로아하는 로아인 모여!</h4>
 						<p>그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되려니와 그와 같지
 							못하고그림자가 사라지지 않는 것이다 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되
+							<%= request.getSession().getServletContext().getRealPath("/") %>
 						</p>
 						<div class="mo-member">
 							<ul>
@@ -158,33 +158,37 @@
 						<button type="button" class="btn-invite">멤버 초대</button>
 					</div>
 					<div class="member-box input-search">
-						<form action="" method="">
+						
 							<input type="text" class="form-control" placeholder="멤버 검색" id="memberSearchName">
 							<span class="input-group-btn">
-								<button class="btn btn-default" type="button"  onclick="memberSearch()">
+								<button class="btn btn-default" type="button" onclick="memberSearch()">
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
 							</span>
-						</form>
+						
 					</div>
 					<ul id="mozzleuserul">
-						<li id="invite" value="invite" data-toggle="modal"
-							data-target="#myModal" style="margin-bottom: 10px;">
-							<div class="meeber-thumbnail">
-								<img src="../resources/images/weast044_01.jpg" alt="하늘">
-							</div> <span>아프리카</span>
-						</li>
+						<%-- <% String imgpath = request.getSession().getServletContext().getRealPath("/")+"storage"+"\\"; %> --%>
+						 
 						<c:forEach var="mozzleUser" items="${mozzleuserList}">
 						<li id="invite" value="invite" data-toggle="modal"
 							data-target="#myModal" style="margin-bottom: 10px;">
 							<div class="meeber-thumbnail">
-								<img src="../resources/images/weast044_01.jpg" alt="하늘">
+								<c:choose>
+									<c:when test="${mozzleUser.image_saved == null}">
+										<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="">
+									</c:when>
+									<c:otherwise>
+										<img src="<%=request.getContextPath()%>/storage/065c83f5-4ac8-4817-9a4e-475b224f56ca.jfif" alt="">
+									</c:otherwise>
+								</c:choose>
 							</div> <span>${mozzleUser.nickname}</span>
 						</li>
 						</c:forEach>
 					</ul>
 				</div>
-
+<!-- **************************멤버리스트뿌리는곳*************************  -->
+				<%-- <%=imgpath%>${mozzleUser.image_saved}.jfif --%>
 			</div>
 		</div>
 
@@ -241,191 +245,7 @@
 
 
 	<jsp:include page="../comm/footer.jsp" />
-	<script type="text/javascript">
-		 var oEditors = [];
-		$(function() {
-			nhn.husky.EZCreator.createInIFrame({
-	            oAppRef: oEditors,
-	            elPlaceHolder: "ir1",
-	            sSkinURI : "<%=request.getContextPath()%>/smarteditor2/SmartEditor2Skin.html",
-	            fCreator: "createSEditor2"
-			});
-		});
-		 
-		/* function fn_comment(post_id){
-			$.ajax({
-				url:"/reinboard.do",
-				type:"POST",
-				data:$("#reply").serialize(),
-				success: function(data){
-					if(data=="success")
-		            {
-		                commentList();
-		                $("#comment-id").val("");
-		            }
-				}
-			})
-		}
-		 $(function(){
-		    commentList();
-		});	
-		function commentList(){
-			$.ajax({
-				url:"/reviewboard.do",
-				type:"GET",
-				dataType:"json",
-				data:$("#reply").serialize(),
-				success: function(data){
-					var html = "";
-					var cnt = data.length;
-					
-					if(data.length > 0){
-						for(let i=0; i<data.length; i++){
-							html += "<div style='border:4px solid lime;'>";
-							html += "<p>"+data[i].usesr_id+"</p>";
-							html += "</div>";
-						}
-					}
-					
-					$("#reply-comment").html(cnt);
-					$("#reply").html(html);
-				}
-			})
-		} */
-		
-		function board_update(){
-			console.log("댓글 입력");
-			var up = document.getElementById("");
-		}
-		
-		
-		
-	</script>
-	<script type="text/javascript">
-	var $doc=$(document);    
-    var $win=$(window);
 
-    let startPage = 10;
-    let endPage = 18;
-    let addStar = 0;
-    let what = null;
-    
-    $(".selectbox").change(function(){
-        what = $(".selectbox option:selected").val();
-    });
-    
-    $(window).scroll(function(){ 
-        if ($doc.height()-$win.height()-$(this).scrollTop() == 0) {
-            let whatTemp = what;
-            let navNo = ${categoryList}[0].cateCode;
-            
-            $.ajax({
-                url:"infinityScroll.do",
-                data:{
-                    navNo:navNo,
-                    startPage : startPage,
-                    endPage : endPage,
-                    what:whatTemp
-                },
-                dataType:"json",
-                success:function(data){
-                    
-                    $cmtWrap = $(".Lsit-Saction");
-                    
-                    var $divF; // 1단계
-                    
-                    var $inputS; // 2단계
-                    var $aS; // 2-1단계
-                    var $divS; // 2-2단계
-                    
-                    var $divImg; // 3단계
-                    var $pT; // 3-1단계
-                    var $divT;    // 3-2 단계
-                    
-                    var $imgP; // 4단계
-                    var $imgR; // 4-1단계
-                    var $spanN; // 4-2단계
-                    var $spanS; // 4-3단계
-                    var $spanSN; // 4-4단계
-                    var $spanF; // 4-5단계
-                    
-                    var $spanC; // 5단계
-                    var $imgbuy; // 5단계
-                    
-                    console.log(data);
-
-                    if(data.length > 0){ // 게시글이 있을 경우
-                        for(var i in data){
-                            
-                            $divF = $("<div class='borad-box row'>"); 
-                            
-                            $inputS = $("<input type='hidden' class='pCategory'>").attr("value",data[i].category); // 2단계 hidden category
-                            $aS = $("<a class='thumbnail'>").attr("href", "productDetail.do?no=" + data[i].no); // 2-1단계 a 태그
-                            $divS = $("<div class='list_contents_marign'>"); // 2-2단계 div
-                            
-                            $divImg = $("<div class='list_img_div'>"); // 3단계 img container
-                            $pT = $("<p class='font_noto list_explain_index'>").html(data[i].title); // 3-1단계 p태그 제목
-                            $divT = $("<div>"); // 3-2단계 div 여러가지
-                            
-                            $imgP = $("<img class='list_contents_img_index'>").attr("src","resources/pUploadFiles/" + data[i].renamePic ); // 4단계 상품 사진
-                            
-                            $imgR = $("<img class='list_rank_index'>").attr("src","resources/img/lv1.png"); // 4단계 계급사진
-                            $spanN = $("<span class='font_noto'>").html(data[i].nickName); // 4단계 닉네임
-                            $spanS = $("<span class='list_star_container_index'>").addClass("list_star" + addStar); // 4단계 별 컨테이너
-                            $spanSN = $("<span class='font_noto starNum'>").html("(" + parseFloat(data[i].star).toFixed(1) + ")").addClass("starclass" + addStar); // 4단계 별점
-                            $spanF = $("<span>");    // 4단계 span 태그
-                            
-                            $spanC = $("<span class='font_noto'>").html(data[i].count + "명선택"); // 5단계 몇명 선택
-                            $imgbuy = $("<img src='resources/img/buy.png' class='list_choice_img_index'>"); // 선택 이미지
-                            
-                            // ---------------------------------------------------
-                            
-                            $spanF.append($spanC); // 5단계 추가
-                            $spanF.append($imgbuy); // 5단계 추가
-                            
-                            $divT.append($imgR); // 4단계 추가
-                            $divT.append("&nbsp;");
-                            $divT.append($spanN); // 4단계 추가
-                            $divT.append("&nbsp;");
-                            $divT.append($spanS); // 4단계 추가
-                            $divT.append("&nbsp;");
-                            $divT.append($spanSN); // 4단계 추가
-                            $divT.append("&nbsp;");
-                            $divT.append($spanF); // 4단계 추가
-                            
-                            $divImg.append($imgP); // 4단계 추가
-                            
-                            $aS.append($divImg); // 3단계 추가
-                            $divS.append($pT); // 3단계 추가
-                            $divS.append($divT); // 3단계 추가
-                            
-                            $divF.append($inputS); // 2단계 추가
-                            $divF.append($aS); // 2단계 추가
-                            $divF.append($divS); // 2단계 추가
-                            
-                            $cmtWrap.append($divF);
-                        }
-                    
-                    }
-                    
-                    // 시작 페이지 ROWNUM + 9
-                     startPage = startPage + 9;
-                    // 끝 페이지  ROWNUM + 9
-                     endPage  = endPage + 9; 
-                    // 별 계산해주는 함수
-                     addedStar("list_star" + addStar, ".product" + addStar, "starclass" + addStar);
-                    // 로딩 될 때마다 불러오는 클래스 값 변경해주기.
-                    addStar++;
-                    
-                    filter();
-                     
-                },error:function(request,status,errorData){
-                    console.log(request.status + ":" + errorData);
-                }
-            });
-        }
-    });
-	</script>
 	
 	<!-- 김보영 자바스크립트 작성 -->
 	<script type="text/javascript">
@@ -433,9 +253,11 @@
 		var memberSearchval = document.getElementById('memberSearchName').value;
 		console.log(memberSearchval);
 		var mozzleuserul = document.getElementById('mozzleuserul');
+		var mozzle_id = <%=request.getParameter("mozzle_id")%>;
+		
 		
 		$.ajax({
-			url:"./mozzleUserSearch.do",
+			url:"./mozzleUserSearch.do?mozzle_id="+mozzle_id,
 			type: "post",
 			data : "nickname="+ memberSearchval,
 			dataType : "JSON",
@@ -465,7 +287,7 @@
 	function userSessionCheck(){
 		var userId = '<%=(String)session.getAttribute("userId")%>';
 		console.log(userId);
-		if(userId!='null'){
+		if(userId=='null'){
 // 			console.log(userId+"ss");
 			alert('로그인이 되어있지 않습ㄴ디ㅏ.');
 			location.href='../loginPage.do'; //로그인페이지로 이동해야함

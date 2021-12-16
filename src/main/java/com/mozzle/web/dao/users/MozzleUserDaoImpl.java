@@ -30,4 +30,12 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 		return list;
 	}
 
+
+	@Override
+	public int insertMozzleUser(MozzleUserDto dto) {
+		log.info("모즐 내 회원가입 dto값{}",dto);
+		
+		return session.insert(NS+"insertMozzleUser", dto);
+	}
+
 }

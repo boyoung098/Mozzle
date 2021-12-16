@@ -60,10 +60,7 @@
 	<!-- 메일 보내기 -->
 	<!-- 서버의 정보를 입력해주면 됨 -->
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="dlwhdvy123@gmail.com"/>
-		<property name="password" value="qkrekfthsus" />
+		
 				<!-- 만약 비밀번호 특수문자가 있다면 CDATA형식으로 변경 -->
 		<!-- 
 		<property name="password">
