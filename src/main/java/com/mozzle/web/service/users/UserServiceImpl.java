@@ -35,4 +35,9 @@ public class UserServiceImpl implements IUserService{
 		return dao.passwordChk(id, comparePw);
 	}
 
+	@Override
+	public UserDto selectUserById(String id) {
+		return dao.selectUserById(id);
+	}
+
 }

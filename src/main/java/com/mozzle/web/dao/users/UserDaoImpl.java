@@ -46,4 +46,9 @@ public class UserDaoImpl implements IUserDao{
 		return passwordEncoder.matches(comparePw, passwordEncoded);
 	}
 
+	@Override
+	public UserDto selectUserById(String id) {
+		return session.selectOne(NS + "selectUserById", id);
+	}
+
 }

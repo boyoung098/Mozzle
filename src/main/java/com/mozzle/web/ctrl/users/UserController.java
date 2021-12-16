@@ -54,8 +54,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/updateUser.do", method=RequestMethod.GET)
-	public String updateUser() {
-		
+	public String updateUser(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		model.addAttribute("userDto", service.selectUserById(session.getAttribute("userId").toString()));
 		return "user/updateUser";
 	}
 	
