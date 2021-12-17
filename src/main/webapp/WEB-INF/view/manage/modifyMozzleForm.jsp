@@ -29,8 +29,9 @@
 	<jsp:include page="../comm/header.jsp" />
 
 	<div class="register-container">
-		<form id="submitMozzleForm" action="./imageUpload.do" method="post" enctype="multipart/form-data">
-			<input type="hidden" id="save_result" name="result" value="${result }" />
+		<form id="submitMozzleForm" action="./modifyMozzle.do" method="post" enctype="multipart/form-data">
+			<input type="hidden" id="save_result" name="result" value="${result}" />
+			<input type="hidden" id="save_infor" name="mozzle_id" value="${mozzle_id}" />
 			<div class="register-inner">
 				<h4>모즐 생성</h4>
 			</div>
@@ -39,7 +40,7 @@
 			</div>
 			<div class="image-wrap1">
 				<div class="image-wrap2">
-					<img class="image" id="image" />
+					<img class="image" id="image" src ="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}";/>
 				</div>
 			</div>
 
@@ -47,7 +48,7 @@
  			<div class="register-input" id="imagebox">
 				<div class="box-file-input" style="margin-top: 5px">
 					<label> <input type="file" name="uploadFile"
-						class="file-input" accept="image/*" id="img">
+						class="file-input" accept="image/*" id="img" value="${mozzle.image_origin}">
 					</label> <span class="filename"></span>
 				</div>
 			</div> 
@@ -60,7 +61,7 @@
 
 				</div>
 				<div id="slider-box">
-					<label class="switch"> <input type="checkbox" name="state">
+					<label class="switch"> <input type="checkbox" name="state" ${mozzle.state}>
 						<span class="slider round"></span>
 					</label>
 					<p id="on">ON</p>
@@ -71,7 +72,7 @@
 			</div>
 			<div class="register-input">
 				<input type="text" id="category" name="category_code"
-					style="width: 83%;" />
+					style="width: 83%;" value="${mozzle.category_code}"/>
 				<button type="button" class="btn" id="bt"
 					style="margin-left: 5px; width: 15%;">등록</button>
 			</div> 
@@ -79,22 +80,23 @@
 				<h5>이름</h5>
 			</div>
 			<div class="register-input">
-				<input type="text" class="form-control" name="mozzle_name"
-					placeholder="모즐 이름을 입력해주세요" />
+				<input type="text" class="form-control" id="mozzle_name" name="mozzle_name"
+					placeholder="모즐 이름을 입력해주세요"  value="${mozzle.mozzle_name}"/>
 			</div>
 			<div class="register-name">
 				<h5>모즐소개</h5>
 			</div>
 			<div class="register-input">
 				<textarea class="form-control" rows="5" name="mozzle_intro"
-					id="mozzle_intro" placeholder="모즐 소개글을 입력해주세요"></textarea>
+					id="mozzle_intro" placeholder="모즐 소개글을 입력해주세요">${mozzle.mozzle_intro}</textarea>
 			</div>
 			<br>
 			<div class="register-input"
 				style="display: flex; justify-content: center;">
 				<input type="submit" class="btn" id="submit-btn"
 					style="width: 200px; background: #e82d55; color: #fff;"
-					value="모즐등록" onSubmit="checkSubmit()">
+					value="모즐수정" onSubmit="checkSubmit()">
+				<button>모즐 삭제</button>
 			</div>
 		</form>
 	</div>
@@ -162,20 +164,21 @@
 						console.log($('#save_result').val());
 						
 						if($('#save_result').val() == 'true') {
-							alert('모즐이 성공적으로 등록되었습니다.');
+							alert('모즐이 성공적으로 수정되었습니다.');
 							$('#save_result').val('');
 							location.href = "./home.do";
 						} else {
-							alert('등록을 실패했습니다.');
+							alert('수정을 실패했습니다.');
 							$('#save_result').val('');
 						} 
 					}
 					
 				});
+	
 
-		window.onload = function() {
+	<%-- 	window.onload = function() {
 			document.getElementById("image").src = "<%=request.getContextPath()%>/resources/images/img.png";
-		};
+		}; --%>
 
 		document.getElementById("img").onchange = function() {
 			var reader = new FileReader();
@@ -195,6 +198,7 @@
 		function checkSubmit() {
 			alert($('#submitMozzleForm').val());
 		}
+		
 	</script>
 
 </body>

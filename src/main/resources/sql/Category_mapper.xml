@@ -146,5 +146,6 @@
 		SELECT CATEGORY_CODE, CATEGORY_NAME FROM CATEGORY
 			WHERE CATEGORY_NAME LIKE '%' || #{val} || '%'
 	</select>
+	
 
 </mapper>

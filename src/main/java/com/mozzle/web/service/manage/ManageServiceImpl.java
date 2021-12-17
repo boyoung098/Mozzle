@@ -42,13 +42,22 @@ public class ManageServiceImpl implements IManageService {
 
 	@Override
 	public List<MozzleDto> selectMozzleBySearchBasedeOnImportance(String keyword) {
+		return dao.selectMozzleBySearchBasedOnImportance(keyword);
+	}
+
+	@Override
+	public List<MozzleDto> selectMozzleBySearchFromTheLastest(String keyword) {
+		return dao.selectMozzleBySearchFromTheLastest(keyword);
+	}
+
+	@Override
+	public String[] selectCategory() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<MozzleDto> selectMozzleBySearchFromTheLastest(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+	public int updateMozzle(MozzleDto mozzle) {
+		return dao.updateMozzle(mozzle);
 	}
 }
