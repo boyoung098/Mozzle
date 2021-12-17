@@ -46,7 +46,7 @@ public class BoardCtrl {
 		//List<Board> boardlist = serviceImple.selectAllBoard();
 		model.addAttribute("boardlist", serviceImple.selectAllBoard());
 		
-		return "board";
+		return "mozzle/M_board";
 	}
 	
 	@PostMapping(value="/insertBoard.do")
