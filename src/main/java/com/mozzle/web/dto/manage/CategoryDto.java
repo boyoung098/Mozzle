@@ -4,11 +4,10 @@ public class CategoryDto {
 
 	private String category_code;
 	private String category_name;
-	private int searchNum;
+	private String create_date;
 
 	public CategoryDto() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	public CategoryDto(String category_code, String category_name) {
 		super();
@@ -27,15 +26,10 @@ public class CategoryDto {
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
 	}
-	public int getSearchNum() {
-		return searchNum;
+	public String getCreate_date() {
+		return create_date;
 	}
-	public void setSearchNum(int searchNum) {
-		this.searchNum = searchNum;
+	public void setCreate_date(String create_date) {
+		this.create_date = create_date;
 	}
-	@Override
-	public String toString() {
-		return "CategoryDto [category_code=" + category_code + ", category_name=" + category_name + "]";
-	}
-	
 }

@@ -10,5 +10,5 @@ public interface ICategoryDao {
 	public List<CategoryDto> seletCategoryAll();
 	public List<CategoryDto> seletCategoryByInitial(int num);
 	public List<CategoryDto> searchCategory(String searchName);
-	
+
 }
