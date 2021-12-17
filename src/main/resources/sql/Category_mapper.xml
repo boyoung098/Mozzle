@@ -6,7 +6,6 @@
 		INSERT INTO CATEGORY
 				(CATEGORY_CODE, CATEGORY_NAME)
 			VALUES(CATEGORY_SEQ.NEXTVAL, #{category_name})
-
 	</insert>
 	
 	<select id="seletCategoryAll" resultType="cDto">

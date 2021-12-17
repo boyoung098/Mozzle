@@ -33,8 +33,11 @@ public class TestMain {
 //	private IUserDao userDao;
 	
 	@Autowired
-	private IGuestDao guestDao;
+	private ApplicationContext context;
 	
+//	@Autowired
+//	private IGuestDao guestDao;
+//	
 	@Autowired
 	private IMozzleUserDao mozzleUserDao;
 	
@@ -48,12 +51,23 @@ public class TestMain {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("mozzle_id", "1");
-		map.put("nickname", " ");
-		List<MozzleUserDto> userList = mozzleUserDao.selectListMozzleUser(map);
+		map.put("nickname", "바");
+		//List<MozzleUserDto> userList = mozzleUserDao.selectListMozzleUser(map);
 		//for (MozzleUserDto mozzleUserDto : userList) {
 		//	log.info("mozzle의 회원 dto{}",mozzleUserDto);
 		//}
-		log.info("찍은 값의 사이쯔{}",userList.size());
+		//log.info("찍은 값의 사이쯔{}",userList.size());
+		
+		
+		MozzleUserDto dto = new MozzleUserDto();
+		dto.setUser_id("aaaa");
+		dto.setMozzle_id("1");
+		dto.setNickname("asdgg");
+		dto.setBirthday_show("N");
+		
+		int n = mozzleUserDao.insertMozzleUser(dto);
+		assertEquals(1, n);
+		
 	}
 
 }

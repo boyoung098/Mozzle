@@ -1,3 +1,4 @@
+<link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/resources/images/logo/favicon.png">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />

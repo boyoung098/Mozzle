@@ -6,6 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	#image{
+		width: 200px;
+		height: 200px;
+		object-fit: cover; 
+		border-radius: 100%;
+	}
+
+</style>
 </head>
 <body>
   <div class="modal fade" id="joinModal" role="dialog">
@@ -28,18 +37,17 @@
 			<div class="register-name">
 				<h5>프로필이미지 선택</h5>
 			</div>
-			<div class="image-wrap1">
+			
 				<div class="image-wrap2">
-					<img class="image" id="image" />
+					<img class="image" id="image" src="<%=request.getContextPath()%>/resources/images/default_profile.png" />
 				</div>
-			</div>
 
 
  			<div class="register-input" id="imagebox">
 				<div class="box-file-input" style="margin-top: 5px">
 					<label> <input type="file" name="file"
-						class="file-input" accept="image/*" id="img">
-					</label> <span class="filename"></span>
+						class="file-input" accept="image/*" id="img" onchange="setThumbnail(event);">
+					</label> <!-- <span class="filename"></span> -->
 				</div>
 			</div> 
 
@@ -75,6 +83,7 @@
 					style="width: 200px; background: #e82d55; color: #fff;"
 					value="모즐등록" onSubmit="checkSubmit()">
 			</div>
+			
 			</div>
 		</form:form>
 	</div> 
@@ -88,5 +97,19 @@
       </div>
       
     </div>
+    
+    <script type="text/javascript">
+    	function setThumbnail(event){
+    		console.log("hi");
+    		var reader = new FileReader();
+    		reader.onload = function(event){
+    			$("#image").attr("src",event.target.result);
+    			
+    		}
+    		reader.readAsDataURL(event.target.files[0]);
+    		
+    	}
+    
+    </script>
 </body>
 </html>

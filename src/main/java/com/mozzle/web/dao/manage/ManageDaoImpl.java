@@ -77,5 +77,4 @@ public class ManageDaoImpl implements IManageDao{
 		logger.info("updateMozzle {}", mozzle);
 		return session.update(NS + "updateMozzle", mozzle);
 	}
-
 }

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
 <style>
 .search {
@@ -90,7 +91,7 @@ input:focus, select:focus {
 			<div class="collapse navbar-collapse select_bar" id="myNavbar">
 				<ul class="nav navbar-nav navbar-center">
 					<li>
-						<form action="#">
+						<form action="./browseMozzlePage.do">
 							<div class="input-group intput-width search">
 								<input type="text" class="form-control search-input"
 									placeholder=" 찾으시는 모임이 있나요?" />

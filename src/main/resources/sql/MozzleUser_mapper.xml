@@ -26,5 +26,34 @@ AND u.DELFLAG = 'N'
 </trim>
 </select>
 
+<!-- 모즐 내 일반회원가입 -->
+<insert id="insertMozzleUser" parameterType="mozzleUserDto">
+INSERT INTO USER_MOZZLE
+(USER_ID, MOZZLE_ID, AUTH_CODE, NICKNAME, JOINED_DATE, BIRTHDAY_SHOW
+ <if test="image_saved != null">
+ , IMAGE_ORIGIN, IMAGE_SAVED
+ </if>
+)
+VALUES(#{user_id},#{mozzle_id}, '2', #{nickname}, sysdate, #{birthday_show}
+<if test="image_saved != null">
+, #{image_origin}, #{image_saved}
+</if>
+)
+</insert>
+
+<select id="selectListMozzleUser2" parameterType="java.util.Map" resultType="mozzleUserDto">
+SELECT um.USER_ID, um.MOZZLE_ID, um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE,
+um.BIRTHDAY_SHOW, um.IMAGE_ORIGIN, um.IMAGE_SAVED
+FROM USER_MOZZLE um JOIN USERS u ON um.USER_ID = u.USER_ID 
+<trim prefix="WHERE" prefixOverrides="AND">
+<if test="nickname !=null">
+ um.NICKNAME like '%'||#{nickname}||'%'
+</if>
+AND um.MOZZLE_ID =#{mozzle_id}
+AND um.AUTH_CODE IN ('1','2')
+AND u.DELFLAG = 'N'
+</trim>
+</select>
+
 
 </mapper>

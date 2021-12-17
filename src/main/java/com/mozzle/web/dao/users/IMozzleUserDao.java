@@ -8,4 +8,7 @@ import com.mozzle.web.dto.users.MozzleUserDto;
 public interface IMozzleUserDao {
 
 	public List<MozzleUserDto> selectListMozzleUser(Map<String, String> map);
+	
+	public int insertMozzleUser(MozzleUserDto dto);
+	
 }

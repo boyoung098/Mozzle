@@ -80,6 +80,13 @@ public class GuestController {
 		return "mozzle/mozzleCheck";
 	}
 	
+	@GetMapping("/moveguest.do")
+	public String moveguest() {
+		
+		return "mozzle/boardmain";
+	}
+	
+	
 	public static void main(String[] args) {
 		//String uuid = UUID.randomUUID().toString();
 		

@@ -108,6 +108,8 @@ table {
 					</div>
 					<div style="width: 10%; float: right"></div>
 					<div style="width: 30%; float: right">
+						<input type="text" class="form-control" id="focusedInput"
+										name="inputCategory" style="width: 40%; display: inline-block;" />
 						<button type="button" class="btn btn-default"
 							onclick="location.href='./registCategory.jsp'">등록</button>
 						<button type="button" class="btn btn-warning"
@@ -117,6 +119,7 @@ table {
 				</div>
 
 				<br> <br>
+				<div class="success"></div>
 				<table>
 					<thead>
 						<tr>
