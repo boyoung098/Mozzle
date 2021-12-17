@@ -39,7 +39,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<jsp:include page="../comm/header.jsp" >
+	<jsp:include page="./comm/header.jsp" >
 		<jsp:param value="${userId}" name="userId"/>
 	</jsp:include>
 	<section class="container mt-3" id="new-mozzle2">
