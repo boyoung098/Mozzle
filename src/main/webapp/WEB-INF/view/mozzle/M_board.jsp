@@ -9,7 +9,7 @@
 <title>모즐메인</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/resources/images/logo/favicon.png">
+
 <%@ include file="../comm/import.jsp"%>
 <script src="<%=request.getContextPath()%>/resources/js/summernote/summernote-lite.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/summernote/lang/summernote-ko-KR.js"></script>
