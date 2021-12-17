@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
-<%@ include file="../comm/import.jsp" %>
+<%@ include file="../../comm/import.jsp" %>
 <style>
 
 
@@ -54,8 +54,8 @@
 	$(function(){
 		$("#find-id").click(function(e){
 			e.preventDefault();
-			var url = './form/findId.do';
-			var title = '아이디 찾기';
+			var url = './loginPage.do';
+			var title = '아이디중복검사';
 			var attr = 'width=450px, height=550px';
 			window.open(url, title, attr);
 		});
@@ -77,30 +77,19 @@
 	<section class="content container-login mt-5">
 		<form id="login-form" action="./logingo.do" method="POST">
 
-				<h2>로그인</h2>
-				<p class="login-result">${msg}</p>
+				<h2>아이디 찾기</h2>
+				<p>아이디를 찾기 위해 필요한 정보를 입력해주세요</p>
 				<div>
 					<input type="text" class="form-control input-login" name="id"
 						placeholder="아이디를 입력 해주세요" /> <input type="text"
 						class="form-control input-login" name="password"
 						placeholder="비밀번호를 입력 해주세요" />
-					<div class="ch-box">
-						<div>
-							<input type="checkbox" id="ch" name="remember-me" value="true"><label
-								for="ch">자동 로그인</label>
-						</div>
-						<ul>
-							<li><a id="find-id" href="#">아이디 ㅣ</a></li>
-							<li><a id="find-password" href="#">비밀번호 찾기</a></li>
-						</ul>
-					</div>
+
 					<input type="submit" class="color-btn input-login" value="로그인" />
 				</div>
 
 		</form>
 	</section>
-
-	<div id="footer"></div>
 
 </body>
 </html>

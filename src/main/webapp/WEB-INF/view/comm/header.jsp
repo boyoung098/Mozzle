@@ -107,12 +107,12 @@ input:focus, select:focus {
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<c:if test="${empty param.userId}">
+					<c:if test="${empty sessionScope.userId}">
 						<li><a href="<%=request.getContextPath()%>/loginPage.do">로그인</a></li>
 						<li><a href="<%=request.getContextPath()%>/registerPage.do">회원가입</a></li>
 					</c:if>
-					<c:if test="${not empty param.userId}">
-						<li><a href="#" data-toggle="dropdown">${param.userId}님</a>
+					<c:if test="${not empty sessionScope.userId}">
+						<li><a href="#" data-toggle="dropdown">${sessionScope.userId}님</a>
 							<ul class="dropdown-menu">
 								<li><a href="#">HTML</a></li>
       							<li><a href="#">CSS</a></li>

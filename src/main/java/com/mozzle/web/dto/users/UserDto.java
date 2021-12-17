@@ -12,7 +12,7 @@ public class UserDto {
 	private String user_id;
 	private String user_pw;
 	private String user_name;
-	private	int auth_code;
+	private	String auth;
 	private String birth;
 	private String email;
 	private String tel;

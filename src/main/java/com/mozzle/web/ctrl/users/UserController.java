@@ -39,7 +39,7 @@ public class UserController {
 		
 		model.addAttribute("auth", auth);
 		model.addAttribute("menu", menu);
-		return "user/myPage";
+		return "user/mypage/myPage";
 	}
 	
 	@RequestMapping(value="/myPageAuth.do", method = RequestMethod.POST)
@@ -58,25 +58,25 @@ public class UserController {
 	public String updateUser(Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		model.addAttribute("userDto", service.getUserInfo(session.getAttribute("userId").toString()));
-		return "user/updateUser";
+		return "user/mypage/updateUser";
 	}
 	
 	@RequestMapping(value="/myThread.do", method=RequestMethod.GET)
 	public String myThread() {
 		
-		return "user/myThread";
+		return "user/mypage/myThread";
 	}
 	
 	@RequestMapping(value="/bookmark.do", method=RequestMethod.GET)
 	public String bookmark() {
 		
-		return "user/bookmark";
+		return "user/mypage/bookmark";
 	}
 	
 	@RequestMapping(value="/inviteUser.do", method=RequestMethod.GET)
 	public String inviteUser() {
 		
-		return "user/inviteUser";																																															
+		return "user/mypage/inviteUser";																																															
 	}
 
 }

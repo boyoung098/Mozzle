@@ -31,8 +31,8 @@ public class MemberDetailService implements UserDetailsService {
 		logger.info("addfaehuifeafuieahfiaeifheaif : " + dto);
 		
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
-		
-		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+		System.out.println(dto.getAuth());
+		roles.add(new SimpleGrantedAuthority("ROLE_" + dto.getAuth()));
 		
 		UserDetails user = new User(username,dto.getUser_pw(),roles);
 
