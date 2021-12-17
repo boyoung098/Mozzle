@@ -11,7 +11,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/png" sizes="16x16"
 	href="<%=request.getContextPath()%>/resources/images/logo/favicon.png">
-<jsp:include page="./comm/import.jsp" />
+<%-- <jsp:include page="./comm/import.jsp" /> --%>
+<%@ include file="/WEB-INF/view/comm/import.jsp" %>
 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/HuskyEZCreator.js"></script> --%>
 <script src="./resources/js/summernote/summernote-lite.js"></script>
 <script src="./resources/js/summernote/lang/summernote-ko-KR.js"></script>
@@ -171,7 +172,10 @@ $(document).ready(function() {
 						<li><img src="./image/" alt=""></li> -->
 					</ul>
 				</div>
-				<div class="mozzle-member">
+				
+				<!-- 모즐멤버리스트 뿌리는 곳 -->
+				<%@ include file="/WEB-INF/view/mozzle/mozzleMemberList.jsp" %>
+				<!-- <div class="mozzle-member">
 					<div class="member-title">
 						<div class="member-box">
 							<h4>멤버</h4>
@@ -197,7 +201,7 @@ $(document).ready(function() {
 							</div> <span>아프리카</span>
 						</li>
 					</ul>
-				</div>
+				</div> -->
 
 			</div>
 		</div>
