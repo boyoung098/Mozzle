@@ -16,4 +16,6 @@ public interface IUserDao {
 	public int duplicationMailChk(String mail);
 	
 	public UserDto getUserInfo(String id);
+	
+	public String findId(UserDto dto);
 }

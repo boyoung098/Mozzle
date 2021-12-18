@@ -99,7 +99,6 @@ public class LoginController {
 	
 	@RequestMapping(value = "/logout.do", method=RequestMethod.GET)
 	public String logout() {
-		System.out.println("adfadfadff");
 		return "redirect:/loginPage.do?logout";
 	}
 
