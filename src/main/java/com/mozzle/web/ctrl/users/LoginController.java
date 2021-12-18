@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -39,12 +40,26 @@ public class LoginController {
 			UserDetails userdto = (UserDetails) user.getPrincipal();
 			// 로그인 결과가 유효하다면
 			if (userdto != null) {
-				String accessToken = jwtTokenProvider.createJwtAccessToken(userdto.getUsername());
-				String refreshToken = jwtTokenProvider.createJwtRefreshToken(userdto.getUsername());
-				System.out.println(userdto.getUsername());
-				model.addAttribute("userId", userdto.getUsername());
-				model.addAttribute("accessToken", accessToken);
-				model.addAttribute("refreshToken", refreshToken);
+				if(userdto.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+					String accessToken = jwtTokenProvider.createJwtAccessToken(userdto.getUsername());
+					String refreshToken = jwtTokenProvider.createJwtRefreshToken(userdto.getUsername());
+					System.out.println(userdto.getUsername());
+					System.out.println(userdto.getAuthorities());
+					model.addAttribute("userId", userdto.getUsername());
+					model.addAttribute("accessToken", accessToken);
+					model.addAttribute("refreshToken", refreshToken);
+					return "forward:/adminIndex.do";
+				}
+				else if(userdto.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))) {
+					String accessToken = jwtTokenProvider.createJwtAccessToken(userdto.getUsername());
+					String refreshToken = jwtTokenProvider.createJwtRefreshToken(userdto.getUsername());
+					System.out.println(userdto.getUsername());
+					System.out.println(userdto.getAuthorities());
+					model.addAttribute("userId", userdto.getUsername());
+					model.addAttribute("accessToken", accessToken);
+					model.addAttribute("refreshToken", refreshToken);
+				}
+				
 			}
 		}
 		return "index";
@@ -65,12 +80,14 @@ public class LoginController {
 		}
 
 		if (user != null) {
+			//"/adminIndex.do"
 				UserDetails userdto = (UserDetails) user.getPrincipal();
 				// 로그인 결과가 유효하다면
 				if (userdto != null) {
 					String accessToken = jwtTokenProvider.createJwtAccessToken(userdto.getUsername());
 					String refreshToken = jwtTokenProvider.createJwtRefreshToken(userdto.getUsername());
 					System.out.println(userdto.getUsername());
+					System.out.println(userdto.getAuthorities());
 					model.addAttribute("userId", userdto.getUsername());
 					model.addAttribute("accessToken", accessToken);
 					model.addAttribute("refreshToken", refreshToken);
@@ -112,5 +129,16 @@ public class LoginController {
 		return "duplicateLogin";
 	}
 
+	
+	@RequestMapping(value = "/header.do", method = RequestMethod.GET)
+	public String header() {
+		return "comm/header";
+	}
+	
+	@RequestMapping(value = "/footer.do", method = RequestMethod.GET)
+	public String footer() {
+		return "comm/footer";
+	}
+	
 
 }

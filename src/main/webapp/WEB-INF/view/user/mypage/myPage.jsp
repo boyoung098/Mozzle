@@ -18,7 +18,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<%@ include file="../comm/import.jsp" %>
+<%@ include file="../../comm/import.jsp" %>
 <style>
 
 .my-page-menu{
@@ -109,7 +109,7 @@
 </head>
 
 <body>
-	<jsp:include page="../comm/header.jsp" >
+	<jsp:include page="../../comm/header.jsp" >
 		<jsp:param value="${sessionScope.userId}" name="userId"/>
 	</jsp:include>
 	<section class="container">
@@ -168,7 +168,7 @@
 
 	</section>
 
-	<jsp:include page="../comm/footer.jsp"/>
+	<jsp:include page="../../comm/footer.jsp"/>
 
 </body>
 </html>

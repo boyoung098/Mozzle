@@ -41,9 +41,8 @@
 </script>
 </head>
 <body>
-	<jsp:include page="./comm/header.jsp">
-		<jsp:param value="${userId}" name="userId" />
-	</jsp:include>
+	<div id="header"></div>
+
 	<section id="main-bg" class="container">
 		<div class="swiper-container main-bg-img">
 			<div class="swiper-wrapper">
@@ -171,7 +170,7 @@
 	<br />
 	<br />
 
-	<jsp:include page="./comm/footer.jsp" />
+	<div id="footer"></div>
 
 
 	<div>
