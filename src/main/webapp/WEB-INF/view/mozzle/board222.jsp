@@ -9,7 +9,7 @@
 <title>모즐메인</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<jsp:include page="../comm/import.jsp" />
+<%@ include file="../comm/import.jsp" %>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -17,9 +17,7 @@
 </head>
 <body>
 	
-	<jsp:include page="../comm/header.jsp">
-		<jsp:param value="${userId}" name="userId" />
-	</jsp:include>
+	<div id="header"></div>
 	<section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
 			<div class="col-sm-9">
@@ -244,7 +242,7 @@
 <!-- 모달창 끝!!!!!!!11 -->
 
 
-	<jsp:include page="../comm/footer.jsp" />
+	<div id="footer"></div>
 
 	
 	<!-- 김보영 자바스크립트 작성 -->

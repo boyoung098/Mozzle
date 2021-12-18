@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
-<%@ include file="../../comm/import.jsp" %>
+<%@ include file="/WEB-INF/view/comm/import.jsp" %>
 <style>
 
 

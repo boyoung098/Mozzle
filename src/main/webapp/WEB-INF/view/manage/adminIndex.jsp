@@ -8,13 +8,8 @@
 <title>메인페이지</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<jsp:include page="../comm/import.jsp" />
+<%@ include file="../comm/import.jsp" %>
+
 <style type="text/css">
 
 table {
@@ -57,6 +52,7 @@ table {
 
 </head>
 <body>
+	<div id="header"></div>
 	<div class="container">
 		<h2>관리자 페이지</h2>
 		<ul class="nav nav-tabs">
@@ -194,9 +190,8 @@ table {
 
 		</div>
 	</div>
-	</div>
 
-	<jsp:include page="../comm/footer.jsp" />
+	<div id="footer"></div>
 </body>
 <script>
 	var appendCnt = 0;

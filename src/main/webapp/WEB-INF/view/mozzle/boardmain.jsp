@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" sizes="16x16"
 	href="<%=request.getContextPath()%>/resources/images/logo/favicon.png">
 <%-- <jsp:include page="./comm/import.jsp" /> --%>
-<%@ include file="/WEB-INF/view/comm/import.jsp" %>
+<%@ include file="../comm/import.jsp" %>
 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/HuskyEZCreator.js"></script> --%>
 <script src="./resources/js/summernote/summernote-lite.js"></script>
 <script src="./resources/js/summernote/lang/summernote-ko-KR.js"></script>
@@ -39,9 +39,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<jsp:include page="../comm/header.jsp" >
-		<jsp:param value="${userId}" name="userId"/>
-	</jsp:include>
+	<div id="header"></div>
 	<section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
 			<div class="col-sm-9">
@@ -80,6 +78,7 @@ $(document).ready(function() {
 
 
 	</section> -->
+	<div id="footer"></div>
 
 
 </body>

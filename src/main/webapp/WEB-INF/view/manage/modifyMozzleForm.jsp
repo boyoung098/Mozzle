@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>모즐 생성 화면</title>
+<%@ include file="../comm/import.jsp" %>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/select2/3.4.5/select2.min.js"></script>
@@ -26,7 +27,7 @@
 </head>
 <body>
 
-	<jsp:include page="../comm/header.jsp" />
+	<div id="header"></div>
 
 	<div class="register-container">
 		<form id="submitMozzleForm" action="./modifyMozzle.do" method="post"
@@ -104,7 +105,7 @@
 			</div>
 		</form>
 	</div>
-
+	<div id="footer"></div>
 	<script>
 		var dataList = [];
 		$(document).ready(function() {

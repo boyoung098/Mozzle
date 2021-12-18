@@ -6,6 +6,7 @@
 # ide config file
 .dbeaver-data-sources*.xml
 .dbeaver
+.dbeaver/
 
 ### Eclipse ###
 .metadata
@@ -98,5 +99,9 @@ credentials-config.json
 mail.properties
 ### Database Properties ###
 db.properties
+
+### Oracle Cloud Wallet ###
+Wallet/
+
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,maven,dbeaver
