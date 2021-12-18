@@ -58,7 +58,7 @@ $(document).ready(function() {
 								<li>리더 : 로아로아</li>
 								<li>멤버 : 101</li>
 							</ul>
-							<button class="join-btn">가입요청</button>
+							<button class="join-btn"  onclick="userSessionCheck()" id="joinbtn">가입요청</button>
 						</div>
 					</div>
 					<div class="mo-list">
@@ -70,7 +70,7 @@ $(document).ready(function() {
 						</ul>
 					</div>
 				</div>
-
+	<%@include file= "/WEB-INF/view/mozzle/mozzleJoinForm.jsp"  %>
 <!-- 각자 기능넣기 -->
 			
 	

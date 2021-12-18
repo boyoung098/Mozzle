@@ -15,7 +15,7 @@
 							<h4>멤버</h4>
 							<span>123</span>
 						</div>
-						<button type="button" class="btn-invite">멤버 초대</button>
+						<button type="button" class="btn-invite" onclick="javascript:location.href='./guestInvite.do?mozzle_id=<%=request.getParameter("mozzle_id")%>'">멤버 초대</button>
 					</div>
 					<div class="member-box input-search">
 						
@@ -91,7 +91,7 @@
 		if(userId=='null'){
 // 			console.log(userId+"ss");
 			alert('로그인이 되어있지 않습ㄴ디ㅏ.');
-			location.href='../loginPage.do'; //로그인페이지로 이동해야함
+			location.href='./loginPage.do'; //로그인페이지로 이동해야함
 		}else{
 			 $('#joinModal').modal();
 		}

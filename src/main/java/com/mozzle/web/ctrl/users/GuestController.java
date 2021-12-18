@@ -7,6 +7,9 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -19,13 +22,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fasterxml.uuid.Generators;
 import com.mozzle.web.dao.users.UuidUtil;
 import com.mozzle.web.dto.users.GuestDto;
+import com.mozzle.web.dto.users.MozzleUserDto;
 import com.mozzle.web.service.users.IGuestService;
+import com.mozzle.web.service.users.IMozzleUserService;
 
 @Controller
 public class GuestController {
@@ -35,8 +41,11 @@ public class GuestController {
 	@Autowired
 	private IGuestService guestService;
 	
+	@Autowired
+	private IMozzleUserService mozzleUserService;
+	
 	@RequestMapping(value="/guestInvite.do", method = RequestMethod.GET)
-	public String guestInvite(Model model, HttpServletRequest req, String mozzle_id) {
+	public String guestInvite(Model model, HttpServletRequest req, @ModelAttribute("mozzle_id") String mozzle_id) {
 		UUID newuuid = UuidUtil.getTimeBasedUuid();
 		String uuid = newuuid.toString();
 		GuestDto guestDto = new GuestDto(mozzle_id,uuid);
@@ -48,6 +57,15 @@ public class GuestController {
 		//임의로 추가한 mozzleEnter.do
 		String guesturl = nowurl+"/guestEnter.do?uuid="+uuid;
 		model.addAttribute("guesturl",guesturl);
+		
+		//모즐 리스트 뿌리기
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("mozzle_id", mozzle_id);
+		List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListMozzleUser(map);
+		model.addAttribute("mozzleuserList",mozzleuserList);
+		//=================
+		
+		
 		return "mozzle/guestInvite";
 	}
 	
