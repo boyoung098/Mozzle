@@ -63,6 +63,7 @@ public class MozzleUserController {
 		
 		return "mozzle/board";
 	}
+
 	
 	//ajax로 닉네임서치값을 받아서 map 형태로 찾은 리스트들 보내기
 	@RequestMapping(value="/mozzle/mozzleUserSearch.do", method = RequestMethod.POST)
