@@ -20,7 +20,7 @@ public class CategoryDaoImpl implements ICategoryDao {
 
 	public int registCategory(CategoryDto cDto) {
 		logger.info("registCategory {}", cDto);
-		return session.insert(NS + "registCategory") ;
+		return session.insert(NS + "registCategory");
 	}
 
 	@Override
@@ -40,6 +40,4 @@ public class CategoryDaoImpl implements ICategoryDao {
 		logger.info("searchCategory {}", searchName);
 		return session.selectList(NS + "searchCategory", searchName);
 	}
-
-
 }
