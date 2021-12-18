@@ -18,7 +18,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<%@ include file="../../comm/import.jsp" %>
+<%@ include file="/WEB-INF/view/comm/import.jsp" %>
 <style>
 
 .my-page-menu{
@@ -109,9 +109,7 @@
 </head>
 
 <body>
-	<jsp:include page="../../comm/header.jsp" >
-		<jsp:param value="${sessionScope.userId}" name="userId"/>
-	</jsp:include>
+	<div id="header"></div>
 	<section class="container">
 		<div>
 			<img class="width-100" alt="모즐 이미지" src="<%=request.getContextPath()%>/resources/images/bn.png">
@@ -168,7 +166,7 @@
 
 	</section>
 
-	<jsp:include page="../../comm/footer.jsp"/>
+	<div id="footer"></div>
 
 </body>
 </html>

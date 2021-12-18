@@ -43,9 +43,7 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../comm/header.jsp">
-		<jsp:param value="${sessionScope.userId}" name="userId" />
-	</jsp:include>
+	<div id="header"></div>
 	<section class="container mt-3" id="new-mozzle2">
 
 		<jsp:include page="../comm/mozzleHeader.jsp" />
@@ -153,5 +151,6 @@
 			</tr>
 		</table>
 	</form>
+	<div id="footer"></div>
 </body>
 </html>

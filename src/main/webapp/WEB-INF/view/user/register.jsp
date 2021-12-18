@@ -106,7 +106,7 @@ $(function(){
 </head>
 
 <body>
-	<jsp:include page="../comm/header.jsp" />
+	<div id="header"></div>
 	<section class="container-login mt-3">
 		<form id="login-form" action="./register.do" method="POST">
 
@@ -120,7 +120,7 @@ $(function(){
 		</form>
 	</section>
 
-	<jsp:include page="../comm/footer.jsp"/>
+	<div id="footer"></div>
 
 </body>
 </html>

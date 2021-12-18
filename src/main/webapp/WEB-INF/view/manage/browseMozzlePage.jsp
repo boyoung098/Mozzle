@@ -7,14 +7,7 @@
 <title>메인페이지</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/broweCategory.js"></script>
-<jsp:include page="../comm/import.jsp" />
+<%@ include file="../comm/import.jsp" %>
 
 
 <style>
@@ -49,9 +42,7 @@ a:hover {
 </style>
 </head>
 <body>
-	<jsp:include page="../comm/header.jsp">
-		<jsp:param value="${userId}" name="userId" />
-	</jsp:include>
+	<div id="header"></div>
 	<section id="main-bg" class="container mt-3">
 		<div class="container-fluid">
 			<div class="row content">
@@ -125,7 +116,7 @@ a:hover {
 			</div>
 		</div>
 	</section>
-	<jsp:include page="../comm/footer.jsp" />
+	<div id="footer"></div>
 
 
 	<div>

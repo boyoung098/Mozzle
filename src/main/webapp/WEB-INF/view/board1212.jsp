@@ -10,7 +10,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<jsp:include page="./comm/import.jsp" />
+<%@ include file="./comm/import.jsp" %>
 <script type="text/javascript" 	src="<%=request.getContextPath()%>/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -19,9 +19,7 @@
 </head>
 <body>
 	
-	<jsp:include page="./comm/header.jsp">
-		<jsp:param value="${userId}" name="userId" />
-	</jsp:include>
+	<div id="header"></div>
 	<section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
 			<div class="col-sm-9">
@@ -117,7 +115,7 @@
 
 	</section>
 	
-	<jsp:include page="./comm/footer.jsp" />
+	<div id="footer"></div>
 	 <!-- Modal 멤버 -->
         
         <div class="modal fade" id="myModal" role="dialog">

@@ -7,7 +7,7 @@
 <title>메인페이지</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<jsp:include page="../comm/import.jsp" />
+<%@ include file="../comm/import.jsp" %>
 
 <style>
 .card {
@@ -52,9 +52,7 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../comm/header.jsp" >
-		<jsp:param value="${userId}" name="userId"/>
-	</jsp:include>
+	<div id="header"></div>
 	<section id="main-bg" class="container mt-3">
 		<div class="swiper-container main-bg-img">
 			<div class="swiper-wrapper">
@@ -172,7 +170,7 @@
 	<br />
 	<br />
 
-	<jsp:include page="../comm/footer.jsp" />
+	<div id="footer"></div>
 
 
 	<div>
