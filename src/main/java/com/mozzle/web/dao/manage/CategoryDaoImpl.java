@@ -18,9 +18,9 @@ public class CategoryDaoImpl implements ICategoryDao {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final String NS ="com.mozzle.web.dao.manage.CategoryDaoImpl.";
 
-	public int registCategory(CategoryDto cDto) {
-		logger.info("registCategory {}", cDto);
-		return session.insert(NS + "registCategory");
+	public int registCategory(String category) {
+		logger.info("registCategory {}", category);
+		return session.insert(NS + "registCategory", category);
 	}
 
 	@Override
@@ -39,5 +39,11 @@ public class CategoryDaoImpl implements ICategoryDao {
 	public List<CategoryDto> searchCategory(String searchName) {
 		logger.info("searchCategory {}", searchName);
 		return session.selectList(NS + "searchCategory", searchName);
+	}
+
+	@Override
+	public int selectCategoryCnt() {
+		logger.info("selectCategoryCnt {}");
+		return session.selectOne(NS + "selectCategoryCnt");
 	}
 }

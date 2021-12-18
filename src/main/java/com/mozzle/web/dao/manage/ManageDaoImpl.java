@@ -77,4 +77,16 @@ public class ManageDaoImpl implements IManageDao{
 		logger.info("updateMozzle {}", mozzle);
 		return session.update(NS + "updateMozzle", mozzle);
 	}
+
+	@Override
+	public String selectMozzleIdByMozzleName(String mozzleName) {
+		logger.info("selectMozzleIdByLeaderId {}", mozzleName);
+		return session.selectOne(NS + "selectMozzleIdByMozzleName", mozzleName);
+	}
+
+	@Override
+	public int registLeader(MozzleDto mozzle) {
+		logger.info("registLeader {}", mozzle);
+		return session.insert(NS + "registLeader", mozzle);
+	}
 }

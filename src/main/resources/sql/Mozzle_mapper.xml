@@ -23,7 +23,7 @@
 						<if test="image_origin != null">
 						#{image_origin}, #{image_saved},
 						</if>
-						SYSDATE, #{category_code}, #{state}, 'N')	
+						SYSDATE, #{category_code}, #{state}, 'N')
 	</insert>	
 	
 	<update id="updateMozzle" parameterType="mDto">
@@ -140,5 +140,19 @@
 	<select id="selectCategory" resultType="java.lang.String">
 		SELECT CATEGORY_CODE FROM MOZZLE m 
 	</select>
-
+	
+	<select id="selectMozzleIdByMozzleName" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT MOZZLE_ID 
+		FROM MOZZLE 
+		WHERE MOZZLE_NAME = #{mozzle_name}
+	</select>
+	
+	<insert id="registLeader" parameterType="mDto">
+		INSERT INTO USER_MOZZLE
+			(USER_ID, MOZZLE_ID, 
+			AUTH_CODE, NICKNAME, 
+			JOINED_DATE, BIRTHDAY_SHOW)
+	VALUES(#{leader_id}, #{mozzle_id}, 
+			'1', '리더', SYSDATE, 'N')
+	</insert>
 </mapper>

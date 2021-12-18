@@ -74,12 +74,12 @@ public class ManageCtrl {
 		logger.info("imageUpload.do");
 		logger.info("ManageCtrl의 registMozzle {}", mozzle);
 		
-//		logger.info(request.getParameter("mozzle_name"));
-//		logger.info(request.getParameter("mozzle_intro"));
-//		
-//		logger.info(file.getName());
-//		logger.info(String.valueOf(file.getSize()));
-//		logger.info(file.getOriginalFilename());
+		//리더 id를 담아줌
+		String user_id = (String)request.getSession().getAttribute("userId");
+		logger.info("HttpServletRequest에서 받아온 userId {}", user_id);
+		//user_id를 leader_id로 지정
+		mozzle.setLeader_id(user_id);
+		
 		String image_origin = null; 
 		String image_saved= null; 
 		MultipartFile uploadImage = mozzle.getUploadFile();
@@ -108,10 +108,17 @@ public class ManageCtrl {
 		} else {
 			mozzle.setState("N");
 		}
-	
-		int n = service.registMozzle(mozzle);
-	
-		if (n == 1) {
+		
+		// 모즐 id 받아오기 + 모즐 id 입력
+		String mozzle_id= service.selectMozzleIdByMozzleName(mozzle.getMozzle_name());
+		mozzle.setMozzle_id(mozzle_id);
+		// mozzle_id -> registMozzleForm 전달
+		model.addAttribute("mozzle_id", mozzle_id);
+		// 모즐(1) & 리더(1) 등록
+		int checkNum = service.registMozzle(mozzle);
+		
+		// 모즐 등록 확인 (true/ false) 보내기
+		if (checkNum == 2) {
 			model.addAttribute("result", "true");
 			return "manage/registMozzleForm";
 		} else {
