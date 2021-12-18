@@ -53,10 +53,9 @@ public class IBoardServiceImpl implements IBoardService {
 	@Override
 	@Transactional
 	public int reply(Board board) {
-		int In = dao.replyIn(board);
 		int Up = dao.replyUp(board);
 		int Dl = dao.replyDl(board);
-		return In+Up+Dl;
+		return Up+Dl;
 	}
 
 
@@ -66,8 +65,8 @@ public class IBoardServiceImpl implements IBoardService {
 	}
 
 	@Override
-	public int replyview(Board board) {
-		return dao.replyview(board);
+	public int getReplyinput(Board board) {
+		return dao.getReplyinput(board);
 	}
 
 	
