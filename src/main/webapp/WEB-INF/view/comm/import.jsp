@@ -27,6 +27,9 @@ section.content{
 }
 </style>
 <script type="text/javascript">
-
+$(function(){
+	$("#header").load("<%=request.getContextPath()%>/header.do");
+	$("#footer").load("<%=request.getContextPath()%>/footer.do");
+});
 </script>
 

@@ -29,15 +29,5 @@
 				</ul>
 			</div>
 		</div>
-		
-			<div class="board-top mt-3">
-				<select class="board-sel selectbox">
-					<option value="new1">최신 순</option>
-					<option value="new2">인기 순</option>
-				</select>
-			</div>
-			
 		</div>
-
-
 </div>
