@@ -93,13 +93,15 @@ input:focus, select:focus {
 					<li>
 						<form action="./browseMozzlePage.do">
 							<div class="input-group intput-width search">
-								<input type="text" class="form-control search-input"
-									placeholder=" 찾으시는 모임이 있나요?" />
-									<div class="input-group-btn">
-										<button id="search-btn" class="btn btn-default" type="submit">
-											<i class="glyphicon glyphicon-search"></i>
-										</button>
-									</div>
+								<form action="">
+										<input type="text" class="form-control search-input"
+										placeholder=" 찾으시는 모임이 있나요?" />
+										<div class="input-group-btn">
+											<button id="search-btn" class="btn btn-default" type="submit">
+												<i class="glyphicon glyphicon-search"></i>
+											</button>
+										</div>
+									</form>
 								
 							</div>
 						</form>
