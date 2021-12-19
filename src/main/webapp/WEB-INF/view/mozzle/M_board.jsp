@@ -73,7 +73,9 @@ $(document).ready(function() {
 				<div class="board-text-container">
 					<p>${boardobj.content}</p>
 				
-					<div class="comment_box" id="comment_box${boardobj.post_id}" style="height:100px; width:100%; background:#ddd;"></div>
+					<div class="comment_box" id="comment_box${boardobj.post_id}" style="height:100px; width:100%; background:#ddd;">
+					
+					</div>
 				</div>
 
 				<div class="board-cion">
