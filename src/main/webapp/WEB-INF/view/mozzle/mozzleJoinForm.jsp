@@ -72,7 +72,7 @@
 				<button type="button" class="btn" id="bt"
 					style="margin-left: 5px; width: 15%;">등록</button>
 			</div> 
-			
+			z
 			
 			</div>
 			
