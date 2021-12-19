@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,29 +30,53 @@
 							</span>
 						
 					</div>
+					<button onclick="modalopen()">모달창자세히</button>
 					<ul id="mozzleuserul">
 						<%-- <% String imgpath = request.getSession().getServletContext().getRealPath("/")+"storage"+"\\"; %> --%>
 						 
 						<c:forEach var="mozzleUser" items="${mozzleuserList}">
-						<li id="invite" value="invite" data-toggle="modal"
-							data-target="#myModal" style="margin-bottom: 10px;">
+						
+							<li class="invite"  style="margin-bottom: 10px; border: 1px solid black;">
 							<div class="meeber-thumbnail">
+							<input type="hidden" value="${mozzleUser.nickname}" class="usernick">
+							
 								<c:choose>
 									<c:when test="${mozzleUser.image_saved == null}">
 										<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="">
 									</c:when>
 									<c:otherwise>
-										<img src="<%=request.getContextPath()%>/storage/065c83f5-4ac8-4817-9a4e-475b224f56ca.jfif" alt="">
+									<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="">
+										<%-- <img src="<%=request.getContextPath()%>/storage/065c83f5-4ac8-4817-9a4e-475b224f56ca.jfif" alt=""> --%>
 									</c:otherwise>
 								</c:choose>
 							</div> <span>${mozzleUser.nickname}</span>
 						</li>
 						</c:forEach>
+						
 					</ul>
 				</div>
+				<%@include file="/WEB-INF/view/mozzle/mozzleUserDetail.jsp" %>
 <!-- **************************멤버리스트뿌리는곳*************************  -->
 <!-- 김보영 자바스크립트 작성 -->
 	<script type="text/javascript">
+	
+	$(function(){
+		
+		$("#mozzleuserul ul li").each((idx, item) => {
+			$(item).click(function(e){
+				//console.log($(this).children("input").val());
+				console.log('hi');
+			});
+	    });
+		
+		
+	});    
+	    
+	function modalopen(){
+		$('#detailModal').modal();
+	}
+	
+	
 	function memberSearch(){
 		var memberSearchval = document.getElementById('memberSearchName').value;
 		console.log(memberSearchval);
@@ -96,9 +123,29 @@
 			 $('#joinModal').modal();
 		}
 		
-	}
+	} 
 	
+	/* function mozzleUserDetail(this){
+		//var usernickname = document.getElementById('detail${user_id}').value;
+		var usernickname = this.val();
+		console.log(usernickname);
+		//$('#detailModal').modal();
+		
+		
+	} */
 	
+	/*  $(".inviteaa이다").click(function(){
+		//var value = $(".inviteaa이다").children("input").val();
+		var value = $(".detail").val();
+		console.log(value);
+        //console.log($(this).val());
+        
+        
+    });  */
+
+    
+    
+    
 	</script>
 </body>
 </html>

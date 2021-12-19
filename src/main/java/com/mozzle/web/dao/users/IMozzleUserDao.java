@@ -11,4 +11,6 @@ public interface IMozzleUserDao {
 	
 	public int insertMozzleUser(MozzleUserDto dto);
 	
+	public MozzleUserDto selectMozzleUser(Map<String, String> map);
+	
 }

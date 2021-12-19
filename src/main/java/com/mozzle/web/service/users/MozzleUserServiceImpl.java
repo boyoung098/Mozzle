@@ -27,4 +27,10 @@ public class MozzleUserServiceImpl implements IMozzleUserService {
 		return mozzleUserDao.insertMozzleUser(dto);
 	}
 
+	@Override
+	public MozzleUserDto selectMozzleUser(Map<String, String> map) {
+		
+		return mozzleUserDao.selectMozzleUser(map);
+	}
+
 }

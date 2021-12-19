@@ -38,4 +38,12 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 		return session.insert(NS+"insertMozzleUser", dto);
 	}
 
+
+	@Override
+	public MozzleUserDto selectMozzleUser(Map<String, String> map) {
+		log.info("회원리스트조회 하기 위해 넣는값{}",map);
+		
+		return session.selectOne(NS+"selectMozzleUser",map);
+	}
+
 }

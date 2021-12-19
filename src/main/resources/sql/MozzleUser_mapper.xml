@@ -26,6 +26,17 @@ AND u.DELFLAG = 'N'
 </trim>
 </select>
 
+
+<!-- 모즐내 회원 닉네임으로 찾기 -> 상세조회 -->
+<select id="selectMozzleUser" parameterType="java.util.Map" resultType="mozzleUserDto">
+SELECT um.USER_ID, um.MOZZLE_ID, um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE,
+um.BIRTHDAY_SHOW, um.IMAGE_ORIGIN, um.IMAGE_SAVED, 
+u.USER_NAME ,u.AUTH_CODE,u.BIRTH  ,u.EMAIL , u.TEL ,u.DELFLAG 
+FROM USER_MOZZLE um JOIN USERS u ON um.USER_ID = u.USER_ID 
+WHERE um.NICKNAME = #{nickname} AND um.MOZZLE_ID = #{mozzle_id} AND um.AUTH_CODE IN ('1','2') AND u.DELFLAG = 'N'
+</select>
+
+
 <!-- 모즐 내 일반회원가입 -->
 <insert id="insertMozzleUser" parameterType="mozzleUserDto">
 INSERT INTO USER_MOZZLE
@@ -41,7 +52,11 @@ VALUES(#{user_id},#{mozzle_id}, '2', #{nickname}, sysdate, #{birthday_show}
 )
 </insert>
 
-<select id="selectListMozzleUser2" parameterType="java.util.Map" resultType="mozzleUserDto">
+
+
+
+
+<!-- <select id="selectListMozzleUser2" parameterType="java.util.Map" resultType="mozzleUserDto">
 SELECT um.USER_ID, um.MOZZLE_ID, um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE,
 um.BIRTHDAY_SHOW, um.IMAGE_ORIGIN, um.IMAGE_SAVED
 FROM USER_MOZZLE um JOIN USERS u ON um.USER_ID = u.USER_ID 
@@ -53,7 +68,7 @@ AND um.MOZZLE_ID =#{mozzle_id}
 AND um.AUTH_CODE IN ('1','2')
 AND u.DELFLAG = 'N'
 </trim>
-</select>
+</select> -->
 
 
 </mapper>
