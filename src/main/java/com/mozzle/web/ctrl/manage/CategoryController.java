@@ -33,6 +33,9 @@ public class CategoryController {
 		List<CategoryDto> cList = service.seletCategoryAll();
 		model.addAttribute("cList", cList);
 		
+		int cnt = service.selectCategoryCnt();
+		model.addAttribute("cnt", cnt);
+		
 		return "manage/adminIndex";
 	}
 	
@@ -47,13 +50,23 @@ public class CategoryController {
 	}
 
 	
-	@RequestMapping(value = "/registIndex.do", method= RequestMethod.GET)
-	public String registCategory(CategoryDto cDto) {
+	@RequestMapping(value = "/registIndex.do", method= RequestMethod.POST)
+	@ResponseBody
+	public boolean registCategory(@RequestParam("category[]") List<String> categoryList) {
 		
-		logger.info("AdminController의 home");
-		int num = service.registCategory(cDto);
+		logger.info("AdminController의 registCategory");
+		
+		int insertCnt = 0;
+		boolean result = false;
+		
+		for (String category : categoryList) {
+			insertCnt += service.registCategory(category);
+		}
+		
+		if (categoryList.size() == insertCnt) {
+			result = true;
+		}
 
-		return "manage/adminIndex";
-		
+		return result;
 	}
 }

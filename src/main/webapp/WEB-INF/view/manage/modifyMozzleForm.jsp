@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>모즐 생성 화면</title>
+<title>모즐 수정 화면</title>
 <%@ include file="../comm/import.jsp" %>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -18,6 +18,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/imageUpload.js"></script>
+<script
+	src="<%=request.getContextPath()%>/resources/js/modifyMozzle.js"></script>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/commons.css" />
 <script
@@ -34,7 +36,7 @@
 			enctype="multipart/form-data">
 			<input type="hidden" id="save_result" name="result" value="${result}" />
 			<input type="hidden" id="save_infor" name="mozzle_id"
-				value="${mozzle_id}" />
+				value="${mozzle.mozzle_id}" />
 			<div class="register-inner">
 				<h4>모즐 생성</h4>
 			</div>
@@ -47,7 +49,6 @@
 						src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}" ;/>
 				</div>
 			</div>
-
 
 			<div class="register-input" id="imagebox">
 				<div class="box-file-input" style="margin-top: 5px">
@@ -81,7 +82,7 @@
 					value="${mozzle.category_code}" />
 			</div>
 			<div class="register-name">
-				<h5>이름</h5>
+				<h5>모즐이름</h5>
 			</div>
 			<div class="register-input">
 				<input type="text" class="form-control" id="mozzle_name"
@@ -106,76 +107,7 @@
 		</form>
 	</div>
 	<div id="footer"></div>
-	<script>
-		var dataList = [];
-		$(document).ready(function() {
-				console.log('ready');
-				
-				$.ajax({
-					url: "./searchCategory.do",
-					type: "POST",	
-					dataType: "JSON",
-					success: function(result) {
-						console.log("성공");
-						var categoryList = result.cList;
-						for (var i = 0; i < categoryList.length; i++) {
-							var Obj = {};
-							Obj.id = categoryList[i].category_code;
-							Obj.text = categoryList[i].category_name;
-							dataList.push(Obj);
-						}	
-					}
-				});
-
-				console.log(dataList);
-				
-					$("#category").select2({
-						data : dataList,
-						multiple : true,
-
-					});
-				
-					if($('#save_result').val() != '') {
-						console.log($('#save_result').val());
-						
-						if($('#save_result').val() == 'true') {
-							alert('모즐이 성공적으로 수정되었습니다.');
-							$('#save_result').val('');
-							location.href = "./home.do";
-						} else {
-							alert('수정을 실패했습니다.');
-							$('#save_result').val('');
-						} 
-					}
-					
-				});
-		
 	
-
-	<%-- 	window.onload = function() {
-			document.getElementById("image").src = "<%=request.getContextPath()%>/resources/images/img.png";
-		}; --%>
-
-		document.getElementById("img").onchange = function() {
-			var reader = new FileReader();
-
-			reader.onload = function(e) {
-				// get loaded data and render thumbnail.
-				document.getElementById("image").src = e.target.result;
-			};
-
-			// read the image file as a data URL.
-			if(this.files != undefined && this.files[0] != null) {
-				reader.readAsDataURL(this.files[0]);
-			} else {
-				document.getElementById("image").src = "./resources/images/img.png";			}
-		};
-		
-		function checkSubmit() {
-			alert($('#submitMozzleForm').val());
-		}
-		
-	</script>
 
 </body>
 </html>

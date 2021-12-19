@@ -16,7 +16,9 @@ public class ManageServiceImpl implements IManageService {
 
 	@Override
 	public int registMozzle(MozzleDto mozzle) {
-		return dao.registMozzle(mozzle);
+		int checkNum01 = dao.registMozzle(mozzle);
+		int checkNum02 = dao.registLeader(mozzle);
+		return checkNum01 + checkNum02;
 	}
 
 	@Override
@@ -60,4 +62,10 @@ public class ManageServiceImpl implements IManageService {
 	public int updateMozzle(MozzleDto mozzle) {
 		return dao.updateMozzle(mozzle);
 	}
+
+	@Override
+	public String selectMozzleIdByMozzleName(String mozzleName) {
+		return dao.selectMozzleIdByMozzleName(mozzleName);
+	}
+
 }
