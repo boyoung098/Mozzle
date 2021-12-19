@@ -15,6 +15,7 @@ public interface IBoardService {
 	public int bookmarkDelete(Board board);
 	
 	public int reply(Board board);
-	public int replyview(Board board);
-	public int reportBoard(Board board); 
+	public int getReplyinput(Board board);
+	public int reportBoard(Board board);
+	
 }

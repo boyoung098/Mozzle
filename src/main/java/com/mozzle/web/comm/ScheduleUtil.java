@@ -1,5 +1,9 @@
 package com.mozzle.web.comm;
 
+import java.util.List;
+
+import com.mozzle.web.dto.schedule.ScheduleDto;
+
 //달력에서 사용하는 공통 기능을 정의
 public class ScheduleUtil {
 	
@@ -25,4 +29,19 @@ public class ScheduleUtil {
 			return "";
 		}
 	}
+	
+	// slist 년월에 모든 글을 가지고 있다.
+	// 해당 일에 리스트를 뿌려준다.
+	public static String schedulecount(int i, List<ScheduleDto> slist) {
+		
+		String res = "";
+		for(ScheduleDto dto : slist) {
+			if(dto.getSchedule_date().toString().equals(res)) {
+				
+			}
+		}
+		
+		return null;
+	}
+	
 }

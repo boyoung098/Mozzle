@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mozzle.web.dao.manage.CategoryDaoImpl">
 	
-	<insert id="registCategory" parameterType="cDto">
+	<insert id="registCategory" parameterType="java.lang.String">
 		INSERT INTO CATEGORY
-				(CATEGORY_CODE, CATEGORY_NAME)
-			VALUES(CATEGORY_SEQ.NEXTVAL, #{category_name})
+				(CATEGORY_CODE, CATEGORY_NAME, CREATE_DATE)
+			VALUES(CATEGORY_SEQ.NEXTVAL, #{category_name}, SYSDATE)
 	</insert>
 	
 	<select id="seletCategoryAll" resultType="cDto">
@@ -144,6 +144,10 @@
 	<select id="searchCategory" parameterType="java.lang.String" resultType="cDto">
 		SELECT CATEGORY_CODE, CATEGORY_NAME FROM CATEGORY
 			WHERE CATEGORY_NAME LIKE '%' || #{val} || '%'
+	</select>
+	
+	<select id="selectCategoryCnt" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM CATEGORY
 	</select>
 	
 

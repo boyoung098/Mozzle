@@ -16,4 +16,6 @@ public interface IManageDao {
 	public List<MozzleDto> selectMozzleBySearchBasedOnImportance(String keyword);
 	public List<MozzleDto> selectMozzleBySearchFromTheLastest(String keyword);
 	public String[] selectCategory();
+	public String selectMozzleIdByMozzleName(String mozzleName);
+	public int registLeader(MozzleDto mozzle);
 }

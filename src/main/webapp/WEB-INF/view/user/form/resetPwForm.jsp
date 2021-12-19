@@ -50,32 +50,12 @@
 }
 </style>
 
-<script type="text/javascript">
-	$(function(){
-		$("#find-id").click(function(e){
-			e.preventDefault();
-			var url = './loginPage.do';
-			var title = '아이디중복검사';
-			var attr = 'width=450px, height=550px';
-			window.open(url, title, attr);
-		});
-		
-		$("#find-password").click(function(e){
-			e.preventDefault();
-			var url = './';
-			var title = '아이디중복검사';
-			var attr = 'width=450px, height=550px';
-			window.open(url, title, attr);
-			
-		});
-	});
-</script>
 </head>
 
 <body>
 	<div id="header"></div>
 	<section class="content container-login mt-5">
-		<form id="login-form" action="./logingo.do" method="POST">
+		<form id="login-form" action="./resetPwInput.do" method="POST">
 
 				<h2>아이디 찾기</h2>
 				<p>아이디를 찾기 위해 필요한 정보를 입력해주세요</p>

@@ -15,5 +15,5 @@ public interface IManageService {
 	public List<MozzleDto> selectMozzleBySearchBasedeOnImportance(String keyword);
 	public List<MozzleDto> selectMozzleBySearchFromTheLastest(String keyword);
 	public String[] selectCategory();
-
+	public String selectMozzleIdByMozzleName(String mozzleName);
 }

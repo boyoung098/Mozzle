@@ -67,7 +67,7 @@ public class IBoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public int replyIn(Board board) {
+	public int getReplyinput(Board board) {
 		logger.info("댓글 입력");
 		return session.insert(NS+"replyIn",board);
 	}
@@ -82,12 +82,6 @@ public class IBoardDaoImpl implements IBoardDao {
 	public int replyDl(Board board) {
 		logger.info("댓글 삭제");
 		return session.delete(NS+"replyDl", board);
-	}
-	
-	@Override
-	public int replyview(Board board) {
-		logger.info("댓글 출력");
-		return session.insert(NS+"replyview", board);
 	}
 	
 	@Override

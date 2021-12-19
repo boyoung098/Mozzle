@@ -15,8 +15,8 @@ public class CategoryServiceImpl implements ICategoryService {
 	ICategoryDao dao;
 
 	@Override
-	public int registCategory(CategoryDto cDto) {
-		return dao.registCategory(cDto);
+	public int registCategory(String category) {
+		return dao.registCategory(category);
 	}
 
 	@Override
@@ -32,6 +32,11 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Override
 	public List<CategoryDto> searchCategory(String searchName) {
 		return dao.searchCategory(searchName);
+	}
+
+	@Override
+	public int selectCategoryCnt() {
+		return dao.selectCategoryCnt();
 	}
 
 }

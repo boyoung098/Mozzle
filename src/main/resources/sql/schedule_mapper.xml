@@ -25,7 +25,7 @@
 		INSERT INTO SCHEDULES
 		(SCHEDULE_ID, MOZZLE_ID, WRITER, TITLE, CONTENT, SCHEDULE_DATE, REGDATE, DELFLAG,
 		LOCATION_CODE)
-		VALUES(SCHEDULE_SEQ.NEXTVAL, MOZZLE_ID?? , #{writer}, #{title}, #{content}, #{schedule_date}, SYSDATE, 'N',
+		VALUES(SCHEDULE_SEQ.NEXTVAL, #{mozzle_id} , #{writer}, #{title}, #{content}, #{schedule_date}, SYSDATE, 'N',
 		#{location_code});
 	</insert>
 

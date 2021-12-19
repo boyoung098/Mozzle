@@ -12,12 +12,6 @@
 
 <style type="text/css">
 
-table {
-	width: 100%;
-	margin: 0 auto;
-	text-align: center;
-}
-
 .btn-xs {
 	margin-top: 15px;
 }
@@ -48,6 +42,8 @@ table {
 	vertical-align: middle;
 	height: 300px
 }
+
+
 </style>
 
 </head>
@@ -113,7 +109,7 @@ table {
 							<input type="text" class="form-control" id="inputCategory"
 								name="inputCategory" style="width: 40%; display: inline-block;" />
 							<button type="button" class="btn btn-default"
-								onclick="enrollCategory()">등록</button>
+								onclick="enrollCategory()">추가</button>
 							<button type="button" class="btn btn-warning"
 								onclick="location.href='./deleteCategory.jsp'"
 								style="margin-left: 5px;">삭제</button>
@@ -142,52 +138,26 @@ table {
 						
 					</div>
 					<div class="col-sm-4">
-						<img alt="arrow" src="<%=request.getContextPath()%>/resources/images/arrow.png" style="margin-top:100px">	
+						<img id="add-category" alt="arrow" src="<%=request.getContextPath()%>/resources/images/arrow.png" style="margin-top:100px">	
 					</div>
 					<div class="col-sm-4">
 						<div class="category-box" id="saved-category-box">
-							<table>
-								<thead>
-								</thead>
-								<tbody>
-									<c:forEach var="category" items="${cList}" varStatus="status">
-										<tr>
-											<td>${category.category_name}</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+							<ul id="saved-category-list">
+								<c:forEach var="category" items="${cList}">	
+									<li>${category.category_name}</li>
+								</c:forEach>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div style="float:right; margin-right:200px">
 				<br>
-				<div>총 : 개</div>
+				<div>총 : ${cnt} 개</div>
 				<br >
-				<button type="button" class="btn btn-default"
-					onclick="location.href='./registCategory.jsp'">저장</button>
+				<button class="btn btn-default"
+					onclick="window.location.reload()">저장</button>
 			</div>
-		</div>
-
-
-
-
-
-
-		<div id="menu1" class="tab-pane fade"></div>
-
-		<div id="menu2" class="tab-pane fade">
-			<div class="container"></div>
-		</div>
-
-		<div id="menu3" class="tab-pane fade">
-			<h3>Menu 3</h3>
-			<p>Eaque ipsa quae ab illo inventore veritatis et quasi
-				architecto beatae vitae dicta sunt explicabo.</p>
-
-
-
 		</div>
 	</div>
 
@@ -199,18 +169,49 @@ table {
 		if(appendCnt <10) {
 			console.log("ready");
 			$("#enroll-category-list").append("<li id='enroll-category-list-li"+ appendCnt+ "'>" + $("#inputCategory").val() 
-					+"<a onclick='deleteCategory()'><img src='<%=request.getContextPath()%>/resources/images/delete.png'/></a></li>")
+					+"<a onclick='deleteCategory("+ appendCnt + ")'><img src='<%=request.getContextPath()%>/resources/images/delete.png'/></a></li>")
 			document.getElementById("inputCategory").value = "";
 			
 			appendCnt += 1;
 		}
 	};
 	
-	function deleteCategory() {
+	function deleteCategory(appendCnt) {
 		console.log("ready");
-		$("#enroll-category-list-li" + (appendCnt - 1)).remove();
+		$("#enroll-category-list-li" + (appendCnt)).remove();
 		appendCnt -= 1;
 		
 	}
+
+	$("#add-category").click(function(){
+		console.log("ready");
+		var categoryArray = [];
+		$("#enroll-category-list li").each(function(){
+			categoryArray.push($(this).text());
+
+		})
+		console.log(categoryArray);
+		
+	 	$.ajax ({
+			url: "./registIndex.do",
+			type: "POST",
+			data: {
+				"category": categoryArray
+				},
+			success: function(result) {
+				if(result == true) {
+					alert("카테고리가 성공적으로 등록되었습니다");	
+					$("#enroll-category-list").children().remove();
+					appendCnt = 0;
+					
+					for (var i = 0; i < categoryArray.length; i++) {
+						$("#saved-category-list").prepend("<li style = 'color:#1E29F0'>" + categoryArray[i] + "</li>")		
+					}
+				}
+			}
+		}) 
+	});
+	
+	
 </script>
 </html>

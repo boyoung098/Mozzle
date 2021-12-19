@@ -16,10 +16,9 @@ public interface IBoardDao {
 	public int bookmarkBoard(Board board);
 	public int bookmarkDelete(Board board);
 	
-	public int replyIn(Board board);
+	public int getReplyinput(Board board);
 	public int replyUp(Board board);
 	public int replyDl(Board board);
-	public int replyview(Board board);
 	
 	public int reportBoard(Board board);
 }
