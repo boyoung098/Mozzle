@@ -22,24 +22,24 @@ import com.mozzle.web.service.schedule.IScheduleServiceImpl;
  */
 
 @Controller
-public class ScheduleCtrl{
-	
+public class ScheduleCtrl {
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private IScheduleServiceImpl schedule;
-	
+
 	/**
 	 * 일정 전체 리스트
 	 * @return
 	 */
-
-	@RequestMapping(value="/calendar.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/calendar.do", method = RequestMethod.GET)
 	public String scheduleselectAll(HttpServletRequest request) {
 		logger.info("ScheduleController 캘린더 출력");
-		
-		return "schedule/calendar";
-  }
 
+		return "schedule/calendar";
+	}
+	
+	
 
 }
