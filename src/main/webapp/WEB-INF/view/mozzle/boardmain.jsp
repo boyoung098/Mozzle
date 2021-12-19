@@ -78,8 +78,4 @@ $(document).ready(function() {
 
 
 	</section> -->
-	<div id="footer"></div>
-
-
-</body>
-</html>
+	
