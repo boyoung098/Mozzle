@@ -39,7 +39,7 @@
 	SELECT USER_ID FROM USERS WHERE EMAIL = #{email} AND USER_NAME = #{user_name}	
 </select>
 
-<select id="findPw" parameterType="uDto" resultType="uDto">
+<select id="findPw" parameterType="uDto" resultType="java.lang.Integer">
 	SELECT COUNT(*) FROM USERS WHERE EMAIL = #{email} AND USER_ID = #{user_id} AND USER_NAME = #{user_name}
 </select>
 

@@ -42,7 +42,7 @@ public class LoginController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Authentication user, HttpServletRequest req, Model model) {
+	public String home(Authentication user, Model model) {
 		if (user != null) {
 			UserDetails userdto = (UserDetails) user.getPrincipal();
 			// 로그인 결과가 유효하다면
@@ -65,20 +65,14 @@ public class LoginController {
 					model.addAttribute("userId", userdto.getUsername());
 					model.addAttribute("accessToken", accessToken);
 					model.addAttribute("refreshToken", refreshToken);
+					List<MozzleDto> myMozzleList = mService.selectMyMozzle(userdto.getUsername());
+					model.addAttribute("myMozzleList", myMozzleList);
 				}
 				
 			}	
 		}
 		
-		//HttpServletRequest에서 userId 가져오기
-		String userId = (String)req.getSession().getAttribute("userId");
-		//My 모즐
-		
-		if(userId != null) {
-			List<MozzleDto> myMozzleList = mService.selectMyMozzle(userId);
-			model.addAttribute("myMozzleList", myMozzleList);
-		
-		}
+
 		//새로 생긴 모즐
 		List<MozzleDto> newMozzleList = mService.selectMozzleByCreatDate();
 		//HOT 모즐

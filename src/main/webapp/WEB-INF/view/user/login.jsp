@@ -62,7 +62,7 @@
 		
 		$("#find-password").click(function(e){
 			e.preventDefault();
-			var url = './';
+			var url = './form/resetPw.do';
 			var title = '아이디중복검사';
 			var attr = 'width=450px, height=550px';
 			window.open(url, title, attr);
@@ -90,8 +90,8 @@
 								for="ch">자동 로그인</label>
 						</div>
 						<ul>
-							<li><a id="find-id" href="#">아이디 ㅣ</a></li>
-							<li><a id="find-password" href="#">비밀번호 찾기</a></li>
+							<li><a id="find-id" href="#">아이디 찾기ㅣ</a></li>
+							<li><a id="find-password" href="#">비밀번호 재설정</a></li>
 						</ul>
 					</div>
 					<input type="submit" class="color-btn input-login" value="로그인" />
