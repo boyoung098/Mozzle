@@ -1,6 +1,7 @@
 package com.mozzle.web.ctrl.board;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -37,27 +38,30 @@ public class BoardCtrl {
 	}
 	
 	@PostMapping(value="/insertBoard.do")
-	public String insertBoard(Board board, HttpServletResponse resp) throws IOException {
+	public String insertBoard(@RequestParam("incontent") String incontent, HttpServletResponse resp) throws IOException {
 
+		Board board =  new Board();
+		board.setPost_id("1");
+		board.setMozzle_id("1");
+		board.setUser_id("user05");
+		board.setTitle("테스트게시글 제목입니다");
+		board.setContent(incontent);
+		
 		logger.info("insertBoard 입력됨????=================== {}", board);
-		serviceImple.insertBoard(board);
-		return "board";
-		
-		
-		//		int cnt = serviceImple.insertBoard(board);
-//		if(cnt == 1) {
-//			resp.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = resp.getWriter();
-//			out.println("<script>alert('성공적으로 새글이 입력되었습니다'); location.href='./board.do';</script>");
-//			out.flush();
-//			return "board";
-//		}else {
-//			resp.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = resp.getWriter();
-//			out.println("<script>alert('새글 입력 실패'); location.href='./board.do';</script>");
-//			out.flush();
-//			return "board";
-//		}
+		int cnt = serviceImple.insertBoard(board);
+		if(cnt == 1) {
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+			out.println("<script>alert('성공적으로 입력되었습니다'); location.href='./mozzle/M_board.do';</script>");
+			out.flush();
+			return "mozzle/M_board";
+		}else {
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+			out.println("<script>alert('새글 입력 실패'); location.href='./mozzle/M_board.do';</script>");
+			out.flush();
+			return "mozzle/M_board";
+		}
 		
 	}
 	
@@ -79,26 +83,29 @@ public class BoardCtrl {
 	
 	@ResponseBody
 	@RequestMapping(value = "/addComment.do")
-	public boolean addComment(HttpSession session, @RequestParam("fmcontent") String fmcontent) {
+	public boolean addComment(@RequestParam("fmcontent") String fmcontent, @RequestParam("postId") String postId) {
 		
 		Board board =  new Board();
+		board.setPost_id(postId);
 		board.setMozzle_id("1");
 		board.setUser_id("reuser05");
 		board.setTitle("테스트테스트 제목입니다");
 		board.setContent(fmcontent);
-		System.out.println(fmcontent+"======================================================");
 		
 		boolean isc = false;
 		
 		int comment = serviceImple.getReplyinput(board);
 		logger.info("addComment {}", comment);
 		if(comment ==1) {
-		
 			isc = true;
-			System.out.println("성공------------------------");
 		}
 		return isc;
 	}
+	
+//	public boolean addComment(HttpServletRequest request) {
+//		String postId = (String) request.getParameter("postId");
+//		String fmcontent = (String) request.getParameter("fmcontent"); 
+//	}
 	
 	
 	
