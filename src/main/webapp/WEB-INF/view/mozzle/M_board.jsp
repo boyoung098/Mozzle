@@ -40,10 +40,8 @@ $(document).ready(function() {
 	<div class="board-container" id="items">
 		<div class="txt mt-3">
 			<h4>글 작성</h4>
-			<!--  -->
-			<textarea style="width: 200px" rows="3" cols="30" id="comment" name="comment" placeholder="댓글을 입력하세요"></textarea>
 			<textarea id="summernote" name="content" class="comments" style="width: 500px" rows="3" cols="30"></textarea>
-			<input type="button" id="commentWrite" value="글 작성"/>
+			<button id="commentWrite" onclick = 'inputComment()'>글 작성</button>
 		</div>
 	</div>
 	<div class="board-top mt-3">
@@ -59,6 +57,7 @@ $(document).ready(function() {
 					<div class="meeber-thumbnail">
 						<img src="./resources/images/weast044_01.jpg" alt="하늘">
 					</div>
+					<input type="hidden" id="postId" value="${boardobj.post_id}">
 					<span>${boardobj.user_id}</span> <span>${boardobj.regdate}</span>
 				</div>
 				<div class="col-sm-1 drop-board-box">
@@ -72,7 +71,11 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="board-text-container">
-					<div class="comment_box" id="comment_box" style="height:100px; width:100%; background:#ddd;"></div>
+					<p>${boardobj.content}</p>
+				
+					<div class="comment_box" id="comment_box${boardobj.post_id}" style="height:100px; width:100%; background:#ddd;">
+					
+					</div>
 				</div>
 
 				<div class="board-cion">
@@ -82,13 +85,9 @@ $(document).ready(function() {
 					<div class="comment-icon comment-write">
 						<i class="xi-speech-o xi-2x"></i>
 					</div>
-					<div class="comment">
-						<form id="reply" action="./reinboard.do" method="post">
-							<input type="text" id="contentId"
-								class="form-control comment-input" name="contentId" /> <input
-								type="submit" value="댓글" class="comment-btn"
-								id="comment-btn" />
-						</form>
+					<div class="comment" style="display:block;">
+							<input type="text" class="form-control comment-input" name="contentId"  id="contentId"/> 
+							<button class="comment-btn" id="comment-btn" onclick = 'registComment(${boardobj.post_id})'>댓글</button>
 					</div>
 				</div>
 
@@ -99,35 +98,57 @@ $(document).ready(function() {
 	
 
 <script type="text/javascript">
-	/*
-	 * 댓글 등록하기(Ajax)
-	 */
-	 $(function(){
-			$("#commentWrite").on("click", function(){
-				var content = $("#comment").val();
-				console.log(content);
-				$.ajax({
-					type:'POST',
-					url : './addComment.do',
-					data: {"fmcontent":content },
-					dataType:"JSON",
-					async:true,
-					success : function(reinsert){
-						//alert(reinsert);
-						if(reinsert == true){
-							//document.getElementById("comment_box").innerHTML = "대글";
-							$(".comment_box").append('<div>'+content+'"</div>');
-							//console.log("성공");
-							
-						} 
-			        		
-					},
-			        error:function(){
-			        	alert("내용을 입력 해주세요.");
-			       } 
-				})
-			});
-		});
+function inputComment() {
+	var content = $("#summernote").val();
+	console.log(content);
+	$.ajax({
+		type:'POST',
+		url : './insertBoard.do',
+		data: {
+			"incontent":content,
+			},
+		dataType:"JSON",
+		async:true,
+		success : function(reinsert){
+			
+        		
+		}
+	})
+}
+	
+
+/*
+ * 댓글 등록하기(Ajax)
+ */
+function registComment(seq) {
+	var content = $("#contentId").val();
+	var user = '<c:out value="${boardobj.user_id}"/>';
+	console.log(content);
+	$.ajax({
+		type:'POST',
+		url : './addComment.do',
+		data: {
+			"fmcontent":content,
+			"postId":seq
+			},
+		dataType:"JSON",
+		async:true,
+		success : function(reinsert){
+			//alert(reinsert);
+			if(reinsert == true){
+				//document.getElementById("comment_box").innerHTML = "대글";
+				$('#comment_box' + seq).append('<div>'+user+'</div>');
+				$('#comment_box' + seq).append('<div>'+content+'</div>');
+				//console.log("성공");
+				
+			} 
+        		
+		},
+        error:function(){
+        	alert("내용을 입력 해주세요.");
+       } 
+	})
+}
 
 </script>
 
