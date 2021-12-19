@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mozzle.web.dto.manage.MozzleDto;
 import com.mozzle.web.dto.users.MozzleUserDto;
 
 @Repository
@@ -46,4 +47,43 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 		return session.selectOne(NS+"selectMozzleUser",map);
 	}
 
+	//------------------------------------------------------
+	@Override
+	public MozzleUserDto selectMozzleUserByUserId(Map<String, String> map) {
+		log.info("모즐 유저 userid로 조회 {}",map);
+		
+		return session.selectOne(NS+"selectMozzleUserByUserId",map);
+	}
+
+
+	@Override
+	public int insertMozzleHost(MozzleDto dto) {
+		log.info("모즐 유저 운영자 생성 {}",dto);
+		
+		return session.insert(NS+"insertMozzleHost",dto);
+	}
+
+
+	@Override
+	public int deleteMozzleUser(MozzleUserDto dto) {
+		log.info("모즐 유저 본인이 탈퇴{}",dto);
+		return session.delete(NS+"deleteMozzleUser",dto);
+	}
+
+
+	@Override
+	public int updateMozzleUser(MozzleUserDto dto) {
+		log.info("모즐유저 회원정보수정 본인이{}",dto);
+		return session.update(NS+"updateMozzleUser",dto);
+	}
+
+
+	@Override
+	public int updateMozzleUserAuth(MozzleUserDto dto) {
+		log.info("모즐내 회원 권한수정 운영자가 {}",dto);
+		return session.update(NS+"updateMozzleUserAuth",dto);
+	}
+
+	
+	
 }

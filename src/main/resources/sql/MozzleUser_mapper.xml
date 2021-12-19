@@ -53,7 +53,40 @@ VALUES(#{user_id},#{mozzle_id}, '2', #{nickname}, sysdate, #{birthday_show}
 </insert>
 
 
+<!-- 12/19(일) 모즐유저를 userid로 조회 -->
+<select id="selectMozzleUserByUserId" parameterType="java.util.Map" resultType="mozzleUserDto">
+SELECT um.USER_ID, um.MOZZLE_ID, um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE,
+um.BIRTHDAY_SHOW, um.IMAGE_ORIGIN, um.IMAGE_SAVED, 
+u.USER_NAME , u.AUTH_CODE,u.BIRTH  ,u.EMAIL , u.TEL ,u.DELFLAG 
+FROM USER_MOZZLE um JOIN USERS u ON um.USER_ID = u.USER_ID 
+WHERE um.USER_ID = #{user_id} AND um.MOZZLE_ID =#{mozzle_id} AND um.AUTH_CODE IN ('1','2')
+</select>
 
+<!-- 12/19(일) 모즐유저 운영자 생성 -->
+<insert id="insertMozzleHost" parameterType="mDto">
+INSERT INTO USER_MOZZLE
+(USER_ID, MOZZLE_ID, AUTH_CODE, NICKNAME, JOINED_DATE, BIRTHDAY_SHOW)
+VALUES(#{user_id}, #{mozzle_id}, '1', #{user_id}, sysdate, 'N')
+</insert>
+
+<!-- 12/19(일) 모즐 유저 본인이 탈퇴 -->
+<delete id="deleteMozzleUser" parameterType="mozzleUserDto">
+DELETE FROM USER_MOZZLE um WHERE USER_ID = #{user_id} AND MOZZLE_ID = #{mozzle_id}
+</delete>
+
+<!-- 12/19(일) 모즐유저 회원정보수정 본인이-->
+<update id="updateMozzleUser" parameterType="mozzleUserDto">
+UPDATE USER_MOZZLE SET NICKNAME = #{nickname}, BIRTHDAY_SHOW = #{birthday_show}
+<if test="image_origin !=null">
+,IMAGE_ORIGIN = #{image_origin},IMAGE_SAVED = #{image_saved}
+</if>
+ WHERE USER_ID = #{user_id} AND MOZZLE_ID = #{mozzle_id}
+</update>
+
+<!-- 12/19(일) 모즐내 회원 권한수정 운영자가 -->
+<update id="updateMozzleUserAuth" parameterType="mozzleUserDto">
+UPDATE USER_MOZZLE set auth_code = #{auth_code} WHERE USER_ID = #{user_id} MOZZLE_ID = #{mozzle_id}
+</update>
 
 
 <!-- <select id="selectListMozzleUser2" parameterType="java.util.Map" resultType="mozzleUserDto">
