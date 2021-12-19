@@ -39,39 +39,42 @@
 	width: 65%;
 }
 
-
 .search-input {
 	border: none;
-	padding: 0;'
+	padding: 0;
+	'
 }
 
 input:focus, select:focus {
 	outline: transparent !important;
 }
-#search-btn{
+
+#search-btn {
 	border: none;
 	background-color: rgba(0, 0, 0, 0);
 }
-.navbar-right li{
+
+.navbar-right li {
 	text-align: center;
 }
-.dropdown-menu {
-  left: 50% !important;
-  right: auto !important;
-  text-align: center;
-  transform: translate(-50%, 0);
-}
 
+.dropdown-menu {
+	left: 50% !important;
+	right: auto !important;
+	text-align: center;
+	transform: translate(-50%, 0);
+}
 </style>
 
 <script>
-	$(function(){
-		$("#myPageGo").click(function(e){
+	$(function() {
+		$("#myPageGo").click(function(e) {
 			e.preventDefault();
 			$("#myPageGo-form").submit();
 		});
 
 	});
+	
 </script>
 
 </head>
@@ -91,18 +94,15 @@ input:focus, select:focus {
 			<div class="collapse navbar-collapse select_bar" id="myNavbar">
 				<ul class="nav navbar-nav navbar-center">
 					<li>
-						<form action="./browseMozzlePage.do">
+						<form action="./browseMozzlePage.do" method="post">
 							<div class="input-group intput-width search">
-								<form action="">
-										<input type="text" class="form-control search-input"
-										placeholder=" 찾으시는 모임이 있나요?" />
-										<div class="input-group-btn">
-											<button id="search-btn" class="btn btn-default" type="submit">
-												<i class="glyphicon glyphicon-search"></i>
-											</button>
-										</div>
-									</form>
-								
+								<input type="text" class="form-control search-input"
+									name="keyword" placeholder=" 찾으시는 모임이 있나요?" value="${keyword}"/>
+								<div class="input-group-btn">
+									<button type="submit" id="search-btn" class="btn btn-default">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</div>
 							</div>
 						</form>
 					</li>
@@ -117,16 +117,17 @@ input:focus, select:focus {
 						<li><a href="#" data-toggle="dropdown">${sessionScope.userId}님</a>
 							<ul class="dropdown-menu">
 								<li><a href="#">HTML</a></li>
-      							<li><a href="#">CSS</a></li>
-      							<li><a href="#">JavaScript</a></li>
-							</ul>
-						</li>
+								<li><a href="#">CSS</a></li>
+								<li><a href="#">JavaScript</a></li>
+							</ul></li>
 						<li><a id="myPageGo" href="#">마이페이지</a></li>
-						<li><a id="logoutGo" href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
+						<li><a id="logoutGo"
+							href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
 					</c:if>
 				</ul>
-				<form id="myPageGo-form" action="<%=request.getContextPath()%>/user/myPage.do" method="post">
-					<input type="hidden" name="auth" value="false"/>
+				<form id="myPageGo-form"
+					action="<%=request.getContextPath()%>/user/myPage.do" method="post">
+					<input type="hidden" name="auth" value="false" />
 				</form>
 			</div>
 		</div>

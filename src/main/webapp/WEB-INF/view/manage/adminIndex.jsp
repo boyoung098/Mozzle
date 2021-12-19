@@ -16,6 +16,10 @@
 	margin-top: 15px;
 }
 
+#save-button {
+	margin-left: 3px
+}
+
 .category-box {
 	border: 1px solid #ccc;;
 	border-radius: 5px;
@@ -110,9 +114,6 @@
 								name="inputCategory" style="width: 40%; display: inline-block;" />
 							<button type="button" class="btn btn-default"
 								onclick="enrollCategory()">추가</button>
-							<button type="button" class="btn btn-warning"
-								onclick="location.href='./deleteCategory.jsp'"
-								style="margin-left: 5px;">삭제</button>
 						</div>
 						<div class="col-sm-5" style="text-align:center;width:50%">
 							<form action="./searchCategory.do" method="post"
@@ -144,7 +145,7 @@
 						<div class="category-box" id="saved-category-box">
 							<ul id="saved-category-list">
 								<c:forEach var="category" items="${cList}">	
-									<li>${category.category_name}</li>
+									<li><a onclick="checkForDelete('${category.category_code}')">${category.category_name}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
@@ -154,8 +155,8 @@
 			<div style="float:right; margin-right:200px">
 				<br>
 				<div>총 : ${cnt} 개</div>
-				<br >
-				<button class="btn btn-default"
+				<br>
+				<button class="btn btn-primary" id="save-button"
 					onclick="window.location.reload()">저장</button>
 			</div>
 		</div>
@@ -211,6 +212,16 @@
 			}
 		}) 
 	});
+	
+	var deleteList = [];
+	
+	function checkForDelete(category_code) {
+		console.log(category_code);
+		
+		deleteList.push(category_code);
+		console.log(deleteList);
+		
+	}
 	
 	
 </script>

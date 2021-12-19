@@ -32,7 +32,7 @@ $(document).ready(function() {
 			alert('모즐이 성공적으로 수정되었습니다.');
 			$('#save_result').val('');
 			
-			location.href = "../board.do";
+			location.href = "../board.do?mozzle_id=" + $('#save_info').val();
 		} else {
 			alert('수정을 실패했습니다.');
 			$('#save_result').val('');

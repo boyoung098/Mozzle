@@ -35,7 +35,7 @@
 		<form id="submitMozzleForm" action="./modifyMozzle.do" method="post"
 			enctype="multipart/form-data">
 			<input type="hidden" id="save_result" name="result" value="${result}" />
-			<input type="hidden" id="save_infor" name="mozzle_id"
+			<input type="hidden" id="save_info" name="mozzle_id"
 				value="${mozzle.mozzle_id}" />
 			<div class="register-inner">
 				<h4>모즐 생성</h4>
