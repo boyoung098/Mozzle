@@ -1,5 +1,7 @@
 package com.mozzle.web.ctrl.users;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.mozzle.web.comm.JwtTokenProvider;
+import com.mozzle.web.dto.manage.MozzleDto;
 import com.mozzle.web.dto.users.UserDto;
+import com.mozzle.web.service.manage.IManageService;
 import com.mozzle.web.service.users.IUserService;
 
 @Controller
@@ -27,6 +31,9 @@ public class LoginController {
 
 	@Autowired
 	IUserService service;
+	
+	@Autowired
+	private IManageService mService;
 
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
@@ -35,7 +42,7 @@ public class LoginController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Authentication user, Model model) {
+	public String home(Authentication user, HttpServletRequest req, Model model) {
 		if (user != null) {
 			UserDetails userdto = (UserDetails) user.getPrincipal();
 			// 로그인 결과가 유효하다면
@@ -60,8 +67,26 @@ public class LoginController {
 					model.addAttribute("refreshToken", refreshToken);
 				}
 				
-			}
+			}	
 		}
+		
+		//HttpServletRequest에서 userId 가져오기
+		String userId = (String)req.getSession().getAttribute("userId");
+		//My 모즐
+		
+		if(userId != null) {
+			List<MozzleDto> myMozzleList = mService.selectMyMozzle(userId);
+			model.addAttribute("myMozzleList", myMozzleList);
+		
+		}
+		//새로 생긴 모즐
+		List<MozzleDto> newMozzleList = mService.selectMozzleByCreatDate();
+		//HOT 모즐
+		List<MozzleDto> hotMozzleList = mService.selectMozzleByUserNumber();
+
+		model.addAttribute("newMozzleList", newMozzleList);
+		model.addAttribute("hotMozzleList", hotMozzleList);
+		
 		return "index";
 	}
 
