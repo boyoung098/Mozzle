@@ -40,8 +40,10 @@ $(document).ready(function() {
 	<div class="board-container" id="items">
 		<div class="txt mt-3">
 			<h4>글 작성</h4>
-			<textarea id="summernote" name="content" class="comments" style="width: 500px" rows="3" cols="30"></textarea>
-			<button id="commentWrite" onclick = 'inputComment()'>글 작성</button>
+			<form action="">
+				<textarea id="summernote" name="comments" class="comments" style="width: 500px" rows="3" cols="30"></textarea>
+				<button id="commentWrite" onclick = 'inputComment()'>글 작성</button>
+			</form>
 		</div>
 	</div>
 	<div class="board-top mt-3">
@@ -73,8 +75,9 @@ $(document).ready(function() {
 				<div class="board-text-container">
 					<p>${boardobj.content}</p>
 				
-					<div class="comment_box" id="comment_box${boardobj.post_id}" style="height:100px; width:100%; background:#ddd;">
-					
+					<div class="comment_box_recomment" id="comment_box${boardobj.post_id}">
+					<p>${reboardlist.user_id}</p>
+					<p>${reboardlist.content}</p>
 					</div>
 				</div>
 

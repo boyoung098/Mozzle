@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mozzle.web.dto.board.Board">
   	<!-- 게시판 -->
-  	<select id="selectAllBoard" resultType="board">
+  	<select id="selectAllBoard"  parameterType="java.lang.Integer" resultType="board">
   			SELECT POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, "DEPTH", REGDATE
 			FROM MOZZLE_POST
-			WHERE MOZZLE_ID= '1' ORDER BY REGDATE DESC
+			WHERE MOZZLE_ID= #{mozzle_id} ORDER BY REGDATE DESC
   	</select>
   	<select id="selectOneBoard" parameterType="java.lang.String" resultType="board">
   		SELECT POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, DEPTH, REGDATE
@@ -13,7 +13,7 @@
 		WHERE TITLE LIKE #{title} AND CONTENT LIKE #{content}
   	</select>
   	
-  	<insert id="insertBoard" parameterType="java.lang.String" >
+  	<insert id="insertBoard" parameterType="board" >
   		INSERT INTO MOZZLE_POST
 		(POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, DEPTH, REGDATE)
 		VALUES(MOZZLE_POST_SEQ.NEXTVAL, #{mozzle_id}, #{user_id}, #{title}, #{content}, 
@@ -43,6 +43,13 @@
   	</delete>
   	
   	<!--게시글 댓글 -->
+  	<select id="reselectAll" parameterType="java.lang.String" resultType="board" >
+  		SELECT POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, "DEPTH", REGDATE
+		FROM MOZZLE_POST
+		WHERE USER_ID= #{user_id}
+  	</select>
+  	
+  	
   	<insert id="replyIn" parameterType="board">
 		INSERT INTO MOZZLE_POST
 		(POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, DEPTH, REGDATE)

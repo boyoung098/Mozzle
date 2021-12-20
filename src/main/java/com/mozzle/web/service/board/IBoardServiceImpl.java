@@ -36,8 +36,8 @@ public class IBoardServiceImpl implements IBoardService {
 	}
 
 	@Override
-	public List<Board> selectAllBoard() {
-		return dao.selectAllBoard();
+	public List<Board> selectAllBoard(int seq) {
+		return dao.selectAllBoard(seq);
 	}
 	
 	@Override
@@ -68,6 +68,13 @@ public class IBoardServiceImpl implements IBoardService {
 	public int getReplyinput(Board board) {
 		return dao.getReplyinput(board);
 	}
+
+	@Override
+	public String replySelectAllBoard(String id) {
+		return dao.replySelectAllBoard(id);
+	}
+
+	
 
 	
 

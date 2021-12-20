@@ -45,7 +45,7 @@ public class IBoardDaoImpl implements IBoardDao {
 	}
 	
 	@Override
-	public List<Board> selectAllBoard() {
+	public List<Board> selectAllBoard(int seq) {
 		logger.info("전체 게시판");
 		return session.selectList(NS+"selectAllBoard");
 	}
@@ -90,6 +90,12 @@ public class IBoardDaoImpl implements IBoardDao {
 		return session.insert(NS+"reportBoard", board);
 	}
 
+	@Override
+	public String replySelectAllBoard(String id) {
+		return session.selectOne(NS+"reselectAll");
+	}
+
+	
 	
 
 	
