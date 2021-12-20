@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,17 +27,8 @@
 </style>
 </head>
 <body>
-  <div class="modal fade" id="joinModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">모즐 가입</h4>
-        </div>
-        
-        <div class="modal-body">
+
+	<div id="content">
         <form:form id="mozzleUserRegist" action="./mozzleUserRegist.do?mozzle_id=${mozzle_id}" method="post" enctype="multipart/form-data"
         		modelAttribute="mozzleUserDto">
 		<div class="register-container">
@@ -62,8 +53,8 @@
 			<span class="inline-flex">
 			<input type="text"
 			class="form-control side-input" name="nickname"
-			placeholder="닉네임을 입력해주세요">
-			<button type="button" id="upnickcheck" class="color-btn side-btn" style="margin-left: 5px;">중복확인</button></span>
+			placeholder="닉네임을 입력해주세요" />
+			<button id="upnickcheck" class="color-btn side-btn" style="margin-left: 5px;">중복확인</button></span>
 			</label>
 			
 			<div class="register-input" id="public-choice">
@@ -79,43 +70,34 @@
 			</div>
 			
 			<br>
+			<div>
+			<span>밴드탈퇴</span> 
+			<button class="join-btn" id="mozzleout" style="margin: 5px;">탈퇴하기</button>
+			</div>
+			
+			<div>
+			<span>밴드신고</span> 
+			<button class="join-btn" id="mozzlepost" style="margin: 5px;">신고하기</button>
+			</div>
+			
 			<div class="register-input"
 				style="display: flex; justify-content: center;">
 				<input type="submit" class="btn" id="submit-btn"
-					style="width: 200px; background: #e82d55; color: #fff;"
-					value="모즐등록" onSubmit="checkSubmit()">
+					style="width: 200px; background: #e82d55; color: #fff; height: 50px;"
+					value="수정" onSubmit="checkSubmit()">
 			</div>
+			
+			
 			
 			</div>
 			</div>
 		</form:form>
-	</div> 
+		
+	</div>
+	
 
+<script type="text/javascript">
 
-
-        </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div> -->
-      </div>
-      
-    </div>
-    
-    <script type="text/javascript">
-    	function setThumbnail(event){
-    		console.log("hi");
-    		var reader = new FileReader();
-    		reader.onload = function(event){
-    			$("#image").attr("src",event.target.result);
-    			
-    		}
-    		reader.readAsDataURL(event.target.files[0]);
-    		
-    	}
-    
-    	function checkjoinnick(){
-    		console.log
-    	}
-    </script>
+</script>
 </body>
 </html>

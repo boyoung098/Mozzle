@@ -66,11 +66,11 @@ public class MozzleUserController {
 
 	
 	//ajax로 닉네임서치값을 받아서 map 형태로 찾은 리스트들 보내기
-	@RequestMapping(value="/mozzle/mozzleUserSearch.do", method = RequestMethod.POST)
+	@RequestMapping(value="/mozzleUserSearch.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String,List<MozzleUserDto> > mozzleUserSearch(String nickname, @ModelAttribute("mozzle_id") String mozzle_id){
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("mozzle_id", "1");
+		map.put("mozzle_id", mozzle_id);
 		map.put("nickname", nickname);
 		List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListMozzleUser(map);
 		Map<String,List<MozzleUserDto>> returnmap = new HashMap<String,List<MozzleUserDto>>();
@@ -79,7 +79,7 @@ public class MozzleUserController {
 	}
 	
 	//유저가 모즐내 가입할때
-	@PostMapping(value = "/mozzle/mozzleUserRegist.do")
+	@PostMapping(value = "/mozzleUserRegist.do")
 	public String mozzleUserRegist(HttpServletRequest req, Model model, MozzleUserDto mozzleUserDto,
 										BindingResult result, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletResponse resp) throws IOException {
 		
@@ -91,7 +91,10 @@ public class MozzleUserController {
 		if(fileName!="") {
 			mozzleUserDto.setImage_origin(fileName);
 			String image_saved = UUID.randomUUID().toString();
-			mozzleUserDto.setImage_saved(image_saved);
+			int point = fileName.indexOf(".");
+			String filepackager = fileName.substring(point);
+			
+			mozzleUserDto.setImage_saved(image_saved+filepackager);
 			
 			
 			//파일업로드절차=============================================
@@ -166,17 +169,23 @@ public class MozzleUserController {
 		if(resultcnt==0) {
 			resp.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = resp.getWriter();
-			writer.println("<script>alert('모즐가입에 실패하셨습니다. 다시 시도해주세요.'); location.href='./mozzleMove.do?mozzle_id="+mozzle_id+"';</script>");
+			writer.println("<script>alert('모즐가입에 실패하셨습니다. 다시 시도해주세요.'); location.href='./firstmozzle.do?mozzle_id="+mozzle_id+"';</script>");
 			writer.flush();
 		} else {
 			resp.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = resp.getWriter();
-			writer.println("<script>alert('모즐가입에 성공하셨습니다.'); location.href='./mozzleMove.do?mozzle_id="+mozzle_id+"';</script>");
+			writer.println("<script>alert('모즐가입에 성공하셨습니다.'); location.href='./firstmozzle.do?mozzle_id="+mozzle_id+"';</script>");
 			writer.flush();
 			
 		}
 		
 		
 		return null;
+	}
+	
+	@GetMapping(value="/mozzleuserMypage.do")
+	public String mozzleuserMypage(@ModelAttribute("mozzle_id")String mozzle_id) {
+		
+		return "mozzle/mozzleuserMypage";
 	}
 }

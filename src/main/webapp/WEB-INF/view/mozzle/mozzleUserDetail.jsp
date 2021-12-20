@@ -24,7 +24,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">${mozzleUser.nickname}</h4>
+          <h4 class="modal-title" id="usernickname"></h4>
         </div>
         
         <div class="modal-body">
@@ -35,18 +35,15 @@
 					<img class="image" id="image" src="<%=request.getContextPath()%>/resources/images/default_profile.png" />
 				</div>
 			<div class="register-name">
-				<h2 id="innickname">닉네임</h2>
-				<h4>일반회원</h4>
+				<h2 id="innickname"></h2>
+				<h4 id="inauth"></h4>
 			</div>
 			<br>
 			<div class="register-name">
-				<h5>가입일자 : 2018/10/10</h5>
+				<h5>가입일자 : <span id="indate"></span></h5>
 			</div>
 			
-			<!-- 본인일경우만 session값가져와서-->
-			<div class="register-name">
-				<h4><a>프로필수정</a></h4>
-			</div>
+			
 			
 			
 			
