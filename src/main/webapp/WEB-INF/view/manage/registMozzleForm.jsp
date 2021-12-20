@@ -85,8 +85,9 @@
 				<h5>모즐이름</h5>
 			</div>
 			<div class="register-input">
-				<input type="text" class="form-control" name="mozzle_name"
-					placeholder="모즐 이름을 입력해주세요" />
+				<input type="text" class="form-control" name="mozzle_name" id="mozzle_name" 
+					placeholder="모즐 이름을 입력해주세요" /> 
+				<p style="display: none;" id="check_msg"></p>
 			</div>
 			<div class="register-name">
 				<h5>모즐소개</h5>

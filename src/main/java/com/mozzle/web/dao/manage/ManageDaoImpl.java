@@ -89,4 +89,10 @@ public class ManageDaoImpl implements IManageDao{
 		logger.info("registLeader {}", mozzle);
 		return session.insert(NS + "registLeader", mozzle);
 	}
+
+	@Override
+	public int mozzleNameCheck(String mozzle_name) {
+		logger.info("mozzleIdCheck {}", mozzle_name);
+		return session.selectOne(NS + "mozzleNameCheck", mozzle_name);
+	}
 }

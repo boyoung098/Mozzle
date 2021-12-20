@@ -127,11 +127,19 @@ public class ManageCtrl {
 		}	
 	}
 	
+	@RequestMapping(value="/mozzleNameCheck.do", method= RequestMethod.POST)
+	public int mozzleNameCheck(@RequestParam("mozzle_name") String mozzle_name) {
+		logger.info("mozzleNameCheck {}", mozzle_name);
+		int checkNum = service.mozzleNameCheck(mozzle_name);
+	
+		return checkNum;
+	}
+	
 	@RequestMapping(value = "/modifyMozzleForm.do", method= RequestMethod.GET)
 	public String modifyMozzleForm(Model model) {
 		//모즐 아이디 1로 설정 (연결 후 삭제)
 		String mozzle_id ="1";
-		logger.info("modifyMozzleForm.do");
+		logger.info("modifyMozzleForm {}", mozzle_id);
 		
 		MozzleDto mDto = service.selectMozzleByMozzleId(mozzle_id);
 		

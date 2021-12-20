@@ -68,4 +68,9 @@ public class ManageServiceImpl implements IManageService {
 		return dao.selectMozzleIdByMozzleName(mozzleName);
 	}
 
+	@Override
+	public int mozzleNameCheck(String mozzle_name) {
+		return dao.mozzleNameCheck(mozzle_name);
+	}
+
 }

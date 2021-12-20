@@ -138,7 +138,7 @@
 	</section>
 	<br />
 	<section class="container mt-3" id="new-mozzle2">
-		<h4>새로 생긴 모즐!</h4>
+		<h4>HOT 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle2">
 			<div class="swiper-wrapper">
 				<c:forEach var="mozzle" items="${hotMozzleList}">
