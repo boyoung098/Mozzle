@@ -59,7 +59,7 @@ SELECT um.USER_ID, um.MOZZLE_ID, um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE,
 um.BIRTHDAY_SHOW, um.IMAGE_ORIGIN, um.IMAGE_SAVED, 
 u.USER_NAME , u.AUTH_CODE,u.BIRTH  ,u.EMAIL , u.TEL ,u.DELFLAG 
 FROM USER_MOZZLE um JOIN USERS u ON um.USER_ID = u.USER_ID 
-WHERE um.USER_ID = #{user_id} AND um.MOZZLE_ID =#{mozzle_id} AND um.AUTH_CODE IN ('1','2')
+WHERE um.USER_ID = #{user_id} AND um.MOZZLE_ID =#{mozzle_id} AND um.AUTH_CODE IN ('1','2','3')
 </select>
 
 <!-- 12/19(일) 모즐유저 운영자 생성 -->
@@ -85,7 +85,7 @@ UPDATE USER_MOZZLE SET NICKNAME = #{nickname}, BIRTHDAY_SHOW = #{birthday_show}
 
 <!-- 12/19(일) 모즐내 회원 권한수정 운영자가 -->
 <update id="updateMozzleUserAuth" parameterType="mozzleUserDto">
-UPDATE USER_MOZZLE set auth_code = #{auth_code} WHERE USER_ID = #{user_id} MOZZLE_ID = #{mozzle_id}
+UPDATE USER_MOZZLE set auth_code = #{auth_code} WHERE USER_ID = #{user_id} AND MOZZLE_ID = #{mozzle_id}
 </update>
 
 

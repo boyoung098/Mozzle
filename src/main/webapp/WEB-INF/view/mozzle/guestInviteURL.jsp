@@ -15,7 +15,7 @@
 			모임을 즐겁게 모즐에서 함께 하세요!
 			링크의 유효기간은 7일입니다.
 			</p>
-			<input type="text" id="guesturl" name="guesturl" value="${guesturl}" size="90" readonly="readonly">
+			<input type="text" id="guesturl" name="guesturl" value="${guesturl}"  readonly="readonly">
 			<button onclick="copy_to_clipboard()">복사</button>
 		</div>
 	</div>

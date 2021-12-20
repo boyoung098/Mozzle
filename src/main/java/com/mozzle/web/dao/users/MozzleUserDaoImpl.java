@@ -51,8 +51,8 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 	@Override
 	public MozzleUserDto selectMozzleUserByUserId(Map<String, String> map) {
 		log.info("모즐 유저 userid로 조회 {}",map);
-		
-		return session.selectOne(NS+"selectMozzleUserByUserId",map);
+		MozzleUserDto userdto = session.selectOne(NS+"selectMozzleUserByUserId",map);
+		return userdto==null?new MozzleUserDto():userdto;
 	}
 
 

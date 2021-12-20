@@ -66,7 +66,7 @@ public class GuestController {
 		//=================
 		
 		
-		return "mozzle/guestInvite";
+		return "mozzle/guestInviteURL";
 	}
 	
 	@GetMapping(value="/guestEnter.do")
