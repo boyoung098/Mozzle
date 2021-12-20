@@ -40,24 +40,30 @@ $(document).ready(function() {
 	}
 });
 		
+//mozzle 이름 중복 검사
+$('#mozzle_name').focusout(function() {	
+	console.log(성공);
+});
+
 
 //load시 원래 지정된 커버 사진을 띄움
 window.onload = function() {
 	document.getElementById("image").src = "../resources/images/img.png";
 		
 	document.getElementById("img").onchange = function() {
-	var reader = new FileReader();
-	
-	reader.onload = function(e) {
-	// get loaded data and render thumbnail.
-		document.getElementById("image").src = e.target.result;
-	};
-	
-	// read the image file as a data URL.
-	if(this.files != undefined && this.files[0] != null) {
-		reader.readAsDataURL(this.files[0]);
-	} else {
-		document.getElementById("image").src = "../images/img.png";			}
+		var reader = new FileReader();
+		
+		reader.onload = function(e) {
+		// get loaded data and render thumbnail.
+			document.getElementById("image").src = e.target.result;
+		};
+		
+		// read the image file as a data URL.
+		if(this.files != undefined && this.files[0] != null) {
+			reader.readAsDataURL(this.files[0]);
+		} else {
+			document.getElementById("image").src = "../images/img.png";			
+		}
 	};
 		
 	function checkSubmit() {

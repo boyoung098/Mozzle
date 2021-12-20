@@ -24,7 +24,11 @@
 						#{image_origin}, #{image_saved},
 						</if>
 						SYSDATE, #{category_code}, #{state}, 'N')
-	</insert>	
+	</insert>
+	
+	<select id="mozzleNameCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM MOZZLE_NAME =${mozzle_name}
+	</select>	
 	
 	<update id="updateMozzle" parameterType="mDto">
 		UPDATE ADMIN.MOZZLE

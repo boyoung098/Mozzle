@@ -7,6 +7,7 @@ import com.mozzle.web.dto.manage.MozzleDto;
 public interface IManageDao {
 	
 	public int registMozzle(MozzleDto mozzle);
+	public int mozzleNameCheck(String mozzle_name);
 	public int updateMozzle(MozzleDto mozzle); 
 	public List<MozzleDto> selectMozzleByCreatDate();
 	public MozzleDto selectMozzleByMozzleId(String mozzle_id);

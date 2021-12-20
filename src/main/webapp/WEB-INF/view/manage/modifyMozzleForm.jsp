@@ -46,7 +46,7 @@
 			<div class="image-wrap1">
 				<div class="image-wrap2">
 					<img class="image" id="image"
-						src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}" ;/>
+						src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"/>
 				</div>
 			</div>
 
@@ -88,6 +88,7 @@
 				<input type="text" class="form-control" id="mozzle_name"
 					name="mozzle_name" placeholder="모즐 이름을 입력해주세요"
 					value="${mozzle.mozzle_name}" />
+				<p style="display: none;" id="check_msg"></p>
 			</div>
 			<div class="register-name">
 				<h5>모즐소개</h5>
