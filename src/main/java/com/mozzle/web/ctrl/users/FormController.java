@@ -1,13 +1,31 @@
 package com.mozzle.web.ctrl.users;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mozzle.web.dto.users.UserDto;
 import com.mozzle.web.service.users.IUserService;
+import com.mozzle.web.service.users.MailSendService;
 
 @Controller
 @RequestMapping(value = "/form")
@@ -16,18 +34,26 @@ public class FormController {
 	@Autowired
 	private IUserService service;
 	
+	@Autowired
+	private MailSendService mailService;
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	// 아이디 찾기 회원 정보 입력(이메일, 이름)
 	@RequestMapping(value="/findId.do", method=RequestMethod.GET)
 	public String findId() {
 	
 		return "user/form/findIdForm";
 	}
 	
+	// 비밀번호 찾기 회원 정보 입력(아이디, 이메일, 이름)
 	@RequestMapping(value="/resetPw.do", method=RequestMethod.GET)
 	public String resetPw() {
 	
 		return "user/form/resetPwForm";
 	}
 	
+	// 아이디 찾기 결과 창
 	@RequestMapping(value="/findIdResult.do", method=RequestMethod.POST)
 	public String findIdResult(UserDto dto, Model model) {
 		System.out.println(dto);
@@ -39,10 +65,69 @@ public class FormController {
 		return "user/form/findIdResult";
 	}
 	
-	@RequestMapping(value="/resetPwInput.do", method=RequestMethod.POST)
-	public String resetPwInput() {
-		return "user/form/resetPwInput";
+	// 비밀번호 찾기 입력 정보가 DB에 있는지 체크
+	@ResponseBody
+	@RequestMapping(value="/resetPwAuth.do", method=RequestMethod.POST)
+	public Map<String, Integer> resetPwAuth(UserDto dto) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		int cnt = service.findPw(dto);
+		
+		map.put("cnt", cnt);
+		
+		return map;
 	}
 	
+	// 비밀번호 찾기 인증 코드 입력 창
+	@RequestMapping(value="/resetPwMail.do", method=RequestMethod.POST)
+	public String resetPwMail(UserDto dto, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+	
+		if(session.getAttribute("authCode") != null) {
+			session.removeAttribute("authCode");
+		}
+		
+		String authCode = mailService.sendAuthMail(dto.getEmail());
+		System.out.println("인증 코드 : " + authCode);
+		session.setAttribute("authCode", authCode);
+		
+		return "user/form/resetPwAuth";
+	}
+	
+	// 사용자가 입력한 인증번호 체크
+	@ResponseBody
+	@RequestMapping(value="/authCodeChk.do", method=RequestMethod.POST)
+	public Map<String, Boolean> authCodeChk(HttpServletRequest req, String code) {
+		HttpSession session = req.getSession();
+		String authCode = session.getAttribute("authCode").toString();
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		map.put("authChk", code.equals(authCode));
+		
+		return map;
+	}
+	
+	@RequestMapping(value="/passwordReset.do", method=RequestMethod.GET)
+	public String passwordReset(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		//System.out.println(session.getAttribute("authCode").toString());
+		if(session.getAttribute("authCode") != null) {
+			session.removeAttribute("authCode");
+		}
+		if(session.getAttribute("authCode") == null) {
+			PrintWriter out;
+			try {
+				res.setContentType("text/html; charset=UTF-8");
+				out = res.getWriter();
+				out.println("<script>alert('올바른 접근이 아닙니다.'); self.close();</script>");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+		return null;
+	}
 
 }

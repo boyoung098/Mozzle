@@ -52,21 +52,23 @@
 
 <script type="text/javascript">
 	$(function(){
-		$("#find-id").click(function(e){
+		$("input[type=submit]").click(function(e){
 			e.preventDefault();
-			var url = './loginPage.do';
-			var title = '아이디중복검사';
-			var attr = 'width=450px, height=550px';
-			window.open(url, title, attr);
-		});
-		
-		$("#find-password").click(function(e){
-			e.preventDefault();
-			var url = './';
-			var title = '아이디중복검사';
-			var attr = 'width=450px, height=550px';
-			window.open(url, title, attr);
-			
+			$.ajax({
+				url : "./authCodeChk.do",
+				type : "post",
+				data : {
+					code : $("input[name=code]").val()
+				},
+				success : function(result) {
+					if(result.authChk){
+						$("#login-form").submit();
+					}
+					else{
+						$(".login-result").text("인증코드가 일치하지 않습니다.");
+					}
+				}
+			});
 		});
 	});
 </script>
@@ -75,18 +77,17 @@
 <body>
 	<div id="header"></div>
 	<section class="content container-login mt-5">
-		<form id="login-form" action="./findIdResult.do" method="POST">
+		<form id="login-form" action="./passwordReset.do" method="POST">
 
-				<h2>아이디 찾기</h2>
-				<p>아이디를 찾기 위해 필요한 정보를 입력해주세요</p>
+				<h2>비밀번호 찾기</h2>
+				<p>메일로 전송된 인증번호를 입력해주세요</p>
+				<p class="login-result"></p>
 				<div>
-					<input type="text" class="form-control input-login" name="email"
-						placeholder="이메일을 입력 해주세요" /> 
-					<input type="text"
-						class="form-control input-login" name="user_name"
-						placeholder="이름을 입력 해주세요" />
+					<label>인증번호
+					<input type="text" class="form-control input-login" name="code"
+						placeholder="인증코드" /></label>
 
-					<input type="submit" class="color-btn input-login" value="로그인" />
+					<input type="submit" class="color-btn input-login" value="확인" />
 				</div>
 
 		</form>

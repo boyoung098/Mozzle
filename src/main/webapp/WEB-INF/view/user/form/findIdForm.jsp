@@ -59,13 +59,13 @@
 				<h2>아이디 찾기</h2>
 				<p>아이디를 찾기 위해 필요한 정보를 입력해주세요</p>
 				<div>
-					<input type="text" class="form-control input-login" name="email"
-						placeholder="이메일을 입력 해주세요" /> 
-					<input type="text"
+					<label>이메일<input type="text" class="form-control input-login" name="email"
+						placeholder="이메일을 입력 해주세요" /> </label>
+					<label>이름<input type="text"
 						class="form-control input-login" name="user_name"
-						placeholder="이름을 입력 해주세요" />
+						placeholder="이름을 입력 해주세요" /></label>
 
-					<input type="submit" class="color-btn input-login" value="로그인" />
+					<input type="submit" class="color-btn input-login" value="확인" />
 				</div>
 
 		</form>
