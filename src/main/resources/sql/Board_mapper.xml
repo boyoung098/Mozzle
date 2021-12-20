@@ -5,7 +5,7 @@
   	<select id="selectAllBoard"  parameterType="java.lang.Integer" resultType="board">
   			SELECT POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, "DEPTH", REGDATE
 			FROM MOZZLE_POST
-			WHERE MOZZLE_ID= #{mozzle_id} ORDER BY REGDATE DESC
+			WHERE MOZZLE_ID= 1 ORDER BY REGDATE DESC
   	</select>
   	<select id="selectOneBoard" parameterType="java.lang.String" resultType="board">
   		SELECT POST_ID, MOZZLE_ID, USER_ID, TITLE, CONTENT, REFER, STEP, DEPTH, REGDATE

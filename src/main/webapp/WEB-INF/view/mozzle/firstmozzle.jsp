@@ -12,16 +12,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <%@ include file="../comm/import.jsp"%>
-<script src="<%=request.getContextPath()%>/resources/js/summernote/summernote-lite.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/summernote/lang/summernote-ko-KR.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/mozzlemainkby.js"></script>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/summernote/summernote-lite.css">
+
 
 <script type="text/javascript">
 $(document).ready(function() {
 	//여기 아래 부분
 	$('#summernote').summernote({
-		  height: 250,                 // 에디터 높이
+		  height: 300,                 // 에디터 높이
 		  minHeight: null,             // 최소 높이
 		  maxHeight: null,             // 최대 높이
 		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
@@ -67,7 +67,7 @@ $(document).ready(function() {
 					</div>
 					<div class="mo-list">
 						<ul>
-							<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board2"></a></li>
+							<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li>
 							<li>사진첩</li>
 							<li><a href="#">일정<input type="hidden" name="move" value="calendar2"></a></li>
 							<li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li>
@@ -176,7 +176,7 @@ function userSessionCheck(){
 }
 
 
- function inputComment() {
+function inputComment() {
 	var content = $("#summernote").val();
 	console.log(content);
 	$.ajax({
@@ -194,39 +194,6 @@ function userSessionCheck(){
 	})
 }
 	
-
-/*
- * 댓글 등록하기(Ajax)
- */
- function registComment(seq) {
-	var content = $("#contentId").val();
-	var user = '<c:out value="${boardobj.user_id}"/>';
-	console.log(content);
-	$.ajax({
-		type:'POST',
-		url : './addComment.do',
-		data: {
-			"fmcontent":content,
-			"postId":seq
-			},
-		dataType:"JSON",
-		async:true,
-		success : function(reinsert){
-			//alert(reinsert);
-			if(reinsert == true){
-				//document.getElementById("comment_box").innerHTML = "대글";
-				$('#comment_box' + seq).append('<div>'+user+'</div>');
-				$('#comment_box' + seq).append('<div>'+content+'</div>');
-				//console.log("성공");
-				
-			} 
-        		
-		},
-        error:function(){
-        	alert("내용을 입력 해주세요.");
-       } 
-	})
-}
 
 </script>
 
