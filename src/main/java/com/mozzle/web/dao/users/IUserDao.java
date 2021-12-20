@@ -20,4 +20,6 @@ public interface IUserDao {
 	public String findId(UserDto dto);
 	
 	public int findPw(UserDto dto);
+	
+	public boolean changePw(UserDto dto);
 }

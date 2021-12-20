@@ -37,6 +37,7 @@ public class FormController {
 	@Autowired
 	private MailSendService mailService;
 	
+	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	// 아이디 찾기 회원 정보 입력(이메일, 이름)
@@ -86,9 +87,12 @@ public class FormController {
 		if(session.getAttribute("authCode") != null) {
 			session.removeAttribute("authCode");
 		}
+
 		
 		String authCode = mailService.sendAuthMail(dto.getEmail());
 		System.out.println("인증 코드 : " + authCode);
+		System.out.println(dto.getUser_id());
+		req.setAttribute("findPw_Id", dto.getUser_id());
 		session.setAttribute("authCode", authCode);
 		
 		return "user/form/resetPwAuth";
@@ -107,13 +111,12 @@ public class FormController {
 		return map;
 	}
 	
-	@RequestMapping(value="/passwordReset.do", method=RequestMethod.GET)
-	public String passwordReset(HttpServletRequest req, HttpServletResponse res) {
+	// 비밀번호 변경 form
+	@RequestMapping(value="/passwordReset.do", method=RequestMethod.POST)
+	public String passwordReset(HttpServletRequest req, HttpServletResponse res, String findPw_Id) {
 		HttpSession session = req.getSession();
 		//System.out.println(session.getAttribute("authCode").toString());
-		if(session.getAttribute("authCode") != null) {
-			session.removeAttribute("authCode");
-		}
+		System.out.println(findPw_Id);
 		if(session.getAttribute("authCode") == null) {
 			PrintWriter out;
 			try {
@@ -127,7 +130,45 @@ public class FormController {
 			}
 			return null;
 		}
-		return null;
+		req.setAttribute("findPw_Id", findPw_Id);
+		return "user/form/passwordReset";
+	}
+	
+	// 비밀번호 변경
+	@ResponseBody
+	@RequestMapping(value="/updatePassword.do", method=RequestMethod.POST)
+	public Map<String, Boolean> updatePassword(UserDto dto) {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		map.put("changed", service.changePw(dto));
+		return map;
+	}
+	
+	// 회원가입 이메일 인증 form
+	@RequestMapping(value="/mailAuth.do", method=RequestMethod.GET)
+	public String mailAuth(HttpServletRequest req, String email) {
+		HttpSession session = req.getSession();
+		
+		if(session.getAttribute("authCode") != null) {
+			session.removeAttribute("authCode");
+		}
+
+		
+		String authCode = mailService.sendAuthMail(email);
+		System.out.println("인증 코드 : " + authCode);
+		session.setAttribute("authCode", authCode);
+		return "user/form/mailAuth";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mailCheck.do", method=RequestMethod.POST)
+	public Map<String, Boolean> mailCheck(HttpServletRequest req, String code) {
+		HttpSession session = req.getSession();
+		String authCode = session.getAttribute("authCode").toString();
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		map.put("equals", code.equals(authCode));
+		
+		return map;
 	}
 
 }

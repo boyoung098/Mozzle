@@ -43,4 +43,8 @@
 	SELECT COUNT(*) FROM USERS WHERE EMAIL = #{email} AND USER_ID = #{user_id} AND USER_NAME = #{user_name}
 </select>
 
+<update id="changePw" parameterType="uDto">
+	UPDATE USERS SET USER_PW = #{user_pw} WHERE USER_ID = #{user_id}
+</update>
+
 </mapper>

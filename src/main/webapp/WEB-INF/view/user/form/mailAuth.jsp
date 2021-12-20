@@ -55,14 +55,17 @@
 		$("input[type=submit]").click(function(e){
 			e.preventDefault();
 			$.ajax({
-				url : "./authCodeChk.do",
+				url : "./mailCheck.do",
 				type : "post",
 				data : {
 					code : $("input[name=code]").val()
 				},
 				success : function(result) {
-					if(result.authChk){
-						$("#login-form").submit();
+					console.log(result.equals);
+					if(result.equals){
+						alert("이메일 인증이 완료되었습니다.");
+						window.opener.document.getElementById("mail-duplicated-result").textContent = "사용 가능한 이메일입니다.";
+						window.close();
 					}
 					else{
 						$(".login-result").text("인증코드가 일치하지 않습니다.");
@@ -86,7 +89,6 @@
 					<label>인증번호
 					<input type="text" class="form-control input-login" name="code"
 						placeholder="인증코드" /></label>
-					<input type="hidden" name="findPw_Id" value="${findPw_Id}" />
 					<input type="submit" class="color-btn input-login" value="확인" />
 				</div>
 
