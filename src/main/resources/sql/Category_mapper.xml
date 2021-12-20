@@ -150,5 +150,8 @@
 		SELECT COUNT(*) FROM CATEGORY
 	</select>
 	
-
+	<delete id="deleteCatogory" parameterType="java.lang.String">
+		DELETE FROM CATEGORY
+			WHERE CATEGORY_CODE= #{code} 
+	</delete>
 </mapper>

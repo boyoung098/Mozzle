@@ -8,10 +8,9 @@
 <title>메인페이지</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<%@ include file="../comm/import.jsp" %>
+<%@ include file="../comm/import.jsp"%>
 
 <style type="text/css">
-
 .btn-xs {
 	margin-top: 15px;
 }
@@ -21,21 +20,21 @@
 }
 
 .category-box {
-	border: 1px solid #ccc;;
+	border: 1px solid #ccc;
 	border-radius: 5px;
 }
 
 #enroll-category-box {
 	width: 280px;
 	height: 300px;
-	margin-right:5px;
+	margin-right: 5px;
 	float: left;
 }
 
 #saved-category-box {
 	width: 280px;
 	height: 300px;
-	margin-left:5px;
+	margin-left: 5px;
 	float: right;
 	overflow: scroll;
 }
@@ -46,7 +45,6 @@
 	vertical-align: middle;
 	height: 300px
 }
-
 
 </style>
 
@@ -107,15 +105,15 @@
 				<br> <br>
 
 
-				<div class="container" style="text-align:center;width:60%">
+				<div class="container" style="text-align: center; width: 60%">
 					<div class="row">
-						<div class="col-sm-5" style="text-align:center;width:50%">
+						<div class="col-sm-5" style="text-align: center; width: 50%">
 							<input type="text" class="form-control" id="inputCategory"
 								name="inputCategory" style="width: 40%; display: inline-block;" />
 							<button type="button" class="btn btn-default"
 								onclick="enrollCategory()">추가</button>
 						</div>
-						<div class="col-sm-5" style="text-align:center;width:50%">
+						<div class="col-sm-5" style="text-align: center; width: 50%">
 							<form action="./searchCategory.do" method="post"
 								class="form-horizontal">
 								<div class="form-group">
@@ -130,34 +128,39 @@
 
 			</div>
 
-			<div class="container" style="width:60%">
+			<div class="container" style="width: 60%">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="category-box" id="enroll-category-box">
 							<ul id="enroll-category-list"></ul>
 						</div>
-						
+
 					</div>
 					<div class="col-sm-4">
-						<img id="add-category" alt="arrow" src="<%=request.getContextPath()%>/resources/images/arrow.png" style="margin-top:100px">	
+						<img id="add-category" alt="arrow"
+							src="<%=request.getContextPath()%>/resources/images/arrow.png"
+							style="margin-top: 100px">
 					</div>
 					<div class="col-sm-4">
 						<div class="category-box" id="saved-category-box">
 							<ul id="saved-category-list">
-								<c:forEach var="category" items="${cList}">	
-									<li><a onclick="checkForDelete('${category.category_code}')">${category.category_name}</a></li>
+								<c:forEach var="category" items="${cList}">
+									<li><a href="#" class="category-link" 
+										onclick="checkForDelete('${category.category_code}')">${category.category_name}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div style="float:right; margin-right:200px">
+			<div style="float: right; margin-right: 200px">
 				<br>
 				<div>총 : ${cnt} 개</div>
 				<br>
 				<button class="btn btn-primary" id="save-button"
 					onclick="window.location.reload()">저장</button>
+				<button class="btn btn-danger" id="delete-button"
+					onclick="deleteSavedCategory()">삭제</button>
 			</div>
 		</div>
 	</div>
@@ -170,59 +173,78 @@
 		if(appendCnt <10) {
 			console.log("ready");
 			$("#enroll-category-list").append("<li id='enroll-category-list-li"+ appendCnt+ "'>" + $("#inputCategory").val() 
-					+"<a onclick='deleteCategory("+ appendCnt + ")'><img src='<%=request.getContextPath()%>/resources/images/delete.png'/></a></li>")
+					+"<a onclick='deleteEnrollCategory("+ appendCnt + ")'><img src='<%=request.getContextPath()%>/resources/images/delete.png'/></a></li>")
 			document.getElementById("inputCategory").value = "";
-			
+
 			appendCnt += 1;
 		}
 	};
-	
-	function deleteCategory(appendCnt) {
+
+	function deleteEnrollCategory(appendCnt) {
 		console.log("ready");
 		$("#enroll-category-list-li" + (appendCnt)).remove();
 		appendCnt -= 1;
-		
+
 	}
+	
 
-	$("#add-category").click(function(){
-		console.log("ready");
-		var categoryArray = [];
-		$("#enroll-category-list li").each(function(){
-			categoryArray.push($(this).text());
+	$("#add-category").click(
+			function() {
+				console.log("ready");
+				var categoryArray = [];
+				$("#enroll-category-list li").each(function() {
+					categoryArray.push($(this).text());
 
-		})
-		console.log(categoryArray);
-		
-	 	$.ajax ({
-			url: "./registIndex.do",
-			type: "POST",
-			data: {
-				"category": categoryArray
-				},
-			success: function(result) {
-				if(result == true) {
-					alert("카테고리가 성공적으로 등록되었습니다");	
-					$("#enroll-category-list").children().remove();
-					appendCnt = 0;
-					
-					for (var i = 0; i < categoryArray.length; i++) {
-						$("#saved-category-list").prepend("<li style = 'color:#1E29F0'>" + categoryArray[i] + "</li>")		
+				})
+				console.log(categoryArray);
+
+				$.ajax({
+					url : "./registIndex.do",
+					type : "POST",
+					data : {
+						"category" : categoryArray
+					},
+					success : function(result) {
+						if (result == true) {
+							alert("카테고리가 성공적으로 등록되었습니다");
+							$("#enroll-category-list").children().remove();
+							appendCnt = 0;
+
+							for (var i = 0; i < categoryArray.length; i++) {
+								$("#saved-category-list").prepend(
+										"<li style = 'color:#1E29F0'>"
+												+ categoryArray[i] + "</li>")
+							}
+						}
 					}
-				}
-			}
-		}) 
-	});
-	
+				})
+			});
+
 	var deleteList = [];
-	
+
 	function checkForDelete(category_code) {
 		console.log(category_code);
-		
+
 		deleteList.push(category_code);
 		console.log(deleteList);
+
+	};
+
+	function deleteSavedCategory() {
 		
-	}
-	
-	
+		$.ajax({
+			url: "./deleteCategory.do",
+			type: "POST",
+			data: {
+				"category" : deleteList
+				},
+			success: function(result){
+				if (result == true) {
+					alert("카테고리가 성공적으로 삭제되었습니다");
+					window.location.reload()
+				}
+			}
+		})
+	};
 </script>
 </html>

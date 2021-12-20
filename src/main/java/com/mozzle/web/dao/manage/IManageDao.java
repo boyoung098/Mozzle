@@ -6,6 +6,8 @@ import com.mozzle.web.dto.manage.MozzleDto;
 
 public interface IManageDao {
 	
+	public String createMozzleId();
+	
 	public int registMozzle(MozzleDto mozzle);
 	
 	public int mozzleNameCheck(String mozzle_name);
@@ -18,7 +20,7 @@ public interface IManageDao {
 	
 	public List<MozzleDto> selectMozzleByUserNumber();
 	
-	public String searchLeaderId(String mozzle_id);
+	public String searchLeaderNickname(String mozzle_id);
 	
 	public List<MozzleDto> selectMyMozzle(String user_id);
 	

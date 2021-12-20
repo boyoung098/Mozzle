@@ -39,4 +39,8 @@ public class CategoryServiceImpl implements ICategoryService {
 		return dao.selectCategoryCnt();
 	}
 
+	@Override
+	public int deleteCatogory(String category) {
+		return dao.deleteCatogory(category);
+	}
 }

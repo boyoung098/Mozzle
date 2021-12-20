@@ -2,32 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mozzle.web.dao.manage.ManageDaoImpl">
 	
+	<select id="createMozzleId" resultType="java.lang.String" >
+		SELECT MOZZLE_SEQ.NEXTVAL MOZZLE_ID FROM DUAL
+	</select>
+	
 	<insert id="registMozzle" parameterType="mDto">
-		<selectKey keyProperty="mozzle_id" resultType="java.lang.String" order="BEFORE">
-			SELECT MOZZLE_SEQ.NEXTVAL MOZZLE_ID FROM DUAL
-		</selectKey>
-			INSERT INTO MOZZLE
-					(MOZZLE_ID, MOZZLE_NAME, 
-					<if test="mozzle_intro != null">
-						MOZZLE_INTRO, 
-					</if>
-					<if test="image_origin != null">
-						IMAGE_ORIGIN, IMAGE_SAVED,
-					</if>
-					CREATE_DATE, CATEGORY_CODE, 
-					STATE, DELFLAG)
-			VALUES(#{mozzle_id}, #{mozzle_name},
-					<if test="mozzle_intro != null">
-					 	#{mozzle_intro}, 
-					</if>
-					<if test="image_origin != null">
-						#{image_origin}, #{image_saved},
-					</if>
-					SYSDATE, #{category_code}, #{state}, 'N')
+		INSERT INTO MOZZLE
+			(MOZZLE_ID, MOZZLE_NAME, 
+			<if test="mozzle_intro != null">
+				MOZZLE_INTRO, 
+			</if>
+			<if test="image_origin != null">
+				IMAGE_ORIGIN, IMAGE_SAVED,
+			</if>
+			CREATE_DATE, CATEGORY_CODE, 
+			STATE, DELFLAG)
+		VALUES(#{mozzle_id}, #{mozzle_name},
+			<if test="mozzle_intro != null">
+			 	#{mozzle_intro}, 
+			</if>
+			<if test="image_origin != null">
+				#{image_origin}, #{image_saved},
+			</if>
+			SYSDATE, #{category_code}, #{state}, 'N')
 	</insert>
 	
 	<select id="mozzleNameCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM MOZZLE_NAME =${mozzle_name}
+		SELECT COUNT(*) FROM MOZZLE WHERE MOZZLE_NAME= #{mozzle_name}
 	</select>	
 	
 	<update id="updateMozzle" parameterType="mDto">
@@ -44,7 +45,7 @@
 			IMAGE_ORIGIN, IMAGE_SAVED, 
 			CATEGORY_CODE, STATE
 		FROM MOZZLE
-		WHERE MOZZLE_ID = #{mozzle_id}
+		WHERE MOZZLE_ID= #{mozzle_id}
 	</select>
 	
 	<select id="selectMyMozzle" parameterType="java.lang.String" resultType="mDto">
@@ -52,7 +53,7 @@
 			m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
 			m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
 			m.CATEGORY_CODE CATEGORY_CODE, m.STATE STATE,
-			um.USER_ID LEADER_ID 
+			um.NICKNAME LEADER_NICKNAME 
 		FROM MOZZLE m LEFT JOIN USER_MOZZLE um
 		ON m.MOZZLE_ID = um.MOZZLE_ID 
 			WHERE STATE = 'Y'
@@ -65,11 +66,12 @@
 			m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
 			m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
 			m.CATEGORY_CODE CATEGORY_CODE, m.STATE STATE,
-			um.USER_ID LEADER_ID
+			um.NICKNAME LEADER_NICKNAME
 		FROM MOZZLE m LEFT JOIN USER_MOZZLE um
 		ON m.MOZZLE_ID = um.MOZZLE_ID 
 		WHERE m.STATE = 'Y' 
 		AND um.AUTH_CODE = '1'
+		ORDER BY m.CREATE_DATE DESC
 	</select>
 
 	<select id="selectMozzleByUserNumber" resultType="mDto">
@@ -81,8 +83,7 @@
 		FROM (SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
 				m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
 				m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
-				m.CATEGORY_CODE CATEGORY_CODE, m.STATE STATE,
-				um.USER_ID LEADER_ID 
+				m.CATEGORY_CODE CATEGORY_CODE, m.STATE STATE
 		FROM MOZZLE m RIGHT JOIN USER_MOZZLE um
 				ON m.MOZZLE_ID = um.MOZZLE_ID)
 		GROUP BY MOZZLE_ID,  MOZZLE_NAME, 
@@ -99,8 +100,8 @@
 			GROUP BY MOZZLE_ID
 	</select>
 	
-	<select id="searchLeaderId" parameterType="java.lang.String" resultType="java.lang.String">
-		SELECT USER_ID AS LEADER_ID 
+	<select id="searchLeaderNickname" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT NICKNAME AS LEADER_NICKNAME
 			FROM USER_MOZZLE 
 			WHERE MOZZLE_ID=#{mozzle_id} 
 			AND AUTH_CODE ='1' 

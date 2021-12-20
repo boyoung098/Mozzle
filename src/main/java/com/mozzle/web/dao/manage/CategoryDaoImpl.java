@@ -46,4 +46,10 @@ public class CategoryDaoImpl implements ICategoryDao {
 		logger.info("selectCategoryCnt {}");
 		return session.selectOne(NS + "selectCategoryCnt");
 	}
+
+	@Override
+	public int deleteCatogory(String category) {
+		logger.info("deleteCatogory {}", category);
+		return session.delete(NS + "deleteCatogory", category);
+	}
 }

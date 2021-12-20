@@ -7,6 +7,7 @@ public class MozzleDto {
 	private String mozzle_id;
 	private String mozzle_name;
 	private String leader_id;
+	private String leader_nickname;
 	private String mozzle_intro;
 	private String create_date;
 	private String image_origin;
@@ -95,6 +96,12 @@ public class MozzleDto {
 	}
 	public void setMemberCnt(int memberCnt) {
 		this.memberCnt = memberCnt;
+	}
+	public String getLeader_nickname() {
+		return leader_nickname;
+	}
+	public void setLeader_nickname(String leader_nickname) {
+		this.leader_nickname = leader_nickname;
 	}
 	@Override
 	public String toString() {

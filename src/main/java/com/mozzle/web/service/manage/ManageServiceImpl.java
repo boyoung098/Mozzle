@@ -13,7 +13,12 @@ public class ManageServiceImpl implements IManageService {
 	
 	@Autowired
 	IManageDao dao;
-
+	
+	@Override
+	public String createMozzleId() {
+		return dao.createMozzleId();
+	}
+	
 	@Override
 	public int registMozzle(MozzleDto mozzle) {
 		int checkNum01 = dao.registMozzle(mozzle);
@@ -41,7 +46,7 @@ public class ManageServiceImpl implements IManageService {
 	public List<MozzleDto> selectMozzleByUserNumber() {
 		List<MozzleDto> mList = dao.selectMozzleByUserNumber();
 		for (MozzleDto mozzleDto : mList) {
-			mozzleDto.setLeader_id(dao.searchLeaderId(mozzleDto.getMozzle_id()));
+			mozzleDto.setLeader_nickname(dao.searchLeaderNickname(mozzleDto.getMozzle_id()));
 		}
 		
 		return mList; 

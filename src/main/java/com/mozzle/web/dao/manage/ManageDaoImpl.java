@@ -12,11 +12,17 @@ import com.mozzle.web.dto.manage.MozzleDto;
 
 @Repository
 public class ManageDaoImpl implements IManageDao{
-	
+
 	@Autowired
 	private SqlSessionTemplate session;
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final String NS ="com.mozzle.web.dao.manage.ManageDaoImpl.";
+	
+	@Override
+	public String createMozzleId() {
+		logger.info("createMozzleId {} ");
+		return session.selectOne(NS + "createMozzleId");
+	}
 
 	@Override
 	public int registMozzle(MozzleDto mozzle) {
@@ -44,9 +50,9 @@ public class ManageDaoImpl implements IManageDao{
 	
 
 	@Override
-	public String searchLeaderId(String mozzle_id) {
-		logger.info("searchLeaderId {}", mozzle_id);
-		return session.selectOne(NS + "searchLeaderId", mozzle_id);
+	public String searchLeaderNickname(String mozzle_id) {
+		logger.info("searchLeaderNickname {}", mozzle_id);
+		return session.selectOne(NS + "searchLeaderNickname", mozzle_id);
 	}
 
 	@Override
@@ -102,5 +108,4 @@ public class ManageDaoImpl implements IManageDao{
 		logger.info("selectUserNum {}", mozzle_id);
 		return session.selectOne(NS + "selectUserNum", mozzle_id);
 	}
-
 }

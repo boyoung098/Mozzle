@@ -27,25 +27,43 @@ $(document).ready(function() {
 			
 	if($('#save_result').val() != '') {
 		console.log($('#save_result').val());
+		alert($('#mozzle_id').val());
 				
 		if($('#save_result').val() == 'true') {
-			alert('모즐이 성공적으로 수정되었습니다.');
+			alert('모즐이 성공적으로 생성되었습니다.');
 			$('#save_result').val('');
 			
-			location.href = "../board.do?mozzle_id=" + $('#save_info').val();
+			location.href = "../board.do?mozzle_id=" + $('#mozzle_id').val();
 		} else {
 			alert('수정을 실패했습니다.');
 			$('#save_result').val('');
 		} 
 	}
+	
+	//mozzle 이름 중복 검사
+	$('#mozzle_name').focusout(function() {	
+		console.log("focusout");
+		var mozzle_name = $('#mozzle_name').val();
+		
+		$.ajax({
+			url:"./mozzleNameCheck.do",
+			type:"post",
+			data: {
+					"mozzle_name": mozzle_name
+				},
+			success : function(result) {
+				if(result == 1) {
+					$('#check_msg').html('이미 등록된 모즐 이름입니다');
+					$('#check_msg').css('color','red');
+				} else {
+					$('#check_msg').html('사용 가능한 모즐 이름입니다');
+					$('#check_msg').css('color','green');
+				}
+			}
+		})
+	});
 });
 		
-//mozzle 이름 중복 검사
-$('#mozzle_name').focusout(function() {	
-	console.log("focusout");
-});
-
-
 //load시 원래 지정된 커버 사진을 띄움
 window.onload = function() {
 	document.getElementById("image").src = "../resources/images/img.png";
