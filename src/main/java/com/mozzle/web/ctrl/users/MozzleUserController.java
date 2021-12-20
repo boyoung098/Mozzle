@@ -93,8 +93,8 @@ public class MozzleUserController {
 			String image_saved = UUID.randomUUID().toString();
 			int point = fileName.indexOf(".");
 			String filepackager = fileName.substring(point);
-			
-			mozzleUserDto.setImage_saved(image_saved+filepackager);
+			String finalimage = image_saved + filepackager;
+			mozzleUserDto.setImage_saved(finalimage);
 			
 			
 			//파일업로드절차=============================================
@@ -127,7 +127,7 @@ public class MozzleUserController {
 				}
 				
 				//저장할 파일이 없다면 만들어주고 override함
-				File newfile = new File(path+"/"+image_saved);
+				File newfile = new File(path+"/"+finalimage);
 				if(!newfile.exists()) {
 					newfile.createNewFile();
 				}
