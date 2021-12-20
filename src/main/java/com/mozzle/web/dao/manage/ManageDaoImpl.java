@@ -37,15 +37,16 @@ public class ManageDaoImpl implements IManageDao{
 	}
 
 	@Override
-	public List<String> selectMozzleIdByUserNumber() {
-		logger.info("selectMozzleByUserNumber");
-		return session.selectList(NS + "selectMozzleIdByUserNumber") ;
+	public List<MozzleDto> selectMozzleByUserNumber() {
+		logger.info("selectMozzleByUserNumber {}");
+		return session.selectList(NS + "selectMozzleByUserNumber") ;
 	}
+	
 
 	@Override
-	public List<MozzleDto> selectMozzleByUserNumber(List<String> lists) {
-		logger.info("selectMozzleByUserNumber {}", lists);
-		return session.selectList(NS + "selectMozzleByUserNumber", lists) ;
+	public String searchLeaderId(String mozzle_id) {
+		logger.info("searchLeaderId {}", mozzle_id);
+		return session.selectOne(NS + "searchLeaderId", mozzle_id);
 	}
 
 	@Override
@@ -95,4 +96,11 @@ public class ManageDaoImpl implements IManageDao{
 		logger.info("mozzleIdCheck {}", mozzle_name);
 		return session.selectOne(NS + "mozzleNameCheck", mozzle_name);
 	}
+
+	@Override
+	public int selectUserNum(String mozzle_id) {
+		logger.info("selectUserNum {}", mozzle_id);
+		return session.selectOne(NS + "selectUserNum", mozzle_id);
+	}
+
 }

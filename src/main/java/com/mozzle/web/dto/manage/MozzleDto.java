@@ -94,16 +94,16 @@ public class MozzleDto {
 		return memberCnt;
 	}
 	public void setMemberCnt(int memberCnt) {
-		memberCnt = memberCnt;
+		this.memberCnt = memberCnt;
 	}
 	@Override
 	public String toString() {
-		return "MozzleDto [mozzle_id=" + mozzle_id + ", mozzle_name=" + mozzle_name + ", mozzle_intro=" + mozzle_intro
-				+ ", create_date=" + create_date + ", image_origin=" + image_origin + ", image_saved=" + image_saved
-				+ ", category_code=" + category_code + ", state=" + state + ", delflag=" + delflag + ", category_name="
-				+ category_name + "]";
+		return "MozzleDto [mozzle_id=" + mozzle_id + ", mozzle_name=" + mozzle_name + ", leader_id=" + leader_id
+				+ ", mozzle_intro=" + mozzle_intro + ", create_date=" + create_date + ", image_origin=" + image_origin
+				+ ", image_saved=" + image_saved + ", category_code=" + category_code + ", state=" + state
+				+ ", delflag=" + delflag + ", category_name=" + category_name + ", uploadFile=" + uploadFile
+				+ ", memberCnt=" + memberCnt + "]";
 	}
-	
-	
+
 	
 }

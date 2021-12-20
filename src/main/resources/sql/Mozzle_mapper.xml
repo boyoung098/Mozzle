@@ -7,23 +7,23 @@
 			SELECT MOZZLE_SEQ.NEXTVAL MOZZLE_ID FROM DUAL
 		</selectKey>
 			INSERT INTO MOZZLE
-						(MOZZLE_ID, MOZZLE_NAME, 
-						<if test="mozzle_intro != null">
-							MOZZLE_INTRO, 
-						</if>
-						<if test="image_origin != null">
+					(MOZZLE_ID, MOZZLE_NAME, 
+					<if test="mozzle_intro != null">
+						MOZZLE_INTRO, 
+					</if>
+					<if test="image_origin != null">
 						IMAGE_ORIGIN, IMAGE_SAVED,
-						</if>
-						CREATE_DATE, CATEGORY_CODE, 
-						STATE, DELFLAG)
-				VALUES(#{mozzle_id}, #{mozzle_name},
-						<if test="mozzle_intro != null">
-						 	#{mozzle_intro}, 
-						</if>
-						<if test="image_origin != null">
+					</if>
+					CREATE_DATE, CATEGORY_CODE, 
+					STATE, DELFLAG)
+			VALUES(#{mozzle_id}, #{mozzle_name},
+					<if test="mozzle_intro != null">
+					 	#{mozzle_intro}, 
+					</if>
+					<if test="image_origin != null">
 						#{image_origin}, #{image_saved},
-						</if>
-						SYSDATE, #{category_code}, #{state}, 'N')
+					</if>
+					SYSDATE, #{category_code}, #{state}, 'N')
 	</insert>
 	
 	<select id="mozzleNameCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -38,16 +38,6 @@
 				WHERE MOZZLE_ID= #{mozzle_id}
 	</update>
 	
-	<select id="selectMozzleByCreatDate" resultType="mDto">
-		SELECT MOZZLE_ID, MOZZLE_NAME, 
-			MOZZLE_INTRO, CREATE_DATE, 
-			IMAGE_ORIGIN, IMAGE_SAVED, 
-			CATEGORY_CODE, STATE
-		FROM MOZZLE
-		WHERE STATE = 'Y'
-		ORDER BY CREATE_DATE DESC
-	</select>
-	
 	<select id="selectMozzleByMozzleId" parameterType="java.lang.String" resultType="mDto">
 		SELECT MOZZLE_ID, MOZZLE_NAME, 
 			MOZZLE_INTRO, CREATE_DATE, 
@@ -57,37 +47,63 @@
 		WHERE MOZZLE_ID = #{mozzle_id}
 	</select>
 	
-	<select id="selectMozzleIdByUserNumber" resultType="java.lang.String">
-		SELECT MOZZLE_ID 
-			FROM (
-				SELECT MOZZLE_ID 
-					FROM USER_MOZZLE 
-						GROUP BY MOZZLE_ID 
-							ORDER BY COUNT(*) DESC)
-	</select>
-	
-	<select id="selectMozzleByUserNumber" parameterType="java.util.List" resultType="mDto">
-		SELECT MOZZLE_ID, MOZZLE_NAME, 
-			MOZZLE_INTRO, CREATE_DATE, 
-			IMAGE_ORIGIN, IMAGE_SAVED, 
-			CATEGORY_CODE, STATE
-		FROM MOZZLE
-			WHERE STATE = 'Y' 
-			AND MOZZLE_ID IN
-		<foreach collection="list" item="mozzle_id" open="(" separator="," close=")">
-			#{mozzle_id}
-		</foreach>
-	</select>
-	
 	<select id="selectMyMozzle" parameterType="java.lang.String" resultType="mDto">
-		SELECT m.MOZZLE_ID, m.MOZZLE_NAME, 
-			m.MOZZLE_INTRO, m.CREATE_DATE, 
-			m.IMAGE_ORIGIN, m.IMAGE_SAVED, 
-			m.CATEGORY_CODE, m.STATE 
+		SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
+			m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
+			m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
+			m.CATEGORY_CODE CATEGORY_CODE, m.STATE STATE,
+			um.USER_ID LEADER_ID 
 		FROM MOZZLE m LEFT JOIN USER_MOZZLE um
 		ON m.MOZZLE_ID = um.MOZZLE_ID 
-			WHERE STATE = 'Y' 
+			WHERE STATE = 'Y'
+			AND um.AUTH_CODE = '1'
 			AND um.USER_ID = #{user_id}
+	</select>
+	
+	<select id="selectMozzleByCreatDate" resultType="mDto">
+		SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
+			m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
+			m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
+			m.CATEGORY_CODE CATEGORY_CODE, m.STATE STATE,
+			um.USER_ID LEADER_ID
+		FROM MOZZLE m LEFT JOIN USER_MOZZLE um
+		ON m.MOZZLE_ID = um.MOZZLE_ID 
+		WHERE m.STATE = 'Y' 
+		AND um.AUTH_CODE = '1'
+	</select>
+
+	<select id="selectMozzleByUserNumber" resultType="mDto">
+		SELECT MOZZLE_ID, MOZZLE_NAME, 
+				 MOZZLE_INTRO, CREATE_DATE, 
+				IMAGE_ORIGIN, IMAGE_SAVED, 
+				CATEGORY_CODE, STATE,
+				COUNT(*) MEMBERCNT
+		FROM (SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
+				m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
+				m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
+				m.CATEGORY_CODE CATEGORY_CODE, m.STATE STATE,
+				um.USER_ID LEADER_ID 
+		FROM MOZZLE m RIGHT JOIN USER_MOZZLE um
+				ON m.MOZZLE_ID = um.MOZZLE_ID)
+		GROUP BY MOZZLE_ID,  MOZZLE_NAME, 
+				MOZZLE_INTRO, CREATE_DATE, 
+				IMAGE_ORIGIN, IMAGE_SAVED, 
+				CATEGORY_CODE, STATE
+			ORDER BY COUNT(*) DESC
+	</select>
+	
+	<select id="selectUserNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+			FROM USER_MOZZLE um
+			WHERE MOZZLE_ID = #{mozzle_id}
+			GROUP BY MOZZLE_ID
+	</select>
+	
+	<select id="searchLeaderId" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT USER_ID AS LEADER_ID 
+			FROM USER_MOZZLE 
+			WHERE MOZZLE_ID=#{mozzle_id} 
+			AND AUTH_CODE ='1' 
 	</select>
 	
 	<select id="selectMozzleBySearchBasedOnImportance" parameterType="java.lang.String" resultType="mDto">
@@ -156,7 +172,7 @@
 			(USER_ID, MOZZLE_ID, 
 			AUTH_CODE, NICKNAME, 
 			JOINED_DATE, BIRTHDAY_SHOW)
-	VALUES(#{leader_id}, #{mozzle_id}, 
+		VALUES(#{leader_id}, #{mozzle_id}, 
 			'1', '리더', SYSDATE, 'N')
 	</insert>
 </mapper>

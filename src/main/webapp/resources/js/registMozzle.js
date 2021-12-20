@@ -42,7 +42,7 @@ $(document).ready(function() {
 		
 //mozzle 이름 중복 검사
 $('#mozzle_name').focusout(function() {	
-	console.log(성공);
+	console.log("focusout");
 });
 
 
