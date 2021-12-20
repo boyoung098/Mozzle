@@ -7,22 +7,28 @@
 <title>메인페이지</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<%@ include file="../comm/import.jsp" %>
+<%@ include file="../comm/import.jsp"%>
+<script type="text/javascript">
+window.onload = function(){
+	var keyword = $("#save-info").val();
+	console.log(keyword);
+	
+	$.ajax({
+		url:"view/comm/header.jsp",
+		method:"get",
+		data: {"keyword":keyword},
+		success(result) {
+			
+		}
+	})
+	
+}
 
-
+</script>
 <style>
 .card {
 	width: 100%;
 	height: 70px;
-}
-
-.image-wrap1 {
-	text-align: center;
-	display: table;
-	border: 1px dotted #cecece;
-	width: 100%;
-	height: 100% px;
-	border-radius: 5px;
 }
 
 .image-wrap2 {
@@ -48,7 +54,9 @@ a:hover {
 			<div class="row content">
 				<div class="col-sm-9 sidenav">
 					<h4>모즐검색결과</h4>
-					<a href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a><a href="./browseMozzleFromTheLastest.do?keyword=${keyword}">최신순</a>
+					<input type="text" id="save-info" value="${keyword}" hidden="hidden">
+					<a href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a>
+					<a href="./browseMozzleFromTheLastest.do?keyword=${keyword}">최신순</a>
 					<hr>
 					<c:forEach var="mozzle" items="${mLists}">
 						<ul class="nav nav-pills nav-stacked">

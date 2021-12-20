@@ -23,6 +23,7 @@
 	<security:http pattern="/resources/**/*.js" security="none" />
 	<security:http pattern="/resources/**/*.css" security="none" />
 	<security:http pattern="/resources/images/**/*" security="none" />
+	<security:http pattern="/resources/upload/**/*" security="none" />
 	<!-- 권한 설정 -->
 	<security:http auto-config="true" use-expressions="true">
 		<security:headers>

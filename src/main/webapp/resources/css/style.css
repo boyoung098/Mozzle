@@ -291,7 +291,7 @@ select:focus {
     color: #5BA0EE;
 }
 .input-search {
-    width: 100%;
+    width: 90%;
 }
 .input-search form{
     display: flex;

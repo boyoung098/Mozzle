@@ -43,13 +43,11 @@
 </style>
 </head>
 <body>
-	<div id="header"></div>
-	<section class="container mt-3" id="new-mozzle2">
-
-		<jsp:include page="../comm/mozzleHeader.jsp" />
-	</section>
+	<div class="content">
+	
 	<form action="./scheduleselectAll.do" method="get">
 		<!-- JS를 밑에 두면 안먹힌다. -->
+		<!-- 36분39초 -->
 		<h1>캘린더</h1>
 		<%
 		// 현재 날짜의 연도와 월을 가져온다.
@@ -92,17 +90,17 @@
 		IScheduleDao dao = new IScheduleDaoImpl();
 
 		//yyyymm
-		String yyyymm = year + ScheduleUtil.isTwo(String.valueOf(month));
+		//String yyyymm = year + ScheduleUtil.isTwo(String.valueOf(month));
 
 		//게시글 가져온다.
-		//<%-- Map<String, String> map = new HashMap<String, String>();
-		//map.put("schedule_id", "2");
-		//map.put("yyyymmdd", yyyymm);
+		/* Map<String, String> map = new HashMap<String, String>(); */
+		//map.put(key, value);
+		//map.put(key, value);
 
-		//List<ScheduleDto> slist = dao.scheduleselectAll(map);
+		/* List<ScheduleDto> slist = dao.scheduleselectAll(map); */
 		%>
 		<!-- 리스트가나와야하는데 음 -->
-		<%-- <%=slist %> --%>
+
 		<table class="calendar">
 			<caption>
 				<a href="./calendar.do?year=<%=year - 1%>&month=<%=month%>">&laquo;</a>
@@ -150,6 +148,6 @@
 			</tr>
 		</table>
 	</form>
-	<div id="footer"></div>
+	</div>
 </body>
 </html>

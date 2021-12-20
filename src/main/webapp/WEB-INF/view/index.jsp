@@ -73,7 +73,7 @@
 				<div class="swiper-wrapper">
 					<c:forEach var="mozzle" items="${myMozzleList}">
 						<div class="swiper-slide">
-							<a href="./board.do?mozzle_id?${mozzle.mozzle_id}"> <c:choose>
+							<a href="./board.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
 									<c:when test="${not empty mozzle.image_saved}">
 										<div class="image-wrap1">
 											<div class="image-wrap2">
@@ -108,7 +108,7 @@
 			<div class="swiper-wrapper">
 				<c:forEach var="mozzle" items="${newMozzleList}">
 					<div class="swiper-slide">
-						<a href="./board.do?mozzle_id?${mozzle.mozzle_id}"> <c:choose>
+						<a href="./board.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
 								<c:when test="${not empty mozzle.image_saved}">
 									<div class="image-wrap1">
 										<div class="image-wrap2">
@@ -138,12 +138,12 @@
 	</section>
 	<br />
 	<section class="container mt-3" id="new-mozzle2">
-		<h4>새로 생긴 모즐!</h4>
+		<h4>HOT 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle2">
 			<div class="swiper-wrapper">
 				<c:forEach var="mozzle" items="${hotMozzleList}">
 					<div class="swiper-slide">
-						<a href="./board.do?mozzle_id?${mozzle.mozzle_id}"> <c:choose>
+						<a href="./board.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
 								<c:when test="${not empty mozzle.image_saved}">
 									<div class="image-wrap1">
 										<div class="image-wrap2">

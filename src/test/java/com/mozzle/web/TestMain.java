@@ -88,10 +88,17 @@ public class TestMain {
 		updatedto.setImage_saved("bxckjasdkjhsakdjvh.img");
 		updatedto.setNickname("바보");
 		updatedto.setBirthday_show("Y");
+		updatedto.setAuth_code("1");
+		//모즐유저 회원정보 수정 본인이
+//		int m = mozzleUserDao.updateMozzleUser(updatedto);
+//		assertEquals(1, m);
+		
+		//모즐내 회원 권한수정 운영자가
+		int nn = mozzleUserDao.updateMozzleUserAuth(updatedto);
+		assertEquals(1, nn);
 		
 		
-		int m = mozzleUserDao.updateMozzleUser(updatedto);
-		assertEquals(1, m);
+		
 	}
 
 }

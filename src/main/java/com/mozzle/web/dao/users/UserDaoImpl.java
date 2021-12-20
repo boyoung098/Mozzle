@@ -61,4 +61,9 @@ public class UserDaoImpl implements IUserDao{
 		return session.selectOne(NS + "findId", dto);
 	}
 
+	@Override
+	public int findPw(UserDto dto) {
+		return session.selectOne(NS + "findPw", dto);
+	}
+
 }

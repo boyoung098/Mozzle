@@ -18,4 +18,6 @@ public interface IUserService {
 	public UserDto getUserInfo(String id);
 	
 	public String findId(UserDto dto);
+	
+	public int findPw(UserDto dto);
 }

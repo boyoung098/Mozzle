@@ -79,6 +79,20 @@ $(document).ready(function() {
 
 	</section> -->
 
+<script type="text/javascript">
+function userSessionCheck(){
+	var userId = '<%=(String)session.getAttribute("userId")%>';
+	console.log(userId);
+	if(userId=='null'){
+//			console.log(userId+"ss");
+		alert('로그인이 되어있지 않습ㄴ디ㅏ.');
+		location.href='./loginPage.do'; //로그인페이지로 이동해야함
+	}else{
+		 $('#joinModal').modal();
+	}
+	
+} 
+</script>
 
 </body>
 </html>
