@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ import org.springframework.core.io.Resource;
 
 @Controller
 @RequestMapping("/{manage}/")
-public class ManageCtrl {
+public class ManageControjler {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -108,6 +109,16 @@ public class ManageCtrl {
 		} else {
 			mozzle.setState("N");
 		}
+		
+		//mozzle_name Escape
+		String mozzle_name = mozzle.getMozzle_name();
+		String mozzle_name_escaped = mozzle_name.replace("<", "&lt;").replace("&", "&amp;");
+		mozzle.setMozzle_name(mozzle_name_escaped);
+		
+		//mozzle_intro Escape
+		String mozzle_intro = mozzle.getMozzle_intro();
+		String mozzle_intro_escaped = mozzle_intro.replace("<", "&lt;").replace("&", "&amp;");
+		mozzle.setMozzle_intro(mozzle_intro_escaped);
 		
 		// 모즐 아이디(seq) 생성
 		String mozzle_id = service.createMozzleId();
@@ -190,7 +201,17 @@ public class ManageCtrl {
 		} else {
 			mozzle.setState("N");
 		}
-			
+		
+		//mozzle_name Escape
+		String mozzle_name = mozzle.getMozzle_name();
+		String mozzle_name_escaped = mozzle_name.replace("<", "&lt;").replace("&", "&amp;");
+		mozzle.setMozzle_name(mozzle_name_escaped);
+		
+		//mozzle_intro Escape
+		String mozzle_intro = mozzle.getMozzle_intro();
+		String mozzle_intro_escaped = mozzle_intro.replace("<", "&lt;").replace("&", "&amp;");
+		mozzle.setMozzle_intro(mozzle_intro_escaped);
+		
 		int n = service.updateMozzle(mozzle);
 		
 		if(n==1) {
@@ -203,7 +224,6 @@ public class ManageCtrl {
 		}	
 	}
 	
-	
 	@RequestMapping(value = "/searchCategory.do", method= RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> searchCategory() {
@@ -215,6 +235,4 @@ public class ManageCtrl {
 
 		return response;
 	}
-	
-
 }

@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mozzle.web.dto.board.Board;
+import com.mozzle.web.dto.manage.MozzleDto;
 import com.mozzle.web.dto.users.MozzleUserDto;
 import com.mozzle.web.service.board.IBoardService;
+import com.mozzle.web.service.manage.IManageService;
 import com.mozzle.web.service.schedule.IScheduleServiceImpl;
 import com.mozzle.web.service.users.IMozzleUserService;
 
@@ -36,6 +38,9 @@ public class FirstBoardCtrl {
 	
 	@Autowired
 	private IBoardService serviceImple;
+	
+	@Autowired
+	private IManageService service;
 	
 	@Autowired
 	private IMozzleUserService mozzleUserService;
@@ -62,6 +67,11 @@ public class FirstBoardCtrl {
 		//String path = req.getSession().getServletContext().getRealPath("/");
 		//*************이미지 경로나옴!!!!!!!!!!!!!
 	//끝
+		
+		//임현경 - 해당 mozzle 정보
+		String mozzle= req.getParameter(mozzle_id);
+		MozzleDto myMozzle = service.selectMozzleByMozzleId(mozzle_id);
+		model.addAttribute("myMozzle", myMozzle);
 		
 	
 		//김보영 - 모즐내 회원인지 select하여 값보내기

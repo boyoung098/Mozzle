@@ -27,13 +27,12 @@ $(document).ready(function() {
 			
 	if($('#save_result').val() != '') {
 		console.log($('#save_result').val());
-		alert($('#mozzle_id').val());
 				
 		if($('#save_result').val() == 'true') {
 			alert('모즐이 성공적으로 생성되었습니다.');
 			$('#save_result').val('');
 			
-			location.href = "../board.do?mozzle_id=" + $('#mozzle_id').val();
+			location.href = "../firstmozzle.do?mozzle_id=" + $('#mozzle_id').val();
 		} else {
 			alert('수정을 실패했습니다.');
 			$('#save_result').val('');
@@ -83,8 +82,5 @@ window.onload = function() {
 			document.getElementById("image").src = "../images/img.png";			
 		}
 	};
-		
-	function checkSubmit() {
-		alert($('#submitMozzleForm').val());
-	}
+
 }
