@@ -61,6 +61,12 @@ public class UserController {
 		return "user/mypage/updateUser";
 	}
 	
+	@RequestMapping(value = "/updateUserInfo.do", method=RequestMethod.POST)
+	public String updateUserInfo(UserDto dto) {
+		System.out.println(dto);
+		return "forward:/";
+	}
+	
 	@RequestMapping(value="/myThread.do", method=RequestMethod.GET)
 	public String myThread() {
 		
