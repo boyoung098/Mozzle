@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 <!-- **************************멤버리스트뿌리는곳*************************  -->
@@ -35,7 +36,8 @@
 						
 					</div>
 					<ul id="mozzleuserul">
-						<%-- <% String imgpath = request.getSession().getServletContext().getRealPath("/")+"storage"+"\\"; %> --%>
+						<% String imgpath = request.getSession().getServletContext().getRealPath("/")+"storage"+"\\"; %>
+						 <%-- <%= imgpath+"998C26415D1B512A08.png"%> --%>
 						 
 						<c:forEach var="mozzleUser" items="${mozzleuserList}">
 						
@@ -53,8 +55,7 @@
 										<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="">
 									</c:when>
 									<c:otherwise>
-									<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="">
-										<%-- <img src="<%=request.getContextPath()%>/storage/065c83f5-4ac8-4817-9a4e-475b224f56ca.jfif" alt=""> --%>
+									<img src="<%=request.getContextPath()%>/storage/${mozzleUser.image_saved}" alt="">
 									</c:otherwise>
 								</c:choose>
 							</div> <span>${mozzleUser.nickname}</span>
@@ -78,6 +79,13 @@
 				var nickname =($(this).children("div").children("input").eq(0).val());
 				//var date = ($(this).children("div").children("input").eq(1).val());
 				var image_saved =($(this).children("div").children("input").eq(2).val());
+				//$("#imgsrc").append(image_saved);
+				
+				if(image_saved != ""){
+					$("#image-detail").attr("src","<%=request.getContextPath()%>/storage/"+image_saved);
+				} else{
+					$("#image-detail").attr("src","<%=request.getContextPath()%>/resources/images/default_profile.png");
+				}
 				var auth_code = ($(this).children("div").children("input").eq(3).val());
 				var date= '<c:out value="${dateFmt2}"/>'
 				$('#innickname').empty();

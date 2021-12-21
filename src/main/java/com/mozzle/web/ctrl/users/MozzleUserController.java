@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,10 +79,30 @@ public class MozzleUserController {
 		return returnmap;
 	}
 	
+
+
+	@RequestMapping(value="/mozzleJoinBefore.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,String> mozzleJoinBefore(String nickname, @ModelAttribute("mozzle_id") String mozzle_id){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("mozzle_id", mozzle_id);
+		map.put("nickname", nickname);
+		MozzleUserDto dto = mozzleUserService.selectMozzleUser(map);
+		String TF = "true";
+		if(dto!=null) {
+			TF = "false";
+		}
+		Map<String,String> returnmap = new HashMap<String,String>();
+		returnmap.put("TF", TF);
+		return returnmap;
+	}
+	
 	//유저가 모즐내 가입할때
 	@PostMapping(value = "/mozzleUserRegist.do")
 	public String mozzleUserRegist(HttpServletRequest req, Model model, MozzleUserDto mozzleUserDto,
 										BindingResult result, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletResponse resp) throws IOException {
+		
+		
 		
 		MultipartFile file = mozzleUserDto.getFile();
 		System.out.println("*************file:"+file); 
@@ -91,9 +112,9 @@ public class MozzleUserController {
 		if(fileName!="") {
 			mozzleUserDto.setImage_origin(fileName);
 			String image_saved = UUID.randomUUID().toString();
-			int point = fileName.indexOf(".");
-			String filepackager = fileName.substring(point);
-			String finalimage = image_saved + filepackager;
+//			int point = fileName.indexOf(".");
+//			String filepackager = fileName.substring(point);
+			String finalimage = image_saved + ".png";
 			mozzleUserDto.setImage_saved(finalimage);
 			
 			
@@ -183,9 +204,142 @@ public class MozzleUserController {
 		return null;
 	}
 	
+	@RequestMapping(value="/mozzleUpdateBefore.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,String> mozzleUpdateBefore(String nickname, @ModelAttribute("mozzle_id") String mozzle_id){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("mozzle_id", mozzle_id);
+		map.put("nickname", nickname);
+		MozzleUserDto dto = mozzleUserService.selectMozzleUser(map);
+		String TF = "true";
+		if(dto!=null) {
+			TF = "false";
+		}
+		Map<String,String> returnmap = new HashMap<String,String>();
+		returnmap.put("TF", TF);
+		return returnmap;
+	}
+	
+	//유저가 모즐내 가입할때
+		@PostMapping(value = "/mozzleUserUpdate.do")
+		public String mozzleUserUpdate(HttpServletRequest req, Model model, MozzleUserDto mozzleUserDto,
+											BindingResult result, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletResponse resp) throws IOException {
+			
+			
+			
+			MultipartFile file = mozzleUserDto.getFile();
+			System.out.println("*************file:"+file); 
+			//org.springframework.web.multipart.commons.CommonsMultipartFile@515a98d6
+			
+			String fileName = file.getOriginalFilename();
+			if(fileName!="") {
+				mozzleUserDto.setImage_origin(fileName);
+				String image_saved = UUID.randomUUID().toString();
+//				int point = fileName.indexOf(".");
+//				String filepackager = fileName.substring(point);
+				String finalimage = image_saved + ".png";
+				mozzleUserDto.setImage_saved(finalimage);
+				
+				
+				//파일업로드절차=============================================
+				InputStream inputStream = null;
+				OutputStream outputStream = null;
+				
+				String path = null;
+				
+				try {
+					inputStream = file.getInputStream();
+					System.out.println("inputStream ======="+inputStream);
+					//java.io.FileInputStream@679bb012
+					
+					//배포전 절대경로 path
+					//path = req.getServletPath();
+					//path = req.getContextPath(); MozzleProject
+					
+					//System.out.println(path);
+					
+					//배포할때 아래 방법쓰기
+					path = WebUtils.getRealPath(req.getSession().getServletContext(),"/storage");
+					System.out.println("path ======"+path); 
+					//C:\eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage
+					
+					
+					//만약 저장위치가 없다
+					File storage = new File(path);
+					if(!storage.exists()) {
+						storage.mkdirs();
+					}
+					
+					//저장할 파일이 없다면 만들어주고 override함
+					File newfile = new File(path+"/"+finalimage);
+					if(!newfile.exists()) {
+						newfile.createNewFile();
+					}
+					
+					//파일을 쓸 위치를 지정해줌
+					outputStream = new FileOutputStream(newfile);
+					
+					//파일을 써줌 (우리가 가져온 파일은 0101)
+					int read = 0;
+					byte[] n = new byte[(int)file.getSize()];
+					while((read = inputStream.read(n))!= -1) {
+						outputStream.write(n,0,read);
+					}
+					
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					try {
+						inputStream.close();
+						outputStream.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				//파일업로드절차=============================================
+				
+			}
+			System.out.println("************fileName:"+fileName); //Capture001.png
+			
+			
+			String userId = (String)req.getSession().getAttribute("userId");
+			mozzleUserDto.setUser_id(userId);
+			System.out.println("====mozzleUserDto:"+mozzleUserDto.toString());
+			//int resultcnt = mozzleUserService.insertMozzleUser(mozzleUserDto);
+			
+			/*
+			 * if(resultcnt==0) { resp.setContentType("text/html; charset=UTF-8");
+			 * PrintWriter writer = resp.getWriter(); writer.
+			 * println("<script>alert('모즐가입에 실패하셨습니다. 다시 시도해주세요.'); location.href='./firstmozzle.do?mozzle_id="
+			 * +mozzle_id+"';</script>"); writer.flush(); } else {
+			 * resp.setContentType("text/html; charset=UTF-8"); PrintWriter writer =
+			 * resp.getWriter(); writer.
+			 * println("<script>alert('모즐가입에 성공하셨습니다.'); location.href='./firstmozzle.do?mozzle_id="
+			 * +mozzle_id+"';</script>"); writer.flush();
+			 * 
+			 * }
+			 */
+			
+			
+			return null;
+		}
+	
+	
+	//마이페이지 폼 띄울때
 	@GetMapping(value="/mozzleuserMypage.do")
-	public String mozzleuserMypage(@ModelAttribute("mozzle_id")String mozzle_id) {
+	public String mozzleuserMypage(@ModelAttribute("mozzle_id")String mozzle_id, HttpServletRequest req, Model model) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("mozzle_id",mozzle_id);
+		String sessionid = (String)req.getSession().getAttribute("userId");
+		map.put("user_id", sessionid);
 		
+		MozzleUserDto mozzleUser = mozzleUserService.selectMozzleUserByUserId(map);
+		log.info("모즐유저페이지에 보낼 유저정보 출력=================="+mozzleUser);
+		
+		model.addAttribute("mozzleUser",mozzleUser);
 		return "mozzle/mozzleuserMypage";
 	}
 }

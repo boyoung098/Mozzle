@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,6 @@ public class FirstBoardCtrl {
 	@Autowired
 	private IMozzleUserService mozzleUserService;
 	
-	
 	//처음에 모즐클릭햇을때 뜨는화면에 필요한 값들을 보내준다.
 	@RequestMapping(value="/firstmozzle.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String firstmozzle(Model model, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req) {
@@ -63,6 +63,7 @@ public class FirstBoardCtrl {
 		//*************이미지 경로나옴!!!!!!!!!!!!!
 	//끝
 		
+	
 		//김보영 - 모즐내 회원인지 select하여 값보내기
 		String sessionid = (String)req.getSession().getAttribute("userId");
 		System.out.println("============================="+sessionid);
@@ -105,7 +106,7 @@ public class FirstBoardCtrl {
 	@RequestMapping(value = "/calendar2.do", method = RequestMethod.GET)
 	public String scheduleselectAll(HttpServletRequest request) {
 		logger.info("ScheduleController 캘린더 출력");
-
+		
 		return "schedule/calendar2";
 	}
 	

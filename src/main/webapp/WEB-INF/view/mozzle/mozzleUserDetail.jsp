@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#image{
+	#image-detail{
 		width: 200px;
 		height: 200px;
 		object-fit: cover; 
@@ -31,8 +31,8 @@
 		<div class="register-container">
 		
 			<%-- <input type="text" id="save_result" name="result" value="${result}" /> --%>
-			<div class="image-wrap2">
-					<img class="image" id="image" src="<%=request.getContextPath()%>/resources/images/default_profile.png" />
+			<div class="image-wrap2" id="detail-image-div">
+					<img class="image" id="image-detail" src="<%=request.getContextPath()%>/resources/images/default_profile.png" />
 				</div>
 			<div class="register-name">
 				<h2 id="innickname"></h2>
@@ -42,7 +42,7 @@
 			<div class="register-name">
 				<h5>가입일자 : <span id="indate"></span></h5>
 			</div>
-			
+			<div id="imgsrc"></div>
 			
 			
 			

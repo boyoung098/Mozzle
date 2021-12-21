@@ -1,5 +1,6 @@
 package com.mozzle.web.dto.users;
 
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class MozzleUserDto {
