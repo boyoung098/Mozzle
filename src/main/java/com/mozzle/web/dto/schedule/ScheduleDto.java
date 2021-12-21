@@ -1,21 +1,18 @@
 package com.mozzle.web.dto.schedule;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * Model
- * Schedule 게시판에서 사용하는 Data Transfer Object
- * POJO
- * DTO 혹은 VO
+ * Model Schedule 게시판에서 사용하는 Data Transfer Object POJO DTO 혹은 VO
+ * 
  * @author hyuns
  * @since 2021-12-06
  */
 
-public class ScheduleDto implements Serializable{
-	
+public class ScheduleDto implements Serializable {
+
 	private static final long serialVersionUID = 5523621886230321821L;
-	
+
 	/**
 	 * SCHEDULE_ID,MOZZLE_ID,WIRTER,TITLE,CONTENT,SCHEDULE_DATE,REGDATE,
 	 * DELFLAG,LOCATION_CODE
@@ -25,14 +22,14 @@ public class ScheduleDto implements Serializable{
 	private String writer;
 	private String title;
 	private String content;
-	private Date schedule_date;
-	private Date regdate;
+	private String schedule_date;
+	private String regdate;
 	private String delflag;
-	private String location_code;
-	
+	private int location_code;
+
 	public ScheduleDto() {
 		super();
-		
+
 	}
 
 	public String getSchedule_id() {
@@ -75,19 +72,19 @@ public class ScheduleDto implements Serializable{
 		this.content = content;
 	}
 
-	public Date getSchedule_date() {
+	public String getSchedule_date() {
 		return schedule_date;
 	}
 
-	public void setSchedule_date(Date schedule_date) {
+	public void setSchedule_date(String schedule_date) {
 		this.schedule_date = schedule_date;
 	}
 
-	public Date getRegdate() {
+	public String getRegdate() {
 		return regdate;
 	}
 
-	public void setRegdate(Date regdate) {
+	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
 
@@ -99,16 +96,16 @@ public class ScheduleDto implements Serializable{
 		this.delflag = delflag;
 	}
 
-	public String getLocation_code() {
+	public int getLocation_code() {
 		return location_code;
 	}
 
-	public void setLocation_code(String location_code) {
+	public void setLocation_code(int location_code) {
 		this.location_code = location_code;
 	}
 
 	public ScheduleDto(String schedule_id, int mozzle_id, String writer, String title, String content,
-			Date schedule_date, Date regdate, String delflag, String location_code) {
+			String schedule_date, String regdate, String delflag, int location_code) {
 		super();
 		this.schedule_id = schedule_id;
 		this.mozzle_id = mozzle_id;
@@ -127,7 +124,5 @@ public class ScheduleDto implements Serializable{
 				+ ", title=" + title + ", content=" + content + ", schedule_date=" + schedule_date + ", regdate="
 				+ regdate + ", delflag=" + delflag + ", location_code=" + location_code + "]";
 	}
-	
-	
-	
+
 }

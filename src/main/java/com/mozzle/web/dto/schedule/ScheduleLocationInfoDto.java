@@ -2,27 +2,27 @@ package com.mozzle.web.dto.schedule;
 
 import java.io.Serializable;
 
-public class ScheduleLocationInfoDto implements Serializable{
+public class ScheduleLocationInfoDto implements Serializable {
 
 	private static final long serialVersionUID = 3746867421348151786L;
 
-	private String location_code;
+	private int location_code;
 	private String location_name;
 	private String address;
 	private String address2;
 	private String phone;
 	private Float logui;
 	private Float lat;
-	
+
 	public ScheduleLocationInfoDto() {
-		
+
 	}
 
-	public String getLocation_code() {
+	public int getLocation_code() {
 		return location_code;
 	}
 
-	public void setLocation_code(String location_code) {
+	public void setLocation_code(int location_code) {
 		this.location_code = location_code;
 	}
 
@@ -85,7 +85,7 @@ public class ScheduleLocationInfoDto implements Serializable{
 				+ lat + "]";
 	}
 
-	public ScheduleLocationInfoDto(String location_code, String location_name, String address, String address2,
+	public ScheduleLocationInfoDto(int location_code, String location_name, String address, String address2,
 			String phone) {
 		super();
 		this.location_code = location_code;
@@ -94,7 +94,5 @@ public class ScheduleLocationInfoDto implements Serializable{
 		this.address2 = address2;
 		this.phone = phone;
 	}
-	
-	
-	
+
 }
