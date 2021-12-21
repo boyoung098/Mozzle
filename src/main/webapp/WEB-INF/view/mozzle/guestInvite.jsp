@@ -22,7 +22,7 @@
 		</div> --%>
 	</div>
 	
-	<%@ include file="/WEB-INF/view/mozzle/boardside.jsp" %>
+	<%-- <%@ include file="/WEB-INF/view/mozzle/boardside.jsp" %> --%>
 	
 	<!-- <a href="./guestEnter.do?uuid=5deef64e-599a-11ec-80d2-4b1c063fa815">게스트로 이동</a> -->
 

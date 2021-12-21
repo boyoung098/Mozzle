@@ -1,20 +1,20 @@
 //게시글 수정폼
 function board_update(post_id, user_id, regdate, content){
 	console.log("들어옴?");
-	var commtesmodify = "우왕";
-	//console.log(commtesmodify);
-	//commtesmodify +='<span id="post_id"'+post_id+'" style="width:200px; height:200px; background:red;">';
-	//commtesmodify += user_id;
-	//commtesmodify += '</span>';
-	//commtesmodify +='<span id="regdate">';
-	//commtesmodify += regdate;
-	//commtesmodify += '</span>';
-	commtesmodify += '<textarea>';
-	commtesmodify += '안녕하세요';
-	commtesmodify += '</textarea>';
-	//commtesmodify +='<button onclick="board_update_edit()">수정</button>';
+	var commtesmodify = "";
 	
-	//$("#post_id"+post_id).replaceWith(commtesmodify);
+	commtesmodify +='<span id="post_id"'+post_id+'style="width:200px; height:200px; background:red;">';
+	commtesmodify += user_id;
+	commtesmodify += '</span>';
+	commtesmodify +='<span id="regdate">';
+	commtesmodify += regdate;
+	commtesmodify += '</span>';
+	commtesmodify += '<textarea>';
+	commtesmodify += content;
+	commtesmodify += '</textarea>';
+	commtesmodify +='<button onclick="board_update_edit()">수정</button>';
+	
+	$("#replyload"+post_id).replaceWith(commtesmodify);
 }
 
 // 게시글 수정

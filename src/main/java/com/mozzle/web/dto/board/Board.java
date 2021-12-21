@@ -24,8 +24,8 @@ public class Board {
 	
 	private int seq;
 	
-	private String report_id;
-	private String report_time;
-	private String reporter;
-	private String reason;
+//	private String report_id;
+//	private String report_time;
+//	private String reporter;
+//	private String reason;
 }
