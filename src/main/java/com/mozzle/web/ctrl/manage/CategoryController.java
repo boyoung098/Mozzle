@@ -69,4 +69,25 @@ public class CategoryController {
 
 		return result;
 	}
+	
+	@RequestMapping(value= "/deleteCategory.do", method= RequestMethod.POST)
+	@ResponseBody
+	public boolean deleteCategory(@RequestParam("category[]") List<String> categoryList) {
+			
+		logger.info("AdminController의 deleteCategory");
+		
+		int deleteCnt = 0;
+		boolean result = false;
+		
+		for (String category : categoryList) {
+			deleteCnt += service.deleteCatogory(category);
+		}
+		
+		if(categoryList.size() == deleteCnt) {
+			result = true;
+		}
+
+		return result;
+	}
+	
 }

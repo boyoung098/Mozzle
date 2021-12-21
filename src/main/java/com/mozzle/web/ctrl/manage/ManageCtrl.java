@@ -68,7 +68,7 @@ public class ManageCtrl {
 		return "manage/registMozzleForm";
 	}
 	
-	@PostMapping("/imageUpload.do")
+	@PostMapping("/registMozzle.do")
 	public String registMozzle(MozzleDto mozzle, Model model, HttpServletRequest request) throws IllegalStateException, IOException{
 		
 		logger.info("imageUpload.do");
@@ -109,15 +109,15 @@ public class ManageCtrl {
 			mozzle.setState("N");
 		}
 		
-		// 모즐 id 받아오기 + 모즐 id 입력
-		String mozzle_id= service.selectMozzleIdByMozzleName(mozzle.getMozzle_name());
+		// 모즐 아이디(seq) 생성
+		String mozzle_id = service.createMozzleId();
 		mozzle.setMozzle_id(mozzle_id);
-		// mozzle_id -> registMozzleForm 전달
-		model.addAttribute("mozzle_id", mozzle_id);
-		// 모즐(1) & 리더(1) 등록
+		// 모즐 등록 + 리더 멤버 추가
 		int checkNum = service.registMozzle(mozzle);
-		
-		// 모즐 등록 확인 (true/ false) 보내기
+		// 모즐 아이디 jsp로 전달
+		model.addAttribute("mozzle_id", mozzle_id);
+
+		// 모즐 등록 확인
 		if (checkNum == 2) {
 			model.addAttribute("result", "true");
 			return "manage/registMozzleForm";
@@ -128,6 +128,7 @@ public class ManageCtrl {
 	}
 	
 	@RequestMapping(value="/mozzleNameCheck.do", method= RequestMethod.POST)
+	@ResponseBody
 	public int mozzleNameCheck(@RequestParam("mozzle_name") String mozzle_name) {
 		logger.info("mozzleNameCheck {}", mozzle_name);
 		int checkNum = service.mozzleNameCheck(mozzle_name);

@@ -32,7 +32,7 @@
 	<div id="header"></div>
 
 	<div class="register-container">
-		<form id="submitMozzleForm" action="./imageUpload.do" method="post"
+		<form id="submitMozzleForm" action="./registMozzle.do" method="post"
 			enctype="multipart/form-data">
 			<input type="hidden" id="save_result" name="result"
 				value="${result}" />
@@ -87,7 +87,7 @@
 			<div class="register-input">
 				<input type="text" class="form-control" name="mozzle_name" id="mozzle_name" 
 					placeholder="모즐 이름을 입력해주세요" /> 
-				<p style="display: none;" id="check_msg"></p>
+				<p id="check_msg"></p>
 			</div>
 			<div class="register-name">
 				<h5>모즐소개</h5>

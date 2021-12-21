@@ -92,8 +92,7 @@
 									</c:otherwise>
 								</c:choose>
 								<p class="mozzle_title">${mozzle.mozzle_name}</p>
-								<p>리더 : ${mozzle.mozzle_id}&nbsp;&nbsp;멤버 :
-									${mozzle.memberCnt}</p>
+								<p>리더 : ${mozzle.leader_nickname}&nbsp;&nbsp;멤버 : ${mozzle.memberCnt}</p>
 								<p>${mozzle.mozzle_intro}</p>
 							</a>
 						</div>
@@ -127,8 +126,7 @@
 								</c:otherwise>
 							</c:choose>
 							<p class="mozzle_title">${mozzle.mozzle_name}</p>
-							<p>리더 : ${mozzle.mozzle_id}&nbsp;&nbsp;멤버 :
-								${mozzle.memberCnt}</p>
+							<p>리더 : ${mozzle.leader_nickname}&nbsp;&nbsp;멤버 : ${mozzle.memberCnt}</p>
 							<p>${mozzle.mozzle_intro}</p>
 						</a>
 					</div>
@@ -162,8 +160,7 @@
 								</c:otherwise>
 							</c:choose>
 							<p class="mozzle_title">${mozzle.mozzle_name}</p>
-							<p>리더 : ${mozzle.mozzle_id}&nbsp;&nbsp;멤버 :
-								${mozzle.memberCnt}</p>
+							<p>리더 : ${mozzle.leader_nickname}&nbsp;&nbsp;멤버 : ${mozzle.memberCnt}</p>
 							<p>${mozzle.mozzle_intro}</p>
 						</a>
 					</div>

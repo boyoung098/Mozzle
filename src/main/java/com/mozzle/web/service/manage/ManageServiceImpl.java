@@ -13,7 +13,12 @@ public class ManageServiceImpl implements IManageService {
 	
 	@Autowired
 	IManageDao dao;
-
+	
+	@Override
+	public String createMozzleId() {
+		return dao.createMozzleId();
+	}
+	
 	@Override
 	public int registMozzle(MozzleDto mozzle) {
 		int checkNum01 = dao.registMozzle(mozzle);
@@ -23,7 +28,13 @@ public class ManageServiceImpl implements IManageService {
 
 	@Override
 	public List<MozzleDto> selectMozzleByCreatDate() {
-		return dao.selectMozzleByCreatDate();
+		List<MozzleDto> mList = dao.selectMozzleByCreatDate();
+		
+		for (MozzleDto mozzleDto : mList) {
+			mozzleDto.setMemberCnt(dao.selectUserNum(mozzleDto.getMozzle_id()));
+		}
+		
+		return mList; 	
 	}
 
 	@Override
@@ -33,13 +44,23 @@ public class ManageServiceImpl implements IManageService {
 
 	@Override
 	public List<MozzleDto> selectMozzleByUserNumber() {
-		List<String> lists = dao.selectMozzleIdByUserNumber();
-		return dao.selectMozzleByUserNumber(lists);
+		List<MozzleDto> mList = dao.selectMozzleByUserNumber();
+		for (MozzleDto mozzleDto : mList) {
+			mozzleDto.setLeader_nickname(dao.searchLeaderNickname(mozzleDto.getMozzle_id()));
+		}
+		
+		return mList; 
 	}
 
 	@Override
 	public List<MozzleDto> selectMyMozzle(String user_id) {;
-		return dao.selectMyMozzle(user_id);
+		List<MozzleDto> mList = dao.selectMyMozzle(user_id);
+		
+		for (MozzleDto mozzleDto : mList) {
+			mozzleDto.setMemberCnt(dao.selectUserNum(mozzleDto.getMozzle_id()));
+		}
+		
+		return mList; 
 	}
 
 	@Override
