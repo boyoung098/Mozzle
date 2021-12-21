@@ -80,7 +80,7 @@ UPDATE USER_MOZZLE SET NICKNAME = #{nickname}, BIRTHDAY_SHOW = #{birthday_show}
 <if test="image_origin !=null">
 ,IMAGE_ORIGIN = #{image_origin},IMAGE_SAVED = #{image_saved}
 </if>
- WHERE USER_ID = #{user_id} AND MOZZLE_ID = #{mozzle_id}
+ WHERE USER_ID = #{user_id} AND MOZZLE_ID = #{mozzle_id} AND AUTH_CODE IN ('1','2')
 </update>
 
 <!-- 12/19(일) 모즐내 회원 권한수정 운영자가 -->

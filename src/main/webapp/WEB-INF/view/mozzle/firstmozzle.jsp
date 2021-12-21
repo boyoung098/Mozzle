@@ -69,8 +69,10 @@ $(document).ready(function() {
 						<ul>
 							<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li>
 							<li>사진첩</li>
-							<li><a href="#">일정<input type="hidden" name="move" value="calendar2"></a></li>
+							<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
+							<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
 							<li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li>
+							</c:if>
 						</ul>
 					</div>
 				</div>
