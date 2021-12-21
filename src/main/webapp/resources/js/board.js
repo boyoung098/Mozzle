@@ -1,3 +1,17 @@
+// drop-board
+$( document ).ready( function() {
+  $(".drop-board-box").click( function() {
+    $(this).find(".drop-board").slideToggle();
+  });
+
+  $(".comment-write").click( function() {
+    $(this).next(".comment").slideToggle();
+
+  });
+});
+
+
+
 //게시글 수정폼
 function board_update(post_id, user_id, regdate, content){
 	console.log("들어옴?");

@@ -249,7 +249,9 @@ textarea:focus, input:focus{
 }
 
 
-
+.col-sm-9, .col-sm-3 {
+	padding:5px;
+}
 
 
 
@@ -271,6 +273,12 @@ textarea:focus, input:focus{
     .container-fluid {
         width: 970px;
     }
+    .new-photo {
+    	position:fixed;
+    }
+    .profil-image {
+	    width: 210px;
+	}
 }
 
 @media (min-width: 1200px){
@@ -280,6 +288,12 @@ textarea:focus, input:focus{
     .mo-member ul {
         width: 30%;
     }
+    .new-photo {
+    	position:fixed;
+    }
+    .profil-image {
+	    width: 256px;
+	}
 }
 
 

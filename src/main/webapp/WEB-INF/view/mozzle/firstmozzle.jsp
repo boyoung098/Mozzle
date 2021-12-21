@@ -12,40 +12,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <%@ include file="../comm/import.jsp"%>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/mozzlemainkby.js"></script>
-<style>
-#image-wrap {
-	max-width: 100%;
-	max-height: 200px;
-	overflow: hidden;
-	text-align: center;
-	background-color: #eff2ed;
-}
-
-#cover-image {
-	max-width: initial;
-	max-height: initial;
-	opacity: 0.8;
-	margin-bottom: 50%;
-}
-
-</style>
-
 <script type="text/javascript">
 $(document).ready(function() {
-	//여기 아래 부분
-	$('#summernote').summernote({
-		  height: 300,                 // 에디터 높이
-		  minHeight: null,             // 최소 높이
-		  maxHeight: null,             // 최대 높이
-		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		  lang: "ko-KR",					// 한글 설정
-		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-          
-	});
-	
 	$("#invite-user").click(function(){
 		location.href="./guestInvite.do?mozzle_id=1";
 	})
@@ -56,6 +25,25 @@ $(document).ready(function() {
 	<div id="header"></div>
 	<section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
+			<div class="col-sm-3 sidenav">
+				<div class="new-photo">
+					<h4>내 정보</h4>
+					<div class="profil-image">
+						<img src="<%=request.getContextPath()%>/resources/upload/${myMozzle.image_saved}"
+						alt="메인" />
+					</div>
+					<div>
+						운영자<br>
+						이메일<br>
+						가입일<br>
+						모즐 신고<br>
+						모즐 탈퇴<br>
+					</div>
+				</div>
+				
+				<%-- <!-- 모즐멤버리스트 뿌리는 곳 -->
+				<%@ include file="/WEB-INF/view/mozzle/mozzleMemberList.jsp" %> --%>
+			</div>
 			<div class="col-sm-9">
 				<div class="mo-img">
 					<div id= "image-wrap">
@@ -63,13 +51,14 @@ $(document).ready(function() {
 						alt="메인" />
 					</div>
 					<div class="mo-text">
-						<h4>${myMozzle.mozzle_name}<a href="./manage/modifyMozzleForm.do" style="color:red; font-size:12px;">모즐 설정</a></h4>
+						<div class="mozzle-title-icon">
+							<h4>${myMozzle.mozzle_name}</h4>
+							<a href="./manage/modifyMozzleForm.do"><i class="xi-cog  xi-x"></i></a>
+						</div>
 						<p>${myMozzle.mozzle_intro}
 							 <c:if test="${empty mozzleUserdto}">
 							 	<!-- 모즐유저디티오없다 -->
 							 </c:if>
-							
-							 
 						</p>
 						<div class="mo-member">
 							<ul>
@@ -82,63 +71,24 @@ $(document).ready(function() {
 							
 						</div>
 					</div>
-					<div class="mo-list">
-						<ul>
-							<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li>
-							<li>사진첩</li>
-							<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
-							<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
-							<li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li>
-							</c:if>
-						</ul>
-					</div>
 				</div>
-	<%@include file= "/WEB-INF/view/mozzle/mozzleJoinForm.jsp"  %>
-	
-	
-		<div id="load_mozzle">
-		</div>
-	
-	
-
-
-			</div>
-			<div class="col-sm-3 sidenav">
-				<div class="input-group input-search" style="width: 86%;">
-					<form action="" method="post">
-						<input type="text" class="form-control" name="keyword"
-							id="keyword" placeholder="모즐 게시글 검색"> <span
-							class="input-group-btn">
-							<button class="btn btn-default" type="button"
-								onclick="searchboard()">
-								<span class="glyphicon glyphicon-search"></span>
-							</button>
-						</span>
-					</form>
-				</div>
-				<div class="new-photo">
-					<h4>최신 사진</h4>
+				<div class="mo-list">
 					<ul>
-						<!-- <li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li> -->
+						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li>
+						<!-- <li>사진첩</li>
+-->							<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
+						<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
+						<li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li>
+						</c:if>
 					</ul>
 				</div>
-				
-				<!-- 모즐멤버리스트 뿌리는 곳 -->
-				<%@ include file="/WEB-INF/view/mozzle/mozzleMemberList.jsp" %>
-
-
 			</div>
+			<%@include file= "/WEB-INF/view/mozzle/mozzleJoinForm.jsp"  %>
+			<div id="load_mozzle"></div>
 		</div>
-
 	</section>
 
-<div id="footer"></div>
+	<div id="footer"></div>
 
 
 
@@ -195,24 +145,7 @@ function userSessionCheck(){
 }
 
 
-function inputComment() {
-	var content = $("#summernote").val();
-	console.log(content);
-	$.ajax({
-		type:'POST',
-		url : './insertBoard.do',
-		data: {
-			"incontent":content,
-			},
-		dataType:"JSON",
-		async:true,
-		success : function(reinsert){
-			
-        		
-		}
-	})
-}
-	
+
 
 </script>
 
