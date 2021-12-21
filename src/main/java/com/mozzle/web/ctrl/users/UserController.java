@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -63,8 +64,9 @@ public class UserController {
 	
 	@RequestMapping(value = "/updateUserInfo.do", method=RequestMethod.POST)
 	public String updateUserInfo(UserDto dto) {
-		System.out.println(dto);
-		return "forward:/";
+		System.out.println(dto.getUser_pw().isEmpty());
+		service.updateUser(dto);
+		return null;
 	}
 	
 	@RequestMapping(value="/myThread.do", method=RequestMethod.GET)

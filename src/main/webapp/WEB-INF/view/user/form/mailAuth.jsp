@@ -83,7 +83,7 @@
 	<section class="content container-login mt-5">
 		<form id="login-form" action="./passwordReset.do" method="POST">
 
-				<h2>비밀번호 찾기</h2>
+				<h2>회원가입 이메일 인증</h2>
 				<p>메일로 전송된 인증번호를 입력해주세요</p>
 				<p class="login-result"></p>
 				<div>

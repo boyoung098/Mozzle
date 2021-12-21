@@ -13,7 +13,7 @@ var pwChk = false;
 var cpwChk = false;
 var mailChk = false;
 $(function(){
-
+	
 	$(document).on("input", "input[name=user_id]", function(e){
 		var idRegEx = /^[A-Za-z]{1}[A-Za-z0-9]{5,19}$/g;
 		var idVal = $(this).val();
@@ -72,6 +72,17 @@ $(function(){
 			cpwChk = true;
 		}
 	});
+	
+	// 생년월일 유효성 체크(오늘날짜 이후라면 선택X)
+	$("input[name=birth]").change(function(e){
+		e.preventDefault();
+		var today = new Date().valueOf();
+		var selected = new Date(e.target.value).valueOf();
+		if(today <= selected){
+			e.target.value = "";
+		}
+	});
+
 	
 	// 이메일 중복 체크
 	$(document).on("click", "#email-auth", function(e){

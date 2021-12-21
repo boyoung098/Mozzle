@@ -47,4 +47,23 @@
 	UPDATE USERS SET USER_PW = #{user_pw} WHERE USER_ID = #{user_id}
 </update>
 
+<update id="updateUser" parameterType="uDto">
+	UPDATE USERS 
+	<set>
+	<if test="user_pw != null and user_pw != ''">
+	USER_PW = #{user_pw}, 
+	</if>
+	<if test="user_name != null and user_name != ''">
+	USER_NAME = #{user_name}, 
+	</if>
+	<if test="birth != null and birth != ''">
+	BIRTH = #{birth}, 
+	</if>
+	<if test="tel != null and tel != ''">
+	TEL = #{tel}
+	</if>
+	</set>
+	WHERE USER_ID = #{user_id}
+</update>
+
 </mapper>

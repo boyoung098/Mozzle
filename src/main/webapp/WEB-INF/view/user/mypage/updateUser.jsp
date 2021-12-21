@@ -44,10 +44,20 @@
 			}
 		});
 		
+		// 생년월일 유효성 체크
+		$("input[name=birth]").change(function(e){
+			e.preventDefault();
+			var today = new Date().valueOf();
+			var selected = new Date(e.target.value).valueOf();
+			if(today <= selected){
+				alert("오늘 날짜 이전으로 선택해주세요");
+				e.target.value = "";
+			}
+		});
 	});
 </script>
 <div class="container-login">
-	<form id="login-form" action="./updateUserInfo.do" method="POST">
+	<form id="login-form" action="./updateUserInfo.do" method="post">
 		<h2>회원 정보 수정</h2>
 
 		<jsp:include page="../../comm/userInfoForm.jsp" />
