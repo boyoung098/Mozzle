@@ -81,10 +81,10 @@ public class UserController {
 		return "user/mypage/bookmark";
 	}
 	
-	@RequestMapping(value="/inviteUser.do", method=RequestMethod.GET)
+	@RequestMapping(value="/notification.do", method=RequestMethod.GET)
 	public String inviteUser() {
 		
-		return "user/mypage/inviteUser";																																															
+		return "user/mypage/notification";																																															
 	}
 
 }

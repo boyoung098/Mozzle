@@ -47,7 +47,9 @@ select:focus {
 }
 
 /* 로그인 */
-
+.login-result{
+	color:#e82d55;	
+}
 .container-login {
     width:350px;
     margin: auto;
