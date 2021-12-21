@@ -66,4 +66,11 @@ public class UserDaoImpl implements IUserDao{
 		return session.selectOne(NS + "findPw", dto);
 	}
 
+	@Override
+	public boolean changePw(UserDto dto) {
+		dto.setUser_pw(passwordEncoder.encode(dto.getUser_pw()));
+		int cnt = session.update(NS + "changePw", dto);
+		return cnt > 0 ? true : false;
+	}
+
 }

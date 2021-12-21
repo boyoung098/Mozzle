@@ -85,9 +85,8 @@ $(function(){
 						$("#mail-duplicated-result").text("사용할 수 없는 이메일입니다.");
 					}
 					else{
-						$("#mail-duplicated-result").text("사용가능한 이메일입니다.");
-						var url = './';
-						var title = '아이디중복검사';
+						var url = './form/mailAuth.do?email=' + $("input[name=email]").val();
+						var title = '이메일 인증';
 						var attr = 'width=450px, height=550px';
 						window.open(url, title, attr);
 					}

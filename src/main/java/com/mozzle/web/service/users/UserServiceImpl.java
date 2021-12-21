@@ -55,4 +55,9 @@ public class UserServiceImpl implements IUserService{
 		return dao.findPw(dto);
 	}
 
+	@Override
+	public boolean changePw(UserDto dto) {
+		return dao.changePw(dto);
+	}
+
 }
