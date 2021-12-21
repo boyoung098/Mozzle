@@ -20,13 +20,26 @@
 	height: 200px;
 }
 
-#mozzle-regist-button {
-	float: right;
-	font-size: 1.5rem;
-	color: #FF001B;
-	border: 1px dashed #FF001B;
-	border-radius: 5px;
-	padding: 5px;
+#regist-box {
+	text-align: center;
+	margin: 0 auto;
+	height: 150px;
+	vertical-align: middle;
+	font-size: 2rem;
+	color: #aaa;
+	border: 1px solid #dcdcdc;
+	margin: 45px;
+	margin-top: 75px;
+}
+
+#regist-box:hover {
+	box-shadow: 1px 1px 20px #aaa;
+}
+
+#regist-button {
+	width: 30px;
+	height: 30px;
+	margin-top: 20%;
 }
 </style>
 <script>
@@ -66,14 +79,21 @@
 	</section>
 	<c:if test="${userId != null}">
 		<section class="container mt-3" id="new-mozzle">
-			<a id="mozzle-regist-button" href="./manage/registMozzleForm.do">
-				모즐등록하기 </a>
 			<h4>My 모즐!</h4>
 			<div class="swiper-container sw-new-mozzle">
 				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<a id="mozzle-regist-button" href="./manage/registMozzleForm.do">
+							<div id="regist-box">
+								<img id="regist-button"
+									src="<%=request.getContextPath()%>/resources/images/mozzleplus.png">
+								<br><br>모즐등록하기
+							</div>
+						</a>
+					</div>
 					<c:forEach var="mozzle" items="${myMozzleList}">
 						<div class="swiper-slide">
-							<a href="./board.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
+							<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
 									<c:when test="${not empty mozzle.image_saved}">
 										<div class="image-wrap1">
 											<div class="image-wrap2">
@@ -92,7 +112,8 @@
 									</c:otherwise>
 								</c:choose>
 								<p class="mozzle_title">${mozzle.mozzle_name}</p>
-								<p>리더 : ${mozzle.leader_nickname}&nbsp;&nbsp;멤버 : ${mozzle.memberCnt}</p>
+								<p>리더 : ${mozzle.leader_nickname}&nbsp;&nbsp;멤버 :
+									${mozzle.memberCnt}</p>
 								<p>${mozzle.mozzle_intro}</p>
 							</a>
 						</div>
@@ -107,7 +128,7 @@
 			<div class="swiper-wrapper">
 				<c:forEach var="mozzle" items="${newMozzleList}">
 					<div class="swiper-slide">
-						<a href="./board.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
+						<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
 								<c:when test="${not empty mozzle.image_saved}">
 									<div class="image-wrap1">
 										<div class="image-wrap2">
@@ -126,7 +147,8 @@
 								</c:otherwise>
 							</c:choose>
 							<p class="mozzle_title">${mozzle.mozzle_name}</p>
-							<p>리더 : ${mozzle.leader_nickname}&nbsp;&nbsp;멤버 : ${mozzle.memberCnt}</p>
+							<p>리더 : ${mozzle.leader_nickname}&nbsp;&nbsp;멤버 :
+								${mozzle.memberCnt}</p>
 							<p>${mozzle.mozzle_intro}</p>
 						</a>
 					</div>
@@ -141,7 +163,7 @@
 			<div class="swiper-wrapper">
 				<c:forEach var="mozzle" items="${hotMozzleList}">
 					<div class="swiper-slide">
-						<a href="./board.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
+						<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
 								<c:when test="${not empty mozzle.image_saved}">
 									<div class="image-wrap1">
 										<div class="image-wrap2">
@@ -160,7 +182,8 @@
 								</c:otherwise>
 							</c:choose>
 							<p class="mozzle_title">${mozzle.mozzle_name}</p>
-							<p>리더 : ${mozzle.leader_nickname}&nbsp;&nbsp;멤버 : ${mozzle.memberCnt}</p>
+							<p>리더 : ${mozzle.leader_nickname}&nbsp;&nbsp;멤버 :
+								${mozzle.memberCnt}</p>
 							<p>${mozzle.mozzle_intro}</p>
 						</a>
 					</div>

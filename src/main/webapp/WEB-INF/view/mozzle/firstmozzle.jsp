@@ -15,7 +15,23 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/mozzlemainkby.js"></script>
+<style>
+#image-wrap {
+	max-width: 100%;
+	max-height: 200px;
+	overflow: hidden;
+	text-align: center;
+	background-color: #eff2ed;
+}
 
+#cover-image {
+	max-width: initial;
+	max-height: initial;
+	opacity: 0.8;
+	margin-bottom: 50%;
+}
+
+</style>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -42,14 +58,15 @@ $(document).ready(function() {
 		<div class="row content">
 			<div class="col-sm-9">
 				<div class="mo-img">
-					<img src="<%=request.getContextPath()%>/resources/images/main.png"
+					<div id= "image-wrap">
+						<img id="cover-image" src="<%=request.getContextPath()%>/resources/upload/${myMozzle.image_saved}"
 						alt="메인" />
+					</div>
 					<div class="mo-text">
-						<h4>로아하는 로아인 모여!<a href="./manage/modifyMozzleForm.do" style="color:red; font-size:12px;">모즐 설정</a></h4>
-						<p>그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되려니와 그와 같지
-							못하고그림자가 사라지지 않는 것이다 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되
+						<h4>${myMozzle.mozzle_name}<a href="./manage/modifyMozzleForm.do" style="color:red; font-size:12px;">모즐 설정</a></h4>
+						<p>${myMozzle.mozzle_intro}
 							 <c:if test="${empty mozzleUserdto}">
-							 	모즐유저디티오없다
+							 	<!-- 모즐유저디티오없다 -->
 							 </c:if>
 							
 							 
