@@ -34,7 +34,7 @@ public class IBoardDaoImpl implements IBoardDao {
 	@Override
 	public int deleteBoard(int num) {
 		logger.info("게시판 삭제");
-		return session.delete(NS+"updateBoard",num);
+		return session.delete(NS+"deleteBoard",num);
 	}
 
 	@Override
@@ -43,14 +43,18 @@ public class IBoardDaoImpl implements IBoardDao {
 		
 		return session.selectOne(NS+"selectOneBoard", board);
 	}
-	
+//	
+//	@Override
+//	public List<Board> selectAllBoard(int seq) {
+//		logger.info("전체 게시판");
+//		return session.selectList(NS+"selectAllBoard");
+//	}
+
 	@Override
 	public List<Board> selectAllBoard() {
 		logger.info("전체 게시판");
 		return session.selectList(NS+"selectAllBoard");
 	}
-
-	
 	
 	
 
@@ -90,6 +94,12 @@ public class IBoardDaoImpl implements IBoardDao {
 		return session.insert(NS+"reportBoard", board);
 	}
 
+	@Override
+	public String replySelectAllBoard(String id) {
+		return session.selectOne(NS+"reselectAll");
+	}
+
+	
 	
 
 	

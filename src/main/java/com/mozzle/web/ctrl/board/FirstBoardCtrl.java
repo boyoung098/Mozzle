@@ -86,13 +86,12 @@ public class FirstBoardCtrl {
 	}
 	
 	
-	@RequestMapping(value="/board2.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String boardList(Model model, @ModelAttribute("mozzle_id") String mozzle_id) {
 		logger.info("모즐메인 게시판");
 		//List<Board> boardlist = serviceImple.selectAllBoard();
 		model.addAttribute("boardlist", serviceImple.selectAllBoard());
-		
-		return "mozzle/M_board2";
+		return "mozzle/M_board";
 	}
 	
 	@Autowired

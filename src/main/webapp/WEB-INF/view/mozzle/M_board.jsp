@@ -11,8 +11,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <%@ include file="../comm/import.jsp"%>
-<script src="<%=request.getContextPath()%>/resources/js/summernote/summernote-lite.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/summernote/lang/summernote-ko-KR.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/summernote/summernote-lite.css">
 
@@ -20,7 +20,7 @@
 $(document).ready(function() {
 	//여기 아래 부분
 	$('#summernote').summernote({
-		  height: 250,                 // 에디터 높이
+		  height: 300,                 // 에디터 높이
 		  minHeight: null,             // 최소 높이
 		  maxHeight: null,             // 최대 높이
 		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
@@ -36,12 +36,13 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<%@ include file="/WEB-INF/view/mozzle/boardmain.jsp" %>
 	<div class="board-container" id="items">
 		<div class="txt mt-3">
 			<h4>글 작성</h4>
-			<textarea id="summernote" name="content" class="comments" style="width: 500px" rows="3" cols="30"></textarea>
-			<button id="commentWrite" onclick = 'inputComment()'>글 작성</button>
+			<form action="">
+				<textarea id="summernote" name="comments" class="comments" style="width: 500px" rows="3" cols="30"></textarea>
+				<button id="commentWrite" onclick = 'inputComment()'>글 작성</button>
+			</form>
 		</div>
 	</div>
 	<div class="board-top mt-3">
@@ -63,18 +64,21 @@ $(document).ready(function() {
 				<div class="col-sm-1 drop-board-box">
 					<i class="xi-ellipsis-h xi-2x"></i>
 					<ul class="drop-board">
-						<li><a class="btn-invite" id="board_update">수정</a></li>
-						<li><a class="btn-invite" id="board_delete">삭제</a></li>
+						<li><a class="btn-invite" id="board_update" onclick="board_update(${boardobj.post_id}, ${boardobj.user_id}, ${boardobj.regdate}, ${boardobj.content})">수정</a></li>
+						<li><a class="btn-invite" id="board_delete" onclick="board_delete(${boardobj.post_id})">삭제</a></li>
 						<!-- <li><button class="btn-invite">주소복사</button></li> -->
 						<li><button id="myModal2" class="btn-invite no-padding"
 								data-toggle="modal" data-target="#myModal2">신고</button></li>
 					</ul>
 				</div>
-				<div class="board-text-container">
+				<div class="board-text-container" id="replyload">
 					<p>${boardobj.content}</p>
-				
-					<div class="comment_box" id="comment_box${boardobj.post_id}" style="height:100px; width:100%; background:#ddd;">
+					<div class="modify">
+					</div>
 					
+					<div class="comment_box_recomment" id="comment_box${boardobj.post_id}">
+					<p>${reboardlist.user_id}</p>
+					<p>${reboardlist.content}</p>
 					</div>
 				</div>
 
@@ -94,7 +98,6 @@ $(document).ready(function() {
 			</div>
 		</section>
 	</c:forEach>
-	<%@ include file="/WEB-INF/view/mozzle/boardside.jsp" %>
 	
 
 <script type="text/javascript">
@@ -120,35 +123,7 @@ function inputComment() {
 /*
  * 댓글 등록하기(Ajax)
  */
-function registComment(seq) {
-	var content = $("#contentId").val();
-	var user = '<c:out value="${boardobj.user_id}"/>';
-	console.log(content);
-	$.ajax({
-		type:'POST',
-		url : './addComment.do',
-		data: {
-			"fmcontent":content,
-			"postId":seq
-			},
-		dataType:"JSON",
-		async:true,
-		success : function(reinsert){
-			//alert(reinsert);
-			if(reinsert == true){
-				//document.getElementById("comment_box").innerHTML = "대글";
-				$('#comment_box' + seq).append('<div>'+user+'</div>');
-				$('#comment_box' + seq).append('<div>'+content+'</div>');
-				//console.log("성공");
-				
-			} 
-        		
-		},
-        error:function(){
-        	alert("내용을 입력 해주세요.");
-       } 
-	})
-}
+
 
 </script>
 

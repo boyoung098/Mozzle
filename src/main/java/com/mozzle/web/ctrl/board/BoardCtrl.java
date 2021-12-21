@@ -2,6 +2,7 @@ package com.mozzle.web.ctrl.board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mozzle.web.dto.board.Board;
@@ -28,14 +31,55 @@ public class BoardCtrl {
 	@Autowired
 	private IBoardService serviceImple;
 	
-	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String boardList(Model model) {
-		logger.info("모즐메인 게시판");
-		//List<Board> boardlist = serviceImple.selectAllBoard();
-		model.addAttribute("boardlist", serviceImple.selectAllBoard());
-		
-		return "mozzle/M_board";
-	}
+//	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
+//	public ModelAndView boardList(Board board, String id, int seq) {
+//		logger.info("모즐메인 게시판");
+//		
+//		//model.addAttribute("boardlist", serviceImple.selectAllBoard());
+//		ModelAndView mav = new ModelAndView();
+//		board = (Board) serviceImple.selectAllBoard(seq);
+//		
+//		String str = serviceImple.replySelectAllBoard(id);
+//		
+//		if(board.equals(str)) {
+//			
+//			mav.setViewName("reboardlists");
+//			mav.addObject("reboardlist",board);
+//		}
+//		return mav;
+//		
+//		
+//		return "mozzle/M_board";
+//	}
+	
+	
+	
+	
+	
+//	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
+//	public ModelAndView reboardList(String id, HttpSession session) {
+//		logger.info("댓글=========================== 게시판");
+//		
+//		return mav;
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@PostMapping(value="/insertBoard.do")
 	public String insertBoard(@RequestParam("incontent") String incontent, HttpServletResponse resp) throws IOException {
@@ -70,15 +114,15 @@ public class BoardCtrl {
 		logger.info("updateboard 수정되었습니다. {}", board);
 		serviceImple.updateBoard(board);
 		rttr.addFlashAttribute("update","update");
-		return "redirect:/board";
+		return "mozzle/M_board";
 	}
 	
-	@PostMapping(value="/deleteBoard.do")
-	public String deleteBoard(int num, RedirectAttributes rttr) {
+	@ResponseBody
+	@RequestMapping(value="/deleteBoard.do")
+	public String deleteBoard(@RequestParam("idx") int idx) {
 		logger.info("게시글 삭제");
-		serviceImple.deleteBoard(num);
-		rttr.addFlashAttribute("result", "delete success");
-		return "redirect:/board";
+		serviceImple.deleteBoard(idx);
+		return "redirect:/mozzle/M_board";
 	}
 	
 	@ResponseBody

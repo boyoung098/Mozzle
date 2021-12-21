@@ -10,6 +10,9 @@
 <script src="<%=request.getContextPath()%>/resources/js/swiper-bundle.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/board.js"></script>
+
+
+	
 	
 <style>
 section.content{

@@ -11,6 +11,7 @@ public interface IBoardDao {
 	public int updateBoard(Board board);
 	public int deleteBoard(int num);
 	public List<Board> selectOneBoard(Board board);
+	//public List<Board> selectAllBoard(int seq);
 	public List<Board> selectAllBoard();
 	
 	public int bookmarkBoard(Board board);
@@ -19,6 +20,7 @@ public interface IBoardDao {
 	public int getReplyinput(Board board);
 	public int replyUp(Board board);
 	public int replyDl(Board board);
+	public String replySelectAllBoard(String id);
 	
 	public int reportBoard(Board board);
 }

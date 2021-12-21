@@ -338,3 +338,9 @@ select:focus {
 .user-profil {
 	width:250px;
 }
+
+.comment_box_recomment{
+	width:100%;
+	height:auto;
+	background:#999;
+}

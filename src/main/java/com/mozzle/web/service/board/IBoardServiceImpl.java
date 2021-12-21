@@ -35,10 +35,16 @@ public class IBoardServiceImpl implements IBoardService {
 		return dao.selectOneBoard(board);
 	}
 
+//	@Override
+//	public List<Board> selectAllBoard(int seq) {
+//		return dao.selectAllBoard(seq);
+//	}
+	
 	@Override
 	public List<Board> selectAllBoard() {
 		return dao.selectAllBoard();
 	}
+	
 	
 	@Override
 	public int bookmarkBoard(Board board) {
@@ -68,6 +74,13 @@ public class IBoardServiceImpl implements IBoardService {
 	public int getReplyinput(Board board) {
 		return dao.getReplyinput(board);
 	}
+
+	@Override
+	public String replySelectAllBoard(String id) {
+		return dao.replySelectAllBoard(id);
+	}
+
+	
 
 	
 

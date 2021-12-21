@@ -9,6 +9,7 @@ public interface IBoardService {
 	public int updateBoard(Board board);
 	public int deleteBoard(int num);
 	public List<Board> selectOneBoard(Board board);
+	//public List<Board> selectAllBoard(int seq);
 	public List<Board> selectAllBoard();
 	
 	public int bookmarkBoard(Board board);
@@ -18,4 +19,5 @@ public interface IBoardService {
 	public int getReplyinput(Board board);
 	public int reportBoard(Board board);
 	
+	public String replySelectAllBoard(String id);
 }

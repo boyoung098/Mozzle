@@ -55,6 +55,7 @@ $(document).ready(function() {
 							<ul>
 								<li>리더 : 로아로아</li>
 								<li>멤버 : 101</li>
+								
 							</ul>
 							<button class="join-btn">가입요청</button>
 						</div>
