@@ -59,10 +59,27 @@ input:focus, select:focus {
 }
 
 .dropdown-menu {
+	width: 350px;
 	left: 50% !important;
 	right: auto !important;
-	text-align: center;
 	transform: translate(-50%, 0);
+}
+
+
+
+.notice-img{
+	float: left;
+}
+
+.wrap{
+	word-break: break-all;
+    white-space: normal;
+}
+.notice-list a{
+	min-height: 80px;
+}
+.notice-list a.checked{
+	background-color: #eee;
 }
 </style>
 
@@ -74,6 +91,7 @@ input:focus, select:focus {
 		});
 		
 		$(".dropdown").on("show.bs.dropdown", function(e){
+			$(".dropdown-menu").empty();
 			$.ajax({
 				url : "<%=request.getContextPath()%>/notice/notification.do",
 				type : "post",
@@ -82,6 +100,31 @@ input:focus, select:focus {
 				},
 				success : function(result) {
 					console.log(result);
+					$(result).each(function(){
+						console.log(this);
+						// 알림에 따라 변수 처리
+						var link;
+						var content;
+						if(this.TYPE == "가입"){
+							content = this.MOZZLE_NAME + "가입을 환영합니다!";
+							link = "<%=request.getContextPath()%>/firstmozzle.do?mozzle_id=" + this.MOZZLE_ID;
+						}
+						else if(this.TYPE == "탈퇴"){
+							content = this.MOZZLE_NAME + "에서 탈퇴되었습니다."
+						}
+						// HTML Element 생성
+						var $noticeli = $("<li></li>").addClass("notice-list");
+						var $noticea = $("<a></a>").attr("href", link);
+						if(this.READ_CHECKED == 'Y'){
+							$noticea.addClass("checked");
+						}
+						var src = "<%=request.getContextPath()%>/resources/upload/" + this.IMAGE_SAVED;
+						var $noticediv = $("<div><div class='notice-img'><img width='75' height='75' src='" + src + "' /></div><div><p class='wrap'><b>" + this.MOZZLE_NAME + "</b></p><p class='wrap'>" + content + "</p></div></div>").addClass("flex");
+						
+						var $notice = $noticeli.append($noticea.append($noticediv));
+						$(".dropdown-menu").append($notice);
+					
+					});
 					
 					
 				}

@@ -22,4 +22,6 @@ public interface IMozzleUserService {
 	public int updateMozzleUser(MozzleUserDto dto);
 	
 	public int updateMozzleUserAuth(MozzleUserDto dto);
+	
+	public List<Map<String, Object>> leaderCheck(String userId);
 }

@@ -67,20 +67,6 @@ public class BoardCtrl {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@PostMapping(value="/insertBoard.do")
 	public String insertBoard(@RequestParam("incontent") String incontent, HttpServletResponse resp) throws IOException {
 
@@ -122,7 +108,7 @@ public class BoardCtrl {
 	public String deleteBoard(@RequestParam("idx") int idx) {
 		logger.info("게시글 삭제");
 		serviceImple.deleteBoard(idx);
-		return "redirect:/mozzle/M_board";
+		return "redirect:/mozzle/board";
 	}
 	
 	@ResponseBody

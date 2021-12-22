@@ -26,4 +26,9 @@ public class NoticeDaoImpl implements INoticeDao{
 		return session.selectList(NS + "noticeSelectAll", userId);
 	}
 
+	@Override
+	public int registerMozzleNotice(Map<String, String> map) {
+		return session.insert(NS + "registerMozzleNotice", map);
+	}
+
 }

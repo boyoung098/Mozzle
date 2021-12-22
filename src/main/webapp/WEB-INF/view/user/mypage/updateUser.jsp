@@ -50,10 +50,31 @@
 			var today = new Date().valueOf();
 			var selected = new Date(e.target.value).valueOf();
 			if(today <= selected){
-				alert("오늘 날짜 이전으로 선택해주세요");
 				e.target.value = "";
 			}
 		});
+		
+		// 회원 탈퇴
+		$("input[name=removeUser]").click(function(e){
+			e.preventDefault();
+			if(confirm("회원 정보가 사라집니다. 정말 탈퇴하시겠습니까? 내가 리더인 모즐은 리더 권한 위임을 해야 합니다.")){
+				$.ajax({
+					url:"./myPage/leaderCheck.do",
+					type:"post",
+					data:{userId: "${sessionScope.userId}"},
+					success: function(result){
+						if(result.length > 0){
+							var url = "./leaderList.do";
+							var title = '리더 권한 모즐';
+							var attr = 'width=450px, height=550px';
+							window.open(url, title, attr);
+						}
+						
+					}
+				});
+			};
+			
+		})
 	});
 </script>
 <div class="container-login">
@@ -62,6 +83,7 @@
 
 		<jsp:include page="../../comm/userInfoForm.jsp" />
 		<input type="submit" class="color-btn input-login" value="정보수정" />
+		<input type="button" name="removeUser" class="btn btn-warning" value="회원탈퇴"/>
 
 	</form>
 </div>

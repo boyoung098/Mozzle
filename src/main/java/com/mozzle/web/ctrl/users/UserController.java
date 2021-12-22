@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mozzle.web.comm.JwtTokenProvider;
 import com.mozzle.web.dto.users.UserDto;
+import com.mozzle.web.service.users.IMozzleUserService;
 import com.mozzle.web.service.users.IUserService;
 
 @Controller
@@ -27,13 +28,7 @@ import com.mozzle.web.service.users.IUserService;
 public class UserController {
 
 	@Autowired
-	IUserService service;
-
-	@Autowired
-	private JwtTokenProvider jwtTokenProvider;
-
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private IUserService service;
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.POST)
 	public String myPage(Model model, @RequestParam(value = "auth") boolean auth, @RequestParam(value = "menu", required = false) String menu) {
@@ -75,16 +70,24 @@ public class UserController {
 		return "user/mypage/myThread";
 	}
 	
-	@RequestMapping(value="/bookmark.do", method=RequestMethod.GET)
+	@RequestMapping(value="/manageMozzle.do", method=RequestMethod.GET)
 	public String bookmark() {
 		
-		return "user/mypage/bookmark";
+		return "user/mypage/manageMozzle";
 	}
 	
 	@RequestMapping(value="/notification.do", method=RequestMethod.GET)
 	public String inviteUser() {
 		
 		return "user/mypage/notification";																																															
+	}
+	
+	@RequestMapping(value="/leaderList.do", method=RequestMethod.GET)
+	public String leaderList(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		req.setAttribute("userId", session.getAttribute("userId").toString());
+		
+		return null;
 	}
 
 }

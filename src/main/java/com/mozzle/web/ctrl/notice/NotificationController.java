@@ -13,20 +13,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mozzle.web.dao.notice.INoticeDao;
+import com.mozzle.web.service.notice.INoticeService;
 
 @Controller
 @RequestMapping(value = "/notice")
 public class NotificationController {
 
 	@Autowired
-	private INoticeDao ndao;
+	private INoticeService nservice;
 	
 	@RequestMapping(value="/notification.do", method=RequestMethod.POST)
 	@ResponseBody
 	public List<Map<String, Object>> notification(String userId) {
 		List<Map<String, Object>> lists = 
-				ndao.noticeSelectAll(userId);
+				nservice.noticeSelectAll(userId);
 		return lists;
+	}
+	
+	@RequestMapping(value="/addNotification.do", method=RequestMethod.POST)
+	public String addNotification() {
+		
+		return null;
 	}
 	
 }

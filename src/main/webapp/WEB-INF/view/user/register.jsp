@@ -88,7 +88,7 @@ $(function(){
 	$(document).on("click", "#email-auth", function(e){
 		e.preventDefault();
 		var emailRegEx = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-		var emailVal = $("input[name=email]").val();
+		var emailVal = $("input[name=email_input]").val();
 		console.log(emailVal);
 		var result = emailRegEx.test(emailVal);
 		if(emailVal.indexOf(" ") != -1){
@@ -108,7 +108,7 @@ $(function(){
 						mailChk = false;
 					}
 					else{
-						var url = './form/mailAuth.do?email=' + $("input[name=email]").val();
+						var url = './form/mailAuth.do?email=' + $("input[name=email_input]").val();
 						var title = '이메일 인증';
 						var attr = 'width=450px, height=550px';
 						window.open(url, title, attr);

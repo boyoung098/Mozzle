@@ -25,6 +25,7 @@ import com.mozzle.web.dao.notice.INoticeDao;
 import com.mozzle.web.dto.manage.MozzleDto;
 import com.mozzle.web.dto.users.UserDto;
 import com.mozzle.web.service.manage.IManageService;
+import com.mozzle.web.service.notice.INoticeService;
 import com.mozzle.web.service.users.IUserService;
 
 @Controller
@@ -41,7 +42,7 @@ public class LoginController {
 	private JwtTokenProvider jwtTokenProvider;
 	
 	@Autowired
-	private INoticeDao ndao;
+	private INoticeService nservice;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -71,6 +72,7 @@ public class LoginController {
 					model.addAttribute("accessToken", accessToken);
 					model.addAttribute("refreshToken", refreshToken);
 					List<MozzleDto> myMozzleList = mService.selectMyMozzle(userdto.getUsername());
+					System.out.println(myMozzleList.size());
 					model.addAttribute("myMozzleList", myMozzleList);
 					
 				}
@@ -87,14 +89,14 @@ public class LoginController {
 		model.addAttribute("newMozzleList", newMozzleList);
 		model.addAttribute("hotMozzleList", hotMozzleList);
 		
-		List<Map<String, Object>> lists =
-				ndao.noticeSelectAll("qkrekfthsus");
-		
-		for(Map<String, Object> m: lists) {
-			for( String key : m.keySet() ){
-	            System.out.println( String.format("키 : %s, 값 : %s", key, String.valueOf(m.get(key))));
-	        }
-		}
+//		List<Map<String, Object>> lists =
+//				nservice.noticeSelectAll("qkrekfthsus");
+//		
+//		for(Map<String, Object> m: lists) {
+//			for( String key : m.keySet() ){
+//	            System.out.println( String.format("키 : %s, 값 : %s", key, String.valueOf(m.get(key))));
+//	        }
+//		}
 		return "index";
 	}
 

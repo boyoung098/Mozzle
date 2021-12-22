@@ -23,6 +23,7 @@ public class TestNotice {
 	
 	@Test
 	public void test() {
+
 		List<Map<String, Object>> lists =
 				dao.noticeSelectAll("qkrekfthsus");
 		
@@ -31,6 +32,7 @@ public class TestNotice {
 	            System.out.println( String.format("키 : %s, 값 : %s", key, m.get(key)) );
 	        }
 		}
+
 	}
 
 }
