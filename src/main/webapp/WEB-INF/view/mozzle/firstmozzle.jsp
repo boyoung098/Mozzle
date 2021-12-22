@@ -76,6 +76,7 @@ $(document).ready(function() {
 				</div>
 				<div class="mo-list">
 					<ul>
+						<li><a  href="#" id="default-move">신고관리<input type="hidden" name="move" value="postreportList"></a></li>
 						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li>
 						<!-- <li>사진첩</li>
 -->							<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
