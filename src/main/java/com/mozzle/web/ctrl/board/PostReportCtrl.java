@@ -19,6 +19,13 @@ public class PostReportCtrl {
 	@Autowired
 	IPostReportService reportservice;
 	
+	
+	@RequestMapping(value = "/postreportList.do") 
+	public String postreportList() {
+		
+		return "mozzle/postreportList";
+	}
+	
 	@RequestMapping(value="/checkPostId.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,String> mozzleUpdateBefore(String post_id){
@@ -41,6 +48,8 @@ public class PostReportCtrl {
 		
 		return "mozzle/reportPostForm";
 	}
+	
+	
 	
 	
 }
