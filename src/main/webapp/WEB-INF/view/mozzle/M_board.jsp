@@ -11,121 +11,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <%@ include file="../comm/import.jsp"%>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/summernote/summernote-lite.css">
 
-<script type="text/javascript">
-$(document).ready(function() {
-	//여기 아래 부분
-	$('#summernote').summernote({
-		  height: 300,                 // 에디터 높이
-		  minHeight: null,             // 최소 높이
-		  maxHeight: null,             // 최대 높이
-		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		  lang: "ko-KR",					// 한글 설정
-		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-          
-	});
-	
-	$("#invite-user").click(function(){
-		location.href="./guestInvite.do?mozzle_id=1";
-	})
-});
-</script>
+
 </head>
 <body>
-	<div class="board-container" id="items">
-		<div class="txt mt-3">
-			<h4>글 작성</h4>
-			<form action="">
-				<textarea id="summernote" name="comments" class="comments" style="width: 500px" rows="3" cols="30"></textarea>
-				<button id="commentWrite" onclick = 'inputComment()'>글 작성</button>
-			</form>
-		</div>
+	<div id="pop" style="width:100px; height:100px; background:red;">
+		<textarea rows="10" cols="10"></textarea>
 	</div>
-	<div class="board-top mt-3">
-		<select class="board-sel selectbox">
-			<option value="new1">최신 순</option>
-			<option value="new2">인기 순</option>
-		</select>
-	</div>
-	<c:forEach var="boardobj" items="${requestScope.boardlist}">
-		<section id="board-card-list">
-			<div class="borad-box row" id="borad-box">
-				<div class="col-sm-11 board-box-list">
-					<div class="meeber-thumbnail">
-						<img src="./resources/images/weast044_01.jpg" alt="하늘">
-					</div>
-					<input type="hidden" id="postId" value="${boardobj.post_id}">
-					<span>${boardobj.user_id}</span> <span>${boardobj.regdate}</span>
-				</div>
-				<div class="col-sm-1 drop-board-box">
-					<i class="xi-ellipsis-h xi-2x"></i>
-					<ul class="drop-board">
-						<li><a class="btn-invite" id="board_update" onclick="board_update(${boardobj.post_id}, ${boardobj.user_id}, ${boardobj.regdate}, ${boardobj.content})">수정</a></li>
-						<li><a class="btn-invite" id="board_delete" onclick="board_delete(${boardobj.post_id})">삭제</a></li>
-						<!-- <li><button class="btn-invite">주소복사</button></li> -->
-						<li><button id="myModal2" class="btn-invite no-padding"
-								data-toggle="modal" data-target="#myModal2">신고</button></li>
-					</ul>
-				</div>
-				<div class="board-text-container" id="replyload">
-					<p>${boardobj.content}</p>
-					<div class="modify">
-					</div>
-					
-					<div class="comment_box_recomment" id="comment_box${boardobj.post_id}">
-					<p>${reboardlist.user_id}</p>
-					<p>${reboardlist.content}</p>
-					</div>
-				</div>
-
-				<div class="board-cion">
-					<div class="comment-icon">
-						<i class="xi-star-o xi-2x"></i>
-					</div>
-					<div class="comment-icon comment-write">
-						<i class="xi-speech-o xi-2x"></i>
-					</div>
-					<div class="comment" style="display:block;">
-							<input type="text" class="form-control comment-input" name="contentId"  id="contentId"/> 
-							<button class="comment-btn" id="comment-btn" onclick = 'registComment(${boardobj.post_id})'>댓글</button>
-					</div>
-				</div>
-
-			</div>
-		</section>
-	</c:forEach>
-	
-
-<script type="text/javascript">
-function inputComment() {
-	var content = $("#summernote").val();
-	console.log(content);
-	$.ajax({
-		type:'POST',
-		url : './insertBoard.do',
-		data: {
-			"incontent":content,
-			},
-		dataType:"JSON",
-		async:true,
-		success : function(reinsert){
-			
-        		
-		}
-	})
-}
-	
-
-/*
- * 댓글 등록하기(Ajax)
- */
-
-
-</script>
-
 </body>
 </html>

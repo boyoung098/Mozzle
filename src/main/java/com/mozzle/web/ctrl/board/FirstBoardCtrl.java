@@ -102,7 +102,7 @@ public class FirstBoardCtrl {
 		logger.info("모즐메인 게시판");
 		//List<Board> boardlist = serviceImple.selectAllBoard();
 		model.addAttribute("boardlist", serviceImple.selectAllBoard());
-		return "mozzle/M_board";
+		return "mozzle/board";
 	}
 	
 	@Autowired
