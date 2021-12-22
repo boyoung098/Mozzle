@@ -40,6 +40,14 @@
 .calendar a {
    text-decoration: none;
 }
+
+.lists>p{
+   font-size: 6px;
+   margin:1px;
+   background-color: aqua;
+}
+
+
 </style>
 </head>
 <body>
@@ -121,17 +129,26 @@
             for (int i = 0; i < dayOfWeek - 1; i++) {
                out.print("<td>&nbsp;</td>");
             }
-
+      
             //달력 일수
             for (int i = 1; i <= lastDay; i++) {
                
             %>
             <td>
-               <!-- 해당 년 월일에 전체 글 보기 --> <a
-               style="color:<%=ScheduleUtil.fontColor(i, dayOfWeek)%>"><%=i%></a>
-               <a> <img alt="scheduleadd"
-                  src="<%=request.getContextPath()%>/resources/images/schedule/scheduleadd.png">
-            </a>
+               <!-- 해당 년 월일에 전체 글 보기 -->
+               <!-- href="./calendar.do?schedule_id=calList&year=<%=year%>&month=<%=month%>&date=<%=i%>" -->
+               <a
+                     style="color:<%=ScheduleUtil.fontColor(i, dayOfWeek)%>">
+                     <%=i%>
+               </a>
+               <!-- href="./calendar.do?schedule_id=scheduleinsert&year=<%=year%>&month=<%=month%>&date=<%=i%>"> -->
+               <a>
+                     <img alt="scheduleadd"
+                        src="<%=request.getContextPath()%>/resources/images/schedule/scheduleadd.png">
+               </a>
+               <div class="lists">
+                     <%-- <%=ScheduleUtil.scheduleList(i, lists) %> --%>
+               </div>
             </td>
             <%
             if ((dayOfWeek - 1 + i) % 7 == 0) {

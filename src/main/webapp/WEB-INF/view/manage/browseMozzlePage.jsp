@@ -21,7 +21,6 @@ window.onload = function(){
 			
 		}
 	})
-	
 }
 
 </script>
@@ -54,9 +53,11 @@ a:hover {
 			<div class="row content">
 				<div class="col-sm-9 sidenav">
 					<h4>모즐검색결과</h4>
-					<input type="text" id="save-info" value="${keyword}" hidden="hidden">
-					<a href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a>
-					<a href="./browseMozzleFromTheLastest.do?keyword=${keyword}">최신순</a>
+					<input type="text" id="save-info" value="${keyword}"
+						hidden="hidden"> <a
+						href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a> <a
+						href="./browseMozzleFromTheLastest.do?keyword=${keyword}">최신순</a> <a
+						href="#">인기순</a>
 					<hr>
 					<c:forEach var="mozzle" items="${mLists}">
 						<ul class="nav nav-pills nav-stacked">
@@ -64,9 +65,18 @@ a:hover {
 								<div class="container-fluid">
 									<div class="row">
 										<div class="col-sm-1">
-											<a href=#><img class="card"
-												src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"
-												alt="img" /></a>
+											<c:choose>
+												<c:when test="${not empty mozzle.image_saved}">
+													<a href=#><img class="card"
+														src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"
+														alt="img" /></a>
+												</c:when>
+												<c:otherwise>
+													<a href=#><img class="card"
+														src="<%=request.getContextPath()%>/resources/upload/basic.png"
+														alt="img" /></a>
+												</c:otherwise>
+											</c:choose>
 										</div>
 										<div class="col-sm-9"
 											style="align-items: center; justify-content: center;">

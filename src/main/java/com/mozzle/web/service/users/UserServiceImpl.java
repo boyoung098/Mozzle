@@ -60,4 +60,9 @@ public class UserServiceImpl implements IUserService{
 		return dao.changePw(dto);
 	}
 
+	@Override
+	public int updateUser(UserDto dto) {
+		return dao.updateUser(dto);
+	}
+
 }

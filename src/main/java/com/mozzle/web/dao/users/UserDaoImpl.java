@@ -73,4 +73,12 @@ public class UserDaoImpl implements IUserDao{
 		return cnt > 0 ? true : false;
 	}
 
+	@Override
+	public int updateUser(UserDto dto) {
+		if(!dto.getUser_pw().isEmpty()) {
+			dto.setUser_pw(passwordEncoder.encode(dto.getUser_pw()));
+		}
+		return session.update(NS + "updateUser", dto);
+	}
+
 }

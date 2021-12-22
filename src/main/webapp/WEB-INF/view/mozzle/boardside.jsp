@@ -20,18 +20,6 @@
 						</span>
 					</form>
 				</div>
-				<div class="new-photo">
-					<h4>최신 사진</h4>
-					<ul>
-						<!-- <li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li>
-						<li><img src="./image/" alt=""></li> -->
-					</ul>
-				</div>
 				
 				<!-- 모즐멤버리스트 뿌리는 곳 -->
 				<%@ include file="/WEB-INF/view/mozzle/mozzleMemberList.jsp" %>
