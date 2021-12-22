@@ -44,14 +44,14 @@ public class ScheduleCtrl {
 		Map<String, String> map = new HashMap<String, String>();
 		List<ScheduleDto> lists = schedule.scheduleselectAll(map);
 		model.addAttribute("lists", lists);
-		return "schedule/calendar";
+		return "mozzle/calendar";
 	}
 
-	@RequestMapping(value = "/calendarinsert.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/scheduleinsert.do", method = RequestMethod.GET)
 	public String scheduleinsert() {
 		logger.info("ScheduleController insert 출력 {}");
-
-		return "schedule/calendar";
+		
+		return "mozzle/scheduleinsert";
 	}
 
 }
