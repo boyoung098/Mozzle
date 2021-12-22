@@ -19,9 +19,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
+import com.mozzle.web.dao.board.IPostReportDao;
 import com.mozzle.web.dao.users.IGuestDao;
 import com.mozzle.web.dao.users.IMozzleUserDao;
+import com.mozzle.web.dto.board.PostReportDto;
 import com.mozzle.web.dto.users.GuestDto;
 import com.mozzle.web.dto.users.MozzleUserDto;
 
@@ -41,6 +42,9 @@ public class TestMain {
 //	
 	@Autowired
 	private IMozzleUserDao mozzleUserDao;
+	
+	@Autowired
+	private IPostReportDao postreportDao;
 	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
@@ -81,21 +85,33 @@ public class TestMain {
 //		int n = mozzleUserDao.deleteMozzleUser(deletedto);
 //		assertEquals(1, n);
 		
-		MozzleUserDto updatedto = new MozzleUserDto();
-		updatedto.setMozzle_id("1");
-		updatedto.setUser_id("aaaa");
-		updatedto.setImage_origin("아하하하.img");
-		updatedto.setImage_saved("bxckjasdkjhsakdjvh.img");
-		updatedto.setNickname("바보");
-		updatedto.setBirthday_show("Y");
-		updatedto.setAuth_code("1");
+//		MozzleUserDto updatedto = new MozzleUserDto();
+//		updatedto.setMozzle_id("1");
+//		updatedto.setUser_id("aaaa");
+//		updatedto.setImage_origin("아하하하.img");
+//		updatedto.setImage_saved("bxckjasdkjhsakdjvh.img");
+//		updatedto.setNickname("바보");
+//		updatedto.setBirthday_show("Y");
+//		updatedto.setAuth_code("1");
 		//모즐유저 회원정보 수정 본인이
 //		int m = mozzleUserDao.updateMozzleUser(updatedto);
 //		assertEquals(1, m);
 		
 		//모즐내 회원 권한수정 운영자가
-		int nn = mozzleUserDao.updateMozzleUserAuth(updatedto);
-		assertEquals(1, nn);
+//		int nn = mozzleUserDao.updateMozzleUserAuth(updatedto);
+//		assertEquals(1, nn);
+//		
+//		int ns = postreportDao.selectCntByPostId("120");
+//		 System.out.println(ns+"값낭란알");
+		
+//		PostReportDto reportdto = new PostReportDto();
+//		reportdto.setPost_id("120");
+//		reportdto.setReason("맘에안들ㅇ너ㅓ");
+//		reportdto.setReporter("qwer");
+//		
+//		int n= postreportDao.insertPostReport(reportdto);
+//		assertEquals(1, n);
+		
 		
 		
 		
