@@ -1,6 +1,7 @@
 package com.mozzle.web.dao.manage;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mozzle.web.dto.manage.CategoryDto;
+import com.mozzle.web.dto.manage.MozzleDto;
 
 @Repository
 public class CategoryDaoImpl implements ICategoryDao {
@@ -21,6 +23,24 @@ public class CategoryDaoImpl implements ICategoryDao {
 	public int registCategory(String category) {
 		logger.info("registCategory {}", category);
 		return session.insert(NS + "registCategory", category);
+	}
+	
+	@Override
+	public int registMozzleCategory(Map<String, Object> map) {
+		logger.info("registMozzleCategory {}", map);
+		return session.insert(NS + "registMozzleCategory", map);
+	}
+	
+	@Override
+	public List<String> selectMozzleCategoryName(String mozzle_id) {
+		logger.info("selectMozzleCategory {}", mozzle_id);
+		return session.selectList(NS + "selectMozzleCategoryName", mozzle_id);
+	}
+	
+	@Override
+	public int deleteMozzleCategory(String mozzle_id) {
+		logger.info("selectMozzleCategory {}", mozzle_id);
+		return session.delete(NS + "deleteMozzleCategory", mozzle_id);
 	}
 
 	@Override

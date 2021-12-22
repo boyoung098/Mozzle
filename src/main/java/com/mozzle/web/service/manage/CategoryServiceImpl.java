@@ -1,6 +1,7 @@
 package com.mozzle.web.service.manage;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,21 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Override
 	public int registCategory(String category) {
 		return dao.registCategory(category);
+	}
+	
+	@Override
+	public int registMozzleCategory(Map<String, Object> map) {
+		return dao.registMozzleCategory(map);
+	}
+	
+	@Override
+	public List<String> selectMozzleCategoryName(String mozzle_id) {
+		return dao.selectMozzleCategoryName(mozzle_id);
+	}
+
+	@Override
+	public int deleteMozzleCategory(String mozzle_id) {
+		return dao.deleteMozzleCategory(mozzle_id);
 	}
 
 	@Override
@@ -43,4 +59,5 @@ public class CategoryServiceImpl implements ICategoryService {
 	public int deleteCatogory(String category) {
 		return dao.deleteCatogory(category);
 	}
+
 }

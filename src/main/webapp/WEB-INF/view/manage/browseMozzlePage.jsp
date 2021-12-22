@@ -10,17 +10,7 @@
 <%@ include file="../comm/import.jsp"%>
 <script type="text/javascript">
 window.onload = function(){
-	var keyword = $("#save-info").val();
-	console.log(keyword);
-	
-	$.ajax({
-		url:"view/comm/header.jsp",
-		method:"get",
-		data: {"keyword":keyword},
-		success(result) {
-			
-		}
-	})
+	$("#submitbutton").trigger("click");
 }
 
 </script>
@@ -67,12 +57,12 @@ a:hover {
 										<div class="col-sm-1">
 											<c:choose>
 												<c:when test="${not empty mozzle.image_saved}">
-													<a href=#><img class="card"
+													<a href="./firstmozzle.do?mozzle_id='${mozzle.mozzle_id}'"><img class="card"
 														src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"
 														alt="img" /></a>
 												</c:when>
 												<c:otherwise>
-													<a href=#><img class="card"
+													<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"><img class="card"
 														src="<%=request.getContextPath()%>/resources/upload/basic.png"
 														alt="img" /></a>
 												</c:otherwise>
@@ -81,8 +71,8 @@ a:hover {
 										<div class="col-sm-9"
 											style="align-items: center; justify-content: center;">
 											<ul>
-												<li><a href=#>${mozzle.mozzle_name}</a></li>
-												<li><a href=#>${mozzle.mozzle_intro}</a></li>
+												<li><a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}">${mozzle.mozzle_name}</a></li>
+												<li><a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}">${mozzle.mozzle_intro}</a></li>
 												<li>회원수 : 110 <span></span> 리더 : 홍길동
 												</li>
 											</ul>
@@ -127,8 +117,6 @@ a:hover {
 							<li>12. 친구찾기</li>
 						</ul>
 					</table>
-
-
 
 				</div>
 			</div>

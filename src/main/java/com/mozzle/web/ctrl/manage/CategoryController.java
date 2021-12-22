@@ -45,7 +45,14 @@ public class CategoryController {
 		
 		return "manage/adminIndex";
 	}
-
+	
+	/*
+	 * public List<String> selectCategoryByNum() {
+	 * 
+	 * 
+	 * 
+	 * return }
+	 */
 	
 	@RequestMapping(value = "/registIndex.do", method= RequestMethod.POST)
 	@ResponseBody
