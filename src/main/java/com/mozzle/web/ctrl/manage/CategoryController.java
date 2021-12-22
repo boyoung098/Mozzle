@@ -1,6 +1,10 @@
 package com.mozzle.web.ctrl.manage;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,16 +47,22 @@ public class CategoryController {
 		List<CategoryDto> cList = service.searchCategory(searchName);
 		model.addAttribute("cList", cList);
 		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("cList", cList);
+		resultMap.put("isc", "true");
+		
 		return "manage/adminIndex";
 	}
 	
-	/*
-	 * public List<String> selectCategoryByNum() {
-	 * 
-	 * 
-	 * 
-	 * return }
-	 */
+	@RequestMapping(value= "/selectCategoryByCnt.do", method= RequestMethod.POST)
+	@ResponseBody
+	public List<CategoryDto> selectCategoryByCnt(){
+		
+		logger.info("selectCategoryByCnt");	
+		List<CategoryDto> cList = service.selectCategoryByCnt();
+		
+		return cList;
+	}
 	
 	@RequestMapping(value = "/registIndex.do", method= RequestMethod.POST)
 	@ResponseBody
@@ -70,7 +80,7 @@ public class CategoryController {
 		if (categoryList.size() == insertCnt) {
 			result = true;
 		}
-
+		
 		return result;
 	}
 	

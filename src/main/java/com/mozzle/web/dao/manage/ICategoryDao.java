@@ -25,5 +25,7 @@ public interface ICategoryDao {
 	public int selectCategoryCnt();
 	
 	public int deleteCatogory(String category);
+	
+	public List<CategoryDto> selectCategoryByCnt();
 
 }

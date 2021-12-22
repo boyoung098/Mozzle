@@ -25,5 +25,6 @@ public interface ICategoryService {
 	
 	public int deleteCatogory(String category);
 	
-
+	public List<CategoryDto> selectCategoryByCnt();
+	
 }

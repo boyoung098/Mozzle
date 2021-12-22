@@ -60,4 +60,8 @@ public class CategoryServiceImpl implements ICategoryService {
 		return dao.deleteCatogory(category);
 	}
 
+	@Override
+	public List<CategoryDto> selectCategoryByCnt() {
+		return dao.selectCategoryByCnt();
+	}
 }

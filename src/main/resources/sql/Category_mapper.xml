@@ -155,7 +155,6 @@
 				IN (z, Z)
 			</if>
 			ORDER BY CATEGORY_NAME
-
 	</select>
 	
 	<select id="searchCategory" parameterType="java.lang.String" resultType="cDto">
@@ -171,4 +170,13 @@
 		DELETE FROM CATEGORY
 			WHERE CATEGORY_CODE= #{code} 
 	</delete>
+	
+	<select id="selectCategoryByCnt" parameterType="java.lang.String" resultType="cDto">
+		SELECT CATEGORY_CODE, CATEGORY_NAME, COUNT(*) CNT
+			FROM (SELECT mc.CATEGORY_CODE, c.CATEGORY_NAME 
+				FROM MOZZLE_CATEGORY mc LEFT JOIN CATEGORY c
+				ON mc.CATEGORY_CODE = c.CATEGORY_CODE) 
+			GROUP BY CATEGORY_CODE, CATEGORY_NAME
+			ORDER BY COUNT(*) DESC
+	</select>
 </mapper>
