@@ -10,6 +10,8 @@
 	<typeAlias type="com.mozzle.web.dto.manage.CategoryDto" alias="cDto"/>
 	<typeAlias type="com.mozzle.web.dto.board.Board" alias="board"/>
 	<typeAlias type="com.mozzle.web.dto.users.MozzleUserDto" alias="mozzleUserDto"/>
+	<typeAlias type="com.mozzle.web.dto.board.PostReportDto" alias="postReportDto"/>
+	<typeAlias type="com.mozzle.web.dto.notice.NotificationDto" alias="nDto"/>
 </typeAliases>
 
 <mappers>
@@ -20,6 +22,8 @@
 	<mapper resource="sql/Category_mapper.xml"/>
 	<mapper resource="sql/Board_mapper.xml"/>
 	<mapper resource="sql/MozzleUser_mapper.xml"/>
+	<mapper resource="sql/PostReport_mapper.xml"/>
+	<mapper resource="sql/Notice_mapper.xml"/>
 </mappers>
  
 </configuration>

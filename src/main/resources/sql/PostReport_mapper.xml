@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mozzle.web.dao.board.IPostReportDao">
+
+<resultMap type="com.mozzle.web.dto.board.PostReportJoinDto" id="PostReportJoinDto">
+	<result property="team_name" column="REPORT_ID"/>
+	<result property="region_name" column="POST_ID"/>
+	<result property="address" column="REPORT_TIME"/>
+	<result property="homepage" column="REPORTER"/>
+	<result property="pdto.player_name" column="REASON"/>
+	<result property="pdto.back_no" column="PROCESS"/>
+	
+	<result property="mpdto.post_id" column="POST_ID"/>
+	<result property="mpdto.mozzle_id" column="MOZZLE_ID"/>
+	<result property="mpdto.user_id" column="USER_ID"/>
+	<result property="mpdto.content" column="CONTENT"/>
+	<result property="mpdto.refer" column="REFER"/>
+	<result property="mpdto.step" column="STEP"/>
+	<result property="mpdto.depth" column="DEPTH"/>
+	<result property="mpdto.regdate" column="REGDATE"/>
+	<result property="mpdto.delflag" column="DELFLAG"/>
+	
+	<result property="mpdto.user_id" column="USER_ID"/>
+	<result property="mpdto.mozzle_id" column="MOZZLE_ID"/>
+	<result property="mpdto.auth_code" column="AUTH_CODE"/>
+	<result property="mpdto.nickname" column="NICKNAME"/>
+	<result property="mpdto.joined_date" column="JOINED_DATE"/>
+	<result property="mpdto.birthday_show" column="BIRTHDAY_SHOW"/>
+	<result property="mpdto.image_origin" column="IMAGE_ORIGIN"/>
+	<result property="mpdto.image_saved" column="IMAGE_SAVED"/>
+</resultMap>
+
+	<!-- 신고전 해당 글 신고들어왔는지 확인 -->
+	<select id="selectCntByPostId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM POST_REPORT WHERE POST_ID = #{post_id}
+	</select>
+	
+	
+  <!-- 게시글 신고 -->
+  	<insert id="insertPostReport" parameterType="postReportDto">
+  	
+  		INSERT INTO POST_REPORT
+		(REPORT_ID, POST_ID, REPORT_TIME, REPORTER, REASON, PROCESS)
+		VALUES(POST_REPORT_SEQ.NEXTVAL, #{post_id}, sysdate, #{reporter}, #{reason}, 'N')
+  	</insert>
+  	
+  	
+  	
+  	
+</mapper>

@@ -13,6 +13,8 @@
 
 <%@ include file="../comm/import.jsp"%>
 <script src="<%=request.getContextPath()%>/resources/js/mozzlemainkby.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#invite-user").click(function(){
@@ -84,7 +86,7 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<%@include file= "/WEB-INF/view/mozzle/mozzleJoinForm.jsp"  %>
-			<div id="load_mozzle"></div>
+			<div id="load_mozzle" class="col-sm-9 clear mt-3"></div>
 		</div>
 	</section>
 
@@ -95,6 +97,14 @@ $(document).ready(function() {
 	
  <% String mozzle_id = request.getParameter("mozzle_id");  %>
  <%=mozzle_id%>
+ 
+ <ul>
+ <li class="lilili">
+ <input type="hidden" value="96" class="post_id">
+ 누르기
+ </li>
+ </ul>
+ 
 <script type="text/javascript">
 
 //리스트 jquery onload 사용하기
@@ -118,7 +128,37 @@ $(function(){
 		e.preventDefault();
 		$("#load_mozzle").load("guestInvite.do?mozzle_id=<%=mozzle_id%>");
 		
-	})
+	});
+	
+	$(".lilili").click(function(e){
+		e.preventDefault();
+		var postid =($(this).children("input").eq(0).val());
+		
+		$.ajax({
+			type:"get",
+			url:"./checkPostId.do",
+			data:"post_id="+postid,
+			success:function(msg){
+				if(msg.count=="true"){
+					console.log("true");
+					console.log(postid);
+					var url = './reportPostForm.do?post_id='+postid;
+					var title = '글 신고하기';
+					var attr = 'width = 450px, height = 550px';
+					window.open(url,title,attr);
+					
+				} else{
+					swal("신고","이미 신고접수가 되었습니다.");
+				}
+				},
+			error : function(){
+					alert("문제가 발생하였습니다.");
+				}
+			
+		})
+		
+	
+	});
 	
 })
 
@@ -143,6 +183,7 @@ function userSessionCheck(){
 	}
 	
 }
+
 
 
 

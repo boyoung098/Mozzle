@@ -1,6 +1,7 @@
 package com.mozzle.web.ctrl.users;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.mozzle.web.comm.JwtTokenProvider;
+import com.mozzle.web.dao.notice.INoticeDao;
 import com.mozzle.web.dto.manage.MozzleDto;
 import com.mozzle.web.dto.users.UserDto;
 import com.mozzle.web.service.manage.IManageService;
@@ -37,6 +39,9 @@ public class LoginController {
 
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
+	
+	@Autowired
+	private INoticeDao ndao;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -67,6 +72,7 @@ public class LoginController {
 					model.addAttribute("refreshToken", refreshToken);
 					List<MozzleDto> myMozzleList = mService.selectMyMozzle(userdto.getUsername());
 					model.addAttribute("myMozzleList", myMozzleList);
+					
 				}
 				
 			}	
@@ -81,6 +87,14 @@ public class LoginController {
 		model.addAttribute("newMozzleList", newMozzleList);
 		model.addAttribute("hotMozzleList", hotMozzleList);
 		
+		List<Map<String, Object>> lists =
+				ndao.noticeSelectAll("qkrekfthsus");
+		
+		for(Map<String, Object> m: lists) {
+			for( String key : m.keySet() ){
+	            System.out.println( String.format("키 : %s, 값 : %s", key, String.valueOf(m.get(key))));
+	        }
+		}
 		return "index";
 	}
 
