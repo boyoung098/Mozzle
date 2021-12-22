@@ -1,11 +1,10 @@
-package com.mozzle.web.service;
+package com.mozzle.web.service.board;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mozzle.web.dao.board.IPostReportDao;
 import com.mozzle.web.dto.board.PostReportDto;
-import com.mozzle.web.service.board.IPostReportService;
 
 @Service
 public class PostReportServiceImpl implements IPostReportService {

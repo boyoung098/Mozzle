@@ -23,14 +23,13 @@ public class TestNotice {
 	
 	@Test
 	public void test() {
-		List<Map<String, String>> lists =
-				dao.noticeSelectAll("qkrekfthsus");
-		
-		for(Map<String, String> m: lists) {
-			for( String key : m.keySet() ){
-	            System.out.println( String.format("키 : %s, 값 : %s", key, m.get(key)) );
-	        }
-		}
+		/*
+		 * List<Map<String, String>> lists = dao.noticeSelectAll("qkrekfthsus");
+		 * 
+		 * 
+		 * for(Map<String, String> m: lists) { for( String key : m.keySet() ){
+		 * System.out.println( String.format("키 : %s, 값 : %s", key, m.get(key)) ); } }
+		 */
 	}
 
 }

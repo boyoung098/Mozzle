@@ -86,7 +86,7 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<%@include file= "/WEB-INF/view/mozzle/mozzleJoinForm.jsp"  %>
-			<div id="load_mozzle"></div>
+			<div id="load_mozzle" class="col-sm-9 clear mt-3"></div>
 		</div>
 	</section>
 
