@@ -96,7 +96,7 @@ public class FirstBoardCtrl {
 		return "mozzle/firstmozzle";
 	}
 	
-	
+	//정민정 해당 모즐 전체 게시판 출력
 	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String boardList(Model model, @ModelAttribute("mozzle_id") String mozzle_id) {
 		logger.info("모즐메인 게시판");
