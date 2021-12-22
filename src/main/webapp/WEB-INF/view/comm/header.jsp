@@ -73,7 +73,7 @@ input:focus, select:focus {
 			$("#myPageGo-form").submit();
 		});
 		
-		$("#notification").click(function(e){
+		$(".dropdown").on("show.bs.dropdown", function(e){
 			$.ajax({
 				url : "<%=request.getContextPath()%>/notice/notification.do",
 				type : "post",
@@ -82,6 +82,7 @@ input:focus, select:focus {
 				},
 				success : function(result) {
 					console.log(result);
+					
 					
 				}
 			});
@@ -128,7 +129,7 @@ input:focus, select:focus {
 						<li><a href="<%=request.getContextPath()%>/registerPage.do">회원가입</a></li>
 					</c:if>
 					<c:if test="${not empty sessionScope.userId}">
-						<li><a id="notification" href="#" data-toggle="dropdown">${sessionScope.userId}님</a>
+						<li class="dropdown"><a id="notification" href="#" data-toggle="dropdown">${sessionScope.userId}님</a>
 							<ul class="dropdown-menu">
 								<li><a href="#">HTML</a></li>
 								<li><a href="#">CSS</a></li>

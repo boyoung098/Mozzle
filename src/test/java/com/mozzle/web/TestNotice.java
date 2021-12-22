@@ -23,10 +23,10 @@ public class TestNotice {
 	
 	@Test
 	public void test() {
-		List<Map<String, String>> lists =
+		List<Map<String, Object>> lists =
 				dao.noticeSelectAll("qkrekfthsus");
 		
-		for(Map<String, String> m: lists) {
+		for(Map<String, Object> m: lists) {
 			for( String key : m.keySet() ){
 	            System.out.println( String.format("키 : %s, 값 : %s", key, m.get(key)) );
 	        }
