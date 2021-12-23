@@ -8,7 +8,7 @@
 <title>신고 리스트</title>
 </head>
 <body>
-<div class="container" id="container">
+<div>
 	<form action="./multiDelflag.do" method="post" id="frmPaging" onsubmit="return chkbox()">
 		
 		<table class="table table-border">
@@ -16,11 +16,10 @@
 			<tr>
 				<th><input type="checkbox" id="checkAll" onclick="checkAllFn(this.checked)"></th>
 				<th>글번호</th>
-				<th>제목</th>
 				<th>작성자</th>
-				<th>조회수</th>
-				<th>삭제여부</th>
-				<th>작성일</th>
+				<th>사유</th>
+				<th>신고일자</th>
+				<th>신고처리</th>
 			</tr>
 			</thead>
 			
@@ -37,7 +36,7 @@
 					<td>${lists[0].regdate}</td>
 				</tr>
 				<tr>
-					<td colspan="7">
+					<td colspan="6">
 						<div id="collapse${lists[0].seq}" class="panel-collapse collapse">
 							<div class="form-group">
 								<label>내용</label>

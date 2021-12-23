@@ -57,7 +57,7 @@
 			</div> 
 
 			<br>
-			<h4>닉네임 (※4글자이상 20글자이내)</h4>
+			<h4>닉네임 (※공백없이 4글자이상 20글자이내)</h4>
 			<label>
 			<span class="inline-flex">
 			<input type="text" id="nickjoin"
@@ -122,11 +122,15 @@
     		var nick = $("#nickjoin").val();
     		console.log(nick.length); //글자수 가져오기
     		$("#resultalert").empty();
-    		
+    		var pattern = /\s/g;
     		if($("#nickjoin").val()==null || $("#nickjoin").val() ==""){
     			//alert('닉네임을 입력해주세요');
     			$("#resultalert").html('닉네임을 입력해주세요');
-    		} else if(nick.length<4 || nick.length>20){
+    		}else if($("#nickjoin").val().match(pattern)){
+    			$("#resultalert").html('공백없이 입력해주세요');
+    			
+    		}
+    		else if(nick.length<4 || nick.length>20){
     			//alert('글자수 제한을 어겼습니다');
     			$("#resultalert").html("글자수 제한을 어겼습니다");
     		}

@@ -44,6 +44,9 @@ li {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
 </head>
 <body>
 <section class="section_popup">
@@ -54,7 +57,7 @@ li {
                 <div class="popup_body">
                     <strong class="tit_report tit_report2"><span>신고사유 선택</span></strong>
                     <ul class="list-group">
-                        <li id="C" class="list-group-item" onclick="checkReason('C')">
+                        <li id="C" class="list-group-item">
                             <div class="choice_wrap">
                                 <input type="radio" name="inpReasonChoice" class="inp_radio" checked="checked" value="욕설, 비방, 차별, 혐오">
                                 <label for="inpChoice1" class="lab_radio"><span class="ico_report ico_check"></span><span>욕설, 비방, 차별, 혐오</span><span class="ico_report ico_arr"></span></label>
@@ -67,7 +70,7 @@ li {
                                 </ul>
                             </div>
                         </li>
-                        <li id="A" class="list-group-item" onclick="checkReason('A')">
+                        <li id="A" class="list-group-item">
                             <div class="choice_wrap">
                                 <input type="radio" name="inpReasonChoice" class="inp_radio" value="홍보, 영리목적">
                                 <label for="inpChoice1" class="lab_radio"><span class="ico_report ico_check"></span><span>홍보, 영리목적</span><span class="ico_report ico_arr"></span></label>
@@ -79,7 +82,7 @@ li {
                                 </ul>
                             </div>
                         </li>
-                        <li id="U" class="list-group-item" onclick="checkReason('U')">
+                        <li id="U" class="list-group-item">
                             <div class="choice_wrap">
                                 <input type="radio" name="inpReasonChoice" class="inp_radio" value="불법 정보">
                                 <label for="inpChoice1" class="lab_radio"><span class="ico_report ico_check"></span><span>불법 정보</span><span class="ico_report ico_arr"></span></label>
@@ -92,7 +95,7 @@ li {
                                 </ul>
                             </div>
                         </li>
-                        <li id="O" class="list-group-item" onclick="checkReason('O')">
+                        <li id="O" class="list-group-item">
                             <div class="choice_wrap">
                                 <input type="radio" name="inpReasonChoice" class="inp_radio" value="음란, 청소년 유해">
                                 <label for="inpChoice1" class="lab_radio"><span class="ico_report ico_check"></span><span>음란, 청소년 유해</span><span class="ico_report ico_arr"></span></label>
@@ -105,7 +108,7 @@ li {
                                 </ul>
                             </div>
                         </li>
-                        <li id="P" class="list-group-item" onclick="checkReason('P')">
+                        <li id="P" class="list-group-item">
                             <div class="choice_wrap">
                                 <input type="radio" name="inpReasonChoice" class="inp_radio" value="개인 정보 노출, 유포, 거래">
                                 <label for="inpChoice1" class="lab_radio"><span class="ico_report ico_check"></span><span>개인 정보 노출, 유포, 거래</span><span class="ico_report ico_arr"></span></label>
@@ -118,7 +121,7 @@ li {
                                 </ul>
                             </div>
                         </li>
-                        <li id="E" class="list-group-item" onclick="checkReason('E')">
+                        <li id="E" class="list-group-item">
                             <div class="choice_wrap">
                                 <input type="radio" name="inpReasonChoice" class="inp_radio" value="도배, 스팸">
                                 <label for="inpChoice1" class="lab_radio"><span class="ico_report ico_check"></span><span>도배, 스팸</span><span class="ico_report ico_arr"></span></label>
@@ -135,7 +138,7 @@ li {
 					<span class="txt_guide">※ 허위신고일 경우, 신고자의 서비스 활동이 제한될 수 있으니 유의하시어 신중하게 신고해 주세요.</span>
                     <div class="btn_group">
                         
-                        <button type="button" class="btn btn-outline-primary" id="reportPostBtn">확인</button>
+                        <button type="button" class="btn btn-outline-primary" id="reportPostBtn" onclick="test()">확인</button>
                         <button type="button" class="btn btn-primary"><span class="inner_btn" onclick="self.close();">취소</span></button>
                     </div>
                     
@@ -145,34 +148,36 @@ li {
             <% String post_id = request.getParameter("post_id");  %>
             <%=post_id%>
             <script type="text/javascript">
-            $(function(){
-            	("#reportPostBtn").click(function(e){
-            		e.preventDefault();
-
-		
-            		$.ajax({
-            			type:"get",
-            			url:"./checkPostId.do",
-            			data:"post_id="+<%=post_id%>,
-            			success:function(msg){
-            				if(msg.count=="true"){
-            					
-            					
-            				} else{
-            					swal("신고","이미 신고접수가 되었습니다.");
-            				}
-            				},
-            			error : function(){
-            					alert("문제가 발생하였습니다.");
-            				}
-            			
-            		})    		
-            		
-            		
-            	})
-            	
-            	
-            });
+          
+            
+            function test() {
+            	var checkChoice = $("input[name=inpReasonChoice]:checked").val();
+            	console.log(checkChoice);
+        		
+        		//ajax처리해서 보내기
+        		$.ajax({
+        			type:"get",
+        			url:"./reportPost.do?post_id="+<%=post_id%>,
+        			data:"reason="+checkChoice,
+        			success:function(msg){
+        				if(msg.count=="true"){
+        					alert("신고접수가 성공적으로 처리되었습니다.");
+        					window.close();
+        					
+        				} else{
+        					swal("실패","신고접수를 실패하였습니다.");
+        					alert("신고접수를 실패하였습니다.");
+        					window.close();
+        				}
+        				},
+        			error : function(){
+        					alert("문제가 발생하였습니다.");
+        				}
+        			
+        		})    
+        		
+        		
+            }
             
             </script>
 </body>
