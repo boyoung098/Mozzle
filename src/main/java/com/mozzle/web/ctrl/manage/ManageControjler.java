@@ -161,13 +161,13 @@ public class ManageControjler {
 	@RequestMapping(value = "/modifyMozzleForm.do", method= RequestMethod.GET)
 	public String modifyMozzleForm(Model model, HttpServletRequest request) {
 		
-
-		//String mozzle_id = (String) request.getAttribute("mozzle_id");
-		String mozzle_id = "1";
+		String mozzle_id = (String) request.getParameter("mozzle_id");
 		logger.info("modifyMozzleForm {}", mozzle_id);
 		
 		MozzleDto mDto = mService.selectMozzleByMozzleId(mozzle_id);
 		
+		List<String> categoryList = cService.selectMozzleCategoryName(mozzle_id);
+
 		if(mDto.getState().equals("Y")) {
 			mDto.setState("checked");
 			
@@ -177,6 +177,7 @@ public class ManageControjler {
 	
 		model.addAttribute("mozzle", mDto);
 		model.addAttribute("mozze_id", mozzle_id);
+		model.addAttribute("categoryList", categoryList);
 		
 		return "manage/modifyMozzleForm";
 	}
@@ -222,25 +223,25 @@ public class ManageControjler {
 		
 		int checkNum01 = mService.updateMozzle(mozzle);
 		
-		String mozzle_id = mozzle.getMozzle_id();
-		int deleteNum = cService.deleteMozzleCategory(mozzle_id);		
-		
 		String category_code = mozzle.getCategory_code();
 		String[] category_code_list = category_code.split(",");
-		System.out.println(category_code_list.length);
+		String mozzle_id = mozzle.getMozzle_id();
 		
-		int checkNum02 = 0;
-		for (String category_code_element : category_code_list) {
-			System.out.println(category_code_element);
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("category_code", category_code_element);
-			map.put("mozzle_id", mozzle_id);
-			
-			checkNum02 += cService.registMozzleCategory(map);		
+		if (!category_code.equals("") && category_code != null) {	
+			int deleteCategoryNum = cService.deleteMozzleCategory(mozzle_id);		
+		
+			for (String category_code_element : category_code_list) {
+				System.out.println(category_code_element);
+				
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("category_code", category_code_element);
+				map.put("mozzle_id", mozzle_id);
+				
+				int insertCategoryNum = cService.registMozzleCategory(map);		
+			}
 		}
 		
-		if(checkNum01==1 && checkNum02 == category_code_list.length) {
+		if(checkNum01 == 1) {
 			model.addAttribute("result", "true");
 			return "manage/modifyMozzleForm";
 			

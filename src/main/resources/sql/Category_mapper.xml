@@ -22,7 +22,7 @@
 	</select>
 	
 	<delete id="deleteMozzleCategory" parameterType="java.lang.String">
-		DELECT FROM MOZZLE_CATEGORY WHERE MOZZLE_ID = #{mozzle_id}
+		DELETE FROM MOZZLE_CATEGORY WHERE MOZZLE_ID = #{mozzle_id}
 	</delete>
 	
 	<select id="seletCategoryAll" resultType="cDto">

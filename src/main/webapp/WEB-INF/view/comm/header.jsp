@@ -10,6 +10,16 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#search-btn").click(function () {
+		var keyword= $('input[name=inputKeyword]').val();
+		$(location).attr("href", "./browseMozzlePage.do?keyword="+ keyword);
+	});
+});
+
+
+</script>
 <style>
 .search {
 	height: 40px;
@@ -157,17 +167,15 @@ input:focus, select:focus {
 			<div class="collapse navbar-collapse select_bar" id="myNavbar">
 				<ul class="nav navbar-nav navbar-center">
 					<li>
-						<form action="./browseMozzlePage.do" method="post">
-							<div class="input-group intput-width search">
+<div class="input-group intput-width search">
 								<input type="text" class="form-control search-input"
-									name="keyword" placeholder=" 찾으시는 모임이 있나요?" value="<%= keyword %>"/>
+									name="inputKeyword" id="inputKeyword" placeholder=" 찾으시는 모임이 있나요?" value="<%= keyword %>"/>
 								<div class="input-group-btn">
-									<button type="submit" id="search-btn" class="btn btn-default">
-										<i class="glyphicon glyphicon-search"></i>
+									<button type="button" id="search-btn" class="btn btn-default">
+										검색
 									</button>
 								</div>
 							</div>
-						</form>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

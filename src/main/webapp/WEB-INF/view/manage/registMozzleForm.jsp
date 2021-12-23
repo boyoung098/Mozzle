@@ -39,10 +39,10 @@
 			<input type="hidden" id="mozzle_id" name="mozzle_id"
 				value="${mozzle_id}" />
 			<div class="register-inner">
-				<h4>모즐 생성</h4>
+				<h2>모즐 생성</h2>
 			</div>
 			<div class="register-name">
-				<h5>커버 이미지 선택</h5>
+				<p>커버 이미지 선택</p>
 			</div>
 			<div class="image-wrap1">
 				<div class="image-wrap2">

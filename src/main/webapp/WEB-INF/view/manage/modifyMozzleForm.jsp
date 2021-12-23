@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>모즐 수정 화면</title>
-<%@ include file="../comm/import.jsp" %>
+<%@ include file="../comm/import.jsp"%>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/select2/3.4.5/select2.min.js"></script>
@@ -18,8 +18,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/imageUpload.js"></script>
-<script
-	src="<%=request.getContextPath()%>/resources/js/modifyMozzle.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/modifyMozzle.js"></script>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/commons.css" />
 <script
@@ -37,24 +36,25 @@
 			<input type="hidden" id="save_result" name="result" value="${result}" />
 			<input type="hidden" id="save_info" name="mozzle_id"
 				value="${mozzle.mozzle_id}" />
+			<input type="hidden" id="save_info_img"
+				value="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}" />
 			<div class="register-inner">
-				<h4>모즐 생성</h4>
+				<h2>모즐 생성</h2>
 			</div>
 			<div class="register-name">
-				<h5>커버 이미지 선택</h5>
+				<p>커버 이미지 선택</p>
 			</div>
 			<div class="image-wrap1">
 				<div class="image-wrap2">
-					<img class="image" id="image"
-						src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"/>
+					<img class="image" id="image"/>
 				</div>
 			</div>
 
 			<div class="register-input" id="imagebox">
 				<div class="box-file-input" style="margin-top: 5px">
-					<label> <input type="file" name="uploadFile"
+					<label> <input type="file" name="uploadFile" 
 						class="file-input" accept="image/*" id="img"
-						value="${mozzle.image_origin}">
+						value="${mozzle.uploadFile}">
 					</label> <span class="filename"></span>
 				</div>
 			</div>
@@ -76,7 +76,20 @@
 			<div class="register-name">
 				<h5>카테고리</h5>
 			</div>
-			<div class="register-input">
+			<div id= "show-category">
+			<div id= "show-category-box">
+				<c:forEach var="category" items="${categoryList}">
+					<a style="color: #aaa"><img id="hash-tag" alt="hash-tag"
+						src="<%=request.getContextPath()%>/resources/images/hashtag.png">${category}</a>&nbsp;
+				</c:forEach>
+			</div>
+			
+			<div id= "category-modify-button-box">
+				<button type="button" class="btn btn-basic" id="category-modify-button" onclick="categorModify()">수정</button>
+			</div>
+			</div>
+			<br>
+			<div class="register-input" id="register-input" style="display:none">
 				<input type="text" id="category" name="category_code"
 					style="width: 100%;" placeholder="카테고리를 입력해주세요"
 					value="${mozzle.category_code}" />
@@ -103,12 +116,11 @@
 				<input type="submit" class="btn" id="submit-btn"
 					style="width: 200px; background: #e82d55; color: #fff;"
 					value="모즐수정" onSubmit="checkSubmit()">
-				<button>모즐 삭제</button>
 			</div>
 		</form>
 	</div>
 	<div id="footer"></div>
-	
+
 
 </body>
 </html>
