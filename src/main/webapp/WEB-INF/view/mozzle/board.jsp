@@ -16,28 +16,34 @@ function searchbtn(){
 		dataType:"html",
 		async:true,
 		success : function(result){
-			 $("#test").load(result);
+			console.log(result);
+			 $("#test").load('./board.do');
 		}
 	})
 }
+
+function fn_search(){
+	$("#listForm").submit();
+	return false;
+	}
 </script>
 	<div class="mt-3">
+		
+	
 		<div class="input-group input-search mt-2" >
-			<form method="post" id="frm_search">
+			<form action="./searchBoard.do" method="post" id="frm_search">
 				<input type="text" class="form-control" name="content" id="keyword" placeholder="게시글 검색"> 
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" id="search_area" onclick="searchbtn()">
+					<button class="btn btn-default" type="submit" id="search_area" >
 						<span class="glyphicon glyphicon-search"></span>
 					</button>
 				</span>
 			</form>
-		</div>
+		</div> 
 		<div class="board-container" id="items">
 			<div class="txt mt-3">
-				<!-- <form action="">
-					
-				</form> -->
-				<button data-toggle="modal" data-target="#myModal">글쓰기</button>
+				
+					<button data-toggle="modal" data-target="#myModal">글쓰기</button>
 			</div> 
 			
 		</div>

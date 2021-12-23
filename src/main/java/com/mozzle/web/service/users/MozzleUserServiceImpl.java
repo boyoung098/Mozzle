@@ -51,6 +51,11 @@ public class MozzleUserServiceImpl implements IMozzleUserService {
 		return mozzleUserDao.updateMozzleUserAuth(dto);
 	}
 
+	@Override
+	public List<Map<String, Object>> leaderCheck(String userId) {
+		return mozzleUserDao.leaderCheck(userId);
+	}
+
 	
 	
 

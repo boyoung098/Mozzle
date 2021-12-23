@@ -65,6 +65,7 @@
 					if(result.equals){
 						alert("이메일 인증이 완료되었습니다.");
 						window.opener.document.getElementById("mail-duplicated-result").textContent = "사용 가능한 이메일입니다.";
+						window.opener.document.querySelector("input[name=email]").value = "${email}";
 						window.opener.mailChk = true;
 						window.close();
 					}

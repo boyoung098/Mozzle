@@ -32,7 +32,7 @@
 <body>
 
 	<div id="content">
-        <form:form id="mozzleUserUpdate" action="./mozzleUserUpdate.do?mozzle_id=${mozzle_id}" method="post" enctype="multipart/form-data"
+        <form:form id="mozzleUserUpdate" action="#" method="post" enctype="multipart/form-data"
         		>
 		<div class="register-container">
 		
@@ -52,7 +52,7 @@
  			<div class="register-input" id="imagebox">
 				<div class="box-file-input" style="margin-top: 5px">
 					<label> <input type="file" name="file"
-						class="file-input" accept="image/*" id="img" onchange="setThumbnail(event);" style="display: none;">
+						class="file-input" accept="image/*" id="img" onchange="setThumbnail(event);" style="display: block;">
 						<button type="button" id="img-change-btn" class="color-btn side-btn" style="height: 35px;" >이미지 변경</button>
 					</label>
 				</div>
@@ -60,7 +60,7 @@
 		
 		${mozzleUser.image_saved}<br>
 			<br>
-			<h4>닉네임 (※4글자이상 20글자이내)</h4>
+			<h4>닉네임 (※공백없이 4글자이상 20글자이내)</h4>
 			<label>
 			<span class="inline-flex">
 			<input type="text" id="updatenick"
@@ -88,23 +88,22 @@
 				<h4>가입일자 : <span id="indate">${dateval}</span></h4>
 			</div>
 			<br>
-			
 			<div>
 			<span>밴드탈퇴</span> 
 			<button class="join-btn" id="mozzleout" style="margin: 5px;">탈퇴하기</button>
 			</div>
 			
-			<div>
+			<!-- <div>
 			<span>밴드신고</span> 
 			<button class="join-btn" id="mozzlepost" style="margin: 5px;">신고하기</button>
-			</div>
+			</div> -->
 			
 			<div class="register-input"
 				style="display: flex; justify-content: center;">
 				<!-- <input type="submit" class="btn" id="submit-btn"
 					style="width: 200px; background: #e82d55; color: #fff; height: 50px;"
 					value="수정" onSubmit="checkSubmit()"> -->
-					<button type="button" onclick="updatebefore()"
+					<button type="button" onclick="update()"
 					style="width: 200px; background: #e82d55; color: #fff;"  class="btn">정보수정</button>
 			</div>
 			
@@ -156,45 +155,50 @@
     		reader.readAsDataURL(event.target.files[0]);
     		
     	}
-		function updatebefore(){
+		function update(){
 			var mozzle_id = <%=request.getParameter("mozzle_id")%>;
     		var nick = $("#updatenick").val();
+    		var checkbirth = $("input[name=birthday_show]:checked").val();
     		console.log(nick.length); //글자수 가져오기
     		$("#resultalert2").empty();
-    		
+    		var form = $("#mozzleUserUpdate")[0];
     		var beforenick = "<c:out value='${mozzleUser.nickname}'/>"
+    		var formData = new FormData(form);
+    		console.log(form);
+    		
+    		var pattern = /\s/g;
+    		
     		
     		if($("#updatenick").val()==null || $("#updatenick").val() ==""){
     			//alert('닉네임을 입력해주세요');
     			$("#resultalert2").html('닉네임을 입력해주세요');
-    		} else if(nick.length<4 || nick.length>20){
+    		}else if($("#updatenick").val().match(pattern)){
+    			$("#resultalert2").html('공백없이 입력해주세요');
+    		}
+    		else if(nick.length<4 || nick.length>20){
     			//alert('글자수 제한을 어겼습니다');
     			$("#resultalert2").html("글자수 제한을 어겼습니다");
     		}
     		else{
-    			$.ajax({
-    				url : "./mozzleUpdateBefore.do?mozzle_id="+mozzle_id,
-    				type : "get",
-    				data : "nickname="+nick,
-    				dataType : "JSON",
-    				async : true,
-    				success : function(msg){
-    					console.log(msg.TF);
-    			 		if(msg.TF == "false"){
-    						if(beforenick == nick){
-    							$("#mozzleUserUpdate").submit();
-    						} else {
-    							$("#resultalert2").html("중복된 닉네임이 있습니다.");
-    						}
-    					} else{
-    						$("#mozzleUserUpdate").submit();
-    					}
-    				},
-    				error : function(){
-    					alert("ajax 실행 오류");
-    				}
-    				
-    			}); 
+    			 $.ajax({
+     				url : "./mozzleUpdate.do?mozzle_id="+mozzle_id,
+     				type : "post",
+     				data : formData,
+     				async : true,
+     				success : function(msg){
+     					swal("수정이 완료되었습니다.");
+     			 		
+     				},
+     				error : function(){
+     					alert("ajax 실행 오류");
+     				},
+     				/* cache: false, */
+     				contentType: false, 
+     				processData: false
+     				
+     			});
+    			
+    			
     		}
 			
 		}

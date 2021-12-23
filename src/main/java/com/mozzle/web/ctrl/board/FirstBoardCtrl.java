@@ -28,6 +28,7 @@ import com.mozzle.web.dto.board.Board;
 import com.mozzle.web.dto.manage.MozzleDto;
 import com.mozzle.web.dto.users.MozzleUserDto;
 import com.mozzle.web.service.board.IBoardService;
+import com.mozzle.web.service.manage.ICategoryService;
 import com.mozzle.web.service.manage.IManageService;
 import com.mozzle.web.service.schedule.IScheduleServiceImpl;
 import com.mozzle.web.service.users.IMozzleUserService;
@@ -40,7 +41,10 @@ public class FirstBoardCtrl {
 	private IBoardService serviceImple;
 	
 	@Autowired
-	private IManageService service;
+	private IManageService mService;
+	
+	@Autowired
+	private ICategoryService cService;
 	
 	@Autowired
 	private IMozzleUserService mozzleUserService;
@@ -68,10 +72,13 @@ public class FirstBoardCtrl {
 		//*************이미지 경로나옴!!!!!!!!!!!!!
 	//끝
 		
-		//임현경 - 해당 mozzle 정보
+		//임현경 - mozzle 정보 + 카테고리 정보
 		String mozzle= req.getParameter(mozzle_id);
-		MozzleDto myMozzle = service.selectMozzleByMozzleId(mozzle_id);
+		MozzleDto myMozzle = mService.selectMozzleByMozzleId(mozzle_id);
 		model.addAttribute("myMozzle", myMozzle);
+		
+		List<String> categoryList = cService.selectMozzleCategoryName(mozzle_id);
+		model.addAttribute("categoryList", categoryList);
 		
 	
 		//김보영 - 모즐내 회원인지 select하여 값보내기
@@ -81,7 +88,7 @@ public class FirstBoardCtrl {
 			if(sessionid!=null) {
 			map.put("user_id", sessionid);
 			MozzleUserDto mozzleUserdto = mozzleUserService.selectMozzleUserByUserId(map);
-			System.out.println("========================"+mozzleUserdto.toString());
+			System.out.println("========================mozzleUserdto"+mozzleUserdto.toString());
 			model.addAttribute("mozzleUserdto",mozzleUserdto);
 			} else {
 				
@@ -96,14 +103,6 @@ public class FirstBoardCtrl {
 		return "mozzle/firstmozzle";
 	}
 	
-	//정민정 해당 모즐 전체 게시판 출력
-	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String boardList(Model model, @ModelAttribute("mozzle_id") String mozzle_id) {
-		logger.info("모즐메인 게시판");
-		//List<Board> boardlist = serviceImple.selectAllBoard();
-		model.addAttribute("boardlist", serviceImple.selectAllBoard());
-		return "mozzle/board";
-	}
 	
 	@Autowired
 	private IScheduleServiceImpl schedule;

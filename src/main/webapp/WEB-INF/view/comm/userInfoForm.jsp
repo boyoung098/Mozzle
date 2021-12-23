@@ -48,8 +48,10 @@
 <c:if test="${sessionScope.userId == null}">
 <label>이메일 
 	<span class="inline-flex">
-	<input type="email"
-	class="form-control input-login side-input" name="email"
+	<input type="hidden"
+	class="form-control input-login side-input" name="email" />
+	<input type="email" name="email_input"
+	class="form-control input-login side-input"
 	placeholder="이메일을 입력 해주세요" />
 	<button id="email-auth" class="color-btn input-login side-btn">인증하기</button>
 	</span>

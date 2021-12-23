@@ -35,15 +35,11 @@ public class IBoardServiceImpl implements IBoardService {
 		return dao.selectOneBoard(content);
 	}
 
-//	@Override
-//	public List<Board> selectAllBoard(int seq) {
-//		return dao.selectAllBoard(seq);
-//	}
-	
 	@Override
-	public List<Board> selectAllBoard() {
-		return dao.selectAllBoard();
+	public List<Board> selectAllBoard(String mozzle_id) {
+		return dao.selectAllBoard(mozzle_id);
 	}
+	
 	
 	
 	@Override

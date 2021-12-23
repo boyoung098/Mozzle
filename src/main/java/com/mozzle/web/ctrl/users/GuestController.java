@@ -70,7 +70,7 @@ public class GuestController {
 	}
 	
 	@GetMapping(value="/guestEnter.do")
-	public String guestCheck(String uuid,HttpServletResponse resp) throws IOException {
+	public String guestCheck(String uuid,HttpServletResponse resp, Model model) throws IOException {
 		UUID ud = UUID.fromString(uuid); //String -> UUID(형변환)
 		Date date = (Date) UuidUtil.getDateFromUuid(ud); //UUID->Date
 		Date today = new Date();
@@ -86,10 +86,12 @@ public class GuestController {
 			//게스트가 들어갈수 있는 모즐메인페이지를 return시킨다
 			GuestDto guestDto = guestService.selectByUUID(uuid);
 			log.info("UUID를 통해 조회한 guestDto{}",guestDto);
-			
+			String mozzle_id = guestDto.getMozzle_id();
+			model.addAttribute("mozzle_id",mozzle_id);
+			return "redirect:/firstmozzle.do";
 		}
 		
-		return "redirect:/moveCheck.do";
+		return "redirect:/firstmozzle.do";
 	}
 	
 	@GetMapping("/moveCheck.do")

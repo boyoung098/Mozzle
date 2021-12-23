@@ -2,6 +2,7 @@ package com.mozzle.web.ctrl.board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mozzle.web.dto.board.Board;
+import com.mozzle.web.dto.users.UserDto;
 import com.mozzle.web.service.board.IBoardService;
+import com.mozzle.web.service.users.IUserService;
 
 @Controller
 public class BoardCtrl {
@@ -34,38 +37,33 @@ public class BoardCtrl {
 	@Autowired
 	private IBoardService serviceImple;
 	
-//	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
-//	public ModelAndView boardList(Board board, String id, int seq) {
-//		logger.info("모즐메인 게시판");
-//		
-//		//model.addAttribute("boardlist", serviceImple.selectAllBoard());
-//		ModelAndView mav = new ModelAndView();
-//		board = (Board) serviceImple.selectAllBoard(seq);
-//		
-//		String str = serviceImple.replySelectAllBoard(id);
-//		
-//		if(board.equals(str)) {
-//			
-//			mav.setViewName("reboardlists");
-//			mav.addObject("reboardlist",board);
-//		}
-//		return mav;
-//		
-//		
-//		return "mozzle/M_board";
-//	}
+	@Autowired
+	private IUserService userservice;
 	
-	
-	
-	
-	
-//	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
-//	public ModelAndView reboardList(String id, HttpSession session) {
-//		logger.info("댓글=========================== 게시판");
-//		
-//		return mav;
-//	}
-	
+	// 해당 모즐 전체 게시판 출력
+		@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String boardList(Model model, @ModelAttribute("mozzle_id") String mozzle_id, @ModelAttribute("user_id") String user_id, HttpServletRequest req, HttpSession session) {
+			
+			//게시판 출력
+			logger.info("모즐메인 게시판");
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("mozzle_id", mozzle_id);
+
+			List<Board> boardlist = serviceImple.selectAllBoard(mozzle_id);
+			model.addAttribute("boardlist", boardlist);
+			
+			//로그인 하면 글쓰기 버튼 보임
+			
+			String id = (String) req.getSession().getAttribute("user_id");
+			if(id == null) {
+				map.put("user_id", id);
+				UserDto userDto = userservice.loginChk("user_id");
+				logger.info("나오나?????????????============================");
+				model.addAttribute("userDto",userDto);
+			}
+			
+			return "mozzle/board";
+		}
 	
 	
 	
@@ -139,20 +137,36 @@ public class BoardCtrl {
 //		String fmcontent = (String) request.getParameter("fmcontent"); 
 //	}
 	
-	@ResponseBody
+//	@ResponseBody
+//	@RequestMapping(value="/searchBoard.do", method = {RequestMethod.GET, RequestMethod.POST})
+//	public String searchBoard(@RequestParam("content") String content, Model model,HttpServletRequest request) {
+//		logger.info("검색 해서 나온다!!!!!!!!!!!!!!!");
+//		
+//		Board board =  new Board();
+//		board.setContent(content);
+//		
+//		List<Board> searchboardlist = serviceImple.selectOneBoard(content);
+//		model.addAttribute("searchboardlist", searchboardlist);
+//		return "mozzle/board222";
+//	}
+	
 	@RequestMapping(value="/searchBoard.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String searchBoard(@RequestParam("content") String content, Model model,HttpServletRequest request) {
+	public String searchBoard(HttpServletRequest request, Model model, @ModelAttribute("mozzle_id") String mozzle_id) {
 		logger.info("검색 해서 나온다!!!!!!!!!!!!!!!");
+		String content = request.getParameter("content");
 		
 		Board board =  new Board();
-		board.setContent(content);
+		if(content != null) {
+			if(content.equals("content")) {
+				board.setContent(content);
+			}
+			request.setAttribute("content", content);
+		}
 		
 		List<Board> searchboardlist = serviceImple.selectOneBoard(content);
 		model.addAttribute("searchboardlist", searchboardlist);
-		return "mozzle/board222";
+		return "mozzle/board";
 	}
 	
-	
 
-	
 }

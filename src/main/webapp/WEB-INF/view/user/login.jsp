@@ -81,7 +81,7 @@
 				<p class="login-result">${msg}</p>
 				<div>
 					<input type="text" class="form-control input-login" name="id"
-						placeholder="아이디를 입력 해주세요" /> <input type="text"
+						placeholder="아이디를 입력 해주세요" /> <input type="password"
 						class="form-control input-login" name="password"
 						placeholder="비밀번호를 입력 해주세요" />
 					<div class="ch-box">
