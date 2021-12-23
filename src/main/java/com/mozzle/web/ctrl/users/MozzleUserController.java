@@ -220,8 +220,9 @@ public class MozzleUserController {
 		return returnmap;
 	}
 	
-	//유저가 모즐내 가입할때
-		@PostMapping(value = "/mozzleUserUpdate.do")
+	//유저가 모즐내 업데이트할때
+		@ResponseBody
+		@PostMapping(value = "/mozzleUpdate.do")
 		public String mozzleUserUpdate(HttpServletRequest req, Model model, MozzleUserDto mozzleUserDto,
 											BindingResult result, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletResponse resp) throws IOException {
 			
@@ -307,24 +308,20 @@ public class MozzleUserController {
 			
 			String userId = (String)req.getSession().getAttribute("userId");
 			mozzleUserDto.setUser_id(userId);
-			System.out.println("====mozzleUserDto:"+mozzleUserDto.toString());
-			//int resultcnt = mozzleUserService.insertMozzleUser(mozzleUserDto);
+			System.out.println("====mozzleUserDto수정!!!!:"+mozzleUserDto.toString());
+			int resultcnt = mozzleUserService.updateMozzleUser(mozzleUserDto);
 			
-			/*
-			 * if(resultcnt==0) { resp.setContentType("text/html; charset=UTF-8");
-			 * PrintWriter writer = resp.getWriter(); writer.
-			 * println("<script>alert('모즐가입에 실패하셨습니다. 다시 시도해주세요.'); location.href='./firstmozzle.do?mozzle_id="
-			 * +mozzle_id+"';</script>"); writer.flush(); } else {
-			 * resp.setContentType("text/html; charset=UTF-8"); PrintWriter writer =
-			 * resp.getWriter(); writer.
-			 * println("<script>alert('모즐가입에 성공하셨습니다.'); location.href='./firstmozzle.do?mozzle_id="
-			 * +mozzle_id+"';</script>"); writer.flush();
-			 * 
-			 * }
-			 */
+			String msg =null;
+			
+			if(resultcnt == 0) {
+				msg="nochange";
+				
+			} else {
+				msg ="change";
+			}
 			
 			
-			return null;
+			return msg;
 		}
 	
 	

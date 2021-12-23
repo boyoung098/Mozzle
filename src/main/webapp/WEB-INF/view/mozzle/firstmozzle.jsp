@@ -27,25 +27,59 @@ $(document).ready(function() {
 	<div id="header"></div>
 	<section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
-			<div class="col-sm-3 sidenav">
-				<div class="new-photo">
-					<h4>내 정보</h4>
-					<div class="profil-image">
-						<img src="<%=request.getContextPath()%>/resources/upload/${myMozzle.image_saved}"
+			<div class="col-sm-3 sidenav" id="fixed-info">
+			<div style="position: fixed;">
+			<ul class="nav nav-tabs">
+			  <li class="active"><a data-toggle="tab" href="#home">운영자</a></li>
+			  <li><a data-toggle="tab" href="#menu1">내정보</a></li>
+			</ul>
+			<div class="tab-content">
+			  <div id="home" class="tab-pane fade in active">
+			    <div class="profil-image">
+					<img src="<%=request.getContextPath()%>/resources/upload/${myMozzle.image_saved}"
 						alt="메인" />
 					</div>
-					<div>
-						운영자<br>
-						이메일<br>
-						가입일<br>
-						모즐 신고<br>
-						모즐 탈퇴<br>
+					<%-- <div class="row">
+					  <div class="col-sm-4">닉네임</div>
+					  <div class="col-sm-8">${mozzleUserdto.nickname}</div>
 					</div>
+					<div class="row">
+					  <div class="col-sm-4">닉네임</div>
+					  <div class="col-sm-8">${mozzleUserdto.nickname}</div>
+					</div> --%>
+			  </div>
+			  <!-- 내정보 -->
+			  <div id="menu1" class="tab-pane fade">
+			    <div class="image-wrap2" >
+						<c:if test="${mozzleUserdto.image_saved == null}">
+						<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="" class="image" style="width: 200px;">
+						</c:if>
+						<c:if test="${mozzleUserdto.image_saved != null}">
+						<img src="<%=request.getContextPath()%>/storage/${mozzleUserdto.image_saved}" alt="" class="image" style="width: 200px;">
+						</c:if>
 				</div>
+				
+				<div class="row">
+					  <div class="col-sm-4">닉네임</div>
+					  <div class="col-sm-8">${mozzleUserdto.nickname}</div>
+					</div>
+					<div class="row">
+					  <div class="col-sm-4">닉네임</div>
+					  <div class="col-sm-8">${mozzleUserdto.nickname}</div>
+					</div>
+				
+				<button class="join-btn" type="button" id="btnupdatemy">정보수정</button>
+				
+			  </div>
+			  </div>
+			</div>
+			
 				
 				<%-- <!-- 모즐멤버리스트 뿌리는 곳 -->
 				<%@ include file="/WEB-INF/view/mozzle/mozzleMemberList.jsp" %> --%>
 			</div>
+			
+			
 			<div class="col-sm-9">
 				<div class="mo-img">
 					<div id= "image-wrap">
@@ -68,7 +102,10 @@ $(document).ready(function() {
 								<li>멤버 : 101</li>
 							</ul>
 							<c:if test="${mozzleUserdto.auth_code == null || mozzleUserdto.auth_code == '3'}">
-							<button class="join-btn"  onclick="userSessionCheck()" id="joinbtn">가입요청</button>
+							<button class="join-btn"  onclick="userSessionCheck()" id="joinbtn">모즐가입</button>
+							</c:if>
+							<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
+							<button class="join-btn" type="button" id="btninvite">멤버 초대</button>
 							</c:if>
 							
 						</div>
@@ -81,7 +118,7 @@ $(document).ready(function() {
 						<!-- <li>사진첩</li>
 -->							<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
 						<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
-						<li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li>
+						<!-- <li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li> -->
 						</c:if>
 					</ul>
 				</div>
@@ -101,8 +138,8 @@ $(document).ready(function() {
  
  <ul>
  <li class="lilili">
- <input type="hidden" value="96" class="post_id">
- 누르기
+ <input type="hidden" value="65" class="post_id">
+ 65누르기
  </li>
  </ul>
  
@@ -124,12 +161,21 @@ $(function(){
 	
 });
 
+//jquery onload
 $(function(){
 	$("#btninvite").click(function(e){
 		e.preventDefault();
 		$("#load_mozzle").load("guestInvite.do?mozzle_id=<%=mozzle_id%>");
 		
 	});
+	
+	$("#btnupdatemy").click(function(e){
+		e.preventDefault();
+		$("#load_mozzle").load("mozzleuserMypage.do?mozzle_id=<%=mozzle_id%>");
+		
+	});
+	
+
 	
 	$(".lilili").click(function(e){
 		e.preventDefault();
