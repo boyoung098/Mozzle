@@ -15,64 +15,44 @@
 			<thead>
 			<tr>
 				<th><input type="checkbox" id="checkAll" onclick="checkAllFn(this.checked)"></th>
-				<th>글번호</th>
+				<th>신고번호</th>
 				<th>작성자</th>
 				<th>사유</th>
 				<th>신고일자</th>
 				<th>신고처리</th>
+				<th>상세보기</th>
 			</tr>
 			</thead>
 			
 			<tbody>
-				<tr>
-					<td><input type="checkbox" name="chkVal" value="${lists[0].seq}"></td>
-					<td>${lists[0].seq}</td>
-					<td>
-						<a data-toggle="collapse" href="#collapse${lists[0].seq}" >${lists[0].title}</a>
-					</td>
-					<td>${lists[0].id}</td>
-					<td>${lists[0].readcount}</td>
-					<td>${lists[0].delflag}</td>
-					<td>${lists[0].regdate}</td>
-				</tr>
-				<tr>
-					<td colspan="6">
-						<div id="collapse${lists[0].seq}" class="panel-collapse collapse">
-							<div class="form-group">
-								<label>내용</label>
-								<textarea rows="5" class="form-control">${lists[0].content}</textarea>
-							</div>
-							<div class="form-group">
-									<input type="button" class="btn btn-warning" value="글삭제">
-							</div>
-						</div>
-					</td>
-				</tr>
+			
 			</tbody>
 			
 		</table>
-			<label>index : <input type="text" id="index" name="index" value="${paging.index}"/></label><br />
-			<label>pageStartNum : <input type="text" id="pageStartNum" name="pageStartNum" value="${paging.pageStartNum}"/></label><br />
-			<label>listCnt : <input type="text" id="listCnt" name="listCnt" value="${paging.listCnt}"/></label><br />
+		<div>
+			<!-- <input type="submit" class="btn btn-danger" value="관리자삭제"> -->
+			<input type='button' class='btn btn-success' value='사유부적절' onclick='updateVal()'>
+			<input type='button' class='btn btn-warning' value='관리자삭제' onclick='()'>
+		</div>
+			<input type="text" name="index" id="index" value="${row.index}">
+			<input type="text" name="pageNum" id="pageNum" value="${row.pageNum}">
+			<input type="text" name="listNum" id="listNum" value="${row.listNum}">
 	
 			<div style="text-align: center;">
-			  <ul class="pagination pagination-lg">
-			    <li><a href="#" onclick="pageFirst()"><span class="glyphicon glyphicon-backward"></span></a></li>
-			    <li><a href="#" onclick="pagePrev(${paging.pageStartNum},${paging.pageCnt})"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-			    
-			    <c:forEach var="i" begin="${paging.pageStartNum}" end="${paging.pageLastNum}">
-						<li><a href="#" onclick="pageIndex(${i})">${i}</a></li>
-				</c:forEach>
-			    
-			    <li><a href="#" onclick="pageNext(${paging.pageStartNum}, ${paging.total}, ${paging.listCnt}, ${paging.pageCnt})"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-			    <li><a href="#" onclick="pageLast(${paging.pageStartNum}, ${paging.total}, ${paging.listCnt}, ${paging.pageCnt})"><span class="glyphicon glyphicon-forward"></span></a></li>
-			   
-			  </ul>
+				<ul class="pagination pagination-lg">
+				  <li><a href="#" onclick="pageFirst()"><span class="glyphicon glyphicon-fast-backward"></span> </a></li>
+				  <li><a href="#" onclick="pagePrev(${row.pageNum},${row.pageList})"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+				  
+				  <c:forEach var="i" begin="${row.pageNum}" end="${row.count}" step="1" >
+					  <li><a href="#" onclick="pageIndex('${i}')">${i}</a></li>
+				  </c:forEach>
+				  
+				  <li><a href="#" onclick="pageNext(${row.pageNum},${row.total},${row.listNum},${row.pageList})"><span class="glyphicon glyphicon-step-forward"></span> </a></li>
+				  <li><a href="#" onclick="pageLast(${row.pageNum},${row.total},${row.listNum},${row.pageList})"><span class="glyphicon glyphicon-fast-forward"></span> </a></li>
+				</ul>
 			</div>
 			
-				<div>
-					<input type="submit" class="btn btn-danger" value="다중삭제">
-				</div>
+				
 	
 	</form>
 </div>
@@ -84,60 +64,54 @@
    })
 } */
 
-//페이징  request인 row에서 전달받든 값을 사용하여 화면의 게시글의 리스트 갯수를 자동으로 선택되게 함
-/* $(document).ready(function(){
-   var listNum = $("#listNum").val();
-   $("#list option").each(function(){
-      if(listNum == $(this).val()){
-         $(this).prop("selected",true);
-      } else{
-         $(this).prop("selected",false)
-      }
-      
-   }); */
+//페이징 request인 row에서 전달받은 값을 사용하여 화면의 게시글의 리스트 갯수를 자동으로 선택되도록 함
+$(document).ready(function(){
+	var listNum = $("#listNum").val();
+	$("#list option").each(function(){
+		if(listNum == $(this).val()){
+			$(this).prop("selected",true);
+		}else{
+			$(this).prop("selected",false);
+		}
+	});
 
-   //3) 선택된 chkval의 모든 checkbox가 선택이 되면 자동으로 checkAll의 checkbox가 해제/선택되도록 한다
-   var chkval = document.getElementsByName("chkVal");
-   var checkAll = document.getElementById("checkAll");
-   
-   for(let i=0; i<chkval.length; i++){
-      chkval[i].onclick = function(){
-         if(chkval.length == chsConfirm()){
-            checkAll.checked = true;
-         }else{
-            checkAll.checked = false;
-         }
-      }
-   }
+
+//3) 선택된 chkval 모든 checkbox가 선택이 되면 자동으로 checkAll의 checkbox 해제/선택되도록 함	
+	var chkval = document.getElementsByName("chkVal");
+	var checkAll = document.getElementById("checkAll");
+	for(let i=0; i<chkval.length; i++){
+		chkval[i].onclick = function(){
+			if(chkval.length == chsConfirm()){
+				checkAll.checked = true;
+			}else{
+				checkAll.checked = false;
+			}
+		}
+	}
+	
 });
 
 
-//다중삭제 관련기능
-//1) 선택된 chkval의 갯수를 확인하는 기능
+//다중삭제 관련 기능
+//1) 선택된 chkval의 갯수를 확인 하는 기능
 function chsConfirm(){
-   var chkval = document.getElementsByName("chkVal");
-   
-   var choiceCnt = 0;
-   for(let i=0; i<chkval.length; i++){
-      if(chkval[i].checked){
-         choiceCnt++;
-      }
-      
-   }
-   return choiceCnt;
+	var chkval = document.getElementsByName("chkVal");
+	var choiceCnt = 0;
+	for(let i=0; i< chkval.length; i++){
+		if(chkval[i].checked){
+			choiceCnt++;
+		} 
+	}
+	return choiceCnt;
 }
 
-
-//전체선택기능
+//2)전체 선택 기능
 function checkAllFn(bool){
-   console.log(bool);
-   
-   var chkval = document.getElementsByName("chkVal");
-   console.log(chkval.length);
-   
-   for(let i=0; i<chkval.length; i++){
-      chkval[i].checked = bool;
-   }
+	var chkval = document.getElementsByName("chkVal");
+//	console.log(chkval.length);
+	for(let i=0; i< chkval.length; i++){
+		chkval[i].checked = bool;
+	}
 }
 
 function submitForm(){
