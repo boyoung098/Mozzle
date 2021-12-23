@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,10 +37,10 @@ public class ManageControjler {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private IManageService service;
+	private IManageService mService;
 	
 	@Autowired
-	private ICategoryService service2;
+	private ICategoryService cService;
 	
 	@Autowired
 	ResourceLoader resourceLoader;
@@ -50,11 +51,11 @@ public class ManageControjler {
 		//임시 저장
 		String user_id = "user01";
 		//My 모즐
-		List<MozzleDto> myMozzleList = service.selectMyMozzle(user_id);
+		List<MozzleDto> myMozzleList = mService.selectMyMozzle(user_id);
 		//새로 생긴 모즐
-		List<MozzleDto> newMozzleList = service.selectMozzleByCreatDate();
+		List<MozzleDto> newMozzleList = mService.selectMozzleByCreatDate();
 		//HOT 모즐
-		List<MozzleDto> hotMozzleList = service.selectMozzleByUserNumber();
+		List<MozzleDto> hotMozzleList = mService.selectMozzleByUserNumber();
 		
 		model.addAttribute("myMozzleList", myMozzleList);
 		model.addAttribute("newMozzleList", newMozzleList);
@@ -69,6 +70,7 @@ public class ManageControjler {
 		return "manage/registMozzleForm";
 	}
 	
+	@Transactional
 	@PostMapping("/registMozzle.do")
 	public String registMozzle(MozzleDto mozzle, Model model, HttpServletRequest request) throws IllegalStateException, IOException{
 		
@@ -94,10 +96,6 @@ public class ManageControjler {
 	
 			File file = new File(resource.getFile().getPath() +"\\"+ image_saved);
 			
-			System.out.println("====================================>"+ image_origin);
-			System.out.println(resource.getFile().getPath() + "\\"+ image_saved);
-			System.out.println("====================================>"+ image_saved); 
-			
 			uploadImage.transferTo(file);
 			
 			mozzle.setImage_origin(image_origin);
@@ -110,26 +108,38 @@ public class ManageControjler {
 			mozzle.setState("N");
 		}
 		
-		//mozzle_name Escape
 		String mozzle_name = mozzle.getMozzle_name();
 		String mozzle_name_escaped = mozzle_name.replace("<", "&lt;").replace("&", "&amp;");
 		mozzle.setMozzle_name(mozzle_name_escaped);
 		
-		//mozzle_intro Escape
 		String mozzle_intro = mozzle.getMozzle_intro();
 		String mozzle_intro_escaped = mozzle_intro.replace("<", "&lt;").replace("&", "&amp;");
 		mozzle.setMozzle_intro(mozzle_intro_escaped);
 		
-		// 모즐 아이디(seq) 생성
-		String mozzle_id = service.createMozzleId();
+
+		String mozzle_id = mService.createMozzleId();
 		mozzle.setMozzle_id(mozzle_id);
-		// 모즐 등록 + 리더 멤버 추가
-		int checkNum = service.registMozzle(mozzle);
-		// 모즐 아이디 jsp로 전달
+
+		int checkNum01 = mService.registMozzle(mozzle);
+		
+		String category_code = mozzle.getCategory_code();
+		String[] category_code_list = category_code.split(",");
+		System.out.println(category_code_list.length);
+		
+		int checkNum02 = 0;
+		for (String category_code_element : category_code_list) {
+			System.out.println(category_code_element);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("category_code", category_code_element);
+			map.put("mozzle_id", mozzle_id);
+			
+			checkNum02 += cService.registMozzleCategory(map);
+		}
+
 		model.addAttribute("mozzle_id", mozzle_id);
 
-		// 모즐 등록 확인
-		if (checkNum == 2) {
+		if (checkNum01 == 2 && checkNum02 == category_code_list.length) {
 			model.addAttribute("result", "true");
 			return "manage/registMozzleForm";
 		} else {
@@ -142,18 +152,20 @@ public class ManageControjler {
 	@ResponseBody
 	public int mozzleNameCheck(@RequestParam("mozzle_name") String mozzle_name) {
 		logger.info("mozzleNameCheck {}", mozzle_name);
-		int checkNum = service.mozzleNameCheck(mozzle_name);
+		int checkNum = mService.mozzleNameCheck(mozzle_name);
 	
 		return checkNum;
 	}
 	
 	@RequestMapping(value = "/modifyMozzleForm.do", method= RequestMethod.GET)
-	public String modifyMozzleForm(Model model) {
-		//모즐 아이디 1로 설정 (연결 후 삭제)
-		String mozzle_id ="1";
+	public String modifyMozzleForm(Model model, HttpServletRequest request) {
+		
+
+		//String mozzle_id = (String) request.getAttribute("mozzle_id");
+		String mozzle_id = "1";
 		logger.info("modifyMozzleForm {}", mozzle_id);
 		
-		MozzleDto mDto = service.selectMozzleByMozzleId(mozzle_id);
+		MozzleDto mDto = mService.selectMozzleByMozzleId(mozzle_id);
 		
 		if(mDto.getState().equals("Y")) {
 			mDto.setState("checked");
@@ -161,13 +173,14 @@ public class ManageControjler {
 		} else {
 			mDto.setState(null);
 		}
-		
+	
 		model.addAttribute("mozzle", mDto);
 		model.addAttribute("mozze_id", mozzle_id);
 		
 		return "manage/modifyMozzleForm";
 	}
 	
+	@Transactional
 	@RequestMapping(value = "/modifyMozzle.do", method= RequestMethod.POST)
 	public String modifyMozzle(MozzleDto mozzle, Model model, HttpServletRequest request) throws IOException {
 		
@@ -186,10 +199,6 @@ public class ManageControjler {
 	
 			File file = new File(resource.getFile().getPath() +"\\"+ image_saved);
 			
-			System.out.println("====================================>"+ image_origin);
-			System.out.println(resource.getFile().getPath() + "\\"+ image_saved);
-			System.out.println("====================================>"+ image_saved); 
-			
 			uploadImage.transferTo(file);
 			
 			mozzle.setImage_origin(image_origin);
@@ -202,19 +211,35 @@ public class ManageControjler {
 			mozzle.setState("N");
 		}
 		
-		//mozzle_name Escape
 		String mozzle_name = mozzle.getMozzle_name();
 		String mozzle_name_escaped = mozzle_name.replace("<", "&lt;").replace("&", "&amp;");
 		mozzle.setMozzle_name(mozzle_name_escaped);
 		
-		//mozzle_intro Escape
 		String mozzle_intro = mozzle.getMozzle_intro();
 		String mozzle_intro_escaped = mozzle_intro.replace("<", "&lt;").replace("&", "&amp;");
 		mozzle.setMozzle_intro(mozzle_intro_escaped);
 		
-		int n = service.updateMozzle(mozzle);
+		int checkNum01 = mService.updateMozzle(mozzle);
 		
-		if(n==1) {
+		String mozzle_id = mozzle.getMozzle_id();
+		int deleteNum = cService.deleteMozzleCategory(mozzle_id);		
+		
+		String category_code = mozzle.getCategory_code();
+		String[] category_code_list = category_code.split(",");
+		System.out.println(category_code_list.length);
+		
+		int checkNum02 = 0;
+		for (String category_code_element : category_code_list) {
+			System.out.println(category_code_element);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("category_code", category_code_element);
+			map.put("mozzle_id", mozzle_id);
+			
+			checkNum02 += cService.registMozzleCategory(map);		
+		}
+		
+		if(checkNum01==1 && checkNum02 == category_code_list.length) {
 			model.addAttribute("result", "true");
 			return "manage/modifyMozzleForm";
 			
@@ -229,7 +254,7 @@ public class ManageControjler {
 	public Map<String, Object> searchCategory() {
 		
 		logger.info("AdminController의 home");
-		List<CategoryDto> cList = service2.seletCategoryAll();
+		List<CategoryDto> cList = cService.seletCategoryAll();
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("cList", cList);
 

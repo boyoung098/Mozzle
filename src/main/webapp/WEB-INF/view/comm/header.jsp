@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<% 	
+	String keyword = (String) session.getAttribute("keyword");
+	session.setAttribute("keyword", "");
+	System.out.println(keyword);
+%> 
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
 <style>
 .search {
@@ -155,7 +160,7 @@ input:focus, select:focus {
 						<form action="./browseMozzlePage.do" method="post">
 							<div class="input-group intput-width search">
 								<input type="text" class="form-control search-input"
-									name="keyword" placeholder=" 찾으시는 모임이 있나요?" value="${keyword}"/>
+									name="keyword" placeholder=" 찾으시는 모임이 있나요?" value="<%= keyword %>"/>
 								<div class="input-group-btn">
 									<button type="submit" id="search-btn" class="btn btn-default">
 										<i class="glyphicon glyphicon-search"></i>
@@ -165,7 +170,6 @@ input:focus, select:focus {
 						</form>
 					</li>
 				</ul>
-
 				<ul class="nav navbar-nav navbar-right">
 					<c:if test="${empty sessionScope.userId}">
 						<li><a href="<%=request.getContextPath()%>/loginPage.do">로그인</a></li>

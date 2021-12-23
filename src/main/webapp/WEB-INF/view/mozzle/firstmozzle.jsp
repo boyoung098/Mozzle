@@ -22,6 +22,13 @@ $(document).ready(function() {
 	})
 });
 </script>
+<style>
+#hash-tag{
+	width: 10px;
+	height: 10px;
+}
+
+</style>
 </head>
 <body>
 	<div id="header"></div>
@@ -63,12 +70,17 @@ $(document).ready(function() {
 							 </c:if>
 						</p>
 						<div class="mo-member">
-							<ul>
-								<li>리더 : 로아로아</li>
-								<li>멤버 : 101</li>
-							</ul>
+							<div>
+								<div>
+									<c:forEach var="category" items="${categoryList}">
+										<a style="color: #aaa"><img id="hash-tag" alt="hash-tag" src="<%=request.getContextPath()%>/resources/images/hashtag.png">${category}</a>&nbsp;
+									</c:forEach>
+								 </div> 								
+								<div>생성일자: ${myMozzle.create_date}</div>
+								<div>멤버 : ${myMozzle.memberCnt}</div>
+							</div>
 							<c:if test="${mozzleUserdto.auth_code == null || mozzleUserdto.auth_code == '3'}">
-							<button class="join-btn"  onclick="userSessionCheck()" id="joinbtn">가입요청</button>
+								<button class="join-btn"  onclick="userSessionCheck()" id="joinbtn">가입요청</button>
 							</c:if>
 							
 						</div>
