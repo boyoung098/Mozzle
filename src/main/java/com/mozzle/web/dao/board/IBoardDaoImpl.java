@@ -34,20 +34,20 @@ public class IBoardDaoImpl implements IBoardDao {
 	@Override
 	public int deleteBoard(int num) {
 		logger.info("게시판 삭제");
-		return session.delete(NS+"updateBoard",num);
+		return session.delete(NS+"deleteBoard",num);
 	}
 
 	@Override
-	public List<Board> selectOneBoard(Board board) {
+	public List<Board> selectOneBoard(String content) {
 		logger.info("게시판 조회");
 		
-		return session.selectOne(NS+"selectOneBoard", board);
+		return session.selectOne(NS+"selectOneBoard", content);
 	}
 	
 	@Override
-	public List<Board> selectAllBoard() {
+	public List<Board> selectAllBoard(String mozzle_id) {
 		logger.info("전체 게시판");
-		return session.selectList(NS+"selectAllBoard");
+		return session.selectList(NS+"selectAllBoard", mozzle_id);
 	}
 
 	
@@ -67,7 +67,7 @@ public class IBoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public int replyIn(Board board) {
+	public int getReplyinput(Board board) {
 		logger.info("댓글 입력");
 		return session.insert(NS+"replyIn",board);
 	}
@@ -85,17 +85,17 @@ public class IBoardDaoImpl implements IBoardDao {
 	}
 	
 	@Override
-	public int replyview(Board board) {
-		logger.info("댓글 출력");
-		return session.insert(NS+"replyview", board);
-	}
-	
-	@Override
 	public int reportBoard(Board board) {
 		logger.info("신고");
 		return session.insert(NS+"reportBoard", board);
 	}
 
+	@Override
+	public String replySelectAllBoard(String id) {
+		return session.selectOne(NS+"reselectAll");
+	}
+
+	
 	
 
 	

@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mozzle.web.Users">
 
-<!-- 나중에 권한까지 체크 -->
 <select id="loginChk" parameterType="java.lang.String" resultType="uDto">
   SELECT u.USER_PW, a.AUTH_NAME AUTH
 	FROM USERS u INNER JOIN USERS_AUTH a
 	ON u.AUTH_CODE = a.AUTH_CODE 
-		WHERE u.USER_ID = #{id}
+		WHERE u.USER_ID = #{id} AND u.DELFLAG = 'N'
 </select>
 
 <select id="passwordChk" parameterType="java.lang.String" resultType="java.lang.String">
@@ -35,5 +34,36 @@
 <select id="duplicationMailChk" parameterType="java.lang.String" resultType="java.lang.Integer">
 	SELECT COUNT(*) FROM USERS WHERE EMAIL = #{email}
 </select>
+
+<select id="findId" parameterType="uDto" resultType="java.lang.String">
+	SELECT USER_ID FROM USERS WHERE EMAIL = #{email} AND USER_NAME = #{user_name}	
+</select>
+
+<select id="findPw" parameterType="uDto" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM USERS WHERE EMAIL = #{email} AND USER_ID = #{user_id} AND USER_NAME = #{user_name}
+</select>
+
+<update id="changePw" parameterType="uDto">
+	UPDATE USERS SET USER_PW = #{user_pw} WHERE USER_ID = #{user_id}
+</update>
+
+<update id="updateUser" parameterType="uDto">
+	UPDATE USERS 
+	<set>
+	<if test="user_pw != null and user_pw != ''">
+	USER_PW = #{user_pw}, 
+	</if>
+	<if test="user_name != null and user_name != ''">
+	USER_NAME = #{user_name}, 
+	</if>
+	<if test="birth != null and birth != ''">
+	BIRTH = #{birth}, 
+	</if>
+	<if test="tel != null and tel != ''">
+	TEL = #{tel}
+	</if>
+	</set>
+	WHERE USER_ID = #{user_id}
+</update>
 
 </mapper>

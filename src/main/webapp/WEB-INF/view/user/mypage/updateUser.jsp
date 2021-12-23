@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <script type="text/javascript">
 	// myPage Load 시, 세션에 담긴 사용자(현재 로그인된 사용자) 정보 출력
+	var pwChk = false;
+	var cpwChk = false;
 	$(function(){
 		$.ajax({
 			url:"./myPage/userInfo.do",
@@ -17,14 +19,71 @@
 			}
 		});
 		
+		// 비밀번호 유효성 체크
+		$("input[name=user_pw]").keyup(function(){
+			var pwRegEx = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
+			if(!pwRegEx.test($("input[name=user_pw]").val())){
+				$("#pw-regex-result").text("비밀번호는 영어+숫자 조합으로 8 ~ 16자 사이여야 합니다.");
+				pwChk = false;
+			}
+			else{
+				$("#pw-regex-result").text("");
+				pwChk = true;
+			}
+		});
+		
+		// 비밀번호 확인 체크
+		$("input[name=password-confirm]").keyup(function(){
+			if($("input[name=user_pw]").val() !== $("input[name=password-confirm]").val()){
+				$("#pw-confirm-result").text("비밀번호와 똑같이 입력해주세요.");
+				cpwChk = false;
+			}
+			else{
+				$("#pw-confirm-result").text("");
+				cpwChk = true;
+			}
+		});
+		
+		// 생년월일 유효성 체크
+		$("input[name=birth]").change(function(e){
+			e.preventDefault();
+			var today = new Date().valueOf();
+			var selected = new Date(e.target.value).valueOf();
+			if(today <= selected){
+				e.target.value = "";
+			}
+		});
+		
+		// 회원 탈퇴
+		$("input[name=removeUser]").click(function(e){
+			e.preventDefault();
+			if(confirm("회원 정보가 사라집니다. 정말 탈퇴하시겠습니까? 내가 리더인 모즐은 리더 권한 위임을 해야 합니다.")){
+				$.ajax({
+					url:"./myPage/leaderCheck.do",
+					type:"post",
+					data:{userId: "${sessionScope.userId}"},
+					success: function(result){
+						if(result.length > 0){
+							var url = "./leaderList.do";
+							var title = '리더 권한 모즐';
+							var attr = 'width=450px, height=550px';
+							window.open(url, title, attr);
+						}
+						
+					}
+				});
+			};
+			
+		})
 	});
 </script>
 <div class="container-login">
-	<form id="login-form" action="./updateUser.do" method="POST">
+	<form id="login-form" action="./updateUserInfo.do" method="post">
 		<h2>회원 정보 수정</h2>
 
 		<jsp:include page="../../comm/userInfoForm.jsp" />
 		<input type="submit" class="color-btn input-login" value="정보수정" />
+		<input type="button" name="removeUser" class="btn btn-warning" value="회원탈퇴"/>
 
 	</form>
 </div>

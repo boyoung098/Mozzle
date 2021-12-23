@@ -1,5 +1,7 @@
 package com.mozzle.web.dto.manage;
 
+import java.util.Arrays;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class MozzleDto {
@@ -7,11 +9,13 @@ public class MozzleDto {
 	private String mozzle_id;
 	private String mozzle_name;
 	private String leader_id;
+	private String leader_nickname;
 	private String mozzle_intro;
 	private String create_date;
 	private String image_origin;
 	private String image_saved;
 	private String category_code;
+	private String[] categroy_name;
 	private String state;
 	private String delflag;
 	private String category_name;
@@ -60,6 +64,12 @@ public class MozzleDto {
 	public void setCategory_code(String category_code) {
 		this.category_code = category_code;
 	}
+	public String[] getCategroy_name() {
+		return categroy_name;
+	}
+	public void setCategroy_name(String[] categroy_name) {
+		this.categroy_name = categroy_name;
+	}
 	public String getState() {
 		return state;
 	}
@@ -94,16 +104,22 @@ public class MozzleDto {
 		return memberCnt;
 	}
 	public void setMemberCnt(int memberCnt) {
-		memberCnt = memberCnt;
+		this.memberCnt = memberCnt;
+	}
+	public String getLeader_nickname() {
+		return leader_nickname;
+	}
+	public void setLeader_nickname(String leader_nickname) {
+		this.leader_nickname = leader_nickname;
 	}
 	@Override
 	public String toString() {
-		return "MozzleDto [mozzle_id=" + mozzle_id + ", mozzle_name=" + mozzle_name + ", mozzle_intro=" + mozzle_intro
-				+ ", create_date=" + create_date + ", image_origin=" + image_origin + ", image_saved=" + image_saved
-				+ ", category_code=" + category_code + ", state=" + state + ", delflag=" + delflag + ", category_name="
-				+ category_name + "]";
+		return "MozzleDto [mozzle_id=" + mozzle_id + ", mozzle_name=" + mozzle_name + ", leader_id=" + leader_id
+				+ ", leader_nickname=" + leader_nickname + ", mozzle_intro=" + mozzle_intro + ", create_date="
+				+ create_date + ", image_origin=" + image_origin + ", image_saved=" + image_saved + ", category_code="
+				+ category_code + ", categroy_name=" + Arrays.toString(categroy_name) + ", state=" + state
+				+ ", delflag=" + delflag + ", category_name=" + category_name + ", uploadFile=" + uploadFile
+				+ ", memberCnt=" + memberCnt + "]";
 	}
-	
-	
-	
+
 }

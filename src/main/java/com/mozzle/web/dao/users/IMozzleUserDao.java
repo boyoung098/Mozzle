@@ -3,6 +3,7 @@ package com.mozzle.web.dao.users;
 import java.util.List;
 import java.util.Map;
 
+import com.mozzle.web.dto.manage.MozzleDto;
 import com.mozzle.web.dto.users.MozzleUserDto;
 
 public interface IMozzleUserDao {
@@ -10,5 +11,21 @@ public interface IMozzleUserDao {
 	public List<MozzleUserDto> selectListMozzleUser(Map<String, String> map);
 	
 	public int insertMozzleUser(MozzleUserDto dto);
+	
+	public MozzleUserDto selectMozzleUser(Map<String, String> map);
+	
+	
+	public MozzleUserDto selectMozzleUserByUserId(Map<String, String> map);
+	
+	public int insertMozzleHost(MozzleDto dto);
+	
+	public int deleteMozzleUser(MozzleUserDto dto);
+	
+	public int updateMozzleUser(MozzleUserDto dto);
+	
+	public int updateMozzleUserAuth(MozzleUserDto dto);
+	
+	// 이종표 추가
+	public List<Map<String, Object>> leaderCheck(String userId);
 	
 }

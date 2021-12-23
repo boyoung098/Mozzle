@@ -16,4 +16,12 @@ public interface IUserDao {
 	public int duplicationMailChk(String mail);
 	
 	public UserDto getUserInfo(String id);
+	
+	public String findId(UserDto dto);
+	
+	public int findPw(UserDto dto);
+	
+	public boolean changePw(UserDto dto);
+	
+	public int updateUser(UserDto dto);
 }

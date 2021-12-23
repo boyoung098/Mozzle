@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mozzle.web.comm.JwtTokenProvider;
 import com.mozzle.web.dto.users.UserDto;
+import com.mozzle.web.service.users.IMozzleUserService;
 import com.mozzle.web.service.users.IUserService;
 
 @Controller
@@ -26,13 +28,7 @@ import com.mozzle.web.service.users.IUserService;
 public class UserController {
 
 	@Autowired
-	IUserService service;
-
-	@Autowired
-	private JwtTokenProvider jwtTokenProvider;
-
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private IUserService service;
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.POST)
 	public String myPage(Model model, @RequestParam(value = "auth") boolean auth, @RequestParam(value = "menu", required = false) String menu) {
@@ -61,22 +57,37 @@ public class UserController {
 		return "user/mypage/updateUser";
 	}
 	
+	@RequestMapping(value = "/updateUserInfo.do", method=RequestMethod.POST)
+	public String updateUserInfo(UserDto dto) {
+		System.out.println(dto.getUser_pw().isEmpty());
+		service.updateUser(dto);
+		return null;
+	}
+	
 	@RequestMapping(value="/myThread.do", method=RequestMethod.GET)
 	public String myThread() {
 		
 		return "user/mypage/myThread";
 	}
 	
-	@RequestMapping(value="/bookmark.do", method=RequestMethod.GET)
+	@RequestMapping(value="/manageMozzle.do", method=RequestMethod.GET)
 	public String bookmark() {
 		
-		return "user/mypage/bookmark";
+		return "user/mypage/manageMozzle";
 	}
 	
-	@RequestMapping(value="/inviteUser.do", method=RequestMethod.GET)
+	@RequestMapping(value="/notification.do", method=RequestMethod.GET)
 	public String inviteUser() {
 		
-		return "user/mypage/inviteUser";																																															
+		return "user/mypage/notification";																																															
+	}
+	
+	@RequestMapping(value="/leaderList.do", method=RequestMethod.GET)
+	public String leaderList(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		req.setAttribute("userId", session.getAttribute("userId").toString());
+		
+		return null;
 	}
 
 }

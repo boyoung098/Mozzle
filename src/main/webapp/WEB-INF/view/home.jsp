@@ -187,10 +187,8 @@
                             </li>
                         </ul>
                       </div>
-                   
                   </div> 
             </div>
-              
         </section>
         <div id="footer"></div>
 </body>

@@ -31,14 +31,16 @@ public class IBoardServiceImpl implements IBoardService {
 	}
 
 	@Override
-	public List<Board> selectOneBoard(Board board) {
-		return dao.selectOneBoard(board);
+	public List<Board> selectOneBoard(String content) {
+		return dao.selectOneBoard(content);
 	}
 
 	@Override
-	public List<Board> selectAllBoard() {
-		return dao.selectAllBoard();
+	public List<Board> selectAllBoard(String mozzle_id) {
+		return dao.selectAllBoard(mozzle_id);
 	}
+	
+	
 	
 	@Override
 	public int bookmarkBoard(Board board) {
@@ -53,10 +55,9 @@ public class IBoardServiceImpl implements IBoardService {
 	@Override
 	@Transactional
 	public int reply(Board board) {
-		int In = dao.replyIn(board);
 		int Up = dao.replyUp(board);
 		int Dl = dao.replyDl(board);
-		return In+Up+Dl;
+		return Up+Dl;
 	}
 
 
@@ -66,9 +67,16 @@ public class IBoardServiceImpl implements IBoardService {
 	}
 
 	@Override
-	public int replyview(Board board) {
-		return dao.replyview(board);
+	public int getReplyinput(Board board) {
+		return dao.getReplyinput(board);
 	}
+
+	@Override
+	public String replySelectAllBoard(String id) {
+		return dao.replySelectAllBoard(id);
+	}
+
+	
 
 	
 

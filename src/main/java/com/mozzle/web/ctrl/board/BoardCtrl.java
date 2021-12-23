@@ -2,7 +2,6 @@ package com.mozzle.web.ctrl.board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,14 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
-import java.io.PrintWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,12 +20,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mozzle.web.dto.board.Board;
 import com.mozzle.web.dto.users.UserDto;
 import com.mozzle.web.service.board.IBoardService;
+import com.mozzle.web.service.users.IUserService;
 
 @Controller
 public class BoardCtrl {
@@ -40,37 +38,60 @@ public class BoardCtrl {
 	@Autowired
 	private IBoardService serviceImple;
 	
-	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String boardList(Model model) {
-		logger.info("모즐메인 게시판");
-		//List<Board> boardlist = serviceImple.selectAllBoard();
-		model.addAttribute("boardlist", serviceImple.selectAllBoard());
-		
-		return "mozzle/M_board";
-	}
+	@Autowired
+	private IUserService userservice;
+	
+	// 해당 모즐 전체 게시판 출력
+		@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String boardList(Model model, @ModelAttribute("mozzle_id") String mozzle_id, @ModelAttribute("user_id") String user_id, HttpServletRequest req, HttpSession session) {
+			
+			//게시판 출력
+			logger.info("모즐메인 게시판");
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("mozzle_id", mozzle_id);
+
+			List<Board> boardlist = serviceImple.selectAllBoard(mozzle_id);
+			model.addAttribute("boardlist", boardlist);
+			
+			//로그인 하면 글쓰기 버튼 보임
+			
+			String id = (String) req.getSession().getAttribute("user_id");
+			if(id == null) {
+				map.put("user_id", id);
+				UserDto userDto = userservice.loginChk("user_id");
+				model.addAttribute("userDto",userDto);
+			}
+			
+			return "mozzle/board";
+		}
+	
+	
+	
 	
 	@PostMapping(value="/insertBoard.do")
-	public String insertBoard(Board board, HttpServletResponse resp) throws IOException {
+	public String insertBoard(@RequestParam("incontent") String incontent, HttpServletResponse resp) throws IOException {
 
+		Board board =  new Board();
+		board.setPost_id("1");
+		board.setMozzle_id("1");
+		board.setUser_id("user022");
+		board.setContent(incontent);
+		
 		logger.info("insertBoard 입력됨????=================== {}", board);
-		serviceImple.insertBoard(board);
-		return "board";
-		
-		
-		//		int cnt = serviceImple.insertBoard(board);
-//		if(cnt == 1) {
-//			resp.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = resp.getWriter();
-//			out.println("<script>alert('성공적으로 새글이 입력되었습니다'); location.href='./board.do';</script>");
-//			out.flush();
-//			return "board";
-//		}else {
-//			resp.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = resp.getWriter();
-//			out.println("<script>alert('새글 입력 실패'); location.href='./board.do';</script>");
-//			out.flush();
-//			return "board";
-//		}
+		int cnt = serviceImple.insertBoard(board);
+		if(cnt == 1) {
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+			out.println("<script>alert('성공적으로 입력되었습니다'); location.href='./mozzle/M_board.do';</script>");
+			out.flush();
+			return "mozzle/M_board";
+		}else {
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+			out.println("<script>alert('새글 입력 실패'); location.href='./mozzle/M_board.do';</script>");
+			out.flush();
+			return "mozzle/M_board";
+		}
 		
 	}
 	
@@ -79,64 +100,56 @@ public class BoardCtrl {
 		logger.info("updateboard 수정되었습니다. {}", board);
 		serviceImple.updateBoard(board);
 		rttr.addFlashAttribute("update","update");
-		return "redirect:/board";
+		return "mozzle/M_board";
 	}
 	
-	@PostMapping(value="/deleteBoard.do")
-	public String deleteBoard(int num, RedirectAttributes rttr) {
+	@ResponseBody
+	@RequestMapping(value="/deleteBoard.do")
+	public String deleteBoard(@RequestParam("idx") int idx) {
 		logger.info("게시글 삭제");
-		serviceImple.deleteBoard(num);
-		rttr.addFlashAttribute("result", "delete success");
-		return "redirect:/board";
+		serviceImple.deleteBoard(idx);
+		return "redirect:/mozzle/board";
 	}
 	
-	
-	@RequestMapping(value="/reinboard.do", method=RequestMethod.POST)
-	public Map<String, Object> replyBoard(@RequestBody Board board) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			int cnt = serviceImple.replyview(board);
-			
-			logger.info("댓글 등록!!!!!!!!!!!!!!!!!!!!!!!! :{}", board);
-			map.put("result", board);
-			
-			return map;
+	@ResponseBody
+	@RequestMapping(value = "/addComment.do")
+	public boolean addComment(@RequestParam("fmcontent") String fmcontent, @RequestParam("postId") String postId) {
 		
+		Board board =  new Board();
+		board.setPost_id(postId);
+		board.setMozzle_id("1");
+		board.setUser_id("reuser05");
+		board.setTitle("테스트테스트 제목입니다");
+		board.setContent(fmcontent);
+		
+		boolean isc = false;
+		
+		int comment = serviceImple.getReplyinput(board);
+		logger.info("addComment {}", comment);
+		if(comment ==1) {
+			isc = true;
+		}
+		return isc;
 	}
 	
-	
-	
-	
-//	@RequestMapping(value="/reinboard.do", method = RequestMethod.POST)
-//	@ResponseBody
-//	public String replyBoard(@RequestBody Board board, HttpSession session) {
-//			logger.info("댓글 등록!!!!!!!!!!!!!!!!!!!!!!!!");
-//			//System.out.println(board.getUser_id());
-//			String writer = (String) session.getAttribute("user_id");
-//			
-//			board.setUser_id(writer);
-//			serviceImple.reply(board);
-//			return "board";
-//		
+//	public boolean addComment(HttpServletRequest request) {
+//		String postId = (String) request.getParameter("postId");
+//		String fmcontent = (String) request.getParameter("fmcontent"); 
 //	}
 	
-//	@RequestMapping(value="/reviewboard.do", produces = "application/json; charset=utf8")
 //	@ResponseBody
-//	public String replyviewBoard(@ModelAttribute("board") Board board, HttpServletRequest req) {
-//		logger.info("댓글 보이기");
-//		ArrayList<HashMap> relist = new ArrayList<HashMap>();
+//	@RequestMapping(value="/searchBoard.do", method = {RequestMethod.GET, RequestMethod.POST})
+//	public String searchBoard(@RequestParam("content") String content, Model model,HttpServletRequest request) {
+//		logger.info("검색 해서 나온다!!!!!!!!!!!!!!!");
 //		
-//		List<Board> boardvo = serviceImple.replyview(board);
-//		if(boardvo.size()>0){
-//			for (int i = 0; i < boardvo.size(); i++) {
-//				HashMap hm = new HashMap();
-//				hm.put("content", boardvo.get(i).getContent());
-//				hm.put("regdate", boardvo.get(i).getRegdate());
-//				
-//				relist.add(hm);
-//			}
-//		}
-//		JSONArray json = new JSONArray(relist);
-//		return "board";
+//		Board board =  new Board();
+//		board.setContent(content);
+//		
+//		List<Board> searchboardlist = serviceImple.selectOneBoard(content);
+//		model.addAttribute("searchboardlist", searchboardlist);
+//		return "mozzle/board222";
 //	}
 	
+
+
 }

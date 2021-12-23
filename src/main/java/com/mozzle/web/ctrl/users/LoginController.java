@@ -1,5 +1,8 @@
 package com.mozzle.web.ctrl.users;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
@@ -18,7 +21,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.mozzle.web.comm.JwtTokenProvider;
+import com.mozzle.web.dao.notice.INoticeDao;
+import com.mozzle.web.dto.manage.MozzleDto;
 import com.mozzle.web.dto.users.UserDto;
+import com.mozzle.web.service.manage.IManageService;
+import com.mozzle.web.service.notice.INoticeService;
 import com.mozzle.web.service.users.IUserService;
 
 @Controller
@@ -27,9 +34,15 @@ public class LoginController {
 
 	@Autowired
 	IUserService service;
+	
+	@Autowired
+	private IManageService mService;
 
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
+	
+	@Autowired
+	private INoticeService nservice;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -58,10 +71,32 @@ public class LoginController {
 					model.addAttribute("userId", userdto.getUsername());
 					model.addAttribute("accessToken", accessToken);
 					model.addAttribute("refreshToken", refreshToken);
+					List<MozzleDto> myMozzleList = mService.selectMyMozzle(userdto.getUsername());
+					System.out.println(myMozzleList.size());
+					model.addAttribute("myMozzleList", myMozzleList);
+					
 				}
 				
-			}
+			}	
 		}
+		
+
+		//새로 생긴 모즐
+		List<MozzleDto> newMozzleList = mService.selectMozzleByCreatDate();
+		//HOT 모즐
+		List<MozzleDto> hotMozzleList = mService.selectMozzleByUserNumber();
+
+		model.addAttribute("newMozzleList", newMozzleList);
+		model.addAttribute("hotMozzleList", hotMozzleList);
+		
+//		List<Map<String, Object>> lists =
+//				nservice.noticeSelectAll("qkrekfthsus");
+//		
+//		for(Map<String, Object> m: lists) {
+//			for( String key : m.keySet() ){
+//	            System.out.println( String.format("키 : %s, 값 : %s", key, String.valueOf(m.get(key))));
+//	        }
+//		}
 		return "index";
 	}
 
@@ -99,7 +134,6 @@ public class LoginController {
 	
 	@RequestMapping(value = "/logout.do", method=RequestMethod.GET)
 	public String logout() {
-		System.out.println("adfadfadff");
 		return "redirect:/loginPage.do?logout";
 	}
 

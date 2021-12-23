@@ -38,11 +38,23 @@
 	class="form-control input-login" name="tel"
 	placeholder="휴대폰 번호를 입력 해주세요(010-xxxx-xxxx)" />
 </label>
+<c:if test="${sessionScope.userId != null}">
+<label>이메일 
+	<input type="email"
+	class="form-control input-login" name="email"
+	placeholder="이메일을 입력 해주세요" readonly/>
+</label>
+</c:if>
+<c:if test="${sessionScope.userId == null}">
 <label>이메일 
 	<span class="inline-flex">
-	<input type="email"
-	class="form-control input-login side-input" name="email"
+	<input type="hidden"
+	class="form-control input-login side-input" name="email" />
+	<input type="email" name="email_input"
+	class="form-control input-login side-input"
 	placeholder="이메일을 입력 해주세요" />
-	<button id="email-auth" class="color-btn input-login side-btn">인증하기</button></span>
+	<button id="email-auth" class="color-btn input-login side-btn">인증하기</button>
+	</span>
 </label>
+</c:if>
 <p id="mail-duplicated-result"></p>

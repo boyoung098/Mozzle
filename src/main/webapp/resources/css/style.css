@@ -47,7 +47,9 @@ select:focus {
 }
 
 /* 로그인 */
-
+.login-result{
+	color:#e82d55;	
+}
 .container-login {
     width:350px;
     margin: auto;
@@ -84,14 +86,46 @@ select:focus {
 
 
 /* 모즐 메인 */
+#image-wrap {
+	max-height: 230px;
+	overflow: hidden;
+}
+#cover-image {
+	max-width: initial;
+    max-height: initial;
+    opacity: 0.8;
+    margin-bottom: 50%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-right: 0px;
+}
+.mozzle-title-icon {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.profil-image{
+	overflow: hidden;
+}
+.profil-image img{
+	object-fit: cover;
+	width: 100%;
+    height: 200px;
+}
+.mo-img{
+	display: flex;
+}
 .mo-img img{
-    width:100%;
-    background-size: cover;
+	width:230px;
+    height:230px;
+    object-fit: cover;
 }
 .mo-text {
+	flex-grow: 3;
     height: auto;
     padding: 10px;
     border: 1px solid #ddd;
+    position: relative;
 }
 .mo-text h4{
     font-weight: 700;
@@ -99,10 +133,13 @@ select:focus {
 .mo-member{
     display: flex;
     justify-content: space-between;
+    position: absolute;
+    bottom: 10px;
+    width: 96%;
+    align-items: end;
 }
 .mo-member ul {
     display: flex;
-    width: 40%;
     justify-content: space-between;
 }
 .join-btn {
@@ -128,8 +165,7 @@ select:focus {
 }
 
 .board-container{
-    margin-top: 20px;
-   
+   clear: both;
 }
 .btn-bg {
 	background:#999;
@@ -142,12 +178,14 @@ select:focus {
 .board-top{
     border:1px solid #ddd;
     padding:10px;
+    clear: both;
 }
 .board-sel {
     width:130px;
     height:40px;
     border:none;
 }
+
 .borad-box{
     border:1px solid #ddd;
     /* border-top: none; */
@@ -155,6 +193,18 @@ select:focus {
     padding: 10px;
     margin:auto;
 }
+.txt {
+    display: flex;
+    justify-content: right;
+}
+.txt button {
+    width: 100px;
+    height: 40px;
+    border-radius: 100px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
 .board-box-list{
     display: flex;
     align-items: center;
@@ -175,31 +225,27 @@ select:focus {
     word-wrap: break-word;
 }
 .board-cion {
-    text-align: center;
-    margin: 20px 20px 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 .comment {
     display: flex;
     padding:10px;
     display: none;
     margin-top: 20px;
-}
-.comment-input {
-    height: 40px;
-    border-radius: 100px;
-    padding-left: 10px;
-    margin-right: 10px;
-    display: inline-block;
-    width: 80%;
+    position: relative;
 }
 .comment-btn {
-    width: 100px;
-    height: 40px;
-    border-radius: 100px;
+    width: 80px;
+    height: 55px;
     border: none;
-    background: #999;
+    background: #e82d55;
     color: #fff;
-    display: inline-block;
+    position: absolute;
+    right: 26px;
+    top: 39%;
+    border-radius: 5px;
 }
 .comment-box {
     border-top: 1px solid #ddd;
@@ -219,14 +265,10 @@ select:focus {
     padding:2px 0px;
     cursor: pointer;
 }
-.comment-icon {
-    display: inline-block;
-    width: 30%;
-}
+
 .new-photo {
     border:1px solid #ddd;
     padding:10px;
-    margin-top: 10px;
 }
 .mozzle-member {
     border: 1px solid #ddd;
@@ -291,7 +333,7 @@ select:focus {
     color: #5BA0EE;
 }
 .input-search {
-    width: 100%;
+    width: 96.5%;
 }
 .input-search form{
     display: flex;
@@ -337,4 +379,20 @@ select:focus {
 }
 .user-profil {
 	width:250px;
+}
+
+.comment_box_recomment{
+	width:100%;
+	height:auto;
+	background:#999;
+}
+.clear {
+	clear:both;
+	float: right;
+}
+.modal-btn {
+	text-align: center;
+}
+.modal-btn button{
+	padding:5px 10px;
 }

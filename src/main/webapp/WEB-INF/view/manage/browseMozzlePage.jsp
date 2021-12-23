@@ -1,28 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>메인페이지</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<%@ include file="../comm/import.jsp" %>
-
-
+<%@ include file="../comm/import.jsp"%>
+<script type="text/javascript">
+/* 
+window.onload = function() {	
+		
+	var categoryList = [];
+	$.ajax({
+		url : "./selectCategoryByCnt.do",
+		type : "post",
+		success : function(data) {
+			if (data.isc == "ture") {
+				console.log("성공");
+				$(data).each(function(){		
+				});
+			}
+		}
+	});
+} */
+</script>
 <style>
 .card {
 	width: 100%;
 	height: 70px;
-}
-
-.image-wrap1 {
-	text-align: center;
-	display: table;
-	border: 1px dotted #cecece;
-	width: 100%;
-	height: 100% px;
-	border-radius: 5px;
 }
 
 .image-wrap2 {
@@ -48,7 +56,11 @@ a:hover {
 			<div class="row content">
 				<div class="col-sm-9 sidenav">
 					<h4>모즐검색결과</h4>
-					<a href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a><a href="./browseMozzleFromTheLastest.do?keyword=${keyword}">최신순</a>
+					<input type="text" id="save-info" value="${keyword}"
+						hidden="hidden"> <a
+						href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a> <a
+						href="./browseMozzleFromTheLastest.do?keyword=${keyword}">최신순</a>
+					<a href="#">인기순</a>
 					<hr>
 					<c:forEach var="mozzle" items="${mLists}">
 						<ul class="nav nav-pills nav-stacked">
@@ -56,15 +68,28 @@ a:hover {
 								<div class="container-fluid">
 									<div class="row">
 										<div class="col-sm-1">
-											<a href=#><img class="card"
-												src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"
-												alt="img" /></a>
+											<c:choose>
+												<c:when test="${not empty mozzle.image_saved}">
+													<a href="./firstmozzle.do?mozzle_id='${mozzle.mozzle_id}'"><img
+														class="card"
+														src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"
+														alt="img" /></a>
+												</c:when>
+												<c:otherwise>
+													<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"><img
+														class="card"
+														src="<%=request.getContextPath()%>/resources/upload/basic.png"
+														alt="img" /></a>
+												</c:otherwise>
+											</c:choose>
 										</div>
 										<div class="col-sm-9"
 											style="align-items: center; justify-content: center;">
 											<ul>
-												<li><a href=#>${mozzle.mozzle_name}</a></li>
-												<li><a href=#>${mozzle.mozzle_intro}</a></li>
+												<li><a
+													href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}">${mozzle.mozzle_name}</a></li>
+												<li><a
+													href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}">${mozzle.mozzle_intro}</a></li>
 												<li>회원수 : 110 <span></span> 리더 : 홍길동
 												</li>
 											</ul>
@@ -94,23 +119,17 @@ a:hover {
 					<h4>실시간 BEST 카테고리</h4>
 
 					<table>
-						<ul>
-							<li>1. 운동</li>
-							<li>2. 취미</li>
-							<li>3. 여행</li>
-							<li>4. 반려동물</li>
-							<li>5. 자기개발</li>
-							<li>6. 독서</li>
-							<li>7. 육아</li>
-							<li>8. 음악</li>
-							<li>9. 예술</li>
-							<li>10. 그림</li>
-							<li>11. 서핑</li>
-							<li>12. 친구찾기</li>
-						</ul>
+						<table>
+							<c:forEach var="category" items="${categoryList}"
+								varStatus="status">
+								<tr>
+									<tb>${status.count}</tb>
+									<tb>${category.category_name}</tb>
+								</tr>
+							</c:forEach>
+
+						</table>
 					</table>
-
-
 
 				</div>
 			</div>

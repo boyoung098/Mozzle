@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.HashedMap;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class CategoryController {
 		List<CategoryDto> cList = service.seletCategoryAll();
 		model.addAttribute("cList", cList);
 		
+		int cnt = service.selectCategoryCnt();
+		model.addAttribute("cnt", cnt);
+		
 		return "manage/adminIndex";
 	}
 	
@@ -43,17 +47,61 @@ public class CategoryController {
 		List<CategoryDto> cList = service.searchCategory(searchName);
 		model.addAttribute("cList", cList);
 		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("cList", cList);
+		resultMap.put("isc", "true");
+		
 		return "manage/adminIndex";
 	}
-
 	
-	@RequestMapping(value = "/registIndex.do", method= RequestMethod.GET)
-	public String registCategory(CategoryDto cDto) {
+	@RequestMapping(value= "/selectCategoryByCnt.do", method= RequestMethod.POST)
+	@ResponseBody
+	public List<CategoryDto> selectCategoryByCnt(){
 		
-		logger.info("AdminController의 home");
-		int num = service.registCategory(cDto);
-
-		return "manage/adminIndex";
+		logger.info("selectCategoryByCnt");	
+		List<CategoryDto> cList = service.selectCategoryByCnt();
 		
+		return cList;
 	}
+	
+	@RequestMapping(value = "/registIndex.do", method= RequestMethod.POST)
+	@ResponseBody
+	public boolean registCategory(@RequestParam("category[]") List<String> categoryList) {
+		
+		logger.info("AdminController의 registCategory");
+		
+		int insertCnt = 0;
+		boolean result = false;
+		
+		for (String category : categoryList) {
+			insertCnt += service.registCategory(category);
+		}
+		
+		if (categoryList.size() == insertCnt) {
+			result = true;
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping(value= "/deleteCategory.do", method= RequestMethod.POST)
+	@ResponseBody
+	public boolean deleteCategory(@RequestParam("category[]") List<String> categoryList) {
+			
+		logger.info("AdminController의 deleteCategory");
+		
+		int deleteCnt = 0;
+		boolean result = false;
+		
+		for (String category : categoryList) {
+			deleteCnt += service.deleteCatogory(category);
+		}
+		
+		if(categoryList.size() == deleteCnt) {
+			result = true;
+		}
+
+		return result;
+	}
+	
 }

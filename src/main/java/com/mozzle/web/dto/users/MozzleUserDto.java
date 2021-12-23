@@ -1,5 +1,6 @@
 package com.mozzle.web.dto.users;
 
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class MozzleUserDto {
@@ -13,9 +14,7 @@ public class MozzleUserDto {
 	private String image_origin;
 	private String image_saved;
 	private MultipartFile file;
-	
-	
-	
+
 	public MultipartFile getFile() {
 		return file;
 	}
@@ -77,6 +76,4 @@ public class MozzleUserDto {
 				+ ", nickname=" + nickname + ", joined_date=" + joined_date + ", birthday_show=" + birthday_show
 				+ ", image_origin=" + image_origin + ", image_saved=" + image_saved + "]";
 	}
-	
-	
 }

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>모즐 생성 화면</title>
-<%@ include file="../comm/import.jsp" %>
+<%@ include file="../comm/import.jsp"%>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/select2/3.4.5/select2.min.js"></script>
@@ -16,6 +16,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/resources/js/registMozzle.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/imageUpload.js"></script>
 <link rel="stylesheet"
@@ -30,10 +32,12 @@
 	<div id="header"></div>
 
 	<div class="register-container">
-		<form id="submitMozzleForm" action="./imageUpload.do" method="post"
+		<form id="submitMozzleForm" action="./registMozzle.do" method="post"
 			enctype="multipart/form-data">
 			<input type="hidden" id="save_result" name="result"
-				value="${result }" />
+				value="${result}" />
+			<input type="hidden" id="mozzle_id" name="mozzle_id"
+				value="${mozzle_id}" />
 			<div class="register-inner">
 				<h4>모즐 생성</h4>
 			</div>
@@ -76,12 +80,14 @@
 				<input type="text" id="category" name="category_code"
 					style="width: 100%;" />
 			</div>
+			
 			<div class="register-name">
-				<h5>이름</h5>
+				<h5>모즐이름</h5>
 			</div>
 			<div class="register-input">
-				<input type="text" class="form-control" name="mozzle_name"
-					placeholder="모즐 이름을 입력해주세요" />
+				<input type="text" class="form-control" name="mozzle_name" id="mozzle_name" 
+					placeholder="모즐 이름을 입력해주세요" /> 
+				<p id="check_msg"></p>
 			</div>
 			<div class="register-name">
 				<h5>모즐소개</h5>
@@ -99,76 +105,6 @@
 			</div>
 		</form>
 	</div>
-	<div id="footer"></div>
-
-	<script>
-	var dataList=[];
-	$(document).ready(function() {
-		console.log('ready');
-		
-		$.ajax({
-			url: "./searchCategory.do",
-			type: "POST",
-			datatype: "JSON",
-			success: function(result) {
-				console.log("성공");
-				var categoryList = result.cList;
-				for (var i = 0; i < categoryList.length; i++) {
-					Obj = {}
-					
-					Obj.id = categoryList[i].categoty_code;
-					Obj.text = categoryList[i].category_name;
-					
-					dataList.push(Obj);
-				}
-			}
-		});
-	
-			
-		$("#category").select2({
-			data : dataList,
-			multiple : true,
-			placeholder : '카테고리를 입력해주세요'
-		});
-					
-						
-		if($('#save_result').val() != '') {
-			console.log($('#save_result').val());
-							
-			if($('#save_result').val() == 'true') {
-				alert('모즐이 성공적으로 수정되었습니다.');
-				$('#save_result').val('');
-				location.href = "./home.do";
-			} else {
-				alert('수정을 실패했습니다.');
-				$('#save_result').val('');
-			} 
-		}
-	});
-
-	window.onload = function() {
-		document.getElementById("image").src = 
-			"<%=request.getContextPath()%>/resources/images/img.png";
-	};
-	
-	document.getElementById("img").onchange = function() {
-		var reader = new FileReader();
-	
-		reader.onload = function(e) {
-		document.getElementById("image").src = e.target.result;
-	};
-	
-	
-	if (this.files != undefined && this.files[0] != null) {
-		reader.readAsDataURL(this.files[0]);
-	} else {
-		document.getElementById("image").src = "./resources/images/img.png";
-		}
-	};
-
-	function checkSubmit() {
-		alert($('#submitMozzleForm').val());
-	}
-	</script>
+	<div id="footer"></div> 
 </body>
 </html>

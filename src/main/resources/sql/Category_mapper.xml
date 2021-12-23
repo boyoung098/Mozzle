@@ -2,11 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mozzle.web.dao.manage.CategoryDaoImpl">
 	
-	<insert id="registCategory" parameterType="cDto">
+	<insert id="registCategory" parameterType="java.lang.String">
 		INSERT INTO CATEGORY
-				(CATEGORY_CODE, CATEGORY_NAME)
-			VALUES(CATEGORY_SEQ.NEXTVAL, #{category_name})
+				(CATEGORY_CODE, CATEGORY_NAME, CREATE_DATE)
+			VALUES(CATEGORY_SEQ.NEXTVAL, #{category_name}, SYSDATE)
 	</insert>
+	
+	<insert id="registMozzleCategory" parameterType="java.util.Map">
+		INSERT INTO MOZZLE_CATEGORY
+			(CATEGORY_CODE, MOZZLE_ID)
+		VALUES(#{category_code}, #{mozzle_id})
+	</insert>
+	
+	<select id="selectMozzleCategoryName" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT c.CATEGORY_NAME 
+			FROM MOZZLE_CATEGORY mc LEFT JOIN CATEGORY c 
+			ON mc.CATEGORY_CODE = c.CATEGORY_CODE
+			WHERE mc.MOZZLE_ID = #{mozzle_id}
+	</select>
+	
+	<delete id="deleteMozzleCategory" parameterType="java.lang.String">
+		DELECT FROM MOZZLE_CATEGORY WHERE MOZZLE_ID = #{mozzle_id}
+	</delete>
 	
 	<select id="seletCategoryAll" resultType="cDto">
 		SELECT CATEGORY_CODE, CATEGORY_NAME FROM CATEGORY
@@ -138,7 +155,6 @@
 				IN (z, Z)
 			</if>
 			ORDER BY CATEGORY_NAME
-
 	</select>
 	
 	<select id="searchCategory" parameterType="java.lang.String" resultType="cDto">
@@ -146,5 +162,21 @@
 			WHERE CATEGORY_NAME LIKE '%' || #{val} || '%'
 	</select>
 	
-
+	<select id="selectCategoryCnt" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM CATEGORY
+	</select>
+	
+	<delete id="deleteCatogory" parameterType="java.lang.String">
+		DELETE FROM CATEGORY
+			WHERE CATEGORY_CODE= #{code} 
+	</delete>
+	
+	<select id="selectCategoryByCnt" parameterType="java.lang.String" resultType="cDto">
+		SELECT CATEGORY_CODE, CATEGORY_NAME, COUNT(*) CNT
+			FROM (SELECT mc.CATEGORY_CODE, c.CATEGORY_NAME 
+				FROM MOZZLE_CATEGORY mc LEFT JOIN CATEGORY c
+				ON mc.CATEGORY_CODE = c.CATEGORY_CODE) 
+			GROUP BY CATEGORY_CODE, CATEGORY_NAME
+			ORDER BY COUNT(*) DESC
+	</select>
 </mapper>

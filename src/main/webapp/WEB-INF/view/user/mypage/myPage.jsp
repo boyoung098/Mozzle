@@ -45,10 +45,11 @@
 	padding: 20px 40px;
 }
 
-.my-thread{
-	display
+.auth-input{
+	display:flex;
+	flex-direction:column;
+	align-items: center;
 }
-
 
 </style>
 
@@ -67,6 +68,9 @@
 					console.log(data);
 					if(data.result){
 						$("#myPageAuth-success").submit();
+					}
+					else{
+						$(".login-result").text("비밀번호가 일치하지 않습니다.");
 					}
 				}
 			});
@@ -118,8 +122,8 @@
 			<ul>
 				<li><a href="#" id="default-mypage-menu">정보수정<input type="hidden" name="menu" value="updateUser"/></a></li>
 				<li><a href="#">내가쓴글<input type="hidden" name="menu" value="myThread"/></a></li>
-				<li><a href="#">북마크<input type="hidden" name="menu" value="bookmark"/></a></li>
-				<li><a href="#">멤버초대<input type="hidden" name="menu" value="inviteUser"/></a></li>
+				<li><a href="#">모즐관리<input type="hidden" name="menu" value="manageMozzle"/></a></li>
+				<li><a href="#">알림<input type="hidden" name="menu" value="notification"/></a></li>
 			</ul>
 		</div>
 	</section>
@@ -129,11 +133,15 @@
 		<c:if test="${auth == false}">
 		<div class="text-center mt-5 bt-5">
 			<h2>회원정보 입력</h2>
-			<label>정보 확인을 위해 비밀번호를 다시 입력해주세요<br /><br />
-				<input type="text" class="form-control input-login"
+			<div>
+			<p>정보 확인을 위해 비밀번호를 다시 입력해주세요</p>
+			<p class="login-result"></p>
+			</div>
+			<div class="auth-input">
+				<input type="password" class="form-control input-login"
 					name="passwordChk" placeholder="비밀번호를 입력 해주세요" />
 				<button id="mypage-pw-check" class="color-btn input-login">확인</button>
-			</label>
+			</div>
 		</div>
 		</c:if>
 		
@@ -141,24 +149,6 @@
 		<form id="myPageAuth-success" action="./myPage.do" method="post">
 			<input type="hidden" name="auth" value="true"/>
 		</form>
-		
-		<%-- <c:if test="${auth == true}">
-			<c:if test="${menu == '정보수정'}">
-			<div class="container-login">
-				<form id="login-form" action="./updateUser.do" method="POST">
-					<h2>회원 정보 수정</h2>
-	
-					<jsp:include page="../comm/userInfoForm.jsp" />
-					<input type="submit" class="color-btn input-login" value="정보수정" />
-		
-				</form>
-			</div>
-			</c:if>
-			<c:if test="${menu == '내가쓴글'}">
-			<div class="content">
-				<h2>내가쓴글</h2> 
-	--%>
-
 		
 		<c:if test="${auth == true}">
 			<div id="load-content"></div>

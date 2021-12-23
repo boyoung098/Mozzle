@@ -13,6 +13,16 @@
 		object-fit: cover; 
 		border-radius: 100%;
 	}
+	
+	.side-input{
+		width:275px;
+	}
+	.side-btn{
+		width: 75px;
+	}
+	.inline-flex{
+		display: inline-flex;
+	}
 
 </style>
 </head>
@@ -29,15 +39,10 @@
         
         <div class="modal-body">
         <form:form id="mozzleUserRegist" action="./mozzleUserRegist.do?mozzle_id=${mozzle_id}" method="post" enctype="multipart/form-data"
-        		modelAttribute="mozzleUserDto">
+        		>
 		<div class="register-container">
 		
-			<%-- <input type="text" id="save_result" name="result" value="${result}" /> --%>
-			
-			<div class="register-name">
-				<h5>프로필이미지 선택</h5>
-			</div>
-			
+				<h4>프로필이미지 선택</h4>
 				<div class="image-wrap2">
 					<img class="image" id="image" src="<%=request.getContextPath()%>/resources/images/default_profile.png" />
 				</div>
@@ -52,9 +57,20 @@
 			</div> 
 
 			<br>
+			<h4>닉네임 (※공백없이 4글자이상 20글자이내)</h4>
+			<label>
+			<span class="inline-flex">
+			<input type="text" id="nickjoin"
+			class="form-control side-input" name="nickname"
+			placeholder="닉네임을 입력해주세요">
+			<!-- <button type="button" id="upnickcheck" class="color-btn side-btn" style="margin-left: 5px;">중복확인</button> --></span>
+			</label>
+			<h5 id="resultalert" style="color: red;"></h5>
+			<br>
+			
 			<div class="register-input" id="public-choice">
 				<div id="text-box">
-					<p>생일 공개여부</p>
+					<h4>생일 공개여부</h4>
 					<label class="radio-inline">
 				      <input type="radio" name="birthday_show" checked value="Y">예
 				    </label>
@@ -63,27 +79,18 @@
 				    </label>
 				
 			</div>
-			<div class="register-name">
-				<h5>닉네임</h5>
-			</div>
-			<div class="register-input">
-				<input type="text" class="form-control" name="nickname"
-					style="width: 60%; display: block; "  placeholder="닉네임을 입력해주세요" />
-				<button type="button" class="btn" id="bt"
-					style="margin-left: 5px; width: 15%;">등록</button>
-			</div> 
-			
-			
-			</div>
 			
 			<br>
 			<div class="register-input"
 				style="display: flex; justify-content: center;">
-				<input type="submit" class="btn" id="submit-btn"
+				<!-- <input type="button" class="btn" id="submit-btn"
 					style="width: 200px; background: #e82d55; color: #fff;"
-					value="모즐등록" onSubmit="checkSubmit()">
+					value="모즐가입" onSubmit="submitbefore()"> -->
+					<button type="button" onclick="joinbefore()"
+					style="width: 200px; background: #e82d55; color: #fff;"  class="btn">모즐 가입</button>
 			</div>
 			
+			</div>
 			</div>
 		</form:form>
 	</div> 
@@ -107,6 +114,47 @@
     			
     		}
     		reader.readAsDataURL(event.target.files[0]);
+    		
+    	}
+    	
+    	function joinbefore(){
+    		var mozzle_id = <%=request.getParameter("mozzle_id")%>;
+    		var nick = $("#nickjoin").val();
+    		console.log(nick.length); //글자수 가져오기
+    		$("#resultalert").empty();
+    		var pattern = /\s/g;
+    		if($("#nickjoin").val()==null || $("#nickjoin").val() ==""){
+    			//alert('닉네임을 입력해주세요');
+    			$("#resultalert").html('닉네임을 입력해주세요');
+    		}else if($("#nickjoin").val().match(pattern)){
+    			$("#resultalert").html('공백없이 입력해주세요');
+    			
+    		}
+    		else if(nick.length<4 || nick.length>20){
+    			//alert('글자수 제한을 어겼습니다');
+    			$("#resultalert").html("글자수 제한을 어겼습니다");
+    		}
+    		else{
+    			$.ajax({
+    				url : "./mozzleJoinBefore.do?mozzle_id="+mozzle_id,
+    				type : "get",
+    				data : "nickname="+nick,
+    				dataType : "JSON",
+    				async : true,
+    				success : function(msg){
+    					console.log(msg.TF);
+    					if(msg.TF == "false"){
+    						$("#resultalert").html("중복된 닉네임이 있습니다.");
+    					} else{
+    						$("#mozzleUserRegist").submit();
+    					}
+    				},
+    				error : function(){
+    					alert("ajax 실행 오류");
+    				}
+    				
+    			}); 
+    		}
     		
     	}
     

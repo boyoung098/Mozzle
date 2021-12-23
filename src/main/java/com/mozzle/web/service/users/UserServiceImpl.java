@@ -45,4 +45,24 @@ public class UserServiceImpl implements IUserService{
 		return dao.getUserInfo(id);
 	}
 
+	@Override
+	public String findId(UserDto dto) {
+		return dao.findId(dto);
+	}
+
+	@Override
+	public int findPw(UserDto dto) {
+		return dao.findPw(dto);
+	}
+
+	@Override
+	public boolean changePw(UserDto dto) {
+		return dao.changePw(dto);
+	}
+
+	@Override
+	public int updateUser(UserDto dto) {
+		return dao.updateUser(dto);
+	}
+
 }

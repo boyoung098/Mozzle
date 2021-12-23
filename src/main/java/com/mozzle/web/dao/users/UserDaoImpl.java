@@ -56,4 +56,29 @@ public class UserDaoImpl implements IUserDao{
 		return session.selectOne(NS + "getUserInfo", id);
 	}
 
+	@Override
+	public String findId(UserDto dto) {
+		return session.selectOne(NS + "findId", dto);
+	}
+
+	@Override
+	public int findPw(UserDto dto) {
+		return session.selectOne(NS + "findPw", dto);
+	}
+
+	@Override
+	public boolean changePw(UserDto dto) {
+		dto.setUser_pw(passwordEncoder.encode(dto.getUser_pw()));
+		int cnt = session.update(NS + "changePw", dto);
+		return cnt > 0 ? true : false;
+	}
+
+	@Override
+	public int updateUser(UserDto dto) {
+		if(!dto.getUser_pw().isEmpty()) {
+			dto.setUser_pw(passwordEncoder.encode(dto.getUser_pw()));
+		}
+		return session.update(NS + "updateUser", dto);
+	}
+
 }
