@@ -118,7 +118,6 @@ $(document).ready(function() {
 							</c:if>
 							<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
 							<button class="join-btn" type="button" id="btninvite">멤버 초대</button>
-								<button class="join-btn"  onclick="userSessionCheck()" id="joinbtn">가입요청</button>
 							</c:if>
 							
 						</div>
