@@ -39,13 +39,25 @@
 	
   <!-- 게시글 신고 -->
   	<insert id="insertPostReport" parameterType="postReportDto">
-  	
   		INSERT INTO POST_REPORT
 		(REPORT_ID, POST_ID, REPORT_TIME, REPORTER, REASON, PROCESS)
-		VALUES(POST_REPORT_SEQ.NEXTVAL, #{post_id}, sysdate, #{reporter}, #{reason}, 'N')
+		VALUES(POST_REPORT_SEQ.NEXTVAL, #{post_id}, sysdate, #{reporter}, #{reason}, '미처리')
   	</insert>
   	
   	
-  	
+  	<!-- 페이징 처리 신고글 전체 -->
+  	<select id="selectPostReportList" resultType="postReportDto">
+  	SELECT * FROM (SELECT ROW_NUMBER () OVER(ORDER BY REPORT_ID DESC) RNUM, p.*
+					FROM (SELECT um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE ,
+um.BIRTHDAY_SHOW , um.IMAGE_ORIGIN , um.IMAGE_SAVED, j.* FROM USER_MOZZLE um JOIN 
+(SELECT mp.POST_ID, mp.MOZZLE_ID, mp.USER_ID, mp.CONTENT,
+mp.REFER, mp.DEPTH, mp.REGDATE,
+pr.REPORT_ID, pr.REPORT_TIME, pr.REPORTER, pr.REASON, pr.PROCESS 
+FROM POST_REPORT pr JOIN  MOZZLE_POST mp on pr.POST_ID = mp.POST_ID 
+WHERE mp.MOZZLE_ID = #{mozzle_id} ) j
+ON um.USER_ID = j.USER_ID  WHERE um.MOZZLE_ID = j.MOZZLE_ID) p 
+			)
+			WHERE RNUM BETWEEN #{start} AND #{last}
+  	</select>
   	
 </mapper>

@@ -24,7 +24,7 @@ $(document).ready(function() {
 			data : dataList,
 			multiple : true
 		});
-				
+		
 		if($('#save_result').val() != '') {
 			console.log($('#save_result').val());
 						
@@ -38,18 +38,27 @@ $(document).ready(function() {
 			} 
 		}
 	});
-		
-document.getElementById("img").onchange = function() {
-	var reader = new FileReader();
-	reader.onload = function(e) {
-// get loaded data and render thumbnail.
-	document.getElementById("image").src = e.target.result;
-	};
-// read the image file as a data URL.
-	if(this.files != undefined && this.files[0] != null) {
-		reader.readAsDataURL(this.files[0]);
-	} else {
-		document.getElementById("image").src = "../images/img.png";			
+	
+function categorModify() {
+	
+	$('#register-input').css('display', 'block');
+}
+
+window.onload = function() {
+	document.getElementById("image").src =  $("#save_info_img").val();		
+	
+	document.getElementById("img").onchange = function() {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+	// get loaded data and render thumbnail.
+		document.getElementById("image").src = e.target.result;
+		};
+	// read the image file as a data URL.
+		if(this.files != undefined && this.files[0] != null) {
+			reader.readAsDataURL(this.files[0]);
+		} else {
+			document.getElementById("image").src = "../images/img.png";			
+		}
 	}
 }
 		

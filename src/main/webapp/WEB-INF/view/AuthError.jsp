@@ -5,8 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@ include file="./comm/import.jsp"%>
 </head>
 <body>
-당신은 관리자가 아닙니다!!
+	<div id="header"></div>
+	<div id="footer"></div>
 </body>
 </html>

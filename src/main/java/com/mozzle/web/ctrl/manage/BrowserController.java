@@ -25,7 +25,7 @@ public class BrowserController {
 	@Autowired
 	private IManageService service;
 	
-	@RequestMapping(value = "/browseMozzlePage.do", method= RequestMethod.POST)
+	@RequestMapping(value = "/browseMozzlePage.do", method= RequestMethod.GET)
 	public String searchMozzleByWord(HttpServletRequest request, Model model, HttpSession session) {
 		
 		String keyword = request.getParameter("keyword");
