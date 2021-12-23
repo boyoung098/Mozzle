@@ -46,22 +46,23 @@ public class CategoryController {
 		logger.info("AdminController의 home");
 		List<CategoryDto> cList = service.searchCategory(searchName);
 		model.addAttribute("cList", cList);
-		
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("cList", cList);
-		resultMap.put("isc", "true");
-		
+
 		return "manage/adminIndex";
 	}
 	
 	@RequestMapping(value= "/selectCategoryByCnt.do", method= RequestMethod.POST)
 	@ResponseBody
-	public List<CategoryDto> selectCategoryByCnt(){
+	public Map<String, Object> selectCategoryByCnt(){
 		
 		logger.info("selectCategoryByCnt");	
 		List<CategoryDto> cList = service.selectCategoryByCnt();
 		
-		return cList;
+		boolean isc = false;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("cList", cList);
+		resultMap.put("isc", true);
+		
+		return resultMap;
 	}
 	
 	@RequestMapping(value = "/registIndex.do", method= RequestMethod.POST)

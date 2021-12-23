@@ -145,7 +145,7 @@
 						<div class="category-box" id="saved-category-box">
 							<ul id="saved-category-list">
 								<c:forEach var="category" items="${cList}">
-									<li><a href="#" class="category-link" 
+									<li><a href="#" class="category-link" id= "category-link'${category.category_code}'"
 										onclick="checkForDelete('${category.category_code}')">${category.category_name}</a></li>
 								</c:forEach>
 							</ul>
@@ -227,6 +227,8 @@
 
 		deleteList.push(category_code);
 		console.log(deleteList);
+		
+		$(this).attr("style","color:red;");
 
 	};
 

@@ -96,7 +96,7 @@ $(document).ready(function() {
 					<div class="mo-text">
 						<div class="mozzle-title-icon">
 							<h4>${myMozzle.mozzle_name}</h4>
-							<a href="./manage/modifyMozzleForm.do"><i class="xi-cog  xi-x"></i></a>
+							<a href="./manage/modifyMozzleForm.do?mozzle_id=${myMozzle.mozzle_id}"><i class="xi-cog  xi-x"></i></a>
 						</div>
 						<p>${myMozzle.mozzle_intro}
 							 <c:if test="${empty mozzleUserdto}">

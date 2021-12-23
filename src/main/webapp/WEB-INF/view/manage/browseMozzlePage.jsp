@@ -10,22 +10,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <%@ include file="../comm/import.jsp"%>
 <script type="text/javascript">
-/* 
+
 window.onload = function() {	
-		
-	var categoryList = [];
+
 	$.ajax({
 		url : "./selectCategoryByCnt.do",
 		type : "post",
 		success : function(data) {
-			if (data.isc == "ture") {
+			if (data.isc == true) {
 				console.log("성공");
-				$(data).each(function(){		
-				});
+				
+				var categoryList = data.cList;
+				
+				for (var i = 0; i < 10; i++) {
+					$('ol').append('<a href="./browseMozzlePage.do?keyword=' + categoryList[i].category_name+ '"><li>' + categoryList[i].category_name + '</li></a>');
+				} 
 			}
+		},
+		error : function() {
+			
+			$('ol').append('<li>카테고리 리스트를 불러오는 것에 실패하였습니다</li>');
 		}
 	});
-} */
+} 
 </script>
 <style>
 .card {
@@ -58,10 +65,11 @@ a:hover {
 					<h4>모즐검색결과</h4>
 					<input type="text" id="save-info" value="${keyword}"
 						hidden="hidden"> <a
-						href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a> <a
+						href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a>&nbsp; <a
 						href="./browseMozzleFromTheLastest.do?keyword=${keyword}">최신순</a>
-					<a href="#">인기순</a>
 					<hr>
+					<c:choose>
+					<c:when test="${not empty mLists}">
 					<c:forEach var="mozzle" items="${mLists}">
 						<ul class="nav nav-pills nav-stacked">
 							<li>
@@ -100,36 +108,32 @@ a:hover {
 							</li>
 						</ul>
 					</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<h4>검색된 모즐이 없습니다</h4>
+					</c:otherwise>
+					</c:choose>
 					<br>
+					<hr>
+					<h4>게시물 검색 결과</h4>
+					<input type="text" id="save-info" value="${keyword}"
+						hidden="hidden"> <a
+						href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a>&nbsp; <a
+						href="./browseMozzleFromTheLastest.do?keyword=${keyword}">최신순</a>
+					<hr>
+				
 				</div>
+				
 
 				<div class="col-sm-3">
 
-					<hr>
-					<h2>Officially Blogging</h2>
-					<h5>
-						<span class="glyphicon glyphicon-time"></span> Post by John Doe,
-						Sep 24, 2015.
-					</h5>
-					<h5>
-						<span class="label label-success">Lorem</span>
-					</h5>
-					<br>
 
 					<h4>실시간 BEST 카테고리</h4>
 
-					<table>
-						<table>
-							<c:forEach var="category" items="${categoryList}"
-								varStatus="status">
-								<tr>
-									<tb>${status.count}</tb>
-									<tb>${category.category_name}</tb>
-								</tr>
-							</c:forEach>
-
-						</table>
-					</table>
+					<div>
+						<ol>
+						</ol>
+					</div>
 
 				</div>
 			</div>
