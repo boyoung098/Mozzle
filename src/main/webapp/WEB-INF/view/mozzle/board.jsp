@@ -48,7 +48,7 @@
 							
 							<div>
 								<i class="xi-ellipsis-h xi-2x drop-board-box"></i>
-								<ul class="drop-board">
+								<ul class="drop-board" style="display:block;">
 									<li><a class="btn-invite" id="board_update" onclick="board_update(${boardobj.post_id}, ${boardobj.user_id}, ${boardobj.regdate}, ${boardobj.content})">수정</a></li>
 									<li><a class="btn-invite" id="board_delete" onclick="board_delete(${boardobj.post_id})">삭제</a></li>
 									<!-- <li><button class="btn-invite">주소복사</button></li> -->
