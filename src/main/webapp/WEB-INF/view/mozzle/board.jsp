@@ -31,7 +31,7 @@ $(document).ready(function(){
 	
 		<div class="input-group input-search mt-2" >
 			<form method="post" id="frm_search" onsubmit="javascript:retrun false;">
-				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="게시글 검색"> 
+				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="게시글 검색" value="${keyword}"> 
 				<span class="input-group-btn">
 					<button class="btn btn-default" id="search_area">
 						<span class="glyphicon glyphicon-search"></span>
