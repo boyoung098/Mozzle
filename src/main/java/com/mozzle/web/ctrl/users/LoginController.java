@@ -156,6 +156,12 @@ public class LoginController {
 			return "login";
 		}
 	}
+	
+	@RequestMapping(value= "/AuthError.do")
+	public String authError() {
+		
+		return "AuthError";
+	}
 
 	// 중복 로그인
 	@RequestMapping(value = "/duplicateLogin.do", method = RequestMethod.GET)
