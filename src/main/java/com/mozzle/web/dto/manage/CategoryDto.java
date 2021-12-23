@@ -5,6 +5,7 @@ public class CategoryDto {
 	private String category_code;
 	private String category_name;
 	private String create_date;
+	private String cnt;
 
 	public CategoryDto() {
 		
@@ -31,5 +32,16 @@ public class CategoryDto {
 	}
 	public void setCreate_date(String create_date) {
 		this.create_date = create_date;
+	}
+	public String getCnt() {
+		return cnt;
+	}
+	public void setCnt(String cnt) {
+		this.cnt = cnt;
+	}
+	@Override
+	public String toString() {
+		return "CategoryDto [category_code=" + category_code + ", category_name=" + category_name + ", create_date="
+				+ create_date + ", cnt=" + cnt + "]";
 	}
 }

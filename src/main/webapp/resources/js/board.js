@@ -1,4 +1,4 @@
-// drop-board
+/*// drop-board
 $( document ).ready( function() {
   $(".drop-board-box").click( function() {
     $(this).find(".drop-board").slideToggle();
@@ -10,7 +10,30 @@ $( document ).ready( function() {
   });
 });
 
+//게시글 입력
+function inputComment() {
+	var content = $("#summernote").val();
+	console.log(content);
+	$.ajax({
+		type:'POST',
+		url : './insertBoard.do',
+		data: {
+			"incontent":content,
+			},
+		dataType:"JSON",
+		async:true,
+		success : function(data){
+			refreshMemList();
+			alert("입력되었습니다.");
+			
+        		
+		}
+	})
+}
 
+function refreshMemList(){
+	document.location.reload();
+}*/
 
 //게시글 수정폼
 function board_update(post_id, user_id, regdate, content){
@@ -31,15 +54,10 @@ function board_update(post_id, user_id, regdate, content){
 	$("#replyload"+post_id).replaceWith(commtesmodify);
 }
 
-// 게시글 수정
-function board_update_edit(){
-	
-}
-
 
 
 //게시글 삭제
-function board_delete(idx){
+/*function board_delete(idx){
 	var numsd = confirm("삭제하시겠습니까?");
 	if(numsd){
 		$.ajax({
@@ -54,7 +72,7 @@ function board_delete(idx){
 			}
 		})
 	}
-}
+}*/
 
 
 //댓글 입력

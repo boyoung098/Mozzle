@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -31,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import com.mozzle.web.dto.users.MozzleUserDto;
+import com.mozzle.web.service.notice.INoticeService;
 import com.mozzle.web.service.users.IMozzleUserService;
 
 @Controller
@@ -40,6 +42,9 @@ public class MozzleUserController {
 	
 	@Autowired
 	private IMozzleUserService mozzleUserService;
+	
+	@Autowired
+	private INoticeService nservice;
 	
 	//모즐로 이동
 	@GetMapping(value="/mozzle/mozzleMove.do")
@@ -101,7 +106,6 @@ public class MozzleUserController {
 	@PostMapping(value = "/mozzleUserRegist.do")
 	public String mozzleUserRegist(HttpServletRequest req, Model model, MozzleUserDto mozzleUserDto,
 										BindingResult result, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletResponse resp) throws IOException {
-		
 		
 		
 		MultipartFile file = mozzleUserDto.getFile();
@@ -193,6 +197,10 @@ public class MozzleUserController {
 			writer.println("<script>alert('모즐가입에 실패하셨습니다. 다시 시도해주세요.'); location.href='./firstmozzle.do?mozzle_id="+mozzle_id+"';</script>");
 			writer.flush();
 		} else {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("user_id", userId);
+			map.put("mozzle_id", mozzleUserDto.getMozzle_id());
+			nservice.registerMozzleNotice(map);
 			resp.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = resp.getWriter();
 			writer.println("<script>alert('모즐가입에 성공하셨습니다.'); location.href='./firstmozzle.do?mozzle_id="+mozzle_id+"';</script>");

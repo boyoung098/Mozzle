@@ -73,8 +73,7 @@ public class BoardCtrl {
 		Board board =  new Board();
 		board.setPost_id("1");
 		board.setMozzle_id("1");
-		board.setUser_id("user05");
-		board.setTitle("테스트게시글 제목입니다");
+		board.setUser_id("user022");
 		board.setContent(incontent);
 		
 		logger.info("insertBoard 입력됨????=================== {}", board);

@@ -104,4 +104,10 @@ AND u.DELFLAG = 'N'
 </select> -->
 
 
+<select id="leaderCheck" parameterType="java.lang.String" resultType="java.util.Map">
+	SELECT um.MOZZLE_ID, m.MOZZLE_NAME FROM USER_MOZZLE um INNER JOIN MOZZLE m 
+	ON um.MOZZLE_ID = m.MOZZLE_ID 
+	WHERE USER_ID = #{user_id} AND AUTH_CODE = 1
+</select>
+
 </mapper>

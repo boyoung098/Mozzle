@@ -1,179 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mozzle.web.dao.manage.ManageDaoImpl">
-   
-   <select id="createMozzleId" resultType="java.lang.String" >
-      SELECT MOZZLE_SEQ.NEXTVAL MOZZLE_ID FROM DUAL
-   </select>
-   
-   <insert id="registMozzle" parameterType="mDto">
-      INSERT INTO MOZZLE
-         (MOZZLE_ID, MOZZLE_NAME, 
-         <if test="mozzle_intro != null">
-            MOZZLE_INTRO, 
-         </if>
-         <if test="image_origin != null">
-            IMAGE_ORIGIN, IMAGE_SAVED,
-         </if>
-         CREATE_DATE, STATE, DELFLAG)
-      VALUES(#{mozzle_id}, #{mozzle_name},
-         <if test="mozzle_intro != null">
-             #{mozzle_intro}, 
-         </if>
-         <if test="image_origin != null">
-            #{image_origin}, #{image_saved},
-         </if>
-         SYSDATE, #{state}, 'N')
-   </insert>
-   
-   <select id="mozzleNameCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
-      SELECT COUNT(*) FROM MOZZLE WHERE MOZZLE_NAME= #{mozzle_name}
-   </select>   
-   
-   <update id="updateMozzle" parameterType="mDto">
-      UPDATE ADMIN.MOZZLE
-         SET MOZZLE_NAME=#{mozzle_name}, MOZZLE_INTRO=#{mozzle_intro}, 
-         IMAGE_ORIGIN=#{image_origin}, IMAGE_SAVED=#{image_saved}, 
-         STATE=#{state}
-      WHERE MOZZLE_ID= #{mozzle_id}
-   </update>
-   
-   <select id="selectMozzleByMozzleId" parameterType="java.lang.String" resultType="mDto">
-      SELECT MOZZLE_ID, MOZZLE_NAME, 
-         MOZZLE_INTRO, CREATE_DATE, 
-         IMAGE_ORIGIN, IMAGE_SAVED, 
-         STATE
-      FROM MOZZLE
-      WHERE MOZZLE_ID= #{mozzle_id}
-   </select>
-   
-   <select id="selectMyMozzle" parameterType="java.lang.String" resultType="mDto">
-      SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
-         m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
-         m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
-         m.STATE STATE,
-         um.NICKNAME LEADER_NICKNAME 
-      FROM MOZZLE m LEFT JOIN USER_MOZZLE um
-      ON m.MOZZLE_ID = um.MOZZLE_ID 
-         WHERE STATE = 'Y'
-         AND um.AUTH_CODE = '1'
-         AND um.USER_ID = #{user_id}
-   </select>
-   
-   <select id="selectMozzleByCreatDate" resultType="mDto">
-      SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
-         m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
-         m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
-         m.STATE STATE,
-         um.NICKNAME LEADER_NICKNAME
-      FROM MOZZLE m LEFT JOIN USER_MOZZLE um
-      ON m.MOZZLE_ID = um.MOZZLE_ID 
-      WHERE m.STATE = 'Y' 
-      AND um.AUTH_CODE = '1'
-      ORDER BY m.CREATE_DATE DESC
-   </select>
+	
+	<select id="createMozzleId" resultType="java.lang.String" >
+		SELECT MOZZLE_SEQ.NEXTVAL MOZZLE_ID FROM DUAL
+	</select>
+	
+	<insert id="registMozzle" parameterType="mDto">
+		INSERT INTO MOZZLE
+			(MOZZLE_ID, MOZZLE_NAME, 
+			<if test="mozzle_intro != null">
+				MOZZLE_INTRO, 
+			</if>
+			<if test="image_origin != null">
+				IMAGE_ORIGIN, IMAGE_SAVED,
+			</if>
+			CREATE_DATE, STATE, DELFLAG)
+		VALUES(#{mozzle_id}, #{mozzle_name},
+			<if test="mozzle_intro != null">
+			 	#{mozzle_intro}, 
+			</if>
+			<if test="image_origin != null">
+				#{image_origin}, #{image_saved},
+			</if>
+			SYSDATE, #{state}, 'N')
+	</insert>
+	
+	<select id="mozzleNameCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM MOZZLE WHERE MOZZLE_NAME= #{mozzle_name}
+	</select>	
+	
+	<update id="updateMozzle" parameterType="mDto">
+		UPDATE ADMIN.MOZZLE
+			SET MOZZLE_NAME=#{mozzle_name}, MOZZLE_INTRO=#{mozzle_intro}, 
+			IMAGE_ORIGIN=#{image_origin}, IMAGE_SAVED=#{image_saved}, 
+			STATE=#{state}
+		WHERE MOZZLE_ID= #{mozzle_id}
+	</update>
+	
+	<select id="selectMozzleByMozzleId" parameterType="java.lang.String" resultType="mDto">
+		SELECT MOZZLE_ID, MOZZLE_NAME, 
+				 MOZZLE_INTRO, CREATE_DATE, 
+				IMAGE_ORIGIN, IMAGE_SAVED, STATE,
+				TO_CHAR(CREATE_DATE, 'YYYY-MM-DD'), 
+				COUNT(*) MEMBERCNT
+		FROM (SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
+				m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
+				m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED,  
+				m.STATE STATE
+		FROM MOZZLE m RIGHT JOIN USER_MOZZLE um
+				ON m.MOZZLE_ID = um.MOZZLE_ID
+				WHERE um.AUTH_CODE IN ('1', '2'))
+		WHERE MOZZLE_ID = #{mozzle_id}
+				GROUP BY MOZZLE_ID,  MOZZLE_NAME, 
+				MOZZLE_INTRO, CREATE_DATE, 
+				IMAGE_ORIGIN, IMAGE_SAVED, 
+				STATE, CREATE_DATE
+	</select>
+	
+	<select id="selectMyMozzle" parameterType="java.lang.String" resultType="mDto">
+		SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
+			m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
+			m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
+			m.STATE STATE,
+			um.NICKNAME LEADER_NICKNAME 
+		FROM MOZZLE m LEFT JOIN USER_MOZZLE um
+		ON m.MOZZLE_ID = um.MOZZLE_ID 
+			WHERE STATE = 'Y'
+			AND um.AUTH_CODE = '1'
+			AND um.USER_ID = #{user_id}
+	</select>
+	
+	<select id="selectMozzleByCreatDate" resultType="mDto">
+		SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
+			m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
+			m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
+			m.STATE STATE,
+			um.NICKNAME LEADER_NICKNAME
+		FROM MOZZLE m LEFT JOIN USER_MOZZLE um
+		ON m.MOZZLE_ID = um.MOZZLE_ID 
+		WHERE m.STATE = 'Y' 
+		AND um.AUTH_CODE = '1'
+		ORDER BY m.CREATE_DATE DESC
+	</select>
 
-   <select id="selectMozzleByUserNumber" resultType="mDto">
-      SELECT MOZZLE_ID, MOZZLE_NAME, 
-             MOZZLE_INTRO, CREATE_DATE, 
-            IMAGE_ORIGIN, IMAGE_SAVED, STATE,
-            COUNT(*) MEMBERCNT
-      FROM (SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
-            m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
-            m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED,  
-            m.STATE STATE
-      FROM MOZZLE m RIGHT JOIN USER_MOZZLE um
-            ON m.MOZZLE_ID = um.MOZZLE_ID
-            WHERE um.AUTH_CODE IN ('1', '2'))
-      GROUP BY MOZZLE_ID,  MOZZLE_NAME, 
-            MOZZLE_INTRO, CREATE_DATE, 
-            IMAGE_ORIGIN, IMAGE_SAVED, STATE
-         ORDER BY COUNT(*) DESC
-   </select>
-   
-   <select id="selectUserNum" parameterType="java.lang.String" resultType="java.lang.Integer">
-      SELECT COUNT(*)
-         FROM (SELECT * FROM USER_MOZZLE
-         WHERE AUTH_CODE IN ('1', '2'))
-         WHERE MOZZLE_ID = #{mozzle_id}
-         GROUP BY MOZZLE_ID
-   </select>
-   
-   <select id="searchLeaderNickname" parameterType="java.lang.String" resultType="java.lang.String">
-      SELECT NICKNAME AS LEADER_NICKNAME
-         FROM USER_MOZZLE 
-         WHERE MOZZLE_ID=#{mozzle_id} 
-         AND AUTH_CODE ='1' 
-   </select>
-   
-   <select id="selectMozzleBySearchBasedOnImportance" parameterType="java.lang.String" resultType="mDto">   
-      SELECT
-         MOZZLE_ID , MOZZLE_NAME,
-         MOZZLE_INTRO, CREATE_DATE,
-         IMAGE_ORIGIN, IMAGE_SAVED
-      FROM (SELECT MOZZLE_ID , MOZZLE_NAME,
-         MOZZLE_INTRO, CREATE_DATE,
-         IMAGE_ORIGIN, IMAGE_SAVED
-         FROM MOZZLE m 
-      WHERE STATE = 'Y' 
-          AND MOZZLE_NAME LIKE '%'||#{keyword}||'%'
-      UNION ALL           
-      SELECT MOZZLE_ID , MOZZLE_NAME,
-         MOZZLE_INTRO, CREATE_DATE,
-         IMAGE_ORIGIN, IMAGE_SAVED
-         FROM MOZZLE m 
-      WHERE STATE = 'Y' 
-          AND MOZZLE_INTRO LIKE '%'||#{keyword}||'%'   
-      UNION ALL
-      SELECT m.MOZZLE_ID, m.MOZZLE_NAME,
-         m.MOZZLE_INTRO, m.CREATE_DATE,
-         m.IMAGE_ORIGIN, m.IMAGE_SAVED
-      FROM MOZZLE m JOIN MOZZLE_CATEGORY mc 
-      ON m.MOZZLE_ID = mc.MOZZLE_ID
-      JOIN CATEGORY c
-      ON mc.CATEGORY_CODE = c.CATEGORY_CODE
-      WHERE m.STATE = 'Y'
-      AND c.CATEGORY_NAME LIKE '%'||#{keyword}||'%')   
-      GROUP BY MOZZLE_ID, MOZZLE_NAME, 
-         MOZZLE_INTRO, CREATE_DATE, 
-         IMAGE_ORIGIN, IMAGE_SAVED 
-      ORDER BY COUNT(*) DESC
-   </select>
-   
-   <select id="selectMozzleBySearchFromTheLastest" parameterType="java.lang.String" resultType="mDto">
-      SELECT m.MOZZLE_ID, m.MOZZLE_NAME, 
-         m.MOZZLE_INTRO, m.CREATE_DATE, 
-         m.IMAGE_ORIGIN, m.IMAGE_SAVED 
-         FROM MOZZLE m JOIN MOZZLE_CATEGORY mc 
-      ON m.MOZZLE_ID = mc.MOZZLE_ID
-      JOIN CATEGORY c
-      ON mc.CATEGORY_CODE = c.CATEGORY_CODE
-      WHERE (m.MOZZLE_NAME LIKE '%'||#{keyword}||'%' 
-          OR m.MOZZLE_INTRO LIKE '%'||#{keyword}||'%'
-          OR c.CATEGORY_NAME LIKE '%'||#{keyword}||'%')
-      AND m.STATE = 'Y'    
-      ORDER BY CREATE_DATE DESC 
-   </select>
-   
-   <select id="selectCategory" resultType="java.lang.String">
-      SELECT CATEGORY_CODE 
-      FROM CATEGORY
-      GROUP BY CATEGORY_CODE
-      ORDER BY COUNT(*)  
-   </select>
-   
-   <select id="selectMozzleIdByMozzleName" parameterType="java.lang.String" resultType="java.lang.String">
-      SELECT MOZZLE_ID 
-      FROM MOZZLE 
-      WHERE MOZZLE_NAME = #{mozzle_name}
-   </select>
-   
-   <insert id="registLeader" parameterType="mDto">
-      INSERT INTO USER_MOZZLE
-         (USER_ID, MOZZLE_ID, 
-         AUTH_CODE, NICKNAME, 
-         JOINED_DATE, BIRTHDAY_SHOW)
-      VALUES(#{leader_id}, #{mozzle_id}, 
-         '1', '리더', SYSDATE, 'N')
-   </insert>
+	<select id="selectMozzleByUserNumber" resultType="mDto">
+		SELECT MOZZLE_ID, MOZZLE_NAME, 
+				 MOZZLE_INTRO, CREATE_DATE, 
+				IMAGE_ORIGIN, IMAGE_SAVED, STATE,
+				COUNT(*) MEMBERCNT
+		FROM (SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
+				m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
+				m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED,  
+				m.STATE STATE
+		FROM MOZZLE m RIGHT JOIN USER_MOZZLE um
+				ON m.MOZZLE_ID = um.MOZZLE_ID
+				WHERE um.AUTH_CODE IN ('1', '2'))
+		GROUP BY MOZZLE_ID,  MOZZLE_NAME, 
+				MOZZLE_INTRO, CREATE_DATE, 
+				IMAGE_ORIGIN, IMAGE_SAVED, STATE
+			ORDER BY COUNT(*) DESC
+	</select>
+	
+	<select id="selectUserNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+			FROM (SELECT * FROM USER_MOZZLE
+			WHERE AUTH_CODE IN ('1', '2'))
+			WHERE MOZZLE_ID = #{mozzle_id}
+			GROUP BY MOZZLE_ID
+	</select>
+	
+	<select id="searchLeaderNickname" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT NICKNAME AS LEADER_NICKNAME
+			FROM USER_MOZZLE 
+			WHERE MOZZLE_ID=#{mozzle_id} 
+			AND AUTH_CODE ='1' 
+	</select>
+	
+	<select id="selectMozzleBySearchBasedOnImportance" parameterType="java.lang.String" resultType="mDto">	
+		SELECT
+			MOZZLE_ID , MOZZLE_NAME,
+			MOZZLE_INTRO, CREATE_DATE,
+			IMAGE_ORIGIN, IMAGE_SAVED
+		FROM (SELECT MOZZLE_ID , MOZZLE_NAME,
+			MOZZLE_INTRO, CREATE_DATE,
+			IMAGE_ORIGIN, IMAGE_SAVED
+			FROM MOZZLE m 
+		WHERE STATE = 'Y' 
+		 	AND MOZZLE_NAME LIKE '%'||#{keyword}||'%'
+		UNION ALL	 	 	
+		SELECT MOZZLE_ID , MOZZLE_NAME,
+			MOZZLE_INTRO, CREATE_DATE,
+			IMAGE_ORIGIN, IMAGE_SAVED
+			FROM MOZZLE m 
+		WHERE STATE = 'Y' 
+		 	AND MOZZLE_INTRO LIKE '%'||#{keyword}||'%'	
+		UNION ALL
+		SELECT m.MOZZLE_ID, m.MOZZLE_NAME,
+			m.MOZZLE_INTRO, m.CREATE_DATE,
+			m.IMAGE_ORIGIN, m.IMAGE_SAVED
+		FROM MOZZLE m JOIN MOZZLE_CATEGORY mc 
+		ON m.MOZZLE_ID = mc.MOZZLE_ID
+		JOIN CATEGORY c
+		ON mc.CATEGORY_CODE = c.CATEGORY_CODE
+		WHERE m.STATE = 'Y'
+		AND c.CATEGORY_NAME LIKE '%'||#{keyword}||'%')	
+		GROUP BY MOZZLE_ID, MOZZLE_NAME, 
+			MOZZLE_INTRO, CREATE_DATE, 
+			IMAGE_ORIGIN, IMAGE_SAVED 
+		ORDER BY COUNT(*) DESC
+	</select>
+	
+	<select id="selectMozzleBySearchFromTheLastest" parameterType="java.lang.String" resultType="mDto">
+		SELECT DISTINCT (m.MOZZLE_ID), m.MOZZLE_NAME, 
+			m.MOZZLE_INTRO, m.CREATE_DATE, 
+			m.IMAGE_ORIGIN, m.IMAGE_SAVED 
+			FROM MOZZLE m JOIN MOZZLE_CATEGORY mc 
+		ON m.MOZZLE_ID = mc.MOZZLE_ID
+		JOIN CATEGORY c
+		ON mc.CATEGORY_CODE = c.CATEGORY_CODE
+		WHERE (m.MOZZLE_NAME LIKE '%'||#{keyword}||'%' 
+		 	OR m.MOZZLE_INTRO LIKE '%'||#{keyword}||'%'
+		 	OR c.CATEGORY_NAME LIKE '%'||#{keyword}||'%')
+		AND m.STATE = 'Y' 	
+		ORDER BY CREATE_DATE DESC 
+	</select>
+	
+	<select id="selectCategory" resultType="java.lang.String">
+		SELECT CATEGORY_CODE 
+		FROM CATEGORY
+		GROUP BY CATEGORY_CODE
+		ORDER BY COUNT(*)  
+	</select>
+	
+	<select id="selectMozzleIdByMozzleName" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT MOZZLE_ID 
+		FROM MOZZLE 
+		WHERE MOZZLE_NAME = #{mozzle_name}
+	</select>
+	
+	<insert id="registLeader" parameterType="mDto">
+		INSERT INTO USER_MOZZLE
+			(USER_ID, MOZZLE_ID, 
+			AUTH_CODE, NICKNAME, 
+			JOINED_DATE, BIRTHDAY_SHOW)
+		VALUES(#{leader_id}, #{mozzle_id}, 
+			'1', '리더', SYSDATE, 'N')
+	</insert>
 </mapper>

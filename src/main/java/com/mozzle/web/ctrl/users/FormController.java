@@ -156,6 +156,7 @@ public class FormController {
 		String authCode = mailService.sendAuthMail(email);
 		System.out.println("인증 코드 : " + authCode);
 		session.setAttribute("authCode", authCode);
+		req.setAttribute("email", email);
 		return "user/form/mailAuth";
 	}
 	

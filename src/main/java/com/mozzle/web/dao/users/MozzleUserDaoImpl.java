@@ -84,6 +84,13 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 		return session.update(NS+"updateMozzleUserAuth",dto);
 	}
 
+
+	// 이종표 추가
+	@Override
+	public List<Map<String, Object>> leaderCheck(String userId) {
+		return session.selectList(NS + "leaderCheck", userId);
+	}
+
 	
 	
 }

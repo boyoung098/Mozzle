@@ -25,4 +25,7 @@ public interface IMozzleUserDao {
 	
 	public int updateMozzleUserAuth(MozzleUserDto dto);
 	
+	// 이종표 추가
+	public List<Map<String, Object>> leaderCheck(String userId);
+	
 }

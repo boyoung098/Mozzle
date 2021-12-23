@@ -7,4 +7,6 @@ import com.mozzle.web.dto.notice.NotificationDto;
 
 public interface INoticeDao {
 	public List<Map<String, Object>> noticeSelectAll(String userId);
+	
+	public int registerMozzleNotice(Map<String, String> map);
 }
