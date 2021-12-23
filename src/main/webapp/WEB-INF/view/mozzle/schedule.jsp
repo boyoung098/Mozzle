@@ -9,9 +9,9 @@
 </head>
 <body>
 <%=%>
-<jsp:include page="./calendar.jsp">
+<!--<jsp:include page="./calendar.jsp">
 	<jsp:param value="year" name="year"/>
 	<jsp:param value="month" name="month"/>
-</jsp:include>
+</jsp:include>-->
 </body>
 </html>
