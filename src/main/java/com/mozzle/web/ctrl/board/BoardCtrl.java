@@ -15,13 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -58,7 +59,6 @@ public class BoardCtrl {
 			if(id == null) {
 				map.put("user_id", id);
 				UserDto userDto = userservice.loginChk("user_id");
-				logger.info("나오나?????????????============================");
 				model.addAttribute("userDto",userDto);
 			}
 			
@@ -150,23 +150,6 @@ public class BoardCtrl {
 //		return "mozzle/board222";
 //	}
 	
-	@RequestMapping(value="/searchBoard.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String searchBoard(HttpServletRequest request, Model model, @ModelAttribute("mozzle_id") String mozzle_id) {
-		logger.info("검색 해서 나온다!!!!!!!!!!!!!!!");
-		String content = request.getParameter("content");
-		
-		Board board =  new Board();
-		if(content != null) {
-			if(content.equals("content")) {
-				board.setContent(content);
-			}
-			request.setAttribute("content", content);
-		}
-		
-		List<Board> searchboardlist = serviceImple.selectOneBoard(content);
-		model.addAttribute("searchboardlist", searchboardlist);
-		return "mozzle/board";
-	}
-	
+
 
 }
