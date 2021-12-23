@@ -7,11 +7,11 @@
 
 $(document).ready(function(){
 	$("#search_area").on("click",function(){
-		var data = $("#keyword").val();
+		var data = $("#bkeyword").val();
 		$.ajax({
 			type:'POST',
 			url : 'searchBoard.do',
-			data: { "keyword":data },
+			data: { "bkeyword":data },
 			dataType:"json",
 			contetnType : "application/json",
 			async:true,
@@ -31,7 +31,7 @@ $(document).ready(function(){
 	
 		<div class="input-group input-search mt-2" >
 			<form method="post" id="frm_search" onsubmit="javascript:retrun false;">
-				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="게시글 검색"> 
+				<input type="text" class="form-control" name="bkeyword" id="bkeyword" placeholder="게시글 검색" value="${keyword}"> 
 				<span class="input-group-btn">
 					<button class="btn btn-default" id="search_area">
 						<span class="glyphicon glyphicon-search"></span>
@@ -52,8 +52,9 @@ $(document).ready(function(){
 				<option value="new2">인기 순</option>
 			</select>
 		</div>
-	
-			<c:if test="">
+
+		<c:choose>
+			<c:when test="${name eq '철수'}">
 				<c:forEach var="boardobj" items="${requestScope.searchboardlist}" varStatus="status">
 					<section id="board-card-list">
 						<div class="borad-box row" id="borad-box">
@@ -99,7 +100,8 @@ $(document).ready(function(){
 						</div>
 					</section>
 				</c:forEach>
-			</c:if>
+			</c:when>
+			<c:when test="${name eq '철수'}">
 				<c:forEach var="boardobj" items="${requestScope.boardlist}" varStatus="status">
 					<section id="board-card-list">
 						<div class="borad-box row" id="borad-box">
@@ -145,7 +147,8 @@ $(document).ready(function(){
 						</div>
 					</section>
 				</c:forEach>
-		
+			</c:when>
+		</c:choose>
 	</div>
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
