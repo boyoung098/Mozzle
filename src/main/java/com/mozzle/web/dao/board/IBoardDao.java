@@ -10,7 +10,7 @@ public interface IBoardDao {
 	public int insertBoard(Board board);
 	public int updateBoard(Board board);
 	public int deleteBoard(int num);
-	public List<Board> selectOneBoard(Board board);
+	public List<Board> selectOneBoard(String board);
 	//public List<Board> selectAllBoard(int seq);
 	public List<Board> selectAllBoard();
 	

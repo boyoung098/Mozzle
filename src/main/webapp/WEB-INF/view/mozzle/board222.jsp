@@ -25,7 +25,7 @@
 					<img src="<%=request.getContextPath()%>/resources/images/main.png"
 						alt="메인" />
 					<div class="mo-text">
-						<h4>로아하는 로아인 모여!</h4>
+						<h4>로아하는 로아인 모여22222!</h4>
 						<p>그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되려니와 그와 같지
 							못하고그림자가 사라지지 않는 것이다 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되
 							<%= request.getSession().getServletContext().getRealPath("/") %>
@@ -65,11 +65,11 @@
 				<div class="board-container" id="items">
 					<div class="board-top">
 						<select class="board-sel selectbox">
-							<option value="new1">최신 순</option>
+							<option value="new1">최신 순222</option>
 							<option value="new2">인기 순</option>
 						</select>
 					</div>
-					<c:forEach var="boardobj" items="${requestScope.boardlist}">
+					<c:forEach var="boardobj" items="${requestScope.searchboardlist}">
 					<section id="board-card-list">
 						<div class="borad-box row" id="borad-box">
 							<div class="col-sm-11 board-box-list">

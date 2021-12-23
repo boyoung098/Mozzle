@@ -3,7 +3,9 @@ package com.mozzle.web.ctrl.board;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -136,6 +139,18 @@ public class BoardCtrl {
 //		String fmcontent = (String) request.getParameter("fmcontent"); 
 //	}
 	
+	@ResponseBody
+	@RequestMapping(value="/searchBoard.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String searchBoard(@RequestParam("content") String content, Model model,HttpServletRequest request) {
+		logger.info("검색 해서 나온다!!!!!!!!!!!!!!!");
+		
+		Board board =  new Board();
+		board.setContent(content);
+		
+		List<Board> searchboardlist = serviceImple.selectOneBoard(content);
+		model.addAttribute("searchboardlist", searchboardlist);
+		return "mozzle/board222";
+	}
 	
 	
 

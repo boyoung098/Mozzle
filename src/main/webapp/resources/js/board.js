@@ -1,4 +1,4 @@
-/*// drop-board
+// drop-board
 $( document ).ready( function() {
   $(".drop-board-box").click( function() {
     $(this).find(".drop-board").slideToggle();
@@ -33,7 +33,7 @@ function inputComment() {
 
 function refreshMemList(){
 	document.location.reload();
-}*/
+}
 
 //게시글 수정폼
 function board_update(post_id, user_id, regdate, content){
@@ -57,7 +57,7 @@ function board_update(post_id, user_id, regdate, content){
 
 
 //게시글 삭제
-/*function board_delete(idx){
+function board_delete(idx){
 	var numsd = confirm("삭제하시겠습니까?");
 	if(numsd){
 		$.ajax({
@@ -72,7 +72,7 @@ function board_update(post_id, user_id, regdate, content){
 			}
 		})
 	}
-}*/
+}
 
 
 //댓글 입력
@@ -105,3 +105,8 @@ function registComment(seq) {
        } 
 	})
 }
+
+
+
+
+

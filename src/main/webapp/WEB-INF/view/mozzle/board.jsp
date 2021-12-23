@@ -3,14 +3,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script>
 
-	<div class="col-sm-9 clear mt-3">
+function searchbtn(){
+	var data = $("#keyword").val();
+	$.ajax({
+		type:'POST',
+		url : './searchBoard.do',
+		data: {
+			"content":data,
+			},
+		dataType:"html",
+		async:true,
+		success : function(result){
+			 $("#test").load(result);
+		}
+	})
+}
+</script>
+	<div class="mt-3">
 		<div class="input-group input-search mt-2" >
-			<form action="" method="post">
-				<input type="text" class="form-control" name="keyword"
-					id="keyword" placeholder="모즐 게시글 검색"> <span
-					class="input-group-btn">
-					<button class="btn btn-default" type="button" onclick="searchboard()">
+			<form method="post" id="frm_search">
+				<input type="text" class="form-control" name="content" id="keyword" placeholder="게시글 검색"> 
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" id="search_area" onclick="searchbtn()">
 						<span class="glyphicon glyphicon-search"></span>
 					</button>
 				</span>
@@ -31,7 +47,8 @@
 				<option value="new2">인기 순</option>
 			</select>
 		</div>
-		<c:forEach var="boardobj" items="${requestScope.boardlist}">
+		<div id="test">
+		<c:forEach var="boardobj" items="${requestScope.boardlist}" varStatus="status">
 			<section id="board-card-list">
 				<div class="borad-box row" id="borad-box">
 					<div class="col-sm-10 board-box-list">
@@ -76,7 +93,7 @@
 				</div>
 			</section>
 		</c:forEach>
-	
+	</div>
 	</div>
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">

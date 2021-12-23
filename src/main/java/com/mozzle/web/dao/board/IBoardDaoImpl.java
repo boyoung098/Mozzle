@@ -38,10 +38,10 @@ public class IBoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public List<Board> selectOneBoard(Board board) {
+	public List<Board> selectOneBoard(String content) {
 		logger.info("게시판 조회");
 		
-		return session.selectOne(NS+"selectOneBoard", board);
+		return session.selectOne(NS+"selectOneBoard", content);
 	}
 //	
 //	@Override
