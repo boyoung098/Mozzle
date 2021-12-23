@@ -53,12 +53,13 @@ public class ManageControjler {
 		//My 모즐
 		List<MozzleDto> myMozzleList = mService.selectMyMozzle(user_id);
 		//새로 생긴 모즐
+
 		List<MozzleDto> newMozzleList = mService.selectMozzleByCreatDate();
 		//HOT 모즐
 		List<MozzleDto> hotMozzleList = mService.selectMozzleByUserNumber();
 		
 		model.addAttribute("myMozzleList", myMozzleList);
-		model.addAttribute("newMozzleList", newMozzleList);
+//		model.addAttribute("newMozzleList", newMozzleList);
 		model.addAttribute("hotMozzleList", hotMozzleList);
 		
 		return "manage/index";

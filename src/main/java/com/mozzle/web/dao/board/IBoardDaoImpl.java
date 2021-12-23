@@ -38,23 +38,19 @@ public class IBoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public List<Board> selectOneBoard(Board board) {
+	public List<Board> selectOneBoard(String content) {
 		logger.info("게시판 조회");
 		
-		return session.selectOne(NS+"selectOneBoard", board);
+		return session.selectOne(NS+"selectOneBoard", content);
 	}
-//	
-//	@Override
-//	public List<Board> selectAllBoard(int seq) {
-//		logger.info("전체 게시판");
-//		return session.selectList(NS+"selectAllBoard");
-//	}
-
+	
 	@Override
-	public List<Board> selectAllBoard() {
+	public List<Board> selectAllBoard(String mozzle_id) {
 		logger.info("전체 게시판");
-		return session.selectList(NS+"selectAllBoard");
+		return session.selectList(NS+"selectAllBoard", mozzle_id);
 	}
+
+	
 	
 	
 
