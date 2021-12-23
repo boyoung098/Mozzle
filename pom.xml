@@ -296,7 +296,12 @@
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-
+		<dependency>
+	        <groupId>org.codehaus.jackson</groupId>
+	        <artifactId>jackson-mapper-asl</artifactId>
+	        <version>1.9.13</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
@@ -313,7 +318,12 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -334,7 +344,12 @@
 			<artifactId>javax.el</artifactId>
 			<version>2.2.6</version>
 		</dependency>
-
+		<!-- JAVA에서 JSONObject 생성 및 변환 -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>MozzleProject</finalName>

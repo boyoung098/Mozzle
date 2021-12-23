@@ -28,51 +28,31 @@ public class IScheduleDaoImpl implements IScheduleDao {
 
 	@Override
 	public List<ScheduleDto> scheduleselectAll(Map<String, String> map) {
-		logger.info("캘린더 리스트 출력 {} :", map);
-		return session.selectList(NS + "scheduleselectAll", map);
+		logger.info("scheduleselectAll 전체출력 : {}", map);
+		return session.selectList(NS+"scheduleselectAll");
 	}
 
 	@Override
-	public int scheduleinsert(ScheduleDto dto) {
-		logger.info("캘린더 일정등록 {} :", dto);
-		return session.insert(NS + "scheduleinsert", dto);
+	public boolean scheduleinsert(ScheduleDto dto) {
+		logger.info("scheduleinsert 일정등록 : {}", dto);
+		int cnt = session.insert(NS+"scheduleinsert", dto);
+		return cnt>0?true:false;
 	}
 
 	@Override
-	public int schedulecount(Map<String, String> map) {
-		logger.info("일정 개수 {} :", map);
-		int cnt = session.selectOne(NS + "schedulecount", map);
-		return cnt;
+	public boolean scheduleupdate(ScheduleDto dto) {
+		logger.info("scheduleselectOne 일정상세보기 : {}", dto);
+		int cnt = session.update(NS+"scheduleupdate", dto);
+		return cnt>0?true:false;
 	}
 
 	@Override
-	public List<ScheduleDto> scheduleselectViewAll(Map<String, String> map) {
-		logger.info("일정 리스트 ?개만 보여준다.{} :", map);
-		return session.selectList(NS + "scheduleselectViewAll", map);
+	public boolean scheduledelete(String schedule_id) {
+		logger.info("scheduledeflag 삭제(delete) : {}", schedule_id);
+		int cnt = session.delete(NS+"scheduledeflag",schedule_id);
+		return cnt>0?true:false;
 	}
 
-	@Override
-	public ScheduleDto scheduleselectOne(String schedule_id) {
-		logger.info("일정 상세보기 {} :", schedule_id);
-		return session.selectOne(NS + "scheduleselectOne", schedule_id);
-	}
-
-	@Override
-	public int scheduleupdate(ScheduleDto dto) {
-		logger.info("일정 업데이트 {} :", dto);
-		return session.update(NS + "scheduleupdate", dto);
-	}
-
-	@Override
-	public int scheduledeflag(Map<String, String[]> schedule_id) {
-		logger.info("일정 삭제(보류) {} :", schedule_id);
-		return session.delete(NS + "scheduledeflag", schedule_id);
-	}
-
-	@Override
-	public int scheduledelete(Map<String, String[]> schedule_id) {
-		logger.info("일정 완전 삭제 {} : ", schedule_id);
-		return session.delete(NS + "scheduledelete", schedule_id);
-	}
+	
 
 }
