@@ -29,6 +29,7 @@ public class PostReportCtrl {
 	@RequestMapping(value = "/postreportList.do") 
 	public String postreportList() {
 		
+		
 		return "mozzle/postreportList";
 	}
 	

@@ -51,20 +51,5 @@ public class SearchBoardCtrl {
 
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(value="/searchBoard1.do", produces = "application/json; charset=UTF-8",  method = RequestMethod.POST)
-//	public JSONObject objectJSON(@RequestBody @ModelAttribute("keyword") String keyword) { 
-//		JSONObject json = new JSONObject();; // 전체 JSON 객체 {"lists": , "row":}
-//		JSONArray jlist = new JSONArray(); // lists의 여러개의 dto JSONObject를 담고 있는객체  [{},{}..]
-//		JSONObject jdto = new JSONObject(); // row에 관련된 JSONObject {"","",""}
-//
-//		jdto.put("keyword", keyword);
-//		
-//		List<Board> searchboardlist = serviceImple.selectOneBoard(keyword); 
-//		
-//	
-//		
-//	
-//		return json;
-//	}
+
 }
