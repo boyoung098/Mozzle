@@ -24,6 +24,7 @@
 	<security:http pattern="/resources/**/*.css" security="none" />
 	<security:http pattern="/resources/images/**/*" security="none" />
 	<security:http pattern="/resources/upload/**/*" security="none" /> -->
+	<security:http pattern="/duplicateLogin.do" security="none" />
 	<!-- 권한 설정 -->
 	<security:http auto-config="true" use-expressions="true">
 		<security:headers>
@@ -67,12 +68,13 @@
 
 		
 
-		<security:session-management 
-			invalid-session-url="/loginPage.do">
+		<security:session-management
+			invalid-session-url="/logout.do">
 			<security:concurrency-control
 				max-sessions="1" expired-url="/duplicateLogin.do"
-				error-if-maximum-exceeded="false" />
+				error-if-maximum-exceeded="false" />				
 		</security:session-management>
+		
 		
 	</security:http>
 

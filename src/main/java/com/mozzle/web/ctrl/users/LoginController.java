@@ -3,8 +3,9 @@ package com.mozzle.web.ctrl.users;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,7 +105,7 @@ public class LoginController {
 	@RequestMapping(value = "/loginPage.do", method = RequestMethod.GET)
 	public String login(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout, Authentication user, Model model,
-			SessionStatus session) {
+			SessionStatus session, HttpServletResponse res) {
 		if (error != null) {
 			model.addAttribute("msg", "로그인 에러");
 		}
@@ -112,7 +113,15 @@ public class LoginController {
 		if (logout != null) {
 			model.addAttribute("msg", "로그아웃 성공");
 			session.setComplete();
+
+			Cookie kc = new Cookie("JSESSIONID", null); // choiceCookieName(쿠키 이름)에 대한 값을 null로 지정
+
+			kc.setMaxAge(0); // 유효시간을 0으로 설정
+
+			res.addCookie(kc); // 응답 헤더에 추가해서 없어지도록 함
+
 		}
+		
 
 		if (user != null) {
 			//"/adminIndex.do"
@@ -165,7 +174,12 @@ public class LoginController {
 
 	// 중복 로그인
 	@RequestMapping(value = "/duplicateLogin.do", method = RequestMethod.GET)
-	public String duplicateLogin() {
+	public String duplicateLogin(HttpServletResponse res) {
+		Cookie kc = new Cookie("JSESSIONID", null); // choiceCookieName(쿠키 이름)에 대한 값을 null로 지정
+
+		kc.setMaxAge(0); // 유효시간을 0으로 설정
+
+		res.addCookie(kc); // 응답 헤더에 추가해서 없어지도록 함
 		return "duplicateLogin";
 	}
 

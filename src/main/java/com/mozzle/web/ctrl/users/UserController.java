@@ -61,7 +61,7 @@ public class UserController {
 	public String updateUserInfo(UserDto dto) {
 		System.out.println(dto.getUser_pw().isEmpty());
 		service.updateUser(dto);
-		return null;
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/myThread.do", method=RequestMethod.GET)
@@ -87,7 +87,7 @@ public class UserController {
 		HttpSession session = req.getSession();
 		req.setAttribute("userId", session.getAttribute("userId").toString());
 		
-		return null;
+		return "user/mypage/leaderList";
 	}
 
 }
