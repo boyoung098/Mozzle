@@ -102,6 +102,6 @@ public class CategoryDaoImpl implements ICategoryDao {
 		logger.info("duplicateCheck {}", category_name);
 		int cnt = session.selectOne(NS + "duplicateCheck", category_name);
 		
-		return (cnt == 1)? true:false;
+		return (cnt==1)? true:false;
 	}
 }
