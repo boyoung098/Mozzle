@@ -1,82 +1,98 @@
+<%@page import="com.mozzle.web.comm.ScheduleUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Calendar" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>일정관리</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css">
-<link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css">
-<link rel="stylesheet" type="text/css" href="https://nhn.github.io/tui.calendar/latest/examples/css/icons.css">
-<link rel="stylesheet" type="text/css" href="./resources/css/tui-calendar.css"><!-- dist> tui-calendar.css css파일 > -->
-<link rel="stylesheet" href="./resources/css/Calendar.css"> <!-- css > Calendar.css css파일 > -->
+<link rel="stylesheet" type="text/css" href="./resources/css/Calendar.css">
 </head>
-<body>
-<%-- <section class="container mt-3" id="new-mozzle2">
-     <jsp:include page="../comm/mozzleHeader.jsp" />
-</section> --%>
-<form action="./calendar.do" method="get">
-<div class="col-xs-2" style="margin-top: 63px;">
-		<div>
-        <!-- <div class="lnb-new-schedule">
-            <button id="btn-new-schedule" type="button" class="btn btn-default btn-block lnb-new-schedule-btn" data-toggle="modal">New schedule</button>
-        </div>
-        <div id="lnb-calendars" class="lnb-calendars">
-            <div>
-                <div class="lnb-calendars-item">
-                    <label>
-                        <input type="checkbox" value="all" checked>
-                        <span></span>
-                        <strong>View all</strong>
-                    </label>
-                </div>
-            </div>-->
-            <div id="calendarList" class="lnb-calendars-d1">
-			</div>
-       	</div>
-</div>
+<%
+	//달력의 날짜를 바꾸기 위해 전달된 year와 month 파라미터를 받는다.
+	String paramYear = request.getParameter("year");
+	String paramMonth = request.getParameter("month"); 
 
-<div id="calendarList" class="lnb-calendars-d1 list-group"></div>
- 	<div class="col-xs-9">
-		<div id="menu">
-		    <span id="menu-navi">
-			  <button type="button" class="btn btn-default btn-sm move-2week" data-action="move-2week">현재주 ~ +2주</button>
-			  <button type="button" class="btn btn-default btn-sm move-month" data-action="move-month">월단위</button>
-		      <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
-		      <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
-		        <i class="calendar-icon ic-arrow-line-left" data-action="move-prev"></i>
-		      </button>
-		      <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
-		        <i class="calendar-icon ic-arrow-line-right" data-action="move-next"></i>
-		      </button>
-		    </span>
-		    <span id="renderRange" class="render-range"></span>
-		</div>
-		<div id="calendar" style="height: 600px;"></div>
-	</div>
+	Calendar cal = Calendar.getInstance(); 	// 달력만든다.
+	int year = cal.get(Calendar.YEAR); 		//현재 년도를 구한다.
+	int month = cal.get(Calendar.MONTH)+1;	//현재 월을 구한다. (0월~11월로 12개가되기때문에 +1해줘야 현재 월이나온다.)
+	
+	if(paramYear!=null){
+		year = Integer.parseInt(paramYear);
+	}
+	if(paramMonth!=null){
+		month = Integer.parseInt(paramMonth);
+	}
+	
+	//월이 증가하다가 12보다 커진다면 13,14,15,16,17...넘어가는 현상을 처리
+	if(month>12){
+		month=1;	//1월로 변경
+		year++;		//년도는 다음해로 넘어가서 년도 +1 증가시킨다.
+	}
+	if(month<1){
+		month=12;
+		year--;
+	}
+	
+	//현재 월의 1일에 대한 요일 구하기 : 1~7 >>> 1(일요일), 2(월) ... 7(토)
+	//month에 -1을하는 이유는 현재가 6월이라면 7월의 1일에 대한 날짜를 구하기 때문이다.
+	cal.set(year, month-1, 1); //현재 월의 1일에 대한 날짜를 구하기 시작한다.
+	int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+	
+	//현재 월의 마지막 날 구하기
+	int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+	
+%>
+<body>
+	<form action="./calendar.do" method="get">
+		<table border="1" id="calendar">
+			<caption>
+				<!-- <<는 연도가 깎여야하기때문에 -1 <는 월이 깎여야 하기때문에 -1  -->
+				<a href="calendar.do?year=<%=year-1%>&month=<%=month%>">◀◀</a>
+				<a href="calendar.do?year=<%=year%>&month=<%=month-1%>">◀</a>
+				<%=year %>년<%=month %>월	
+				<a href="calendar.do?year=<%=year%>&month=<%=month+1%>">▶</a>
+				<a href="calendar.do?year=<%=year+1%>&month=<%=month%>">▶▶</a>
+			</caption>
+			<tr>
+				<th>일</th>
+				<th>월</th>
+				<th>화</th>
+				<th>수</th>
+				<th>목</th>
+				<th>금</th>
+				<th>토</th>
+			</tr>
+			<tr>
+				<%	//달력에서 시작하는 공백을 출력
+					//공백출력하는for문
+					for(int i = 0; i<dayOfWeek-1; i++){
+						out.print("<td>&nbsp;</td>");
+					}
+					//날짜출력하는for문
+					for(int i = 1; i<=lastDay; i++){
+						%>
+						<td>
+							<a style="color:<%=ScheduleUtil.fontColor(dayOfWeek, i) %>;" href="scheduleselectAll.do?year=<%=year%>&month=<%=month%>&date=<%=i%>"><%=i%></a>
+							<a href="scheduleinsert.do?year=<%=year%>&month=<%=month%>&date=<%=i%>">
+								<img src="./resources/css/imgaes/schedule/scheduleadd.png" alt="일정추가"/>
+							</a>
+						</td>
+						<%
+						//행을 바꿔주기--> 현재일(i)이 토요일인지 확인 : (공백수+현재날짜)한 값이7로 나누어 떨어지면 7배수
+						if((dayOfWeek-1+i)%7==0){
+							out.print("</tr><tr>");
+						}
+					}
+					//나머지 공백 출력하는 for문
+					int countNbsp = (7-(dayOfWeek-1+lastDay)%7)%7;
+					for(int i=0; i<countNbsp; i++){
+						out.print("<td>&nbsp;</td>");
+					}
+				%>
+			</tr>
+		</table>
+	</form>
 </body>
-</form>
-<script id="template-lnb-calendars-item" type="x-tmpl-mustache">
-  {{#users}}
-    <div class="lnb-calendars-item list-group-item">
-        <label>
-            <input type="checkbox" class="tui-full-calendar-checkbox-round" value="{{ id }}" checked>
-            <span style="border-color: {{ color }}; background-color: {{ color }};" data-visible="visible"></span>
-            <span>{{ name }}</span>
-        </label>
-    </div>
-    {{/users}}
-</script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
-<script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
-<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.13/chance.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-<script src =" https://uicdn.toast.com/tui.dom/v3.0.0/tui-dom.js "></script>
-<script src="./resources/js/tui-calendar.js"></script> <!-- dist > tui-calendar.js 파일 연결 -->
-<script src="./resources/js/Calendar.js"></script> <!-- js > Calendar.js 파일 연결  -->
 </html>

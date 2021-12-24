@@ -15,17 +15,16 @@ public class ScheduleDto implements Serializable {
 
 	/**
 	 * SCHEDULE_ID,MOZZLE_ID,WIRTER,TITLE,CONTENT,SCHEDULE_DATE,REGDATE,
-	 * DELFLAG,LOCATION_CODE
+	 * LOCATION_CODE
 	 */
-	private String schedule_id;
-	private int mozzle_id;
-	private String writer;
-	private String title;
-	private String content;
-	private String schedule_date;
-	private String regdate;
-	private String delflag;
-	private int location_code;
+	private String schedule_id;//(pk)
+	private int mozzle_id;//mozzle 아이디
+	private String writer;//작성자(이름)
+	private String title;//일정제목
+	private String content;//일정내용
+	private String schedule_date;//일정날짜
+	private String regdate;//일정작성일
+	private int location_code;//지도위치
 
 	public ScheduleDto() {
 		super();
@@ -88,14 +87,6 @@ public class ScheduleDto implements Serializable {
 		this.regdate = regdate;
 	}
 
-	public String getDelflag() {
-		return delflag;
-	}
-
-	public void setDelflag(String delflag) {
-		this.delflag = delflag;
-	}
-
 	public int getLocation_code() {
 		return location_code;
 	}
@@ -105,7 +96,7 @@ public class ScheduleDto implements Serializable {
 	}
 
 	public ScheduleDto(String schedule_id, int mozzle_id, String writer, String title, String content,
-			String schedule_date, String regdate, String delflag, int location_code) {
+			String schedule_date, String regdate, int location_code) {
 		super();
 		this.schedule_id = schedule_id;
 		this.mozzle_id = mozzle_id;
@@ -114,7 +105,6 @@ public class ScheduleDto implements Serializable {
 		this.content = content;
 		this.schedule_date = schedule_date;
 		this.regdate = regdate;
-		this.delflag = delflag;
 		this.location_code = location_code;
 	}
 
@@ -122,7 +112,9 @@ public class ScheduleDto implements Serializable {
 	public String toString() {
 		return "ScheduleDto [schedule_id=" + schedule_id + ", mozzle_id=" + mozzle_id + ", writer=" + writer
 				+ ", title=" + title + ", content=" + content + ", schedule_date=" + schedule_date + ", regdate="
-				+ regdate + ", delflag=" + delflag + ", location_code=" + location_code + "]";
+				+ regdate + ", location_code=" + location_code + "]";
 	}
+
+
 
 }
