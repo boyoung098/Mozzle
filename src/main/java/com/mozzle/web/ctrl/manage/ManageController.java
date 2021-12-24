@@ -32,7 +32,7 @@ import org.springframework.core.io.Resource;
 
 @Controller
 @RequestMapping("/{manage}/")
-public class ManageControjler {
+public class ManageController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -225,7 +225,9 @@ public class ManageControjler {
 		
 		String category_code = mozzle.getCategory_code();
 		String[] category_code_list = category_code.split(",");
+		
 		String mozzle_id = mozzle.getMozzle_id();
+		model.addAttribute("mozzle_id", mozzle_id);
 		
 		if (!category_code.equals("") && category_code != null) {	
 			int deleteCategoryNum = cService.deleteMozzleCategory(mozzle_id);		
