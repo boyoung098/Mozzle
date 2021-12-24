@@ -30,130 +30,19 @@
 		ORDER BY CATEGORY_NAME 
 	</select>
 	
-	<select id="seletCategoryByInitial" parameterType="java.lang.Integer" resultType="cDto">
+	<select id="seletCategoryByInitial01" parameterType="java.util.Map" resultType="cDto">
 		SELECT CATEGORY_CODE, CATEGORY_NAME 
 			FROM CATEGORY
 			WHERE SUBSTR(CATEGORY_NAME, 1, 1)
-			<if test="num == 1">
-				BETWEEN '가' AND '낗'
-			</if>
-			<if test="num == 2">
-				BETWEEN '나' and '닣'
-			</if>
-			<if test="num == 3">
-				BETWEEN '다' and '띻'
-			</if>
-			<if test="num == 4">
-				BETWEEN '라' AND '맇'
-			</if>
-			<if test="num == 5">
-				BETWEEN '마' AND '밓'
-			</if>
-			<if test="num == 6">
-				BETWEEN '바' AND '빟'
-			</if>
-			<if test="num == 7">
-				BETWEEN '사' AND '싷'
-			</if>
-			<if test="num == 8">
-				BETWEEN '아' AND '잏'
-			</if>
-			<if test="num == 9">
-				BETWEEN '자' AND '찧'
-			</if>
-			<if test="num == 10">
-				BETWEEN '차' AND '칳'
-			</if>
-			<if test="num == 11">
-				BETWEEN '카' AND '킿'
-			</if>
-			<if test="num == 12">
-				BETWEEN '타' AND '팋'
-			</if>
-			<if test="num == 13">
-				BETWEEN '파' AND '핗'
-			</if>
-			<if test="num == 14">
-				BETWEEN '하' AND '힣'
-			</if>
-			<if test="num == 15">
-				IN (a, A)
-			</if>
-			<if test="num == 16">
-				IN (b, B)
-			</if>
-			<if test="num == 17">
-				IN (c, C)
-			</if>
-			<if test="num == 18">
-				IN (d, D)
-			</if>
-			<if test="num == 19">
-				IN (e, E)
-			</if>
-			<if test="num == 20">
-				IN (f, F)
-			</if>
-			<if test="num == 21">
-				IN (g, G)
-			</if>
-			<if test="num == 22">
-				IN (h, H)
-			</if>
-			<if test="num == 23">
-				IN (i, I)
-			</if>
-			<if test="num == 24">
-				IN (j, J)
-			</if>
-			<if test="num == 25">
-				IN (k, K)
-			</if>
-			<if test="num == 26">
-				IN (l, L)
-			</if>
-			<if test="num == 27">
-				IN (m, M)
-			</if>
-			<if test="num == 28">
-				IN (n, N)
-			</if>
-			<if test="num == 29">
-				IN (o, O)
-			</if>
-			<if test="num == 30">
-				IN (p, P)
-			</if>
-			<if test="num == 31">
-				IN (q, Q)
-			</if>
-			<if test="num == 32">
-				IN (r, R)
-			</if>
-			<if test="num == 33">
-				IN (s, S)
-			</if>
-			<if test="num == 34">
-				IN (t, T)
-			</if>
-			<if test="num == 35">
-				IN (u, U)
-			</if>
-			<if test="num == 36">
-				IN (v, V)
-			</if>
-			<if test="num == 37">
-				IN (w, W)
-			</if>
-			<if test="num == 38">
-				IN (x, X)
-			</if>
-			<if test="num == 39">
-				IN (y, Y)
-			</if>
-			<if test="num == 40">
-				IN (z, Z)
-			</if>
+			BETWEEN #{initial_first} AND #{initial_last}		
+			ORDER BY CATEGORY_NAME
+	</select>
+	
+	<select id="seletCategoryByInitial02" parameterType="java.util.Map" resultType="cDto">
+		SELECT CATEGORY_CODE, CATEGORY_NAME 
+			FROM CATEGORY
+			WHERE SUBSTR(CATEGORY_NAME, 1, 1)
+			IN (#{initial_lower}, #{initial_upper})		
 			ORDER BY CATEGORY_NAME
 	</select>
 	
@@ -164,6 +53,20 @@
 	
 	<select id="selectCategoryCnt" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM CATEGORY
+	</select>
+	
+	<select id="selectCategoryCnt01" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM CATEGORY
+		WHERE SUBSTR(CATEGORY_NAME, 1, 1)
+			BETWEEN #{initial_first} AND #{initial_last}		
+			ORDER BY CATEGORY_NAME
+	</select>
+	
+	<select id="selectCategoryCnt02" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM CATEGORY
+		WHERE SUBSTR(CATEGORY_NAME, 1, 1)
+			IN (#{initial_lower}, #{initial_upper})		
+			ORDER BY CATEGORY_NAME
 	</select>
 	
 	<delete id="deleteCatogory" parameterType="java.lang.String">
@@ -178,5 +81,9 @@
 				ON mc.CATEGORY_CODE = c.CATEGORY_CODE) 
 			GROUP BY CATEGORY_CODE, CATEGORY_NAME
 			ORDER BY COUNT(*) DESC
+	</select>
+	
+	<select id="duplicateCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM CATEGORY WHERE CATEGORY_NAME = #{category_name}
 	</select>
 </mapper>

@@ -45,7 +45,6 @@
 	vertical-align: middle;
 	height: 300px
 }
-
 </style>
 
 </head>
@@ -54,54 +53,92 @@
 	<div class="container">
 		<h2>관리자 페이지</h2>
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#home">카테고리 관리</a></li>
-			<li><a data-toggle="tab" href="#menu1">모즐 관리</a></li>
-			<li><a data-toggle="tab" href="#menu2">회원 관리</a></li>
+			<li>카테고리 관리</a></li>
 		</ul>
 
 		<div class="tab-content">
 			<div id="home" class="tab-pane fade in active">
 				<br>
-				<button type="button" class="btn btn-xs" onclick="click('1')">ㄱ</button>
-				<button type="button" class="btn btn-xs" onclick="click('2')">ㄴ</button>
-				<button type="button" class="btn btn-xs" onclick="click('3')">ㄷ</button>
-				<button type="button" class="btn btn-xs" onclick="click('4')">ㄹ</button>
-				<button type="button" class="btn btn-xs" onclick="click('5')">ㅁ</button>
-				<button type="button" class="btn btn-xs" onclick="click('6')">ㅂ</button>
-				<button type="button" class="btn btn-xs" onclick="click('7')">ㅅ</button>
-				<button type="button" class="btn btn-xs" onclick="click('8')">ㅇ</button>
-				<button type="button" class="btn btn-xs" onclick="click('9')">ㅈ</button>
-				<button type="button" class="btn btn-xs" onclick="click('10')">ㅊ</button>
-				<button type="button" class="btn btn-xs" onclick="click('11')">ㅋ</button>
-				<button type="button" class="btn btn-xs" onclick="click('12')">ㅌ</button>
-				<button type="button" class="btn btn-xs" onclick="click('13')">ㅍ</button>
-				<button type="button" class="btn btn-xs" onclick="click('14')">ㅎ</button>
-				<button type="button" class="btn btn-xs" onclick="click('15')">A</button>
-				<button type="button" class="btn btn-xs" onclick="click('16')">B</button>
-				<button type="button" class="btn btn-xs" onclick="click('17')">C</button>
-				<button type="button" class="btn btn-xs" onclick="click('18')">D</button>
-				<button type="button" class="btn btn-xs" onclick="click('19')">E</button>
-				<button type="button" class="btn btn-xs" onclick="click('20')">F</button>
-				<button type="button" class="btn btn-xs" onclick="click('21')">G</button>
-				<button type="button" class="btn btn-xs" onclick="click('22')">H</button>
-				<button type="button" class="btn btn-xs" onclick="click('23')">I</button>
-				<button type="button" class="btn btn-xs" onclick="click('24')">J</button>
-				<button type="button" class="btn btn-xs" onclick="click('25')">K</button>
-				<button type="button" class="btn btn-xs" onclick="click('26')">L</button>
-				<button type="button" class="btn btn-xs" onclick="click('27')">M</button>
-				<button type="button" class="btn btn-xs" onclick="click('28')">N</button>
-				<button type="button" class="btn btn-xs" onclick="click('29')">O</button>
-				<button type="button" class="btn btn-xs" onclick="click('30')">P</button>
-				<button type="button" class="btn btn-xs" onclick="click('31')">Q</button>
-				<button type="button" class="btn btn-xs" onclick="click('32')">R</button>
-				<button type="button" class="btn btn-xs" onclick="click('33')">S</button>
-				<button type="button" class="btn btn-xs" onclick="click('34')">T</button>
-				<button type="button" class="btn btn-xs" onclick="click('35')">U</button>
-				<button type="button" class="btn btn-xs" onclick="click('36')">V</button>
-				<button type="button" class="btn btn-xs" onclick="click('37')">W</button>
-				<button type="button" class="btn btn-xs" onclick="click('38')">X</button>
-				<button type="button" class="btn btn-xs" onclick="click('39')">Y</button>
-				<button type="button" class="btn btn-xs" onclick="click('40')">Z</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('1')">ㄱ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('2')">ㄴ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('3')">ㄷ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('4')">ㄹ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('5')">ㅁ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('6')">ㅂ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('7')">ㅅ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('8')">ㅇ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('9')">ㅈ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('10')">ㅊ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('11')">ㅋ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('12')">ㅌ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('13')">ㅍ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('14')">ㅎ</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('15')">A</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('16')">B</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('17')">C</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('18')">D</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('19')">E</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('20')">F</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('21')">G</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('22')">H</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('23')">I</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('24')">J</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('25')">K</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('26')">L</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('27')">M</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('28')">N</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('29')">O</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('30')">P</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('31')">Q</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('32')">R</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('33')">S</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('34')">T</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('35')">U</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('36')">V</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('37')">W</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('38')">X</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('39')">Y</button>
+				<button type="button" class="btn btn-xs"
+					onclick="selectInitial('40')">Z</button>
 				<br> <br>
 
 
@@ -125,7 +162,6 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 
 			<div class="container" style="width: 60%">
@@ -145,7 +181,8 @@
 						<div class="category-box" id="saved-category-box">
 							<ul id="saved-category-list">
 								<c:forEach var="category" items="${cList}">
-									<li><a href="#" class="category-link" id= "category-link'${category.category_code}'"
+									<li><a href="#" class="category-link"
+										id="category-link'${category.category_code}'"
 										onclick="checkForDelete('${category.category_code}')">${category.category_name}</a></li>
 								</c:forEach>
 							</ul>
@@ -170,14 +207,31 @@
 <script>
 	var appendCnt = 0;
 	function enrollCategory() {
-		if(appendCnt <10) {
-			console.log("ready");
-			$("#enroll-category-list").append("<li id='enroll-category-list-li"+ appendCnt+ "'>" + $("#inputCategory").val() 
-					+"<a onclick='deleteEnrollCategory("+ appendCnt + ")'><img src='<%=request.getContextPath()%>/resources/images/delete.png'/></a></li>")
-			document.getElementById("inputCategory").value = "";
+		var category_name = $("#inputCategory").val(); 
+		
+		$.ajax({
+			url: "./duplicateCheck.do",
+			type: "POST",
+			data: {
+				"category_name": category_name
+			},
+			success: function(result) {
+				
+				if(result == true) {
+					alert("이미 등록된 카테고리입니다");
+				} else {
+					
+					if(appendCnt <10) {
+						console.log("ready");
+						$("#enroll-category-list").append("<li id='enroll-category-list-li"+ appendCnt+ "'>" + $("#inputCategory").val() 
+								+"<a onclick='deleteEnrollCategory("+ appendCnt + ")'><img src='<%=request.getContextPath()%>/resources/images/delete.png'/></a></li>")
+						document.getElementById("inputCategory").value = "";
 
-			appendCnt += 1;
-		}
+						appendCnt += 1;
+					}
+				}
+			}
+		})
 	};
 
 	function deleteEnrollCategory(appendCnt) {
@@ -186,7 +240,6 @@
 		appendCnt -= 1;
 
 	}
-	
 
 	$("#add-category").click(
 			function() {
@@ -227,26 +280,30 @@
 
 		deleteList.push(category_code);
 		console.log(deleteList);
-		
-		$(this).attr("style","color:red;");
+
+		$(this).attr("style", "color:red;");
 
 	};
 
 	function deleteSavedCategory() {
-		
+
 		$.ajax({
-			url: "./deleteCategory.do",
-			type: "POST",
-			data: {
+			url : "./deleteCategory.do",
+			type : "POST",
+			data : {
 				"category" : deleteList
-				},
-			success: function(result){
+			},
+			success : function(result) {
 				if (result == true) {
 					alert("카테고리가 성공적으로 삭제되었습니다");
-					window.location.reload()
+					window.location.reload();
 				}
 			}
 		})
+	};
+
+	function selectInitial(obj) {
+		location.href = "./selectInitial.do?cNum=" + obj;
 	};
 </script>
 </html>

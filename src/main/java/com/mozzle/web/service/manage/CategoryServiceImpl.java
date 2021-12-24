@@ -41,8 +41,13 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
-	public List<CategoryDto> seletCategoryByInitial(int num) {
-		return dao.seletCategoryByInitial(num);
+	public List<CategoryDto> seletCategoryByInitial01(Map<String, String> map) {
+		return dao.seletCategoryByInitial01(map);
+	}
+	
+	@Override
+	public List<CategoryDto> seletCategoryByInitial02(Map<String, String> map) {
+		return dao.seletCategoryByInitial02(map);
 	}
 
 	@Override
@@ -54,6 +59,16 @@ public class CategoryServiceImpl implements ICategoryService {
 	public int selectCategoryCnt() {
 		return dao.selectCategoryCnt();
 	}
+	
+	@Override
+	public int selectCategoryCnt01(Map<String, String> map) {
+		return dao.selectCategoryCnt01(map);
+	}
+	
+	@Override
+	public int selectCategoryCnt02(Map<String, String> map) {
+		return dao.selectCategoryCnt02(map);
+	}
 
 	@Override
 	public int deleteCatogory(String category) {
@@ -63,5 +78,10 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Override
 	public List<CategoryDto> selectCategoryByCnt() {
 		return dao.selectCategoryByCnt();
+	}
+
+	@Override
+	public boolean duplicateCheck(String category_name) {
+		return dao.duplicateCheck(category_name);
 	}
 }

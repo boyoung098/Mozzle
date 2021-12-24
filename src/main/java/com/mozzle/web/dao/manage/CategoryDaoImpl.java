@@ -50,9 +50,15 @@ public class CategoryDaoImpl implements ICategoryDao {
 	}
 
 	@Override
-	public List<CategoryDto> seletCategoryByInitial(int num) {
-		logger.info("seletCategoryByInitial {}", num);
-		return session.selectList(NS + "seletCategoryByInitial", num);
+	public List<CategoryDto> seletCategoryByInitial01(Map<String, String> map) {
+		logger.info("seletCategoryByInitial {}", map);
+		return session.selectList(NS + "seletCategoryByInitial01", map);
+	}
+	
+	@Override
+	public List<CategoryDto> seletCategoryByInitial02(Map<String, String> map) {
+		logger.info("seletCategoryByInitial {}", map);
+		return session.selectList(NS + "seletCategoryByInitial02", map);
 	}
 
 	@Override
@@ -63,8 +69,20 @@ public class CategoryDaoImpl implements ICategoryDao {
 
 	@Override
 	public int selectCategoryCnt() {
-		logger.info("selectCategoryCnt {}");
+		logger.info("selectCategoryCnt ");
 		return session.selectOne(NS + "selectCategoryCnt");
+	}
+	
+	@Override
+	public int selectCategoryCnt01(Map<String, String> map) {
+		logger.info("selectCategoryCnt01 {}", map);
+		return session.selectOne(NS + "selectCategoryCnt01", map);
+	}
+	
+	@Override
+	public int selectCategoryCnt02(Map<String, String> map) {
+		logger.info("selectCategoryCnt02 {}", map);
+		return session.selectOne(NS + "selectCategoryCnt02", map);
 	}
 
 	@Override
@@ -77,5 +95,13 @@ public class CategoryDaoImpl implements ICategoryDao {
 	public List<CategoryDto> selectCategoryByCnt() {
 		logger.info("selectCategoryByCnt");
 		return session.selectList(NS + "selectCategoryByCnt");
+	}
+
+	@Override
+	public boolean duplicateCheck(String category_name) {
+		logger.info("duplicateCheck {}", category_name);
+		int cnt = session.selectOne(NS + "duplicateCheck", category_name);
+		
+		return (cnt == 1)? true:false;
 	}
 }

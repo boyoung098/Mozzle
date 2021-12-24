@@ -45,26 +45,6 @@ public class ManageController {
 	@Autowired
 	ResourceLoader resourceLoader;
 	
-	@RequestMapping(value = "/home.do", method= RequestMethod.GET)
-	public String home(Model model) {
-		
-		//임시 저장
-		String user_id = "user01";
-		//My 모즐
-		List<MozzleDto> myMozzleList = mService.selectMyMozzle(user_id);
-		//새로 생긴 모즐
-
-		List<MozzleDto> newMozzleList = mService.selectMozzleByCreatDate();
-		//HOT 모즐
-		List<MozzleDto> hotMozzleList = mService.selectMozzleByUserNumber();
-		
-		model.addAttribute("myMozzleList", myMozzleList);
-//		model.addAttribute("newMozzleList", newMozzleList);
-		model.addAttribute("hotMozzleList", hotMozzleList);
-		
-		return "manage/index";
-	}
-	
 	@RequestMapping(value = "/registMozzleForm.do", method= RequestMethod.GET)
 	public String registMozzleForm() {
 

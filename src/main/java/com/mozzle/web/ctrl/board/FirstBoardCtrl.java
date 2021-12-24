@@ -75,11 +75,16 @@ public class FirstBoardCtrl {
 		//임현경 - mozzle 정보 + 카테고리 정보
 		String mozzle= req.getParameter(mozzle_id);
 		MozzleDto myMozzle = mService.selectMozzleByMozzleId(mozzle_id);
+		
+		String create_date_origin = myMozzle.getCreate_date();
+		int idx = create_date_origin.indexOf(" ");
+		String create_date_posted = create_date_origin.substring(0, idx);
+		myMozzle.setCreate_date(create_date_posted);
+	
 		model.addAttribute("myMozzle", myMozzle);
 		
 		List<String> categoryList = cService.selectMozzleCategoryName(mozzle_id);
 		model.addAttribute("categoryList", categoryList);
-		
 	
 		//김보영 - 모즐내 회원인지 select하여 값보내기
 		String sessionid = (String)req.getSession().getAttribute("userId");
