@@ -23,8 +23,8 @@ public class MozzlePostServiceImpl implements IMozzlePostService{
 	}
 	
 	@Override
-	public List<MozzlePostDto> selectMozzleReplyByPostId(String post_id) {
-		return null;
+	public List<MozzlePostDto> selectMozzleReplyByRefer(int refer) {
+		return dao.selectMozzleReplyByRefer(refer);
 	}
 
 	@Override

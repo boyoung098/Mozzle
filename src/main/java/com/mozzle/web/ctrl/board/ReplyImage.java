@@ -8,7 +8,7 @@ public class ReplyImage {
 		this.depth = depth;
 	}
 	
-	public String setImage() {
+	public String getImage() {
 		String img = "<img alt='답글' src='<%=request.getContextPath()%>/resources/images/reply.png' title='답글' >";
 		String blank = "&nbsp;&nbsp;&nbsp;&nbsp;";
 		String result = "";
