@@ -13,9 +13,9 @@
 <link rel="stylesheet" href="./resources/css/Calendar.css"> <!-- css > Calendar.css css파일 > -->
 </head>
 <body>
-<section class="container mt-3" id="new-mozzle2">
+<%-- <section class="container mt-3" id="new-mozzle2">
      <jsp:include page="../comm/mozzleHeader.jsp" />
-</section>
+</section> --%>
 <form action="./calendar.do" method="get">
 <div class="col-xs-2" style="margin-top: 63px;">
 		<div>
