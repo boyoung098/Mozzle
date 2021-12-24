@@ -52,10 +52,6 @@ public class FirstBoardCtrl {
 	//처음에 모즐클릭햇을때 뜨는화면에 필요한 값들을 보내준다.
 	@RequestMapping(value="/firstmozzle.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String firstmozzle(Model model, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req) {
-		logger.info("모즐메인 게시판");
-		//List<Board> boardlist = serviceImple.selectAllBoard();
-		//model.addAttribute("boardlist", serviceImple.selectAllBoard());
-		
 		
 		//김보영-모즐내회원리스트뿌리기
 		Map<String, String> map = new HashMap<String, String>();
@@ -75,11 +71,16 @@ public class FirstBoardCtrl {
 		//임현경 - mozzle 정보 + 카테고리 정보
 		String mozzle= req.getParameter(mozzle_id);
 		MozzleDto myMozzle = mService.selectMozzleByMozzleId(mozzle_id);
+		
+		String create_date_origin = myMozzle.getCreate_date();
+		int idx = create_date_origin.indexOf(" ");
+		String create_date_posted = create_date_origin.substring(0, idx);
+		myMozzle.setCreate_date(create_date_posted);
+	
 		model.addAttribute("myMozzle", myMozzle);
 		
 		List<String> categoryList = cService.selectMozzleCategoryName(mozzle_id);
 		model.addAttribute("categoryList", categoryList);
-		
 	
 		//김보영 - 모즐내 회원인지 select하여 값보내기
 		String sessionid = (String)req.getSession().getAttribute("userId");

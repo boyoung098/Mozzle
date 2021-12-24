@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mozzle.web.dao.board.MozzlePostDaoImpl">
+
+<select id="selectMozzlePostByMozzleId" parameterType="java.lang.String" resultType="pDto">
+	SELECT POST_ID, MOZZLE_ID, 
+		USER_ID, CONTENT, 
+		REFER, STEP, 
+		"DEPTH", REGDATE 
+	FROM MOZZLE_POST mp
+	WHERE DELFLAG = 'N'
+	AND MOZZLE_ID = #{mozzle_id}
+	AND DEPTH = '1'
+	ORDER BY REGDATE DESC;
+</select>
+
+<select id="selectMozzleReplyByPostId" parameterType="java.lang.String" resultType="pDto">
+	SELECT POST_ID, MOZZLE_ID, 
+		USER_ID, CONTENT, 
+		REFER, STEP, 
+		"DEPTH", REGDATE 
+	FROM MOZZLE_POST mp
+	WHERE DELFLAG = 'N'
+	AND POST_ID = #{post_id}
+	AND DEPTH > 1
+</select>
+
+<insert id="insertMozzlePost" parameterType="pDto">
+	INSERT INTO MOZZLE_POST
+			(POST_ID, MOZZLE_ID, 
+			USER_ID, CONTENT, 
+			REFER, STEP, 
+			"DEPTH", REGDATE, DELFLAG)
+		VALUES(ANSWERBOARD_SEQ.NEXTVAL, #{mozzle_id}, 
+				#{user_id}, #{content}, 
+				(SELECT NVL(MAX(SEQ),0) + 1 FROM ANSWERBOARD a), 
+				0, 0, 'N', SYSDATE)
+</insert>
+
+</mapper>
