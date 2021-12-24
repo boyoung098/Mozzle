@@ -72,8 +72,7 @@
 			um.NICKNAME LEADER_NICKNAME 
 		FROM MOZZLE m LEFT JOIN USER_MOZZLE um
 		ON m.MOZZLE_ID = um.MOZZLE_ID 
-			WHERE STATE = 'Y'
-			AND um.AUTH_CODE = '1'
+			WHERE um.AUTH_CODE = '1'
 			AND um.USER_ID = #{user_id}
 	</select>
 	
