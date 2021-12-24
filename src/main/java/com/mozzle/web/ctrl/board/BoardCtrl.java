@@ -42,30 +42,31 @@ public class BoardCtrl {
 	private IUserService userservice;
 	
 	// 해당 모즐 전체 게시판 출력
-	@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String boardList(Model model, @ModelAttribute("mozzle_id") String mozzle_id, @ModelAttribute("user_id") String user_id, HttpServletRequest req, HttpSession session) {
-		
-		//게시판 출력
-		logger.info("모즐메인 게시판");
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("mozzle_id", mozzle_id);
+		@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String boardList(Model model, @ModelAttribute("mozzle_id") String mozzle_id, UserDto userdto, 
+				HttpServletRequest req, HttpSession session) {
+			
+			//게시판 출력
+			logger.info("모즐메인 게시판");
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("mozzle_id", mozzle_id);
 
-		List<Board> boardlist = serviceImple.selectAllBoard(mozzle_id);
-		List<Board> boardlist2 = serviceImple.selectOneBoard(mozzle_id);
-		model.addAttribute("boardlist", boardlist);
-		
-		//로그인 하면 글쓰기 버튼 보임
-		
-//		String id = (String) req.getSession().getAttribute("user_id");
-//		if(id == null) {
-//			map.put("user_id", id);
-//			UserDto userDto = userservice.loginChk("user_id");
-//			logger.info("나오나?????????????============================");
-//			model.addAttribute("userDto",userDto);
-//		}
-		
-		return "mozzle/board";
-	}
+			List<Board> boardlist = serviceImple.selectAllBoard(mozzle_id);
+			model.addAttribute("boardlist", boardlist);
+			
+			//게시판 검색
+			
+			
+			
+			
+			
+			//로그인 하면 글쓰기 버튼 보임
+			//String writer = session.getAttribute("userId");
+			
+			
+			
+			return "mozzle/board";
+		}
 	
 	
 	
@@ -138,20 +139,7 @@ public class BoardCtrl {
 //		String postId = (String) request.getParameter("postId");
 //		String fmcontent = (String) request.getParameter("fmcontent"); 
 //	}
-	
-//	@ResponseBody
-//	@RequestMapping(value="/searchBoard.do", method = {RequestMethod.GET, RequestMethod.POST})
-//	public String searchBoard(@RequestParam("content") String content, Model model,HttpServletRequest request) {
-//		logger.info("검색 해서 나온다!!!!!!!!!!!!!!!");
-//		
-//		Board board =  new Board();
-//		board.setContent(content);
-//		
-//		List<Board> searchboardlist = serviceImple.selectOneBoard(content);
-//		model.addAttribute("searchboardlist", searchboardlist);
-//		return "mozzle/board222";
-//	}
-	
+
 
 
 }

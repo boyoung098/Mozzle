@@ -225,9 +225,6 @@ select:focus {
     word-wrap: break-word;
 }
 .board-cion {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
 }
 .comment {
     display: flex;

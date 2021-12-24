@@ -7,10 +7,10 @@
 			FROM MOZZLE_POST
 			WHERE MOZZLE_ID= #{mozzle_id} ORDER BY REGDATE DESC
   	</select>
-  	<select id="selectOneBoard" parameterType="java.lang.String" resultType="board">
+  	<select id="selectSearchBoard" parameterType="java.lang.String" resultType="board">
   		SELECT POST_ID, MOZZLE_ID, USER_ID, CONTENT, REFER, STEP, DEPTH, REGDATE
 		FROM MOZZLE_POST
-		WHERE CONTENT LIKE #{content}
+		WHERE CONTENT LIKE '%' || #{content} || '%'
   	</select>
   	
   	<insert id="insertBoard" parameterType="board" >
