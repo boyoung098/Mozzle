@@ -36,8 +36,7 @@ public class MyPageRestController {
 	
 	@RequestMapping(value="leaderCheck.do", method=RequestMethod.POST)
 	public List<Map<String, Object>> leaderCheck(String userId){
-		List<Map<String, Object>> lists = muservice.leaderCheck(userId);
-				
+		List<Map<String, Object>> lists = muservice.leaderCheck(userId);	
 		return lists;
 	}
 	

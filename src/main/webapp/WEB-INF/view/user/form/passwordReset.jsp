@@ -57,11 +57,12 @@
 			var newPassword = $("input[name=newPassword]").val();
 			var confirmPassword = $("input[name=confirmPassword]").val();
 			// 비밀번호와 비밀번호 확인이 다를 경우
-			if(newPassword != confirmPassword){
-				$(".login-result").text("비밀번호가 일치하지 않습니다.");
-			}
-			else if(!pwRegEx.test(newPassword)){
+
+			if(!pwRegEx.test(newPassword)){
 				$(".login-result").text("비밀번호는 영어+숫자 조합으로 8 ~ 16자 사이여야 합니다.");
+			}
+			else if(newPassword != confirmPassword){
+				$(".login-result").text("비밀번호가 일치하지 않습니다.");
 			}
 			else if(confirm("패스워드를 변경하시겠습니까?")){
 				console.log("${findPw_Id}");

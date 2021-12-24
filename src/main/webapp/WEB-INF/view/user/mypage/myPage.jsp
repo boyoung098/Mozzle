@@ -122,7 +122,7 @@
 			<ul>
 				<li><a href="#" id="default-mypage-menu">정보수정<input type="hidden" name="menu" value="updateUser"/></a></li>
 				<li><a href="#">내가쓴글<input type="hidden" name="menu" value="myThread"/></a></li>
-				<li><a href="#">모즐관리<input type="hidden" name="menu" value="manageMozzle"/></a></li>
+				<li><a href="#">모즐관리<input id="manageMozzle" type="hidden" name="menu" value="manageMozzle"/></a></li>
 				<li><a href="#">알림<input type="hidden" name="menu" value="notification"/></a></li>
 			</ul>
 		</div>

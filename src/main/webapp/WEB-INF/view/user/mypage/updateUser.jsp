@@ -64,10 +64,15 @@
 					data:{userId: "${sessionScope.userId}"},
 					success: function(result){
 						if(result.length > 0){
-							var url = "./leaderList.do";
+							alert("리더의 권한을 위임해야 탈퇴가 가능합니다. 본인이 리더인지 확인해주세요.");
+							$("#manageMozzle").trigger("click");
+							/* var url = "./leaderList.do";
 							var title = '리더 권한 모즐';
 							var attr = 'width=450px, height=550px';
-							window.open(url, title, attr);
+							window.open(url, title, attr); */
+						}
+						else{
+							alert("회원 탈퇴");
 						}
 						
 					}

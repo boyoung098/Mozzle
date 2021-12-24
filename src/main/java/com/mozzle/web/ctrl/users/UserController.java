@@ -1,6 +1,7 @@
 package com.mozzle.web.ctrl.users;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mozzle.web.comm.JwtTokenProvider;
+import com.mozzle.web.dto.manage.MozzleDto;
 import com.mozzle.web.dto.users.UserDto;
+import com.mozzle.web.service.manage.IManageService;
 import com.mozzle.web.service.users.IMozzleUserService;
 import com.mozzle.web.service.users.IUserService;
 
@@ -29,6 +32,9 @@ public class UserController {
 
 	@Autowired
 	private IUserService service;
+	
+	@Autowired
+	private IManageService mService;
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.POST)
 	public String myPage(Model model, @RequestParam(value = "auth") boolean auth, @RequestParam(value = "menu", required = false) String menu) {
@@ -61,7 +67,7 @@ public class UserController {
 	public String updateUserInfo(UserDto dto) {
 		System.out.println(dto.getUser_pw().isEmpty());
 		service.updateUser(dto);
-		return null;
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/myThread.do", method=RequestMethod.GET)
@@ -71,8 +77,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/manageMozzle.do", method=RequestMethod.GET)
-	public String bookmark() {
-		
+	public String bookmark(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		List<MozzleDto> myMozzleList = mService.selectMyMozzle(session.getAttribute("userId").toString());
+		System.out.println(myMozzleList.size());
+		req.setAttribute("myMozzleList", myMozzleList);
 		return "user/mypage/manageMozzle";
 	}
 	
@@ -87,7 +96,7 @@ public class UserController {
 		HttpSession session = req.getSession();
 		req.setAttribute("userId", session.getAttribute("userId").toString());
 		
-		return null;
+		return "user/mypage/leaderList";
 	}
 
 }

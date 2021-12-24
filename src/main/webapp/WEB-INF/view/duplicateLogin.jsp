@@ -4,9 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중복로그인</title>
+<script>
+	alert("중복로그인되어 로그아웃합니다.");
+	location.href="<%=request.getContextPath()%>/logout.do"
+</script>
 </head>
 <body>
-중복되서 로그인 안되요
+
 </body>
 </html>
