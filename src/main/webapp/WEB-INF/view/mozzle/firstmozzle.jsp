@@ -150,8 +150,8 @@ $(document).ready(function() {
  
  <ul>
  <li class="lilili">
- <input type="hidden" value="65" class="post_id">
- 65누르기
+ <input type="hidden" value="61" class="post_id">
+ 61누르기
  </li>
  </ul>
  
