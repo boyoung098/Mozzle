@@ -168,7 +168,7 @@ input:focus, select:focus {
 					<li>
 <div class="input-group intput-width search">
 								<input type="text" class="form-control search-input"
-									name="inputKeyword" id="inputKeyword" placeholder=" 찾으시는 모임이 있나요?" value="<%= keyword %>"/>
+									name="inputKeyword" id="inputKeyword" placeholder=" 찾으시는 모임이 있나요?" value="<%= keyword != null ? keyword : "" %>"/>
 								<div class="input-group-btn">
 									<button type="button" id="search-btn" class="btn btn-default">
 										검색

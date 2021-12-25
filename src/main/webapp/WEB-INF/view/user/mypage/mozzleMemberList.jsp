@@ -7,13 +7,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="../comm/import.jsp"%>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 
 </head>
 <body>
 <!-- **************************멤버리스트뿌리는곳*************************  -->
 				
-				<div class="mozzle-member">
+				<div class="mozzle-member" style="height: 340px;">
 					<div class="member-title">
 						<div class="member-box">
 							<h4>멤버</h4>
@@ -21,7 +22,7 @@
 						</div>
 						<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto == '2'}">
 						</c:if>
-						
+						<button type="button" id="btninvite" class="btn-invite" <%-- onclick="javascript:location.href='./guestInvite.do?mozzle_id=<%=request.getParameter("mozzle_id")%>'" --%>>멤버 초대</button>
 						
 					</div>
 					<div class="member-box input-search" style="width: 90%">
@@ -39,6 +40,7 @@
 						 <%-- <%= imgpath+"998C26415D1B512A08.png"%> --%>
 						 
 						<c:forEach var="mozzleUser" items="${mozzleuserList}">
+						
 							<li class="${mozzleUser.nickname}li"  style="margin-bottom: 10px; border: 1px solid black;">
 							<div class="meeber-thumbnail">
 							<input type="hidden" value="${mozzleUser.nickname}" class="unserinfo">
@@ -56,33 +58,13 @@
 									<img src="<%=request.getContextPath()%>/storage/${mozzleUser.image_saved}" alt="">
 									</c:otherwise>
 								</c:choose>
-							</div> <span>${mozzleUser.nickname}</span>	
-							<c:set var="result" value='<%= request.getParameter("delegate") %>'/>
-							<c:if test="${result == true}">
-								<input type="hidden" name="mozzleUser_id" value="${mozzleUser.user_id}" />
-								<div style="margin-left:auto; margin-right:10px;">
-								<button class="delegate">리더 위임</button>
-								</div>
-								<input type="hidden" name="mozzleUser_nick" value="${mozzleUser.nickname}"/>
-							</c:if>
-							
+							</div> <span>${mozzleUser.nickname}</span>
 						</li>
 						
 						</c:forEach>
 						
 					</ul>
-
 				</div>
-				
-				<c:if test="${result == true}">
-					<c:set var="mozzle_id" value='<%= request.getParameter("mozzle_id") %>'/>
-					<div style="text-align: center; margin-top:20px;">
-					<c:if test="${fn:length(mozzleuserList) == 1}">
-						<button class="color-btn input-login">삭제하기</button>
-					</c:if>
-					<button class="color-btn input-login" onclick="window.location=document.referrer;">뒤로가기</button>
-					</div>
-				</c:if>
 				<%@include file="/WEB-INF/view/mozzle/mozzleUserDetail.jsp" %>
 <!-- **************************멤버리스트뿌리는곳*************************  -->
 <!-- 김보영 자바스크립트 작성 -->
@@ -90,9 +72,7 @@
 	
 	//특정 회원을 눌렀을때 값을가져와서 모달창이 뜨도록
 	$(function(){
-		if("${fn:length(mozzleuserList)}" == 1 && ${result != null}){
-			alert("모즐 멤버가 1명인 경우 삭제하기 버튼을 통해 삭제하실 수 있습니다.");
-		}
+		
 		$("#mozzleuserul li").each((idx, item) => {
 			$(item).click(function(e){
 				e.preventDefault();
@@ -172,39 +152,7 @@
 		});
 	}
 	
-	/*
-		작성자 : 이종표
-		회원 탈퇴시, 리더 권한 위임 delegate
-	*/
-	
-	$(document).on("click", ".delegate", function(e){
-		$('#detailModal').modal('hide');
-		var nickname = $(this).parent().next().val();
-		var id = $(this).parent().prev().val();
-		var mozzleId = '<%= request.getParameter("mozzle_id") %>';
-		if(id == "${sessionScope.userId}"){
-			alert("본인 외에 다른사람을 선택해주세요.");
-		}
-		else{
-			if(confirm(nickname + "님에게 리더 권한을 위임하시겠습니까?")){
-				$.ajax({
-					url: "./delegateLeader.do",
-					type: "post",
-					contentType: 'application/json',
-					data: JSON.stringify({user_id: id, mozzle_id: mozzleId}),
-					success: function(data){
-						if(data.delegated){
-							alert("권한을 위임하는데 성공하였습니다.");
-							history.back();
-						}
-						else{
-							alert("권한을 위임하는데 실패하였습니다.");
-						}
-					}
-				});
-			}
-		}
-	})
+
 	
 	/* function mozzleUserDetail(this){
 		//var usernickname = document.getElementById('detail${user_id}').value;

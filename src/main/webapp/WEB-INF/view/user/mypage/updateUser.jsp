@@ -4,6 +4,7 @@
 	// myPage Load 시, 세션에 담긴 사용자(현재 로그인된 사용자) 정보 출력
 	var pwChk = false;
 	var cpwChk = false;
+	var mozzleList;
 	$(function(){
 		$.ajax({
 			url:"./myPage/userInfo.do",
@@ -65,14 +66,30 @@
 					success: function(result){
 						if(result.length > 0){
 							alert("리더의 권한을 위임해야 탈퇴가 가능합니다. 본인이 리더인지 확인해주세요.");
-							$("#manageMozzle").trigger("click");
-							/* var url = "./leaderList.do";
+							//$("#manageMozzle").trigger("click");
+							console.log(result);
+							mozzleList = result;
+							var url = "./leaderList.do";
 							var title = '리더 권한 모즐';
 							var attr = 'width=450px, height=550px';
-							window.open(url, title, attr); */
+							var childWindow = window.open(url, title, attr);
+
 						}
 						else{
-							alert("회원 탈퇴");
+							$.ajax({
+								url:"./delflagUser.do",
+								type:"get",
+								data:{userId: "${sessionScope.userId}"},
+								success: function(result){
+									if(result.delflag){
+										alert("회원 탈퇴가 완료되었습니다. 그동안 Mozzle을 이용해주셔서 감사합니다.");
+										location.href="<%=request.getContextPath()%>/logout.do";
+									}
+									else{
+										alert("회원 탈퇴에 실패했습니다.");
+									}
+								}
+							});
 						}
 						
 					}
@@ -89,6 +106,7 @@
 		<jsp:include page="../../comm/userInfoForm.jsp" />
 		<input type="submit" class="color-btn input-login" value="정보수정" />
 		<input type="button" name="removeUser" class="btn btn-warning" value="회원탈퇴"/>
+		<input type="hidden" name="leaderList" />
 
 	</form>
 </div>

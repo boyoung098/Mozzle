@@ -91,6 +91,12 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 		return session.selectList(NS + "leaderCheck", userId);
 	}
 
+
+	@Override
+	public int changeMozzleAuth(Map<String, String> map) {
+		return session.update(NS + "changeMozzleAuth", map);
+	}
+
 	
 	
 }

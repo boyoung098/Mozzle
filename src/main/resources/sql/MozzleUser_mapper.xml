@@ -110,4 +110,10 @@ AND u.DELFLAG = 'N'
 	WHERE USER_ID = #{user_id} AND AUTH_CODE = 1
 </select>
 
+<!-- 회원 권한 수정 -->
+<update id="changeMozzleAuth" parameterType="java.util.Map">
+	UPDATE USER_MOZZLE SET AUTH_CODE = #{auth_code} WHERE MOZZLE_ID = #{mozzle_id} AND USER_ID = #{user_id}
+</update>
+
+
 </mapper>
