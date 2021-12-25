@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mozzle.web.comm.ScheduleUtil;
 import com.mozzle.web.dto.schedule.ScheduleDto;
 import com.mozzle.web.service.schedule.IScheduleService;
 
@@ -30,135 +30,46 @@ public class ScheduleCtrl {
 	@Autowired
 	private IScheduleService service;
 	
-	//view/mozzle/Calendar.jsp 를 불러온다
-	@GetMapping(value="/calendar.do")
-	public String scheduleForm() {
-		logger.info("scheduleForm TEST");
+	@RequestMapping(value = "/calendar.do", method = RequestMethod.GET)
+	public String CalendarForm(Locale locale,Model model,String year, String month) {
+		logger.info("달력 보기 {} ", locale);
 		
+		//월별 일정에 대해 하루마다 일정 3개씩 표시하기 기능 구현
 		
 		return "mozzle/Calendar";
 	}
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/calendarselectAll.do",method = RequestMethod.GET, produces = "application/text; charset=utf8")
-	@ResponseBody
-	//로드
-	public String scheduleselectAll(Map<String,String> map) throws ParseException{
+	@RequestMapping(value = "/scheduleselectAll.do", method = RequestMethod.GET)
+	public String scheduleselectAll(HttpServletRequest request, Locale locale,Model model,
+									@RequestParam Map<String,String> ymd) {
+		logger.info("일정 목록 보기 {} ", locale);
 		
-		JSONArray jlist = new JSONArray();
-		ScheduleDto dto = null;
+		//년월일을 8자리로 만들기 위해 1자리 값은 2자리로 만들어서 8자리로 만든다.
+//		String yyyyMMdd = ymd.get("year")
+//					+(ymd.get("month").length()<2?"0"+ymd.get("month"):ymd.get("month"))
+//					+(ymd.get("date").length()<2?"0"+ymd.get("date"):ymd.get("date"));
+		String yyyyMMdd = ymd.get("year")
+				+ ScheduleUtil.isTwo(ymd.get("month"))
+				+ ScheduleUtil.isTwo(ymd.get("date"));
 		
-		List<ScheduleDto> lists = service.scheduleselectAll(map);
+		//모즐아이디 전달
+//		HttpSession session = request.getSession();
+//		String mozzle_id = (String)session.getAttribute("mozzle_id");
+		String mozzle_id = "2";
 		
-		if (lists == null || lists.size() == 0) {
-			logger.info("nothing found to selectAll");
-		}else {
-			logger.info("lists 값:\t {}",lists);
-			
-			for (int i = 0; i < lists.size(); i++) {
-				dto = lists.get(i);
-				JSONObject jdto = new JSONObject();
-				jdto.put("schedule_id", dto.getSchedule_id());
-				jdto.put("mozzle_id", dto.getMozzle_id());
-				jdto.put("writer", dto.getWriter());   
-				jdto.put("title", dto.getTitle());
-				jdto.put("content", dto.getContent());    
-				jdto.put("schedule_date", dto.getSchedule_date());
-				jdto.put("regdate", dto.getRegdate());
-				jdto.put("delflag", dto.getDelflag());
-				jdto.put("location_code", dto.getLocation_code());
-				jlist.add(jdto);		
-		}
-			logger.info("jlist??????????????????????: \t"+jlist.toString());
-		}
-		return jlist.toString();
+		List<ScheduleDto> list = service.scheduleselectAll(mozzle_id, yyyyMMdd);
+		model.addAttribute("list",list);
+		
+		return "mozzle/scheduleselectAll";
 	}
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/scheduleupdate.do",method = RequestMethod.POST)
-	@ResponseBody
-	//업데이트
-	public String update(String schedule_id, String title, String content, String schedule_date, int location_code) {
-		//2021/12/23/10:00
-		String sd = schedule_date.substring(10, schedule_date.length()-2);
-		ScheduleDto dto = new ScheduleDto();
+	@RequestMapping(value = "/scheduleinsert.do", method = RequestMethod.GET)
+	public String scheduleinsert(Locale locale,Model model) {
+		logger.info("일정 추가 폼 이동 {} ", locale);
 		
-		System.out.println("받은 데이터 : ????????????"+title);
-		dto.setSchedule_id(schedule_id);
-		dto.setTitle(title);
-		dto.setContent(content);
-		dto.setSchedule_date(sd);
-		dto.setLocation_code(0);
+		//월별 일정에 대해 하루마다 일정 3개씩 표시하기 기능 구현
 		
-		logger.info("변경된 dto 값은?????????????????????????????: \t"+dto);
-		boolean isc = service.scheduleupdate(dto);
-		System.out.println(isc);
-		
-		JSONObject jObj = new JSONObject();
-		
-		jObj.put("schedule_id", schedule_id);
-		jObj.put("title", title);
-		jObj.put("content", content);
-		jObj.put("sd", sd);
-		jObj.put("location_code", location_code);
-		
-		logger.info(jObj.toString());
-		
-		return jObj.toString();
-	}
-	
-	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/scheduleinsert.do",method = RequestMethod.POST, produces = "applicaton/text; charset=UTF-8;")
-	@ResponseBody
-	//insert 저장부분
-	public String save(ScheduleDto dto,String schedule_id, String title, String content, String schedule_date, int location_code) throws ParseException {
-		
-		String sd = schedule_date.substring(10, schedule_date.length()-2);
-		
-		dto.setSchedule_id(schedule_id);
-		dto.setTitle(title);
-		dto.setContent(content);
-		dto.setSchedule_date(sd);
-		dto.setLocation_code(0);
-		
-		logger.info("dto 값은?????????????????????????????: \t"+dto);
-		boolean isc = service.scheduleinsert(dto);
-//		System.out.println(isc);
-		
-		JSONObject json = new JSONObject();
-		
-		json.put("schedule_id", schedule_id);
-		json.put("title", title);
-		json.put("content", content);
-		json.put("sd", sd);
-		json.put("location_code", location_code);
-		
-		logger.info(json.toString());
-		
-		return json.toString();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/scheduledelete.do",method = RequestMethod.POST)
-	@ResponseBody
-	//삭제
-	public String delete(ScheduleDto dto,String schedule_id) {
-		System.out.println(schedule_id);
-		
-		dto.setSchedule_id(schedule_id);
-		
-		logger.info("삭제될 dto id값은?????????????????????????????: \t"+dto);
-		boolean isc = service.scheduledelete(schedule_id);
-		System.out.println(isc);
-		
-		JSONObject jObj = new JSONObject();
-		
-		jObj.put("schedule_id", schedule_id);
-		
-		logger.info(jObj.toString());
-		
-		return jObj.toString();
+		return "mozzle/scheduleinsert";
 	}
 	
 }
