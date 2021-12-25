@@ -89,7 +89,7 @@ public class FirstBoardCtrl {
 			if(sessionid!=null) {
 			map.put("user_id", sessionid);
 			MozzleUserDto mozzleUserdto = mozzleUserService.selectMozzleUserByUserId(map);
-			System.out.println("========================mozzleUserdto"+mozzleUserdto.toString());
+			System.out.println("========================모즐내 회원인가 mozzleUserdto"+mozzleUserdto.toString());
 			model.addAttribute("mozzleUserdto",mozzleUserdto);
 			} else {
 				

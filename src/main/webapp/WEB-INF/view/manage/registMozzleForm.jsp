@@ -52,7 +52,7 @@
 
 
 			<div class="register-input" id="imagebox">
-				<div class="box-file-input" style="margin-top: 5px">
+				<div class="box-file-input">
 					<label> <input type="file" name="uploadFile"
 						class="file-input" accept="image/*" id="img">
 					</label> <span class="filename"></span>

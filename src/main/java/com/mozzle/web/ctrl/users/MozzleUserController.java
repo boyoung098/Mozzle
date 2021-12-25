@@ -46,30 +46,48 @@ public class MozzleUserController {
 	@Autowired
 	private INoticeService nservice;
 	
-	//모즐로 이동
-	@GetMapping(value="/mozzle/mozzleMove.do")
-	public String mozzleMove(@ModelAttribute("mozzle_id") String mozzle_id, Model model, HttpServletRequest req) {
-		log.info("이동할 mozzle_id는{}",mozzle_id);
-		
-		//모즐내 회원인지 확인하는 로직필요*****************
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("mozzle_id", mozzle_id);
-		List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListMozzleUser(map);
-		model.addAttribute("mozzleuserList",mozzleuserList);
-		//model.addAttribute("mozzle_id", mozzle_id);
-		
-		//이미지경로 뿌리기
-		//String imagepath = "C:eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage";
-		//C:home\images\study.png
-		
-		//String path = req.getSession().getServletContext().getRealPath("/");
-		//*************이미지 경로나옴!!!!!!!!!!!!!
-		
-		
-		return "mozzle/board";
-	}
+//	//모즐로 이동
+//	@GetMapping(value="/mozzle/mozzleMove.do")
+//	public String mozzleMove(@ModelAttribute("mozzle_id") String mozzle_id, Model model, HttpServletRequest req) {
+//		log.info("이동할 mozzle_id는{}",mozzle_id);
+//		
+//		//모즐내 회원인지 확인하는 로직필요*****************
+//		
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("mozzle_id", mozzle_id);
+//		List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListMozzleUser(map);
+//		model.addAttribute("mozzleuserList",mozzleuserList);
+//		//model.addAttribute("mozzle_id", mozzle_id);
+//		
+//		//이미지경로 뿌리기
+//		//String imagepath = "C:eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage";
+//		//C:home\images\study.png
+//		
+//		//String path = req.getSession().getServletContext().getRealPath("/");
+//		//*************이미지 경로나옴!!!!!!!!!!!!!
+//		
+//		
+//		return "mozzle/board";
+//	}
 
+	@RequestMapping(value="/mozzlememberList.do", method = RequestMethod.GET)
+	public String mozzlememberList(Model model, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req) {
+		//김보영-모즐내회원리스트뿌리기
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("mozzle_id", mozzle_id);
+				List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListMozzleUser(map);
+				model.addAttribute("mozzleuserList",mozzleuserList);
+				//model.addAttribute("mozzle_id", mozzle_id);
+				
+				//이미지경로 뿌리기
+				//String imagepath = "C:eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage";
+				//C:home\images\study.png
+				
+				//String path = req.getSession().getServletContext().getRealPath("/");
+				//*************이미지 경로나옴!!!!!!!!!!!!!
+			//끝
+		return "mozzle/mozzleMemberList";
+	}
 	
 	//ajax로 닉네임서치값을 받아서 map 형태로 찾은 리스트들 보내기
 	@RequestMapping(value="/mozzleUserSearch.do", method = RequestMethod.POST)
