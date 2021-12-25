@@ -28,6 +28,28 @@ $(document).ready(function() {
 	height: 10px;
 }
 
+#reply-show-button{
+	width: 100%;
+	height: 100%;
+	border: 1px solid #ddd;
+	text-align: center;
+	padding: 10px;
+}
+
+#reply-show-button p {
+	margin: 0px;
+}
+
+#reply-show-button:hover {
+	box-shadow: 1px 1px 1px #aaa;
+	cursor: pointer;
+	transition-duration: 0.1s;
+}
+
+#content{
+  width: 100%;
+  }
+  
 .profil-image{
     width: 200px;
     height: 200px;
@@ -141,10 +163,11 @@ $(document).ready(function() {
 				<div class="mo-list">
 					<ul>
 						<li><a  href="#" id="default-move">신고관리<input type="hidden" name="move" value="postreportList"></a></li>
+						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
 						<li><a  href="#" id="default-move">멤버관리<input type="hidden" name="move" value="mozzlememberList"></a></li>
 						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li>
-						<!-- <li>사진첩</li>
--->							<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
+						<!-- <li>사진첩</li>-->
+            <li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
 						<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
 						<!-- <li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li> -->
 						</c:if>

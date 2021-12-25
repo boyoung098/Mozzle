@@ -3,26 +3,32 @@
 <mapper namespace="com.mozzle.web.dao.board.MozzlePostDaoImpl">
 
 <select id="selectMozzlePostByMozzleId" parameterType="java.lang.String" resultType="pDto">
-	SELECT POST_ID, MOZZLE_ID, 
-		USER_ID, CONTENT, 
-		REFER, STEP, 
-		"DEPTH", REGDATE 
+	SELECT mp.POST_ID, mp.MOZZLE_ID, 
+		mp.USER_ID, mp.CONTENT, 
+		mp.REFER, mp.STEP, 
+		mp.DEPTH, mp.REGDATE,
+		um.IMAGE_SAVED
 	FROM MOZZLE_POST mp
-	WHERE DELFLAG = 'N'
-	AND MOZZLE_ID = #{mozzle_id}
-	AND DEPTH = '1'
-	ORDER BY REGDATE DESC;
+	JOIN USER_MOZZLE um
+	ON mp.USER_ID = um.USER_ID
+	WHERE mp.DELFLAG = 'N'
+	AND mp.MOZZLE_ID = #{mozzle_id}
+	AND mp.DEPTH = '0'
+	ORDER BY mp.REGDATE DESC
 </select>
 
-<select id="selectMozzleReplyByPostId" parameterType="java.lang.String" resultType="pDto">
-	SELECT POST_ID, MOZZLE_ID, 
-		USER_ID, CONTENT, 
-		REFER, STEP, 
-		"DEPTH", REGDATE 
+<select id="selectMozzleReplyByRefer" parameterType="java.lang.Integer" resultType="pDto">
+	SELECT mp.POST_ID, mp.MOZZLE_ID, 
+		mp.USER_ID, mp.CONTENT, 
+		mp.REFER, mp.STEP, 
+		mp.DEPTH, mp.REGDATE,
+		um.IMAGE_SAVED
 	FROM MOZZLE_POST mp
-	WHERE DELFLAG = 'N'
-	AND POST_ID = #{post_id}
-	AND DEPTH > 1
+	JOIN USER_MOZZLE um
+	ON mp.USER_ID = um.USER_ID
+	WHERE mp.DELFLAG = 'N'
+	AND mp.REFER = #{refer}
+	AND mp.DEPTH > 0
 </select>
 
 <insert id="insertMozzlePost" parameterType="pDto">

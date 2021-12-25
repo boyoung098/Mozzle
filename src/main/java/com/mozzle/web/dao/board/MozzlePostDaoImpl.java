@@ -25,9 +25,9 @@ public class MozzlePostDaoImpl implements IMozzlePostDao {
 	}
 	
 	@Override
-	public List<MozzlePostDto> selectMozzleReplyByPostId(String post_id) {
-		logger.info("selectMozzleReplyByPostId {}", post_id);
-		return session.selectList(NS + "selectMozzleReplyByPostId", post_id);
+	public List<MozzlePostDto> selectMozzleReplyByRefer(int refer) {
+		logger.info("selectMozzleReplyByRefer {}", refer);
+		return session.selectList(NS + "selectMozzleReplyByRefer", refer);
 	}
 	
 	@Override

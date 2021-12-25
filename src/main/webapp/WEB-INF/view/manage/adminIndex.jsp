@@ -265,8 +265,7 @@
 
 							for (var i = 0; i < categoryArray.length; i++) {
 								$("#saved-category-list").prepend(
-										"<li style = 'color:#1E29F0'>"
-												+ categoryArray[i] + "</li>")
+									"<li>"+ categoryArray[i] + "</li>")
 							}
 						}
 					}
