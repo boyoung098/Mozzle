@@ -23,6 +23,28 @@
 	.inline-flex{
 		display: inline-flex;
 	}
+	.box-file-input label{
+  display:inline-block;
+  background:#aaa;
+  color:#fff;
+  padding:0px 15px;
+  line-height:35px;
+  cursor:pointer;
+  border-radius: 5px;
+}
+
+.box-file-input label:after{
+  content:"파일찾기";
+}
+
+.box-file-input .file-input{
+  display:none;
+}
+
+.box-file-input .filename{
+  display:inline-block;
+  padding-left:10px;
+}
 
 </style>
 </head>

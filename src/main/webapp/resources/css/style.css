@@ -224,8 +224,7 @@ select:focus {
 .board-text-container p {
     word-wrap: break-word;
 }
-.board-cion {
-}
+
 .comment {
     display: flex;
     padding:10px;

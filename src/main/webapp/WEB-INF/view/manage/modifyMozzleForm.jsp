@@ -34,12 +34,13 @@
 		<form id="submitMozzleForm" action="./modifyMozzle.do" method="post"
 			enctype="multipart/form-data">
 			<input type="hidden" id="save_result" name="result" value="${result}" />
-			<input type="hidden" id="save_info" name="mozzle_id"
+			<input type="hidden" id="mozzle_id" name="mozzle_id"
 				value="${mozzle.mozzle_id}" />
+			<input type="hidden" id="save_info_mozzle_id" value="${mozzle_id}" />
 			<input type="hidden" id="save_info_img"
 				value="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}" />
 			<div class="register-inner">
-				<h2>모즐 생성</h2>
+				<h2>모즐 수정</h2>
 			</div>
 			<div class="register-name">
 				<p>커버 이미지 선택</p>

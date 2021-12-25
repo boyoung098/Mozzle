@@ -12,6 +12,7 @@
 	<typeAlias type="com.mozzle.web.dto.users.MozzleUserDto" alias="mozzleUserDto"/>
 	<typeAlias type="com.mozzle.web.dto.board.PostReportDto" alias="postReportDto"/>
 	<typeAlias type="com.mozzle.web.dto.notice.NotificationDto" alias="nDto"/>
+	<typeAlias type="com.mozzle.web.dto.board.MozzlePostDto" alias="pDto"/>
 </typeAliases>
 
 <mappers>
@@ -24,6 +25,7 @@
 	<mapper resource="sql/MozzleUser_mapper.xml"/>
 	<mapper resource="sql/PostReport_mapper.xml"/>
 	<mapper resource="sql/Notice_mapper.xml"/>
+	<mapper resource="sql/MozzlePost_mapper.xml"/>
 </mappers>
  
 </configuration>

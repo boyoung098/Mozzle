@@ -7,14 +7,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
 </head>
 <body>
 <!-- **************************멤버리스트뿌리는곳*************************  -->
 				
-				<div class="mozzle-member" style="height: 340px;">
+				<div class="mozzle-member">
 					<div class="member-title">
 						<div class="member-box">
 							<h4>멤버</h4>
@@ -22,7 +20,7 @@
 						</div>
 						<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto == '2'}">
 						</c:if>
-						<button type="button" id="btninvite" class="btn-invite" <%-- onclick="javascript:location.href='./guestInvite.do?mozzle_id=<%=request.getParameter("mozzle_id")%>'" --%>>멤버 초대</button>
+						
 						
 					</div>
 					<div class="member-box input-search" style="width: 90%">
@@ -59,6 +57,7 @@
 									</c:otherwise>
 								</c:choose>
 							</div> <span>${mozzleUser.nickname}</span>
+							
 						</li>
 						
 						</c:forEach>

@@ -32,7 +32,7 @@ import org.springframework.core.io.Resource;
 
 @Controller
 @RequestMapping("/{manage}/")
-public class ManageControjler {
+public class ManageController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -44,26 +44,6 @@ public class ManageControjler {
 	
 	@Autowired
 	ResourceLoader resourceLoader;
-	
-	@RequestMapping(value = "/home.do", method= RequestMethod.GET)
-	public String home(Model model) {
-		
-		//임시 저장
-		String user_id = "user01";
-		//My 모즐
-		List<MozzleDto> myMozzleList = mService.selectMyMozzle(user_id);
-		//새로 생긴 모즐
-
-		List<MozzleDto> newMozzleList = mService.selectMozzleByCreatDate();
-		//HOT 모즐
-		List<MozzleDto> hotMozzleList = mService.selectMozzleByUserNumber();
-		
-		model.addAttribute("myMozzleList", myMozzleList);
-//		model.addAttribute("newMozzleList", newMozzleList);
-		model.addAttribute("hotMozzleList", hotMozzleList);
-		
-		return "manage/index";
-	}
 	
 	@RequestMapping(value = "/registMozzleForm.do", method= RequestMethod.GET)
 	public String registMozzleForm() {
@@ -225,7 +205,9 @@ public class ManageControjler {
 		
 		String category_code = mozzle.getCategory_code();
 		String[] category_code_list = category_code.split(",");
+		
 		String mozzle_id = mozzle.getMozzle_id();
+		model.addAttribute("mozzle_id", mozzle_id);
 		
 		if (!category_code.equals("") && category_code != null) {	
 			int deleteCategoryNum = cService.deleteMozzleCategory(mozzle_id);		
