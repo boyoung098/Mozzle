@@ -5,12 +5,38 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
 
+$(document).ready(function(){
+	$("#search_area").on("click",function(){
+		var data = $("#data").val();
+		$.ajax({
+			type:'POST',
+			url : './searchBoard.do',
+			data: { "data":data },
+			dataType:"json",
+			contetnType : "application/json",
+			success : function(d){
+				console.log("success");
+				console.log(d);
+				
+			},
+			error : function(e){
+				console.log("error");
+				console.log(e);
+			},
+			complete: function(result){
+				console.log("complete");
+				console.log(result);
+			}
+			
+		})	 
+	});
+}); 
 
 
 </script>
 	<div class="mt-3">
 		
-	
+	${mozzleUserdto.user_id}
 		<div class="input-group input-search mt-2" >
 			<form method="post" id="frm_search" onsubmit="javascript:retrun false;" action="./searchBoard.do">
 				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="게시글 검색" value="${keyword}"> 
@@ -23,9 +49,9 @@
 		</div> 
 		<div class="board-container" id="items">
 			<div class="txt mt-3">
-				<%-- <c:if test="${not empty userDto.user_id }"> --%>
+				<c:if test="${userId != null}">
 					<button data-toggle="modal" data-target="#myModal">글쓰기</button>
-				<%-- </c:if> --%>
+				</c:if>
 			</div> 
 			
 		</div>
@@ -49,20 +75,17 @@
 					<div class="col-sm-2">
 						
 						<div class="board-cion">
-							<span class="comment-write">답글</span>
-							
-							<div>
-								<i class="xi-ellipsis-h xi-2x drop-board-box"></i>
-								<ul class="drop-board" style="display:block;">
-									<li><a class="btn-invite" id="board_update" onclick="board_update(${boardobj.post_id}, ${boardobj.user_id}, ${boardobj.regdate}, ${boardobj.content})">수정</a></li>
-									<li><a class="btn-invite" id="board_delete" onclick="board_delete(${boardobj.post_id})">삭제</a></li>
-									<!-- <li><button class="btn-invite">주소복사</button></li> -->
-									<li><button id="myModal2" class="btn-invite no-padding"
-											data-toggle="modal" data-target="#myModal2">신고</button></li>
-								</ul>
-							</div>
+							<i class="xi-ellipsis-h xi-2x drop-board-box"></i>
+							<ul class="drop-board" style="display:block;">
+								<li><a class="btn-invite" id="board_update" onclick="board_update(${boardobj.post_id}, ${boardobj.user_id}, ${boardobj.regdate}, ${boardobj.content})">수정</a></li>
+								<li><a class="btn-invite" id="board_delete" onclick="board_delete(${boardobj.post_id})">삭제</a></li>
+								<!-- <li><button class="btn-invite">주소복사</button></li> -->
+								<li><button id="myModal2" class="btn-invite no-padding"
+										data-toggle="modal" data-target="#myModal2">신고</button></li>
+							</ul>
 						</div>
 					</div>
+					<span class="comment-write">답글</span>
 					<div class="comment" >
 						<textarea class="form-control comment-input" name="contentId"  id="contentId" rows="5"></textarea>
 						<button class="comment-btn" id="comment-btn" onclick = 'registComment(${boardobj.post_id})'>댓글</button>

@@ -27,7 +27,7 @@
 					</div>
 					<div class="member-box input-search" style="width: 90%">
 						
-							<input type="text" class="form-control" placeholder="멤버 검색" id="memberSearchName">
+							<inpuklt type="text" class="form-control" placeholder="멤버 검색" id="memberSearchName">
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="button" onclick="memberSearch()" style="margin-left: -6px; padding: 6px 12px 6px 0px;">
 									<span class="glyphicon glyphicon-search"></span>
