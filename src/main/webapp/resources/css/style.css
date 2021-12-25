@@ -455,8 +455,19 @@ select:focus {
 
 
 /* 모바일 */
+.m_logo {
+	width:120px;
+	margin:auto;
+}
+.m_logo a {
+	padding:0px 20px;
+}
+.m_logo img{
+	width:100%;
+}
 .menu_btn{
     padding: 10px;
+    display:flex;
 }
 .menu_bg{
     width: 100%;
