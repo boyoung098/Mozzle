@@ -1,11 +1,15 @@
 // drop-board
 $( document ).ready( function() {
-  $(".drop-board-box").click(function() {
-    $(this).find(".drop-board").slideToggle();
+  $(".drop-board-box").click( function() {
+    $(this).next(".drop-board").slideToggle();
   });
 
- 
+  $(".comment-write").click( function() {
+    $(this).next(".comment").slideToggle();
+
+  });
 });
+
 
 //게시글 입력
 function inputComment() {
