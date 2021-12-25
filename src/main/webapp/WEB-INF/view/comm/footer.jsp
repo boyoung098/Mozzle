@@ -15,8 +15,7 @@
 			<div>
 				<p>이용약관 | <b>개인정보처리방침</b></p>
 				<p>(주)모즐 | 08505 서울시 금천구 가산디지털2로 115, 509호(가산동, 대륭테크노타운3차) | 대표
-					: 모즐</p>
-				<p>| 사업자등록번호 : 123-12-12345 | help@mozzle.com</p>
+					: 모즐 | 사업자등록번호 : 123-12-12345 | help@mozzle.com</p>
 			</div>
 		</div>
 		<div class="col-md-3 footer-social animated fadeInDown">

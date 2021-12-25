@@ -35,11 +35,6 @@ window.onload = function() {
 } 
 </script>
 <style>
-.card {
-	width: 100%;
-	height: 70px;
-}
-
 .image-wrap2 {
 	display: table-cell;
 	vertical-align: middle;
@@ -50,10 +45,7 @@ window.onload = function() {
 	max-height: 100%;
 }
 
-a:hover {
-	color: blue;
-	text-decoration: underline;
-}
+
 </style>
 </head>
 <body>
@@ -64,9 +56,9 @@ a:hover {
 				<div class="col-sm-9 sidenav">
 					<h4>모즐검색결과</h4>
 					<input type="text" id="save-info" value="${keyword}"
-						hidden="hidden"> <a
-						href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a>&nbsp; <a
-						href="./browseMozzleFromTheLastest.do?keyword=${keyword}">최신순</a>
+						hidden="hidden"> 
+						<a href="./MozzleFromTheImportance.do?keyword=${keyword}">관련도순</a>&nbsp;&nbsp;
+						<a href="./browseMozzleFromTheLastest.do?keyword=${keyword}">최신순</a>
 					<hr>
 					<c:choose>
 					<c:when test="${not empty mLists}">
@@ -75,33 +67,29 @@ a:hover {
 							<li>
 								<div class="container-fluid">
 									<div class="row">
-										<div class="col-sm-1">
+										<div class="col-sm-2 browse_list">
 											<c:choose>
 												<c:when test="${not empty mozzle.image_saved}">
-													<a href="./firstmozzle.do?mozzle_id='${mozzle.mozzle_id}'"><img
-														class="card"
-														src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}"
-														alt="img" /></a>
+													<a href="./firstmozzle.do?mozzle_id='${mozzle.mozzle_id}'">
+														<img class="card" src="<%=request.getContextPath()%>/resources/upload/${mozzle.image_saved}" alt="img" />
+													</a>
 												</c:when>
 												<c:otherwise>
-													<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"><img
-														class="card"
-														src="<%=request.getContextPath()%>/resources/upload/basic.png"
-														alt="img" /></a>
+													<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}">
+														<img class="card" src="<%=request.getContextPath()%>/resources/upload/basic.png" alt="img" />
+													</a>
 												</c:otherwise>
 											</c:choose>
 										</div>
-										<div class="col-sm-9"
-											style="align-items: center; justify-content: center;">
+										<div class="col-sm-10 browse_title"  style="align-items: center; justify-content: center;">
 											<ul>
-												<li><a
-													href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}">${mozzle.mozzle_name}</a></li>
-												<li><a
-													href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}">${mozzle.mozzle_intro}</a></li>
+												<li>
+													<h4><a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}">${mozzle.mozzle_name}</a></h4>
+												</li>
+												<li><a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}">${mozzle.mozzle_intro}</a></li>
 												<li>회원수 : 110 <span></span> 리더 : 홍길동
 												</li>
 											</ul>
-
 										</div>
 									</div>
 								</div>
@@ -125,11 +113,8 @@ a:hover {
 				</div>
 				
 
-				<div class="col-sm-3">
-
-
+				<div class="col-sm-3 best_cate">
 					<h4>실시간 BEST 카테고리</h4>
-
 					<div>
 						<ol>
 						</ol>

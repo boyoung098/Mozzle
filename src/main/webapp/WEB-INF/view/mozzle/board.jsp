@@ -73,7 +73,7 @@ $(document).ready(function(){
 						<span>${boardobj.user_id}</span> <span>${boardobj.regdate}</span>
 					</div>
 					<div class="col-sm-2">
-						
+						<c:if test="${mozzleUserdto.user_id != null}">
 						<div class="board-cion">
 							<i class="xi-ellipsis-h xi-2x drop-board-box"></i>
 							<ul class="drop-board" style="display:block;">
@@ -84,6 +84,7 @@ $(document).ready(function(){
 										data-toggle="modal" data-target="#myModal2">신고</button></li>
 							</ul>
 						</div>
+						</c:if>
 					</div>
 					<span class="comment-write">답글</span>
 					<div class="comment" >

@@ -142,7 +142,7 @@ $(document).ready(function() {
 						</p>
 						<div class="mo-member">
 							<div>
-								<div>
+								<div class="mb-1">
 									<c:forEach var="category" items="${categoryList}">
 										<a style="color: #aaa"><img id="hash-tag" alt="hash-tag" src="<%=request.getContextPath()%>/resources/images/hashtag.png">${category}</a>&nbsp;
 									</c:forEach>

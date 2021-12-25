@@ -20,14 +20,6 @@ $(document).ready(function(){
 
 </script>
 <style>
-.search {
-	height: 40px;
-	width: 100%;
-	border-radius: 100px;
-	border: 1px solid #ddd;
-	padding-left: 10px;
-}
-
 .select_bar {
 	padding-top: 17px;
 }
@@ -49,16 +41,6 @@ $(document).ready(function(){
 	margin-bottom: 5px;
 }
 
-.intput-width {
-	width: 65%;
-}
-
-.search-input {
-	border: none;
-	padding: 0;
-	'
-}
-
 input:focus, select:focus {
 	outline: transparent !important;
 }
@@ -68,9 +50,6 @@ input:focus, select:focus {
 	background-color: rgba(0, 0, 0, 0);
 }
 
-.navbar-right li {
-	text-align: center;
-}
 
 .dropdown-menu {
 	width: 350px;
@@ -80,15 +59,6 @@ input:focus, select:focus {
 }
 
 
-
-.notice-img{
-	float: left;
-}
-
-.wrap{
-	word-break: break-all;
-    white-space: normal;
-}
 .notice-list a{
 	min-height: 80px;
 }
@@ -152,29 +122,25 @@ input:focus, select:focus {
 </head>
 
 <body>
-	<nav class="navbar container">
+	<nav class="navbar container pc_menu">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="<%=request.getContextPath()%>"><img
-					src="<%=request.getContextPath()%>/resources/images/logo/logo.png" /></a>
+				<a class="navbar-brand" href="<%=request.getContextPath()%>">
+					<img src="<%=request.getContextPath()%>/resources/images/logo/logo.png" />
+				</a>
 			</div>
 			<div class="collapse navbar-collapse select_bar" id="myNavbar">
 				<ul class="nav navbar-nav navbar-center">
 					<li>
-<div class="input-group intput-width search">
-								<input type="text" class="form-control search-input"
-									name="inputKeyword" id="inputKeyword" placeholder=" 찾으시는 모임이 있나요?" value="<%= keyword %>"/>
-								<div class="input-group-btn">
-									<button type="button" id="search-btn" class="btn btn-default">
-										검색
-									</button>
-								</div>
+						<div class="input-group intput-width ">
+							<input type="text" class="form-control search"
+								name="inputKeyword" id="inputKeyword" placeholder=" 찾으시는 모임이 있나요?" value="<%= keyword %>"/>
+							<div class="input-group-btn top_search">
+								<button type="button" id="search-btn" class="btn btn-default">
+									<i class="xi-search"></i>
+								</button>
 							</div>
+						</div>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -202,6 +168,53 @@ input:focus, select:focus {
 		</div>
 	</nav>
 	<hr class="nav-hr" />
+	<div class="mobile_menu">
+		<div class="header_mobile">
+		  <div class="menu_btn">
+		    <a href="#">       
+		      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjQgNmgtMjR2LTRoMjR2NHptMCA0aC0yNHY0aDI0di00em0wIDhoLTI0djRoMjR2LTR6Ii8+PC9zdmc+">
+		    </a>
+		    <div>
+		    	<a class="navbar-brand" href="<%=request.getContextPath()%>">
+				<img src="<%=request.getContextPath()%>/resources/images/logo/logo.png" />
+			  </a>
+		    </div>
+		  </div>
+		  
+		</div>
+		<div class="menu_bg"></div>
+			<div class="sidebar_menu">
+			    <div class="close_btn"><a href="#">       
+			        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuOTU0IDIxLjAzbC05LjE4NC05LjA5NSA5LjA5Mi05LjE3NC0yLjgzMi0yLjgwNy05LjA5IDkuMTc5LTkuMTc2LTkuMDg4LTIuODEgMi44MSA5LjE4NiA5LjEwNS05LjA5NSA5LjE4NCAyLjgxIDIuODEgOS4xMTItOS4xOTIgOS4xOCA5LjF6Ii8+PC9zdmc+">
+			        </a>
+			    </div>
+			    <ul class="menu_wrap">
+			          <li><a href="#">메뉴01</a></li>
+			          <li><a href="#">메뉴02</a></li>
+			          <li><a href="#">메뉴03</a></li>
+			          <li><a href="#">메뉴04</a></li>
+			    </ul>
+			</div>
+		</div>
+<script>
+  $(document).ready(function(){
 
+      $('.menu_btn>a').on('click', function(){
+          $('.menu_bg').show(); 
+          $('.sidebar_menu').show().animate({
+              left:0
+          });  
+      });
+      $('.close_btn>a').on('click', function(){
+          $('.menu_bg').hide(); 
+          $('.sidebar_menu').animate({
+              left: '-' + 50 + '%'
+                     },function(){
+          $('.sidebar_menu').hide(); 
+          }); 
+      });
+
+  });
+</script>
 </body>
 </html>

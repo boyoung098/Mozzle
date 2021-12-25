@@ -122,7 +122,7 @@
 			</div>
 		</section>
 	</c:if>
-	<section class="container mt-3" id="new-mozzle">
+	<section class="container mt-3 mozzle-container" id="new-mozzle">
 		<h4>새로 생긴 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle">
 			<div class="swiper-wrapper">
@@ -157,7 +157,7 @@
 		</div>
 	</section>
 	<br />
-	<section class="container mt-3" id="new-mozzle2">
+	<section class="container mt-3 mozzle-container" id="new-mozzle2">
 		<h4>HOT 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle2">
 			<div class="swiper-wrapper">
@@ -200,10 +200,10 @@
 	<div id="footer"></div>
 
 
-	<div>
+	<!-- <div>
 		<h1>임의로 만든 이동페이지</h1>
 		<a href="./guestInvite.do?mozzle_id=1">김보영-게스트URI뿌리는 곳으로 이동</a> <a
 			href="./mozzle/mozzleMove.do?mozzle_id=1">모즐1 메인이동</a>
-	</div>
+	</div> -->
 </body>
 </html>

@@ -11,10 +11,6 @@ nav.navbar {
     padding: 0;
     border-bottom: 1px solid #ddd;
 }
-.card {
-    width: 90%;
-    height: 100%;
-}
 
 /* Add a gray background color and some padding to the footer */
 footer {
@@ -122,6 +118,7 @@ footer {
 }
 #footer-ul li {
     display: inline-block;
+    cursor: pointer;
 }
 
 
@@ -131,6 +128,7 @@ section.content{
 }
 .swiper-slide img{
 	width: 100%;
+	object-fit: cover;
 }
 .width-100{
 	width: 100%;
@@ -217,7 +215,9 @@ a {
 .mt-5 {
     margin-top: 50px;
 }
-
+.mb-1 {
+	margin-bottom:10px;
+}
 
 .nav>li>a:focus, .nav>li>a:hover {
     text-decoration: none;
@@ -231,7 +231,6 @@ a {
 }
 
 .container-fluid {
-    padding-right: 27px;
     padding-left: 0px;
 }
 i {
@@ -244,30 +243,62 @@ i {
 textarea:focus, input:focus{ 
     outline: none; 
 }
-.input-group-btn button{
-    border-left: non;
-}
 
 
 .col-sm-9, .col-sm-3 {
 	padding:5px;
 }
 
+.nav-stacked>li {
+    float: none;
+    margin-bottom: 30px;
+}
+.table>thead>tr>th {
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    font-weight: 200;
+}
 
-
-
-
-
-
-
-
+@media (min-width: 367px){
+	.clear {
+    	clear: both;
+	    float: none;
+	}
+	#image-wrap {
+	    width: 150px;
+	}
+	.mo-img img{
+		width:100%;
+	    height:230px;
+	    object-fit: cover;
+	}
+	.pc_menu{
+		display:none;
+	} 
+	.mobile_menu{
+		display: block;
+	}
+}
+.container{
+	clear: both;
+}
 
 
 @media (min-width: 768px){
     .container-fluid {
         width: 750px;
     }
-   
+    #image-wrap {
+	    width: 230px;
+	}
+   .mo-img img{
+		width:230px;
+	    height:230px;
+	    object-fit: cover;
+	}
+	.navbar-brand{
+		padding: 0px 15px;
+	}
 }
 @media (min-width: 992px){
     .container-fluid {
@@ -279,6 +310,9 @@ textarea:focus, input:focus{
     .profil-image {
 	    width: 210px;
 	}
+	.pc_menu{
+		display:block;
+	} 
 }
 
 @media (min-width: 1200px){
@@ -294,4 +328,11 @@ textarea:focus, input:focus{
     .profil-image {
 	    width: 256px;
 	}
+	.clear {
+		clear:both;
+		float: right;
+	}
+	
+	
+	
 }

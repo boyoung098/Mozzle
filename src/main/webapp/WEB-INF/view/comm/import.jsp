@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/swiper-bundle.min.css" />
-<link rel="stylesheet"href="<%=request.getContextPath()%>/resources/css/commons.css" />
+<link rel="stylesheet"href="<%=request.getContextPath()%>/resources/css/commos.css" />
 <link rel="stylesheet"href="<%=request.getContextPath()%>/resources/css/style.css" />
 <link rel="stylesheet"href="<%=request.getContextPath()%>/resources/css/xeicon.css" />
 <link rel="stylesheet"href="<%=request.getContextPath()%>/resources/css/xeicon.min.css" />
