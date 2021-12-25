@@ -23,13 +23,47 @@ public class MozzlePostServiceImpl implements IMozzlePostService{
 	}
 	
 	@Override
+	public List<MozzlePostDto> selectMyMozzlePost(MozzlePostDto post) {
+		return dao.selectMyMozzlePost(post);
+	}
+
+	@Override
+	public List<MozzlePostDto> searchMozzlePost(MozzlePostDto post) {
+		return dao.searchMozzlePost(post);
+	}
+
+
+	@Override
 	public List<MozzlePostDto> selectMozzleReplyByRefer(int refer) {
 		return dao.selectMozzleReplyByRefer(refer);
 	}
 
 	@Override
-	public int insertMozzlePost(MozzlePostDto post) {
-		return 0;
+	public boolean insertMozzlePost(MozzlePostDto post) {
+		int n = dao.insertMozzlePost(post);
+		
+		return (n==1) ? true:false;
+				
 	}
+
+	@Override
+	public boolean insertFirstReply(MozzlePostDto post) {
+		int n = dao.insertFirstReply(post);
+		return (n==1) ? true:false;
+	}
+
+	@Override
+	public boolean replyIn(MozzlePostDto post) {
+		int n = dao.replyUp(post);
+		int m = dao.replyIn(post);
+		return (n+m==2) ? true:false;
+	}
+
+	@Override
+	public boolean deleteMozzlePost(String post_id) {
+		int n = dao.deleteMozzlePost(post_id);
+		return (n == 1) ? true:false;
+	}
+
 	
 }
