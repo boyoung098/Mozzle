@@ -45,13 +45,12 @@ public class TestMain3 {
 		/**
 		 * 일정리스트
 		 */
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("schedule_id", "2");
-		map.put("yyyymmdd", "20211217");
-		List<ScheduleDto> slist = scheduledao.scheduleselectAll(map);
-		for (ScheduleDto dto : slist) {
-			logger.info("리스트 dto {}", dto);
-		}
+		/*
+		 * Map<String, String> map = new HashMap<String, String>();
+		 * map.put("schedule_id", "2"); map.put("yyyymmdd", "20211217");
+		 * List<ScheduleDto> slist = scheduledao.scheduleselectAll(map); for
+		 * (ScheduleDto dto : slist) { logger.info("리스트 dto {}", dto); }
+		 */
 
 		/**
 		 * 일정입력 Info 먼저

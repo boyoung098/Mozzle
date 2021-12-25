@@ -1,47 +1,30 @@
 package com.mozzle.web.comm;
 
-import java.util.List;
-
-import com.mozzle.web.dto.schedule.ScheduleDto;
+import java.util.Calendar;
 
 //달력에서 사용하는 공통 기능을 정의
 public class ScheduleUtil {
 	
-	//한자리를 두가지로 변경 202112 -> 20211212
-	public static String isTwo(String month) {
-		
-		return (month.length()<2)?("0"+month):month;
-		
-	}
-	
+	// 토요일과 일요일을 확인해서 blue 또는 red 문자열을 반환하는 메서드
+	public static String fontColor(int dayOfWeek, int i) {
+		String color = "";
+		if ((dayOfWeek - 1 + i) % 7 == 0) {// 토요일인 경우
+			color = "blue";
+		} else if ((dayOfWeek - 1 + i) % 7 == 1) {// 일요일인 경우
+			color = "red";
+		} else {
+			color = "black";
+		}
 
-	//달력에 토요일 일요일 평일 글자색 변경
-	public static String fontColor(int date, int dayofWeek) {
-		int dayCal = (dayofWeek-1+date)%-7;
-		if(dayCal==0) {
-			//토요일
-			return "bule";
-		}else if(dayCal==1) {
-			//일요일
-			return "red";
-			//평일
-		}else {
-			return "";
-		}
+		return color;
 	}
 	
-	// slist 년월에 모든 글을 가지고 있다.
-	// 해당 일에 리스트를 뿌려준다.
-	public static String schedulecount(int i, List<ScheduleDto> slist) {
+	//1자리 문자열을 2자리 문자열로 변환하는 메서드
+	public static String isTwo(String msg) {
 		
-		String res = "";
-		for(ScheduleDto dto : slist) {
-			if(dto.getSchedule_date().toString().equals(res)) {
-				
-			}
-		}
 		
-		return null;
+		
+		return msg.length()<2?"0"+msg:msg;
 	}
-	
+
 }

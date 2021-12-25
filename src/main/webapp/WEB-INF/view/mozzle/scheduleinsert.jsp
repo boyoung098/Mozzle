@@ -5,42 +5,54 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	
-</script>
+<title>일정추가</title>
+<% 						//
+	int year = Integer.parseInt(request.getParameter("year"));
+	int month = Integer.parseInt(request.getParameter("month"));
+	int date = Integer.parseInt(request.getParameter("date"));
+%>
 </head>
 <body>
+	<h1>일정 등록</h1>
 	<form action="./scheduleinsert.do" method="post">
-		<div class="insertmodal">
-			<div class="modal_content">
-				<ul>
-					<li>작성자 : 
-						<input type="text" name="writer" value="001"
-						readonly="readonly">
-					</li>
-					<li>제목 : 
-						<input type="text" name="title">
-					</li>
-					<li>내용 : 
-						<textarea rows="10" cols="30" name="content"></textarea>
-					</li>
-					<li>날짜 : <!-- 이부분 종표한테 물어보기 --> 
-						<input type="date" name="date">
-					</li>
-					<li>위치 :
-						
-					</li>
-				</ul>
-			</div>
-			<div class="modal_footer">
-				<input type="submit" value="등록">
-			</div>
-		</div>
+		<table border="1">
+			<tr>
+				<th>Schedule_id</th>
+				<td><input type="text" name="schedule_id" value="12" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<th>Writer</th>
+				<td><input type="text" name="writer" value="작성자2" readonly="readonly"></td>
+			</tr>
+			<!-- <tr>
+				<th>일정</th>
+				<td>
+					<select name="year"><option>2021</option></select>년
+					<select name="month"><option>12</option></select>월
+					<select name="date"><option>25</option></select>일
+					<select name="hour"><option>12</option></select>시
+					<select name="min"><option>7</option></select>분
+				</td>
+			</tr> -->
+			<tr>
+				<th>Title</th>
+				<td><input type="text" name="title"></td>
+			</tr>
+			<tr>
+				<th>Content</th>
+				<td><textarea rows="10" cols="60" name="content"></textarea></td>
+			</tr>
+			<tr>
+				<th>Schedule_date</th>
+				<td><input type="datetime-local" name="schedule_date"></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="일정추가"/>
+					<input type="button" value="돌아가기" onclick="calendar()"/>
+				</td>
+			</tr>
+		</table>
 	</form>
 </body>
 </html>

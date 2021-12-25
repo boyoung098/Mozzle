@@ -26,15 +26,37 @@
 	.inline-flex{
 		display: inline-flex;
 	}
+		.box-file-input label{
+  display:inline-block;
+  background:#aaa;
+  color:#fff;
+  padding:0px 15px;
+  line-height:35px;
+  cursor:pointer;
+  border-radius: 5px;
+}
+
+.box-file-input label:after{
+  content:"파일찾기";
+}
+
+.box-file-input .file-input{
+  display:none;
+}
+
+.box-file-input .filename{
+  display:inline-block;
+  padding-left:10px;
+}
 
 </style>
 </head>
 <body>
 
-	<div id="content">
+	<div id="content" style="text-align: center;">
         <form:form id="mozzleUserUpdate" action="#" method="post" enctype="multipart/form-data"
         		>
-		<div class="register-container">
+		<div class="register-container"  style="display: inline-block;">
 		
 				<h4>프로필이미지 선택</h4>
 				<div class="image-wrap2">
@@ -52,13 +74,11 @@
  			<div class="register-input" id="imagebox">
 				<div class="box-file-input" style="margin-top: 5px">
 					<label> <input type="file" name="file"
-						class="file-input" accept="image/*" id="img" onchange="setThumbnail(event);" style="display: block;">
-						<button type="button" id="img-change-btn" class="color-btn side-btn" style="height: 35px;" >이미지 변경</button>
+						class="file-input" accept="image/*" id="img" onchange="setThumbnail(event);">
 					</label>
 				</div>
 			</div> 
 		
-		${mozzleUser.image_saved}<br>
 			<br>
 			<h4>닉네임 (※공백없이 4글자이상 20글자이내)</h4>
 			<label>
@@ -89,8 +109,6 @@
 			</div>
 			<br>
 			<div>
-			<span>밴드탈퇴</span> 
-			<button class="join-btn" id="mozzleout" style="margin: 5px;">탈퇴하기</button>
 			</div>
 			
 			<!-- <div>

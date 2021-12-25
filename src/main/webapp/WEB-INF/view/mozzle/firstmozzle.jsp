@@ -47,7 +47,22 @@ $(document).ready(function() {
 }
 
 #content{
- width: 100%;
+  width: 100%;
+  }
+  
+.profil-image{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+#mozzleout{
+	background: #e82d55;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 4px;
+    border: none;
 }
 
 </style>
@@ -57,48 +72,48 @@ $(document).ready(function() {
 	<section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
 			<div class="col-sm-3 sidenav" id="fixed-info">
-			<div style="position: fixed;">
+			<div >
 			<ul class="nav nav-tabs">
 			  <li class="active"><a data-toggle="tab" href="#home">운영자</a></li>
+			  <c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
 			  <li><a data-toggle="tab" href="#menu1">내정보</a></li>
+			  </c:if>
 			</ul>
 			<div class="tab-content">
-			  <div id="home" class="tab-pane fade in active">
-			    <div class="profil-image">
+			  <div id="home" class="tab-pane fade in active" style="text-align: center;">
+			    <div style=" display: inline-block;">
 					<img src="<%=request.getContextPath()%>/resources/upload/${myMozzle.image_saved}"
-						alt="메인" />
+						alt="메인"  style="width: 180px; height: 180px; object-fit: cover; border-radius: 100%;"/>
 					</div>
-					<%-- <div class="row">
-					  <div class="col-sm-4">닉네임</div>
-					  <div class="col-sm-8">${mozzleUserdto.nickname}</div>
-					</div>
-					<div class="row">
-					  <div class="col-sm-4">닉네임</div>
-					  <div class="col-sm-8">${mozzleUserdto.nickname}</div>
-					</div> --%>
+					
 			  </div>
 			  <!-- 내정보 -->
-			  <div id="menu1" class="tab-pane fade">
-			    <div class="image-wrap2" >
+			  <div id="menu1" class="tab-pane fade" style="text-align: center;">
+			    <div style=" display: inline-block;">
 						<c:if test="${mozzleUserdto.image_saved == null}">
-						<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="" class="image" style="width: 200px;">
+						<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;">
 						</c:if>
 						<c:if test="${mozzleUserdto.image_saved != null}">
-						<img src="<%=request.getContextPath()%>/storage/${mozzleUserdto.image_saved}" alt="" class="image" style="width: 200px;">
+						<img src="<%=request.getContextPath()%>/storage/${mozzleUserdto.image_saved}" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;">
 						</c:if>
 				</div>
 				
-				<div class="row">
-					  <div class="col-sm-4">닉네임</div>
-					  <div class="col-sm-8">${mozzleUserdto.nickname}</div>
-					</div>
-					<div class="row">
-					  <div class="col-sm-4">닉네임</div>
-					  <div class="col-sm-8">${mozzleUserdto.nickname}</div>
-					</div>
+				<div class="userinfodiv">
+				<h5>닉네임 : ${mozzleUserdto.nickname}</h5>
+				
+					<c:if test="${mozzleUserdto.auth_code == '1'}">
+					<h5>등급 : 운영자</h5>
+					</c:if>
+					<c:if test="${mozzleUserdto.auth_code == '2'}">
+					<h5>등급 : 일반회원</h5>
+					</c:if>
+					<fmt:parseDate var="userjoindate" value="${mozzleUserdto.joined_date}" pattern="yyyy-MM-dd"/>
+					<fmt:formatDate var="userjoindate2" value="${userjoindate}" pattern="yyyy-MM-dd"/>
+					<h5>가입일자 : ${userjoindate2}</h5>
+				</div>
 				
 				<button class="join-btn" type="button" id="btnupdatemy">정보수정</button>
-				
+				<button class="join-btn" id="mozzleout" style="margin: 5px;">탈퇴하기</button>
 			  </div>
 			  </div>
 			</div>
@@ -149,8 +164,10 @@ $(document).ready(function() {
 					<ul>
 						<li><a  href="#" id="default-move">신고관리<input type="hidden" name="move" value="postreportList"></a></li>
 						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
-						<!-- <li>사진첩</li>
--->							<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
+						<li><a  href="#" id="default-move">멤버관리<input type="hidden" name="move" value="mozzlememberList"></a></li>
+						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li>
+						<!-- <li>사진첩</li>-->
+            <li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
 						<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
 						<!-- <li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li> -->
 						</c:if>

@@ -8,7 +8,7 @@ public interface IBoardService {
 	public int insertBoard(Board board);
 	public int updateBoard(Board board);
 	public int deleteBoard(int num);
-	public List<Board> selectOneBoard(String content);
+	public List<Board> selectSearchBoard(String content);
 	public List<Board> selectAllBoard(String mozzle_id);
 	//public List<Board> selectAllBoard();
 	

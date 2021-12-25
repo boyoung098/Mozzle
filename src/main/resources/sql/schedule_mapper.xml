@@ -3,15 +3,20 @@
 <mapper namespace="com.mozzle.web.Schedule">
 
 	<!-- 일정리스트 -->
-	<select id="scheduleselectAll" resultType="ScheduleDto">
-		SELECT
-		S.SCHEDULE_ID,S.WRITER,S.TITLE,S.CONTENT,
-		S.SCHEDULE_DATE ,S.REGDATE,
-		si.ADDRESS
-		FROM SCHEDULES S
+	<select id="scheduleselectAll" parameterType="java.util.Map"
+		resultType="ScheduleDto">
+		SELECT s.SCHEDULE_ID
+		,s.MOZZLE_ID ,s.WRITER ,s.TITLE
+		,s.CONTENT ,s.SCHEDULE_DATE ,s.REGDATE
+		,si.LOCATION_NAME, si.ADDRESS,
+		si.ADDRESS2, si.PHONE
+		FROM SCHEDULES s
 		INNER JOIN SCHEDULE_INFO si
 		ON
 		S.LOCATION_CODE = si.LOCATION_CODE
+		WHERE MOZZLE_ID = #{mozzle_id} AND
+		SUBSTR(SCHEDULE_DATE,1,8) = #{yyyyMMdd}
+		ORDER BY SCHEDULE_DATE
 	</select>
 
 	<!-- 일정추가 -->
@@ -31,63 +36,72 @@
 		#{location_code})
 	</insert>
 
-	<!-- 일정개수 -->
-	<select id="schedulecount" parameterType="java.util.Map">
-		SELECT NVL(COUNT(*),0)
-		FROM SCHEDULES
-		WHERE SCHEDULE_DATE = #{schedule_date}
-	</select>
-
-	<!-- 일정리스트(개수보여주기) -->
-	<select id="scheduleselectViewAll" parameterType="java.util.Map">
-		SELECT
-		SCHEDULE_ID, WRITER, TITLE, CONTENT,
-		SCHEDULE_DATE,REGDATE,LOCATION_CODE
-		FROM(SELECT ROW_NUMBER() OVER(PARTITION BY SUBSTR(SCHEDULE_DATE,1,8) ORDER BY
-		SCHEDULE_DATE) RN,
-		SCHEDULE_ID, WRITER, TITLE, CONTENT,
-		SCHEDULE_DATE,REGDATE,LOCATION_CODE
-		FROM SCHEDULES s
-		WHERE SCHEDULE_DATE = #{schedule_date})
-		WHERE RN BETWEEN 1 AND 3;
-	</select>
 	<!-- 일정 상세보기 -->
-	<select id="scheduleselectOne" parameterType="java.util.Map">
-		SELECT
-		S.SCHEDULE_ID,S.WRITER,S.TITLE,S.CONTENT,
-		S.SCHEDULE_DATE ,S.REGDATE,
-		si.LOCATION_NAME, si.ADDRESS, si.ADDRESS2,
-		si.PHONE
-		FROM SCHEDULES S
+	<select id="scheduleselectOne" parameterType="Integer"
+		resultType="ScheduleDto">
+		SELECT s.SCHEDULE_ID ,s.MOZZLE_ID ,s.WRITER ,s.TITLE
+		,s.CONTENT ,s.SCHEDULE_DATE ,s.REGDATE ,si.LOCATION_NAME, si.ADDRESS,
+		si.ADDRESS2, si.PHONE
+		FROM SCHEDULES s
 		INNER JOIN SCHEDULE_INFO si
-		ON S.LOCATION_CODE = si.LOCATION_CODE
-		WHERE
-		SCHEDULE_ID = #{schedule_id}
+		ON
+		S.LOCATION_CODE = si.LOCATION_CODE
+		WHERE SCHEDULE_ID = #{schedule_id}
 	</select>
 
 	<!-- 일정 변경 -->
 	<update id="scheduleupdate" parameterType="ScheduleDto">
 		UPDATE SCHEDULES
 		SET
-		TITLE=#{title},
-		CONTENT=#{content},SCHEDULE_DATE=#{schedule_date}
-		WHERE
-		SCHEDULE_ID = #{schedule_id}
-	</update>
-
-	<!-- 일정삭제(delflag) -->
-	<update id="scheduledeflag" parameterType="ScheduleDto">
-		UPDATE SCHEDULES SET
-		DELFLAG ='Y'
+		TITLE='변경된TITLE',CONTENT='변경된CONTENT',SCHEDULE_DATE='202112191207',REGDATE
+		=SYSDATE
 		WHERE SCHEDULE_ID = #{schedule_id}
 	</update>
-
+	
 	<!-- 일정삭제(delete) -->
-	<delete id="scheduledelete" parameterType="ScheduleDto">
-		DELETE FROM SCHEDULES
-		WHERE SCHEDULE_ID =
-		#{schedule_id}
+	<delete id="scheduledelete" parameterType="java.util.Map">
+		DELETE FROM SCHEDULES WHERE SCHEDULE_ID IN
+		<foreach collection="schedule_ids" item="schedule_id" open="(" close=")" separator=",">
+			#{schedule_id}
+		</foreach>
 	</delete>
+
+	<!-- 일정개수 -->
+	<select id="schedulecount" parameterType="java.util.Map" resultType="Integer">
+		SELECT NVL(COUNT(*),0)
+		FROM SCHEDULES
+		WHERE SCHEDULE_DATE = #{schedule_date}
+	</select>
+
+
+
+
+
+
+
+
+
+	<!-- 일정리스트(개수보여주기) -->
+	<select id="scheduleselectViewAll" parameterType="java.util.Map">
+		SELECT
+		SCHEDULE_ID, WRITER, TITLE, CONTENT,
+		SCHEDULE_DATE,REGDATE,LOCATION_CODE
+		FROM(SELECT ROW_NUMBER()
+		OVER(PARTITION BY SUBSTR(SCHEDULE_DATE,1,8) ORDER BY
+		SCHEDULE_DATE) RN,
+		SCHEDULE_ID, WRITER, TITLE, CONTENT,
+		SCHEDULE_DATE,REGDATE,LOCATION_CODE
+		FROM SCHEDULES s
+		WHERE SCHEDULE_DATE
+		= #{schedule_date})
+		WHERE RN BETWEEN 1 AND 3;
+	</select>
+
+
+
+
+
+	
 
 
 </mapper>

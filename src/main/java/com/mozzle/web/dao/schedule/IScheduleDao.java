@@ -13,7 +13,7 @@ public interface IScheduleDao {
 	 * @param map
 	 * @return
 	 */
-	public List<ScheduleDto> scheduleselectAll(Map<String, String> map);
+	public List<ScheduleDto> scheduleselectAll(String mozzle_id, String yyyyMMdd);
 	
 	/**
 	 * insert
@@ -22,6 +22,14 @@ public interface IScheduleDao {
 	 * @return
 	 */
 	public boolean scheduleinsert(ScheduleDto dto);
+	
+	/**
+	 * detail
+	 * 상세보기
+	 * @param schedule_id
+	 * @return
+	 */
+	public ScheduleDto scheduledetail(int schedule_id);
 	
 	
 	/**
@@ -37,7 +45,13 @@ public interface IScheduleDao {
 	 * @param schedule_id
 	 * @return
 	 */
-	public boolean scheduledelete(String schedule_id);
+	public boolean scheduledelete(String[] schedule_id);
 	
-	
+	/**
+	 * 일정 개수
+	 * @param schedule_id
+	 * @param yyyyMMdd
+	 * @return
+	 */
+	public int schedulecount(String schedule_id, String yyyyMMdd);
 }

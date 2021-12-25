@@ -38,12 +38,12 @@
 				<h2 id="innickname"></h2>
 				<h4 id="inauth"></h4>
 			</div>
-			<br>
 			<div class="register-name">
 				<h5>가입일자 : <span id="indate"></span></h5>
 			</div>
 			<div id="imgsrc"></div>
-			
+			<button class="join-btn" type="button" >정보수정</button>
+			<button class="join-btn" type="button" >탈퇴하기</button>
 			
 			
 			
