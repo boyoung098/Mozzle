@@ -163,13 +163,13 @@ $(document).ready(function() {
 				<div class="mo-list">
 					<ul>
 						<li><a  href="#" id="default-move">신고관리<input type="hidden" name="move" value="postreportList"></a></li>
-						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
 						<li><a  href="#" id="default-move">멤버관리<input type="hidden" name="move" value="mozzlememberList"></a></li>
-						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li>
+						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
+						<!-- <li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li> -->
 						<!-- <li>사진첩</li>-->
-            <li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
+            			<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
 						<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
-						<!-- <li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li> -->
+						<li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -178,6 +178,7 @@ $(document).ready(function() {
 			<div id="load_mozzle" class="col-sm-9 clear mt-3"></div>
 		</div>
 	</section>
+
 
 	<div id="footer"></div>
 
