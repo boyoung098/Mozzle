@@ -108,4 +108,10 @@ public class ManageDaoImpl implements IManageDao{
 		logger.info("selectUserNum {}", mozzle_id);
 		return session.selectOne(NS + "selectUserNum", mozzle_id);
 	}
+
+	@Override
+	public int checkMember(String user_id) {
+		logger.info("checkMember {}", user_id);
+		return session.selectOne(NS + "checkMember", user_id);
+	}
 }

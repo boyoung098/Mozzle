@@ -35,4 +35,6 @@ public interface IManageDao {
 	public String selectMozzleIdByMozzleName(String mozzleName);
 	
 	public int registLeader(MozzleDto mozzle);
+	
+	public int checkMember(String user_id);
 }

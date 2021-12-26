@@ -66,4 +66,10 @@
 	WHERE USER_ID = #{user_id}
 </update>
 
+<update id="delflagUser" parameterType="java.lang.String">
+	UPDATE USERS
+	SET DELFLAG = 'Y'
+	WHERE USER_ID = #{user_id}
+</update>
+
 </mapper>

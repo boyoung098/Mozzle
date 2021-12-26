@@ -270,11 +270,11 @@ select:focus {
     border: 1px solid #ddd;
     padding: 10px;
     margin-top: 10px;
-    height: 311px;
+    height: 700px;
     overflow: hidden;
 }
 .mozzle-member ul{
-    height: 193px;
+    height: 556px;
     overflow-y: scroll;
     margin-top: 15px;
 }
@@ -372,7 +372,7 @@ select:focus {
 .mozzle-member ul li {
     display: flex;
     align-items: center;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 .user-profil {
 	width:250px;

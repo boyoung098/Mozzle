@@ -1,10 +1,12 @@
 package com.mozzle.web.service.users;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mozzle.web.dao.users.IMozzleUserDao;
 import com.mozzle.web.dto.users.MozzleUserDto;
@@ -56,7 +58,22 @@ public class MozzleUserServiceImpl implements IMozzleUserService {
 		return mozzleUserDao.leaderCheck(userId);
 	}
 
+	@Transactional
+	@Override
+	public boolean changeMozzleAuth(String leaderId, Map<String, String> newLeader) {
+		Map<String, String> leaderMap = new HashMap<String, String>();
+		leaderMap.put("user_id", leaderId);
+		leaderMap.put("mozzle_id", newLeader.get("mozzle_id"));
+		leaderMap.put("auth_code", "2");
+		newLeader.put("auth_code", "1");
+		int n = mozzleUserDao.changeMozzleAuth(leaderMap);
+		int m = mozzleUserDao.changeMozzleAuth(newLeader);
+		return (n + m == 2) ? true : false;
+	}
+
 	
-	
+	public List<MozzleUserDto> selectListadminMozzleUser(Map<String, String> map){
+		return mozzleUserDao.selectListadminMozzleUser(map);
+	}
 
 }

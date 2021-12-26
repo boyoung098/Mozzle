@@ -27,17 +27,27 @@ public class InputList {
 		
 		
 			sb.append("	<tr>                                                                                   ") ;
+			if(dto.getProcess().equals("미처리")) {
 			sb.append("	<td><input type='checkbox' name='chkVal' value='"+dto.getReport_id()+"'> </td>                ") ;
-			sb.append("	<td>"+dto.getPost_id()+"</td>                                                               ") ;
+			} else {
+				sb.append("	<td></td>                ") ;
+			}
+			sb.append("	<td>"+dto.getReport_id()+"</td>                                                               ") ;
 			sb.append("	<td>"+dto.getUser_id()+"</td>                                                               ") ;
 			sb.append("	<td>"+dto.getReason()+"</td>                                                                ") ;
 			sb.append("	<td>"+dto.getReport_time()+"</td>  ") ;
-			sb.append("	<td>"+dto.getProcess()+"</td>     ") ;
+			
+			if(dto.getProcess().equals("미처리")){
+				sb.append("	<td style='color:blue;'>"+dto.getProcess()+"</td>     ") ;
+				}else{
+					sb.append("	<td>"+dto.getProcess()+"</td>     ") ;         
+				}
+			
 			sb.append("	<td><a data-toggle='collapse' href='#collapse"+dto.getReport_id()+"' onclick='collapse(\""+dto.getReport_id()+"\")'>상세보기</a></td>") ;
 			
 			sb.append("</tr>                                                                                   ") ;
 			sb.append("<tr>                                                                                    ") ;
-			sb.append("	<td colspan=6>                                                                       ") ;
+			sb.append("	<td colspan=7>                                                                       ") ;
 			sb.append("		<div id='collapse"+dto.getReport_id()+"' class='panel-collapse collapse'>                 ") ;
 			sb.append("			<div class='form-group'>                                                       ") ;
 			sb.append("				<label>내용</label>                                                        ") ;

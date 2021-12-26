@@ -14,7 +14,15 @@ public class MozzleUserDto {
 	private String image_origin;
 	private String image_saved;
 	private MultipartFile file;
+	private String postcnt;
 
+	
+	public String getPostcnt() {
+		return postcnt;
+	}
+	public void setPostcnt(String postcnt) {
+		this.postcnt = postcnt;
+	}
 	public MultipartFile getFile() {
 		return file;
 	}

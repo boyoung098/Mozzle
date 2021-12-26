@@ -81,4 +81,9 @@ public class UserDaoImpl implements IUserDao{
 		return session.update(NS + "updateUser", dto);
 	}
 
+	@Override
+	public int delflagUser(String id) {
+		return session.update(NS + "delflagUser", id);
+	}
+
 }

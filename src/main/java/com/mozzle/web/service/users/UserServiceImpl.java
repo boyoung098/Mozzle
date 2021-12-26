@@ -65,4 +65,9 @@ public class UserServiceImpl implements IUserService{
 		return dao.updateUser(dto);
 	}
 
+	@Override
+	public int delflagUser(String id) {
+		return dao.delflagUser(id);
+	}
+
 }

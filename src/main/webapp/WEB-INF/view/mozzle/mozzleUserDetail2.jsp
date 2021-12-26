@@ -42,7 +42,7 @@
 			<div class="register-name">
 			<h5><span>가입일자 : </span><span id="indate"></span></h5>
 			</div>
-			<div id="btnUserDetail"></div>
+			<div id="imgsrc"></div>
 			<!-- <button class="join-btn" type="button" >권한넘기기</button>
 			<button class="join-btn" type="button" >강퇴하기</button> -->
 			

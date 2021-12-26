@@ -18,8 +18,8 @@ public class PagingDto {
 	private int index;	// 출력할 페이지 번호
 	private int pageStartNum;	// 출력할 페이지 시작 번호
 	private int listCnt;	// 출력할 리스트 갯수
-	
 	private int total;	// 리스트이 총 갯수
+
 	
 	
 	

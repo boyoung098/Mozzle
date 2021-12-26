@@ -26,6 +26,20 @@ AND u.DELFLAG = 'N'
 </trim>
 </select>
 
+<!-- 모즐내 회원 닉네임으로 찾기 운영자권한 -->
+<select id="selectListadminMozzleUser" parameterType="java.util.Map" resultType="mozzleUserDto">
+SELECT um.USER_ID, um.MOZZLE_ID, um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE,
+um.BIRTHDAY_SHOW, um.IMAGE_ORIGIN, um.IMAGE_SAVED
+FROM USER_MOZZLE um JOIN USERS u ON um.USER_ID = u.USER_ID 
+<trim prefix="WHERE" prefixOverrides="AND">
+<if test="nickname !=null">
+ um.NICKNAME like '%'||#{nickname}||'%'
+</if>
+AND um.MOZZLE_ID =#{mozzle_id}
+AND u.DELFLAG = 'N'
+</trim>
+</select>
+
 
 <!-- 모즐내 회원 닉네임으로 찾기 -> 상세조회 -->
 <select id="selectMozzleUser" parameterType="java.util.Map" resultType="mozzleUserDto">
@@ -56,7 +70,7 @@ VALUES(#{user_id},#{mozzle_id}, '2', #{nickname}, sysdate, #{birthday_show}
 <!-- 12/19(일) 모즐유저를 userid로 조회 -->
 <select id="selectMozzleUserByUserId" parameterType="java.util.Map" resultType="mozzleUserDto">
 SELECT um.USER_ID, um.MOZZLE_ID, um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE,
-um.BIRTHDAY_SHOW, um.IMAGE_ORIGIN, um.IMAGE_SAVED, 
+um.BIRTHDAY_SHOW, um.IMAGE_ORIGIN, um.IMAGE_SAVED, (SELECT count(*) FROM MOZZLE_POST mp WHERE USER_ID = #{user_id} and MOZZLE_ID = #{mozzle_id}) AS postcnt,
 u.USER_NAME , u.AUTH_CODE,u.BIRTH  ,u.EMAIL , u.TEL ,u.DELFLAG 
 FROM USER_MOZZLE um JOIN USERS u ON um.USER_ID = u.USER_ID 
 WHERE um.USER_ID = #{user_id} AND um.MOZZLE_ID =#{mozzle_id} AND um.AUTH_CODE IN ('1','2','3')
@@ -109,5 +123,11 @@ AND u.DELFLAG = 'N'
 	ON um.MOZZLE_ID = m.MOZZLE_ID 
 	WHERE USER_ID = #{user_id} AND AUTH_CODE = 1
 </select>
+
+<!-- 회원 권한 수정 -->
+<update id="changeMozzleAuth" parameterType="java.util.Map">
+	UPDATE USER_MOZZLE SET AUTH_CODE = #{auth_code} WHERE MOZZLE_ID = #{mozzle_id} AND USER_ID = #{user_id}
+</update>
+
 
 </mapper>

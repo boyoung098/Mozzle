@@ -25,6 +25,18 @@ public class MozzlePostDaoImpl implements IMozzlePostDao {
 	}
 	
 	@Override
+	public List<MozzlePostDto> selectMyMozzlePost(MozzlePostDto post) {
+		logger.info("selectMozzlePostByMozzleId {} ", post);
+		return session.selectList(NS + "selectMyMozzlePost", post);
+	}
+
+	@Override
+	public List<MozzlePostDto> searchMozzlePost(MozzlePostDto post) {
+		logger.info("searchMozzlePost {} ", post);
+		return session.selectList(NS + "searchMozzlePost", post);
+	}
+	
+	@Override
 	public List<MozzlePostDto> selectMozzleReplyByRefer(int refer) {
 		logger.info("selectMozzleReplyByRefer {}", refer);
 		return session.selectList(NS + "selectMozzleReplyByRefer", refer);
@@ -33,6 +45,31 @@ public class MozzlePostDaoImpl implements IMozzlePostDao {
 	@Override
 	public int insertMozzlePost(MozzlePostDto post) {
 		logger.info("insertMozzlePost {}", post);
-		return session.selectOne(NS + "insertMozzlePost", post);
+		return session.insert(NS + "insertMozzlePost", post);
 	}
+
+	@Override
+	public int insertFirstReply(MozzlePostDto post) {
+		logger.info("insertFirstReply {}", post);
+		return session.insert(NS + "insertFirstReply", post);
+	}
+
+	@Override
+	public int replyUp(MozzlePostDto post) {
+		logger.info("replyUp {}", post);
+		return session.update(NS + "replyUp", post);
+	}
+
+	@Override
+	public int replyIn(MozzlePostDto post) {
+		logger.info("replyIn {}", post);
+		return session.insert(NS + "replyIn", post);
+	}
+
+	@Override
+	public int deleteMozzlePost(String post_id) {
+		logger.info("deleteMozzlePost {}", post_id);
+		return session.update(NS + "deleteMozzlePost", post_id);
+	}
+
 }
