@@ -8,8 +8,20 @@ public interface IMozzlePostDao {
 	
 	public List<MozzlePostDto> selectMozzlePostByMozzleId(String mozzle_id);
 	
+	public List<MozzlePostDto> selectMyMozzlePost(MozzlePostDto post);
+	
+	public List<MozzlePostDto> searchMozzlePost(MozzlePostDto post);
+	
 	public List<MozzlePostDto> selectMozzleReplyByRefer(int refer);
 	
 	public int insertMozzlePost(MozzlePostDto post);
+	
+	public int insertFirstReply(MozzlePostDto post);
+	
+	public int replyUp(MozzlePostDto post);
+	
+	public int replyIn(MozzlePostDto post);
+	
+	public int deleteMozzlePost(String post_id);
 
 }

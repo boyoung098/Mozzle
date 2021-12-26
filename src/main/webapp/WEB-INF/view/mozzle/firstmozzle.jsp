@@ -164,6 +164,7 @@ $(document).ready(function() {
 				<div class="mo-list">
 					<ul>
 						<li><a  href="#" id="default-move">신고관리<input type="hidden" name="move" value="postreportList"></a></li>
+						<li><a  href="#" id="default-move-03">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
 						<li><a  href="#" id="default-move">멤버관리<input type="hidden" name="move" value="adminmozzleMemberList"></a></li>
 						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
 						<!-- <li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li> -->

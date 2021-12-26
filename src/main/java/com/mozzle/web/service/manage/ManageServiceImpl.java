@@ -94,4 +94,9 @@ public class ManageServiceImpl implements IManageService {
 		return dao.mozzleNameCheck(mozzle_name);
 	}
 
+	@Override
+	public int checkMember(String user_id) {
+		return dao.checkMember(user_id);
+	}
+
 }
