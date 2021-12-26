@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mozzle.web.dto.schedule.ScheduleDto;
-import com.mozzle.web.dto.schedule.ScheduleLocationInfoDto;
+//import com.mozzle.web.dto.schedule.ScheduleLocationInfoDto;
 
 /**
  * 
@@ -27,47 +27,6 @@ public class IScheduleDaoImpl implements IScheduleDao {
 
 	@Autowired
 	private SqlSessionTemplate session;
-
-	@Override
-	public List<ScheduleLocationInfoDto> scheduleinfoselectAll(String location_code) {
-		logger.info("scheduleinfoselectAll 전체출력 : {}", location_code);
-		Map<String, String> map2 = new HashMap<String, String>();
-		map2.put("location_code", location_code);
-		List<ScheduleLocationInfoDto> list = session.selectList(NS + "scheduleinfoselectAll", map2);
-		return list;
-	}
-
-	@Override
-	public boolean scheduleinfoinsert(ScheduleLocationInfoDto dto2) {
-		logger.info("scheduleinfoinsert 지도 값 등록 : {}", dto2);
-		int cnt2 = session.insert(NS + "scheduleinfoinsert", dto2);
-		return cnt2 > 0 ? true : false;
-	}
-
-	@Override
-	public boolean scheduleinfoupdate(ScheduleLocationInfoDto dto2) {
-		// 일정 변경 : update문, 파라미터 : dto
-		logger.info("scheduleinfoupdate 지도값변경 : {}", dto2);
-		int cnt2 = session.update(NS + "scheduleinfoupdate", dto2);
-		return cnt2 > 0 ? true : false;
-	}
-
-	@Override
-	public ScheduleLocationInfoDto scheduleinfodetail(int location_code) {
-		// 지도값상세보기 : select문, 결과: ScheduleLocationInfoDto, 파라미터 : location_code
-		ScheduleLocationInfoDto dto2 = session.selectOne(NS + "scheduleinfodetail", location_code);
-		return dto2;
-	}
-
-	@Override
-	public boolean scheduleinfodelete(String[] location_code) {
-		// 일정 삭제 (여러개/한개 삭제)
-		logger.info("scheduleinfodelete 삭제(delete) : {}", location_code);
-		Map<String, String[]> map2 = new HashMap<String, String[]>();
-		map2.put("location_codes", location_code);
-		int cnt2 = session.delete(NS + "scheduleinfodelete", map2);
-		return cnt2 > 0 ? true : false;
-	}
 
 	@Override
 	public List<ScheduleDto> scheduleselectAll(String mozzle_id, String yyyyMMdd) {
