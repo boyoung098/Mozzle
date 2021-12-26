@@ -478,13 +478,14 @@ select:focus {
     display: none;
 }
 .sidebar_menu{
-display: none;
+	display: none;
     width: 50%;
     height: 100%;
     background: #e98282;
     position: absolute;
     top:0;
     left: -50%;
+    z-index: 9;
     
 }
 .close_btn{

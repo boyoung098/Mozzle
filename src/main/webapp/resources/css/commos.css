@@ -313,6 +313,9 @@ textarea:focus, input:focus{
 	.pc_menu{
 		display:block;
 	} 
+	.mobile_menu{
+		display: none;
+	}
 }
 
 @media (min-width: 1200px){
