@@ -40,7 +40,7 @@ $(document).ready(function() {
 </head>
 <body>
 	<div id="header"></div>
-	<section class="container mt-3" id="new-mozzle2">
+<%-- 	<section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
 			<div class="col-sm-9">
 				<div class="mo-img">
@@ -83,9 +83,9 @@ $(document).ready(function() {
 							<textarea id="summernote" name="content"></textarea>
 							<button id="subBtn" type="button">글 작성</button>
 						</form>
-						<%-- <form action="./updateboard.do" method="get" id="hupdate">
+						<form action="./updateboard.do" method="get" id="hupdate">
 						<input type="hidden" id="post_id" name="post_id" value="${boardlist.content}">
-					</form> --%>
+					</form>
 					</div>
 
 					<div class="board-top mt-3">
@@ -205,7 +205,7 @@ $(document).ready(function() {
 		</div>
 
 	</section>
-
+ --%>
 
 
 

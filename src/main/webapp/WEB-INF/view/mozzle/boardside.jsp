@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-
+<%-- 
 			</div>
 			<div class="col-sm-3 sidenav">
 				<div class="input-group input-search" style="width: 86%;">
@@ -32,7 +32,7 @@
 
 <div id="footer"></div>
 
-
+ --%>
 
 
 </body>

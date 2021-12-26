@@ -173,9 +173,9 @@ $(document).ready(function() {
 						<%-- <c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
 						<li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li>
 						</c:if> --%>
-						<c:if test="${mozzleUserdto.auth_code == '2'}">
+						<%-- <c:if test="${mozzleUserdto.auth_code == '2'}"> --%>
 						<li><a href="#">멤버<input type="hidden" name="move" value="mozzlememberList"></a></li>
-						</c:if>
+						<%-- </c:if> --%>
 					</ul>
 				</div>
 			</div>

@@ -24,7 +24,7 @@ $(document).ready(function() {
 </head>
 <body>
 	<div id="header"></div>
-	<section class="container mt-3" id="new-mozzle2">
+<%-- 	<section class="container mt-3" id="new-mozzle2">
 		<div class="row content">
 			<div class="col-sm-3 sidenav">
 				<div class="input-group input-search" style="width: 86%;">
@@ -93,7 +93,7 @@ $(document).ready(function() {
 
 
 	</section> -->
-
+ --%>
 <script type="text/javascript">
 function userSessionCheck(){
 	var userId = '<%=(String)session.getAttribute("userId")%>';

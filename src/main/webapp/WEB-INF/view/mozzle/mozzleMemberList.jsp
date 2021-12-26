@@ -41,15 +41,13 @@
 						 
 						<c:forEach var="mozzleUser" items="${mozzleuserList}">
 
-							<li class="${mozzleUser.nickname}li"  style="margin-bottom: 10px; border: 1px solid black;">
-							<div class="meeber-thumbnail">
-							<input type="hidden" value="${mozzleUser.nickname}" class="unserinfo">
-
-						
+							<<%-- li class="${mozzleUser.nickname}li"  style="margin-bottom: 10px; border: 1px solid black;"> --%>
 							<li class="${mozzleUser.nickname}li"  style="margin-bottom: 10px; border: 1px solid black; font-size: 20px;">
+							<div class="meeber-thumbnail">
+							
 							<div class="meeber-thumbnail" style="cursor: pointer;">
 							<%-- <input type="hidden" value="${mozzleUser.nickname}" class="unserinfo">
-
+							<input type="hidden" value="${mozzleUser.nickname}" class="unserinfo">
 							<input type="hidden" value="${mozzleUser.joined_date}" class="unserinfo">
 							<input type="hidden" value="${mozzleUser.image_saved}" class="unserinfo">
 							<input type="hidden" value="${mozzleUser.auth_code}" class="unserinfo">
@@ -67,7 +65,7 @@
 
 							</div> <span>${mozzleUser.nickname}</span>	
 							<c:set var="result" value='<%= request.getParameter("delegate") %>'/>
-							<c:if test="${result == true}">
+							<%-- <c:if test="${result == true}"> --%>
 								<input type="hidden" name="mozzleUser_id" value="${mozzleUser.user_id}" />
 								<div style="margin-left:auto; margin-right:10px;">
 								<button class="delegate">리더 위임</button>
@@ -89,7 +87,6 @@
 							</c:if>
 							<c:if test="${mozzleUser.auth_code == '3'}">
 							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 60px;">복구</button>
-
 							</c:if>
 							
 						</li>
