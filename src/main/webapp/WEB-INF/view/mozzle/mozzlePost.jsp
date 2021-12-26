@@ -72,7 +72,7 @@
 							<input type="text" class="form-control" name="first-reply-content"
 								id="first-reply-content" style="width: 100%">
 						</div>
-						<button class="btn btn-default" onclick="submitFisrtReply('${post.post_id}')">등록</button>
+						<button class="btn btn-default" onclick="submitFisrtReply('${post.post_id}', '${post.refer }')">등록</button>
 					</div>
 				</div>
 			</div>
@@ -97,33 +97,22 @@ function replyShow(obj) {
 		flag01 = true;
 	}
 	
-	console.log(obj);
+	
 	$.ajax({
 		url : "./replyShow.do?refer=" + obj,
 		type : "post",
 		success : function(data) {
-			console.log(data);
 			if (data.isc == true) {
-				console.log("성공");
-				
 				var replyList = data.replyList;
-				console.log(replyList);					
-				console.log(replyList.length);
+				console.log('replyList');
+				console.log(replyList);
 				var replyListBox = document.getElementById("reply-list-"+ obj);
 			
 				if (replyList.length != 0) {
-					console.log("성공2");
 					while(replyListBox.hasChildNodes()) {
 						replyListBox.removeChild(replyListBox.firstChild);
 					}
 					$(replyList).each(function(){
-						
-						console.log(this.content);
-						console.log(this.depth);
-						console.log(this.user_id);
-						console.log(this.refer);
-						console.log(this.step);
-						console.log(this.regdate);
 						var img = "<img alt='답글' src='<%=request.getContextPath()%>/resources/images/reply.png' title='답글' >";
 						var blank = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp";
 						var result = "";
@@ -135,10 +124,13 @@ function replyShow(obj) {
 							result += img;
 						}
 						
-						replyListBox.innerHTML += 
-							"<br><tr><td>" + 
-							result + 
-							"&nbsp;&nbsp;" +
+						var replyHTML = '';
+						replyHTML = "<br><tr><td>" + 
+						result + 
+						"&nbsp;&nbsp;";
+						
+						if(this.delflag == 'N') {
+							replyHTML = replyHTML + 
 							this.user_id +
 							"</td><td>&nbsp;&nbsp;" +
 							this.regdate + 
@@ -150,6 +142,8 @@ function replyShow(obj) {
 							")'>답글</a>&nbsp;|&nbsp" +
 							"<a onclick = 'deleteReply("+
 							this.post_id +
+							", " +
+							this.refer +
 							")'>삭제</a>" +
 							"</td><tr><td>" + 
 							"<div id='reply-input-" +
@@ -163,9 +157,18 @@ function replyShow(obj) {
 							"'/>" +
 							"<input class='btn btn-default' type='button' onclick='submitReply(" +
 							this.post_id+
+							", " +
+							this.refer+
 							")' value='등록' />" +
 							"</div>" +
 							"</td></tr>";
+						} else {
+							console.log()
+							replyHTML = replyHTML + '삭제된 댓글입니다.</td></tr>'; 
+						}
+						
+						replyListBox.innerHTML += replyHTML;
+						
 						}) 	
 				} else {
 					while(replyListBox.hasChildNodes()) {
@@ -185,10 +188,11 @@ function showReplyInput(obj) {
 	} else {
 		document.getElementById("reply-input-"+ obj).style.display = "none";
 		flag02 = true;
+		replyShow(obj);
 	}
 }
 
-function submitReply(obj) {
+function submitReply(obj, refer) {
 	
 	var content = document.getElementById("reply-"+ obj).value;
 	console.log(content);
@@ -206,13 +210,13 @@ function submitReply(obj) {
 			if(data == true) {
 				alert("등록되었습니다");
 				flag01 = true;	
+				replyShow(refer);
 			}
 		}	
 	})
 }
 
-function submitFisrtReply(obj) {
-	
+function submitFisrtReply(obj, refer) {
 	var content = document.getElementById("first-reply-content").value;
 	console.log(content);
 	var mozzle_id = document.getElementById("save-info-mozzeId").value;
@@ -226,16 +230,17 @@ function submitFisrtReply(obj) {
 			"mozzle_id": mozzle_id
 		},	
 		success : function(data) {
+			console.log(data);
 			if(data == true) {
 				alert("등록되었습니다");
 				flag01 = true;
-				document.getElementById("first-reply-content").value = "";
+				replyShow(refer);
 			}
 		}	
 	})
 }
 
-function deleteReply(obj) {
+function deleteReply(obj, refer) {
 	
 	var url = "./deleteMozzlePost.do?post_id=" + obj;
 	
@@ -245,6 +250,8 @@ function deleteReply(obj) {
 		success : function(data) {
 			if(data == true) {
 				alert("삭제되었습니다");
+				flag01 = true;
+				replyShow(refer);
 			}
 		}
 	})
@@ -265,7 +272,8 @@ function insertMozzlePost() {
 		},
 		success: function(data) {
 			if(data == true) {
-				alert("게시글이 등록되었습니다")
+				alert("게시글이 등록되었습니다");
+				$('#default-move-03').click();
 			}
 		}
 		

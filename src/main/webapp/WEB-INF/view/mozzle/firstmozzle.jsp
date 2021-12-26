@@ -164,7 +164,7 @@ $(document).ready(function() {
 					<ul>
 						<li><a  href="#" id="default-move">신고관리<input type="hidden" name="move" value="postreportList"></a></li>
 						<li><a  href="#" id="default-move">멤버관리<input type="hidden" name="move" value="mozzlememberList"></a></li>
-						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
+						<li><a  href="#" id="default-move-03">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
 						<!-- <li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li> -->
 						<!-- <li>사진첩</li>-->
             			<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>

@@ -56,7 +56,7 @@ public class MozzlePostServiceImpl implements IMozzlePostService{
 	public boolean replyIn(MozzlePostDto post) {
 		int n = dao.replyUp(post);
 		int m = dao.replyIn(post);
-		return (n+m==2) ? true:false;
+		return (n+m != 0) ? true:false;
 	}
 
 	@Override

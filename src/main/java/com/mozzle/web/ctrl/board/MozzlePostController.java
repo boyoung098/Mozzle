@@ -151,6 +151,8 @@ public class MozzlePostController {
 		
 		boolean result = service.replyIn(post);
 
+		logger.info("################ replyIn Result : " + result);
+		
 		return result;
 	}
 	

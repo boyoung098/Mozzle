@@ -55,12 +55,11 @@
 		mp.USER_ID, mp.CONTENT, 
 		mp.REFER, mp.STEP, 
 		mp.DEPTH, mp.REGDATE,
-		um.IMAGE_SAVED
+		um.IMAGE_SAVED, mp.DELFLAG
 	FROM MOZZLE_POST mp
 	JOIN USER_MOZZLE um
 	ON mp.USER_ID = um.USER_ID
-	WHERE mp.DELFLAG = 'N'
-	AND mp.REFER = #{refer}
+	WHERE mp.REFER = #{refer}
 	AND mp.DEPTH > 0
 	ORDER BY REFER DESC, STEP
 </select>
@@ -73,7 +72,7 @@
 			DEPTH, REGDATE, DELFLAG)
 		VALUES(MOZZLE_POST_SEQ.NEXTVAL, #{mozzle_id}, 
 				#{user_id}, #{content}, 
-				(SELECT NVL(MAX(POST_ID),0) + 1 FROM MOZZLE_POST), 
+				(SELECT NVL(MAX(TO_NUMBER(POST_ID)),0)+1 FROM MOZZLE_POST), 
 				0, 0, SYSDATE, 'N')
 </insert>
 
@@ -85,7 +84,7 @@
 			DEPTH, REGDATE, DELFLAG)
 		VALUES(MOZZLE_POST_SEQ.NEXTVAL, #{mozzle_id}, 
 				#{user_id}, #{content}, 
-				(SELECT NVL(MAX(POST_ID),0) + 1 FROM MOZZLE_POST), 
+				(SELECT REFER FROM MOZZLE_POST WHERE POST_ID =#{post_id}),
 				1, 1, SYSDATE, 'N')
 </insert>
 
