@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mozzle.web.dao.board.IPostReportDao">
 
-<resultMap type="com.mozzle.web.dto.board.PostReportJoinDto" id="PostReportJoinDto">
+<!-- <resultMap type="com.mozzle.web.dto.board.PostReportJoinDto" id="PostReportJoinDto">
 	<result property="team_name" column="REPORT_ID"/>
 	<result property="region_name" column="POST_ID"/>
 	<result property="address" column="REPORT_TIME"/>
@@ -28,7 +28,7 @@
 	<result property="mpdto.birthday_show" column="BIRTHDAY_SHOW"/>
 	<result property="mpdto.image_origin" column="IMAGE_ORIGIN"/>
 	<result property="mpdto.image_saved" column="IMAGE_SAVED"/>
-</resultMap>
+</resultMap> -->
 
 	<!-- 신고전 해당 글 신고들어왔는지 확인 -->
 	<select id="selectCntByPostId" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -46,18 +46,49 @@
   	
   	
   	<!-- 페이징 처리 신고글 전체 -->
-  	<select id="selectPostReportList" resultType="postReportDto">
+  	<select id="selectPostReportList" parameterType="rownumDto" resultType="postReportDto" >
   	SELECT * FROM (SELECT ROW_NUMBER () OVER(ORDER BY REPORT_ID DESC) RNUM, p.*
 					FROM (SELECT um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE ,
+um.BIRTHDAY_SHOW , um.IMAGE_ORIGIN , um.IMAGE_SAVED, j.* FROM USER_MOZZLE um JOIN 
+(SELECT mp.POST_ID, mp.MOZZLE_ID, mp.USER_ID, mp.CONTENT,
+mp.REFER, mp.DEPTH, mp.REGDATE,
+pr.REPORT_ID, TO_CHAR(pr.REPORT_TIME,'YYYY-MM-DD') REPORT_TIME, pr.REPORTER, pr.REASON, pr.PROCESS 
+FROM POST_REPORT pr JOIN  MOZZLE_POST mp on pr.POST_ID = mp.POST_ID 
+WHERE mp.MOZZLE_ID = #{mozzle_id} ) j
+ON um.USER_ID = j.USER_ID  WHERE um.MOZZLE_ID = j.MOZZLE_ID) p 
+			)
+			WHERE RNUM BETWEEN #{start} AND  #{last}
+  	</select>
+  	
+  	<select id="postReportListTotal" resultType="java.lang.Integer" parameterType="java.lang.String">
+	SELECT COUNT(*) FROM (
+SELECT um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE ,
 um.BIRTHDAY_SHOW , um.IMAGE_ORIGIN , um.IMAGE_SAVED, j.* FROM USER_MOZZLE um JOIN 
 (SELECT mp.POST_ID, mp.MOZZLE_ID, mp.USER_ID, mp.CONTENT,
 mp.REFER, mp.DEPTH, mp.REGDATE,
 pr.REPORT_ID, pr.REPORT_TIME, pr.REPORTER, pr.REASON, pr.PROCESS 
 FROM POST_REPORT pr JOIN  MOZZLE_POST mp on pr.POST_ID = mp.POST_ID 
 WHERE mp.MOZZLE_ID = #{mozzle_id} ) j
-ON um.USER_ID = j.USER_ID  WHERE um.MOZZLE_ID = j.MOZZLE_ID) p 
-			)
-			WHERE RNUM BETWEEN #{start} AND #{last}
-  	</select>
+ON um.USER_ID = j.USER_ID  WHERE um.MOZZLE_ID = j.MOZZLE_ID
+)
+	</select>
   	
+  	
+<update id="inappropriatePostReport" parameterType="java.util.Map">
+  	UPDATE POST_REPORT
+SET  PROCESS= '사유부적절'
+WHERE REPORT_ID IN
+<foreach collection="report_ids" item="report_id" open="(" separator="," close=")">
+#{report_id}
+</foreach>
+  	</update>
+  	
+<update id="deleteadminPostReport" parameterType="java.util.Map">
+  	UPDATE POST_REPORT
+SET  PROCESS= '관리자삭제'
+WHERE REPORT_ID IN
+<foreach collection="report_ids" item="report_id" open="(" separator="," close=")">
+#{report_id}
+</foreach>
+  	</update>
 </mapper>

@@ -3,7 +3,7 @@
 <mapper namespace="com.mozzle.web.dao.board.MozzlePostDaoImpl">
 
 <select id="selectMozzlePostByMozzleId" parameterType="java.lang.String" resultType="pDto">
-	SELECT mp.POST_ID, mp.MOZZLE_ID, 
+	SELECT DISTINCT(mp.POST_ID), mp.MOZZLE_ID, 
 		mp.USER_ID, mp.CONTENT, 
 		mp.REFER, mp.STEP, 
 		mp.DEPTH, mp.REGDATE,
@@ -14,11 +14,11 @@
 	WHERE mp.DELFLAG = 'N'
 	AND mp.MOZZLE_ID = #{mozzle_id}
 	AND mp.DEPTH = '0'
-	ORDER BY mp.REGDATE DESC
+	ORDER BY REGDATE DESC
 </select>
 
-<select id="selectMozzleReplyByRefer" parameterType="java.lang.Integer" resultType="pDto">
-	SELECT mp.POST_ID, mp.MOZZLE_ID, 
+<select id="selectMyMozzlePost" parameterType="pDto" resultType="pDto">
+	SELECT DISTINCT(mp.POST_ID), mp.MOZZLE_ID, 
 		mp.USER_ID, mp.CONTENT, 
 		mp.REFER, mp.STEP, 
 		mp.DEPTH, mp.REGDATE,
@@ -27,8 +27,41 @@
 	JOIN USER_MOZZLE um
 	ON mp.USER_ID = um.USER_ID
 	WHERE mp.DELFLAG = 'N'
-	AND mp.REFER = #{refer}
+	AND mp.MOZZLE_ID = #{mozzle_id}
+	AND mp.USER_ID = #{user_id}
+	AND mp.DEPTH = '0'
+	ORDER BY REGDATE DESC
+</select>
+
+<select id="searchMozzlePost" parameterType="pDto" resultType="pDto">
+	SELECT DISTINCT(mp.POST_ID), mp.MOZZLE_ID, 
+		mp.USER_ID, mp.CONTENT, 
+		mp.REFER, mp.STEP, 
+		mp.DEPTH, mp.REGDATE,
+		um.IMAGE_SAVED
+	FROM MOZZLE_POST mp
+	JOIN USER_MOZZLE um
+	ON mp.USER_ID = um.USER_ID
+	WHERE mp.DELFLAG = 'N'
+	AND mp.MOZZLE_ID = #{mozzle_id}
+	AND mp.USER_ID = #{user_id}
+	AND mp.CONTENT LIKE '%'||#{keyword}||'%'
+	AND mp.DEPTH = '0'
+	ORDER BY REGDATE DESC
+</select>
+
+<select id="selectMozzleReplyByRefer" parameterType="java.lang.Integer" resultType="pDto">
+	SELECT DISTINCT (mp.POST_ID), mp.MOZZLE_ID, 
+		mp.USER_ID, mp.CONTENT, 
+		mp.REFER, mp.STEP, 
+		mp.DEPTH, mp.REGDATE,
+		um.IMAGE_SAVED, mp.DELFLAG
+	FROM MOZZLE_POST mp
+	JOIN USER_MOZZLE um
+	ON mp.USER_ID = um.USER_ID
+	WHERE mp.REFER = #{refer}
 	AND mp.DEPTH > 0
+	ORDER BY REFER DESC, STEP
 </select>
 
 <insert id="insertMozzlePost" parameterType="pDto">
@@ -36,11 +69,47 @@
 			(POST_ID, MOZZLE_ID, 
 			USER_ID, CONTENT, 
 			REFER, STEP, 
-			"DEPTH", REGDATE, DELFLAG)
-		VALUES(ANSWERBOARD_SEQ.NEXTVAL, #{mozzle_id}, 
+			DEPTH, REGDATE, DELFLAG)
+		VALUES(MOZZLE_POST_SEQ.NEXTVAL, #{mozzle_id}, 
 				#{user_id}, #{content}, 
-				(SELECT NVL(MAX(SEQ),0) + 1 FROM ANSWERBOARD a), 
-				0, 0, 'N', SYSDATE)
+				(SELECT NVL(MAX(TO_NUMBER(POST_ID)),0)+1 FROM MOZZLE_POST), 
+				0, 0, SYSDATE, 'N')
 </insert>
+
+<insert id="insertFirstReply" parameterType="pDto">
+	INSERT INTO MOZZLE_POST
+			(POST_ID, MOZZLE_ID, 
+			USER_ID, CONTENT, 
+			REFER, STEP, 
+			DEPTH, REGDATE, DELFLAG)
+		VALUES(MOZZLE_POST_SEQ.NEXTVAL, #{mozzle_id}, 
+				#{user_id}, #{content}, 
+				(SELECT REFER FROM MOZZLE_POST WHERE POST_ID =#{post_id}),
+				1, 1, SYSDATE, 'N')
+</insert>
+
+
+<update id="replyUp" parameterType="pDto">
+	UPDATE MOZZLE_POST SET STEP = STEP + 1
+		WHERE STEP > (SELECT STEP FROM MOZZLE_POST WHERE POST_ID = #{post_id})
+</update>
+
+<insert id="replyIn" parameterType="pDto">
+	INSERT INTO MOZZLE_POST 
+			(POST_ID, MOZZLE_ID, 
+			USER_ID, CONTENT, 
+			REFER, STEP, 
+			DEPTH, REGDATE, DELFLAG)
+		VALUES(MOZZLE_POST_SEQ.NEXTVAL, #{mozzle_id}, #{user_id}, #{content}, 
+				(SELECT REFER FROM MOZZLE_POST WHERE POST_ID =#{post_id}), 
+				(SELECT STEP +1 FROM MOZZLE_POST WHERE POST_ID =#{post_id}), 
+				(SELECT DEPTH + 1 FROM MOZZLE_POST WHERE POST_ID =#{post_id}), SYSDATE, 'N')
+</insert>
+
+<delete id="deleteMozzlePost" parameterType="java.lang.String">
+	UPDATE MOZZLE_POST
+		SET DELFLAG='Y'
+		WHERE POST_ID= #{post_id}
+</delete>
 
 </mapper>

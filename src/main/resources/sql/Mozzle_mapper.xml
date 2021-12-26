@@ -192,4 +192,9 @@
 		VALUES(#{leader_id}, #{mozzle_id}, 
 			'1', '리더', SYSDATE, 'N')
 	</insert>
+	
+	<!--들어온 아이디와 가입한 아이디 비교-->
+	<select id="checkMember" parameterType="java.lang.String">
+		SELECT COUNT(*) FROM USER_MOZZLE um WHERE USER_ID = #{user_id}
+	</select>
 </mapper>

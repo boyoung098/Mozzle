@@ -97,6 +97,14 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 		return session.update(NS + "changeMozzleAuth", map);
 	}
 
-	
+
+	@Override
+	public List<MozzleUserDto> selectListadminMozzleUser(Map<String, String> map) {
+		log.info("전체회원리트스 뿌리기전 넣는 값{}",map);
+		List<MozzleUserDto> list = session.selectList(NS+"selectListadminMozzleUser",map);
+		//return (list.size()==0?(List<MozzleUserDto>) new MozzleUserDto():list);
+		return list;
+	}
+
 	
 }

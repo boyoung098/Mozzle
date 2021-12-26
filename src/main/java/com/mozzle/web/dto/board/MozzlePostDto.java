@@ -11,7 +11,21 @@ public class MozzlePostDto {
 	private int depth;
 	private String regdate;
 	private String delflag;
+	private String keyword;
+	private String user_img;
 	
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public String getUser_img() {
+		return user_img;
+	}
+	public void setUser_img(String user_img) {
+		this.user_img = user_img;
+	}
 	public String getPost_id() {
 		return post_id;
 	}
@@ -72,20 +86,4 @@ public class MozzlePostDto {
 		return "MozzlePostDto [post_id=" + post_id + ", mozzle_id=" + mozzle_id + ", user_id=" + user_id + ", content=" + content + ", refer=" + refer + ", step=" + step + ", depth=" + depth
 				+ ", regdate=" + regdate + ", delflag=" + delflag + "]";
 	}
-	public MozzlePostDto(String post_id, String mozzle_id, String user_id, String content, int refer,
-			int step, int depth, String regdate, String delflag) {
-		super();
-		this.post_id = post_id;
-		this.mozzle_id = mozzle_id;
-		this.user_id = user_id;
-		this.content = content;
-		this.refer = refer;
-		this.step = step;
-		this.depth = depth;
-		this.regdate = regdate;
-		this.delflag = delflag;
-	}
-	
-	public MozzlePostDto() {}
-	
 }

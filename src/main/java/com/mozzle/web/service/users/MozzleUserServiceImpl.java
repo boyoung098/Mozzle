@@ -72,6 +72,8 @@ public class MozzleUserServiceImpl implements IMozzleUserService {
 	}
 
 	
-	
+	public List<MozzleUserDto> selectListadminMozzleUser(Map<String, String> map){
+		return mozzleUserDao.selectListadminMozzleUser(map);
+	}
 
 }

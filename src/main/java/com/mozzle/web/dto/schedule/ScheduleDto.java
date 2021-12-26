@@ -25,6 +25,53 @@ public class ScheduleDto implements Serializable {
 	private String schedule_date;//일정날짜
 	private String regdate;//일정작성일
 	private int location_code;//지도위치
+	
+	//날짜 정보 파라미터를 받을 용도
+	private String year;
+	private String month;
+	private String date;
+	private String hour;
+	private String min;
+	
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getHour() {
+		return hour;
+	}
+
+	public void setHour(String hour) {
+		this.hour = hour;
+	}
+
+	public String getMin() {
+		return min;
+	}
+
+	public void setMin(String min) {
+		this.min = min;
+	}
 
 	public ScheduleDto() {
 		super();

@@ -13,8 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mozzle.web.dto.board.MozzlePostDto;
@@ -29,7 +31,8 @@ public class MozzlePostController {
 	IMozzlePostService service;
 	
 	@RequestMapping(value="/mozzlePost.do", method= RequestMethod.GET)
-	public String selectMozzlePostByMozzleId(HttpServletRequest request, HttpSession session, Model model){
+	public String selectMozzlePostByMozzleId(HttpServletRequest request, 
+				HttpSession session, Model model){
 		
 		String mozzle_id = request.getParameter("mozzle_id");
 		
@@ -37,9 +40,78 @@ public class MozzlePostController {
 		
 		List<MozzlePostDto> postList = service.selectMozzlePostByMozzleId(mozzle_id);
 		model.addAttribute("postList", postList);
+		model.addAttribute("mozzle_id", mozzle_id);
 		
 		return "mozzle/mozzlePost";
 	}
+	
+	@RequestMapping(value="/selectMyMozzlePost.do", method= RequestMethod.GET)
+	public String selectMyMozzlePost(HttpServletRequest request, 
+			HttpSession session, Model model) {
+		
+		String mozzle_id = request.getParameter("mozzle_id");
+		logger.info("selectMyMozzlePost {}", mozzle_id);
+		
+		String user_id = (String)session.getAttribute("userId");
+		logger.info("session에서 받아온 user_id 값 {}", user_id);
+		
+		MozzlePostDto post = new MozzlePostDto();
+		post.setMozzle_id(mozzle_id);
+		post.setUser_id(user_id);
+		
+		List<MozzlePostDto> postList = service.selectMyMozzlePost(post);
+		model.addAttribute("postList", postList);
+		model.addAttribute("mozzle_id", mozzle_id);
+		
+		return "mozzle/mozzlePost";
+	}
+	
+	@RequestMapping(value="/searchMozzlePost.do", method= RequestMethod.POST)
+	public String searchMozzlePost(HttpServletRequest request, 
+			HttpSession session, Model model) {
+		
+		String mozzle_id = request.getParameter("mozzle_id");
+		logger.info("searchMozzlePost {}", mozzle_id);
+		
+		String user_id = (String)session.getAttribute("userId");
+		logger.info("session에서 받아온 user_id 값 {}", user_id);
+		
+		String keyword = request.getParameter("keyword");
+		logger.info("request에서 받아온 keyword 값 {}", keyword);
+		
+		MozzlePostDto post = new MozzlePostDto();
+		post.setMozzle_id(mozzle_id);
+		post.setUser_id(user_id);
+		post.setKeyword(keyword);
+		
+		List<MozzlePostDto> postList = service.searchMozzlePost(post);
+		model.addAttribute("postList", postList);
+		model.addAttribute("mozzle_id", mozzle_id);
+		
+		return "mozzle/mozzlePost";
+	}
+	
+	
+	@RequestMapping(value = "/insertMozzlePost.do", method= RequestMethod.POST)
+	@ResponseBody
+	public boolean insertMozzlePost(@RequestParam("content") String content,
+			@RequestParam("mozzle_id") String mozzle_id, HttpSession session) {
+		
+		logger.info("insertMozzlePost에 입력되는 값 {}", content);
+		
+		String user_id = (String)session.getAttribute("userId");
+		logger.info("session에서 받아온 user_id 값 {}", user_id);
+		
+		MozzlePostDto post = new MozzlePostDto();
+		post.setMozzle_id(mozzle_id);
+		post.setUser_id(user_id);
+		post.setContent(content);
+		
+		boolean result = service.insertMozzlePost(post);
+
+		return result;
+	}
+	
 	
 	@RequestMapping(value="/replyShow.do", method= RequestMethod.POST)
 	@ResponseBody
@@ -58,6 +130,40 @@ public class MozzlePostController {
 		
 		return map;
 	}
+	
+	
+	@RequestMapping(value = "/replyIn.do", method= RequestMethod.POST)
+	@ResponseBody
+	public boolean replyIn(@RequestParam("post_id") String post_id, 
+			@RequestParam("content") String content,
+			@RequestParam("mozzle_id") String mozzle_id, HttpSession session) {
+		
+		logger.info("replyIn에 입력되는 값 {}", content);
+		
+		String user_id = (String)session.getAttribute("userId");
+		logger.info("session에서 받아온 user_id 값 {}", user_id);
+		
+		MozzlePostDto post = new MozzlePostDto();
+		post.setPost_id(post_id);
+		post.setMozzle_id(mozzle_id);
+		post.setUser_id(user_id);
+		post.setContent(content);
+		
+		boolean result = service.replyIn(post);
 
-
+		logger.info("################ replyIn Result : " + result);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/deleteMozzlePost.do", method= RequestMethod.GET)
+	@ResponseBody
+	public boolean deleteMozzlePost(@RequestParam("post_id") String post_id) {
+		
+		logger.info("deleteMozzlePost에 입력되는 값 {}", post_id);
+		
+		boolean result = service.deleteMozzlePost(post_id);
+		
+		return result;
+	}
 }

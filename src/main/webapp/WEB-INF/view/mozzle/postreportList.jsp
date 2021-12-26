@@ -9,8 +9,15 @@
 </head>
 <body>
 <div>
-	<form action="./multiDelflag.do" method="post" id="frmPaging" onsubmit="return chkbox()">
-		
+	<form action="./multiDelflag.do" method="post" id="frm" onsubmit="return chkbox()">
+	
+		<div>
+			<!-- <input type="submit" class="btn btn-danger" value="관리자삭제"> -->
+			<input type='button' class="join-btn"  value='사유부적절' onclick='inappropriate()'>
+			<input type='button' class="join-btn" value='관리자삭제' onclick='deleteadmin()'>
+		</div>
+
+  
 		<table class="table table-border">
 			<thead>
 			<tr>
@@ -25,21 +32,19 @@
 			</thead>
 			
 			<tbody>
-			
+			<jsp:useBean id="format" class="com.mozzle.web.dto.board.InputList" scope="page"/>
+					<jsp:setProperty property="lists" name="format" value="${lists}"/>
+					<jsp:getProperty property="listForm" name="format"/>
 			</tbody>
 			
 		</table>
-		<div>
-			<!-- <input type="submit" class="btn btn-danger" value="관리자삭제"> -->
-			<input type='button' class='btn btn-success' value='사유부적절' onclick='updateVal()'>
-			<input type='button' class='btn btn-warning' value='관리자삭제' onclick='()'>
-		</div>
+		
 			<input type="text" name="index" id="index" value="${row.index}">
 			<input type="text" name="pageNum" id="pageNum" value="${row.pageNum}">
 			<input type="text" name="listNum" id="listNum" value="${row.listNum}">
 	
 			<div style="text-align: center;">
-				<ul class="pagination pagination-lg">
+				<ul class="pagination">
 				  <li><a href="#" onclick="pageFirst()"><span class="glyphicon glyphicon-fast-backward"></span> </a></li>
 				  <li><a href="#" onclick="pagePrev(${row.pageNum},${row.pageList})"><span class="glyphicon glyphicon-step-backward"></span></a></li>
 				  
@@ -56,6 +61,7 @@
 	
 	</form>
 </div>
+<% String mozzle_id = request.getParameter("mozzle_id");  %>
 <script type="text/javascript">
 //게시글에서 title을 클릭했을 경우 context가 생성되고 선랙된 title외의 다른 content를 class를 변경하여 닫기게 한다
 /* var collapse = function(seq){
@@ -63,6 +69,111 @@
       $(this).attr("class","panel-collapse collapse");
    })
 } */
+
+function inappropriate(){
+	
+    var chkArray = new Array(); // 배열 선언
+
+    $("input:checkbox[name='chkVal']:checked").each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+        chkArray.push(this.value);
+    });
+    console.log(chkArray);
+    
+	   $.ajax({
+		      url : "./inappropriate.do?mozzle_id=<%=mozzle_id%>&chkArray="+chkArray,
+		      type:"post",
+		      async:true,
+		      data: $("#frm").serialize(),
+		      dataType : "json",
+		      success : function(msg){ //{"lists" : [{},{}, ..],"row",{"","",""}}
+		         console.log(msg);
+		         
+		         $.each(msg,function(key,value){
+		        	 var varHtml = "";
+		        	 var n = 7;
+		        	 
+						if(key =='lists'){
+							//thead
+							varHtml += "<thead>                ";
+							varHtml += "	<tr>               ";
+								varHtml +="<th>";
+								varHtml +="<input type='checkbox' id='checkAll' onclick='checkAllFn(this.checked)'>";
+								varHtml +="</th>";
+							varHtml += "		<th>신고번호</th>";
+							varHtml += "		<th>작성자</th>  ";
+							varHtml += "		<th>사유</th>";
+							varHtml += "		<th>신고일자</th>";
+							varHtml += "		<th>신고처리</th>";
+							varHtml += "		<th>상세보기</th>";
+							varHtml += "	</tr>              ";
+							varHtml += "</thead>               ";
+							//tbody
+							varHtml += "<tbody>               ";
+							$.each(value,function(k,v){
+								varHtml+="<tr>                                                                                                                                                     "  ;
+								if(v.process == '미처리'){
+								varHtml+="	<td><input type='checkbox' name='chkVal' value='"+v.report_id+"'></td>                                                                                              "  ;
+								}else{
+									varHtml+="	<td></td>                                                                                              "  ;
+								}
+								varHtml+="	<td>"+v.report_id+"</td>                                                                                                                                            "  ;
+								varHtml+="	<td>"+v.user_id+"</td>                                                                                                                                          ";
+								varHtml+="	<td>"+v.reason+"</td>                                                                                                                                          ";
+								varHtml+="	<td>"+v.report_time+"</td>                                                                                                                                               ";
+								
+								if(v.process == '미처리'){
+									varHtml+="	<td  style='color:blue;'>"+v.process+"</td>                                                           	                                                                                 ";
+									}else{
+									varHtml+="	<td>"+v.process+"</td>                                                           	                                                                                 ";
+									}
+								
+								varHtml+="	<td><a data-toggle='collapse' href='#collapse"+v.report_id+"' onclick='collapse("+v.report_id+")'>상세보기</a></td>";
+								varHtml+="</tr>                                                                                                                                                      ";
+								
+								varHtml+="<tr>                                                                                    ";
+								varHtml+="	<td colspan=7>                                                                       ";
+								varHtml+="		<div id='collapse"+v.report_id+"' class='panel-collapse collapse'>                 ";
+								varHtml+="			<div class='form-group'>                                                       ";
+								varHtml+="				<label>내용</label>                                                        ";
+								varHtml+="				<textarea rows='5'  class='form-control' >"+v.content+"</textarea>   ";
+								varHtml+="			</div>                                                                         ";
+								varHtml+="		</div>                                                                             ";
+								varHtml+="	</td>                                                                                  ";
+								varHtml+="</tr> ";
+								
+							});                                                                                                                                                                      
+							varHtml += "</tbody>               ";
+							
+						}else{
+							
+						  varHtml += "<li><a href='#' onclick='pageFirst()'><span class='glyphicon glyphicon-fast-backward'></span> </a></li>                                                        ";
+						  varHtml += "<li><a href='#' onclick='pagePrev("+value.pagenum+","+value.pagelist+")'><span class='glyphicon glyphicon-step-backward'></span></a></li>                            ";
+						  varHtml += "                                                                                                                                                               ";
+							for(let i= value.pagenum; i<=value.count; i++){
+							  varHtml += "  <li><a href='#' onclick='pageIndex("+i+")'>"+i+"</a></li>                                                                                                    ";
+							}				  
+						  varHtml += "                                                                                                                                                               ";
+						  varHtml += "<li><a href='#' onclick='pageNext("+value.pagenum+","+value.total+","+value.listnum+","+value.pagelist+")'><span class='glyphicon glyphicon-step-forward'></span> </a></li>";
+						  varHtml += "<li><a href='#' onclick='pageLast("+value.pagenum+","+value.total+","+value.listnum+","+value.pagelist+")'><span class='glyphicon glyphicon-fast-forward'></span> </a></li>";
+							
+						}
+						
+						if(key == 'lists'){
+							$(".table").html(varHtml);
+						}else{
+							$(".pagination").html(varHtml);
+						}
+						
+		        	 
+		         });
+		      },
+		      error:function(){
+		         alert("잘못된 요청입니다.");
+		      }
+		   });
+
+}
+
 
 //페이징 request인 row에서 전달받은 값을 사용하여 화면의 게시글의 리스트 갯수를 자동으로 선택되도록 함
 $(document).ready(function(){
@@ -114,11 +225,11 @@ function checkAllFn(bool){
 	}
 }
 
-function submitForm(){
+/* function submitForm(){
    document.forms[0].submit();
-}
+} */
 
-function chkbox(){
+/* function chkbox(){
       var isc = false;
       if(chsConfirm() > 0){
          swal({
@@ -146,117 +257,191 @@ function chkbox(){
 }
    
    return isc;
-}
+} */
 
 
-//페이징처리를 통한 SPA 화면 구현
-/* function pageFirst(){
+//페이징 처리를 통한 SPA 화면 구현
+
+function pageFirst(){
 	console.log("pageFirst");
-	var index = document.getElementById('index'); //현재 눌려진 페이지 0부터 시작
-	var pageNum = document.getElementById('pageNum'); //보여지는 페이지 시작번호
-	index.value = 0;
-	pageNum.value = 1;
+	var index = document.getElementById("index"); // 현재 눌려진 페이지 0부터 시작
+	var pageNum = document.getElementById("pageNum"); // 보여지는 페이지 시작번호
+	index.value=0;
+	pageNum.value=1;
 	pageAjax();
 }
 
+//pagePrev(1,5)
+function pagePrev(num,pageList){
+	console.log(num, pageList);
+	if(0<num-pageList){
+		num -= pageList;
+		var index = document.getElementById("index"); // 현재 눌려진 페이지 0부터 시작
+		var pageNum = document.getElementById("pageNum");
+		index.value=num-1;
+		pageNum.value=num;
+	}
+	pageAjax();
+	
+}
+//pageNext
+function pageNext(num, total, listNum, pageList){
+	console.log(num, total, listNum, pageList);
+	
+	var idx = Math.ceil(total/listNum);
+	var max = Math.ceil(idx/pageList);
+	
+	if(max*pageList > num+pageList){
+		num += pageList;
+		var index = document.getElementById("index"); // 현재 눌려진 페이지 0부터 시작
+		var pageNum = document.getElementById("pageNum");
+		
+		index.value = num-1;
+		pageNum.value = num;
+	}
+	pageAjax();
+}
+//pageLast
+function pageLast(num, total, listNum, pageList){
+	console.log(num, total, listNum, pageList);
+	var idx = Math.ceil(total/listNum);//
+	var max = Math.ceil(idx/pageList)//
+	
+	while(max*pageList > num+pageList){
+		num += pageList;
+	}
+	
+	var index = document.getElementById("index"); // 현재 눌려진 페이지 0부터 시작
+	var pageNum = document.getElementById("pageNum");
+		
+	index.value = idx-1;
+	pageNum.value = num;
+	
+	pageAjax();
+}
+
+//pageIndex
+function pageIndex(pagenum){
+	var index = document.getElementById("index");
+	index.value = pagenum-1;
+	pageAjax();
+}
+
+//pageList
+function pageList(){
+	var index = document.getElementById("index"); 
+	var pageNum = document.getElementById("pageNum");
+	var listNum = document.getElementById("listNum");
+	
+	index.value=0;
+	pageNum.value = 1;
+	listNum.value = document.getElementById("list").value;
+	
+	pageAjax();
+	
+}
+
+
+
+
 var pageAjax = function(){
+	console.log($("#frm").serialize);
 	   $.ajax({
-	      url : "./page.do",
+	      url : "./page.do?mozzle_id=<%=mozzle_id%>",
 	      type:"post",
 	      async:true,
-	      data: $("#frmPaging").serialize,
+	      data: $("#frm").serialize(),
 	      dataType : "json",
 	      success : function(msg){ //{"lists" : [{},{}, ..],"row",{"","",""}}
 	         console.log(msg);
 	         
 	         $.each(msg,function(key,value){
 	        	 var varHtml = "";
-	        	 var n = $(".table tr:eq(0) th").length;
+	        	 var n = 7;
 	        	 
-	        	 if(key == 'lists'){
-	        		 
-	        	 }
+					if(key =='lists'){
+						//thead
+						varHtml += "<thead>                ";
+						varHtml += "	<tr>               ";
+							varHtml +="<th>";
+							varHtml +="<input type='checkbox' id='checkAll' onclick='checkAllFn(this.checked)'>";
+							varHtml +="</th>";
+						varHtml += "		<th>신고번호</th>";
+						varHtml += "		<th>작성자</th>  ";
+						varHtml += "		<th>사유</th>";
+						varHtml += "		<th>신고일자</th>";
+						varHtml += "		<th>신고처리</th>";
+						varHtml += "		<th>상세보기</th>";
+						varHtml += "	</tr>              ";
+						varHtml += "</thead>               ";
+						//tbody
+						varHtml += "<tbody>               ";
+						$.each(value,function(k,v){
+							varHtml+="<tr>                                                                                                                                                     "  ;
+							if(v.process=='미처리'){
+							varHtml+="	<td><input type='checkbox' name='chkVal' value='"+v.report_id+"'></td>                                                                                              "  ;
+							} else{
+								varHtml+="	<td></td>                                                                                              "  ;
+							}
+							varHtml+="	<td>"+v.report_id+"</td>                                                                                                                                            "  ;
+							varHtml+="	<td>"+v.user_id+"</td>                                                                                                                                          ";
+							varHtml+="	<td>"+v.reason+"</td>                                                                                                                                          ";
+							varHtml+="	<td>"+report_time+"</td>                                                                                                                                          ";
+							if(v.process == '미처리'){
+								varHtml+="	<td  style='color:blue;'>"+v.process+"</td>                                                           	                                                                                 ";
+								}else{
+								varHtml+="	<td>"+v.process+"</td>                                                           	                                                                                 ";
+								}
+							
+							varHtml+="	<td><a data-toggle='collapse' href='#collapse"+v.report_id+"' onclick='collapse("+v.report_id+")'>상세보기</a></td>";
+							varHtml+="</tr>                                                                                                                                                      ";
+							
+							varHtml+="<tr>                                                                                    ";
+							varHtml+="	<td colspan=7>                                                                       ";
+							varHtml+="		<div id='collapse"+v.report_id+"' class='panel-collapse collapse'>                 ";
+							varHtml+="			<div class='form-group'>                                                       ";
+							varHtml+="				<label>내용</label>                                                        ";
+							varHtml+="				<textarea rows='5'  class='form-control' >"+v.content+"</textarea>   ";
+							varHtml+="			</div>                                                                         ";
+							varHtml+="		</div>                                                                             ";
+							varHtml+="	</td>                                                                                  ";
+							varHtml+="</tr> ";
+							
+						});                                                                                                                                                                      
+						varHtml += "</tbody>               ";
+						
+					}else{
+						
+					  varHtml += "<li><a href='#' onclick='pageFirst()'><span class='glyphicon glyphicon-fast-backward'></span> </a></li>                                                        ";
+					  varHtml += "<li><a href='#' onclick='pagePrev("+value.pagenum+","+value.pagelist+")'><span class='glyphicon glyphicon-step-backward'></span></a></li>                            ";
+					  varHtml += "                                                                                                                                                               ";
+						for(let i= value.pagenum; i<=value.count; i++){
+						  varHtml += "  <li><a href='#' onclick='pageIndex("+i+")'>"+i+"</a></li>                                                                                                    ";
+						}				  
+					  varHtml += "                                                                                                                                                               ";
+					  varHtml += "<li><a href='#' onclick='pageNext("+value.pagenum+","+value.total+","+value.listnum+","+value.pagelist+")'><span class='glyphicon glyphicon-step-forward'></span> </a></li>";
+					  varHtml += "<li><a href='#' onclick='pageLast("+value.pagenum+","+value.total+","+value.listnum+","+value.pagelist+")'><span class='glyphicon glyphicon-fast-forward'></span> </a></li>";
+						
+					}
+					
+					if(key == 'lists'){
+						$(".table").html(varHtml);
+					}else{
+						$(".pagination").html(varHtml);
+					}
+					
 	        	 
-	         })
+	         });
 	      },
 	      error:function(){
 	         alert("잘못된 요청입니다.");
 	      }
 	   });
-	} */
+	} 
 	
 	
 	
-//paging submit 공통
 
-	function frmPaging(){
-		document.getElementById("frmPaging").submit();
-	}
-
-	function pageFirst(){
-		var index = document.getElementById("index");
-		var pageStartNum = document.getElementById("pageStartNum");
-		index.value = 0;
-		pageStartNum.value = 1;
-		frmPaging();
-	}
-
-	function pagePre(num, pageCnt){ // num : 출력할 페이지의 시작 번호, pageCnt : 출력할 페이지 번호 갯수
-		if(0 < num - pageCnt){
-			num -= pageCnt;
-			var index = document.getElementById("index");
-			var pageStartNum = document.getElementById("pageStartNum");
-			index.value = num - 1;
-			pageStartNum.value = num;
-		}
-		frmPaging();
-	}
-
-	function pageIndex(idx){
-		var index = document.getElementById("index");
-		index.value = idx - 1;
-		frmPaging();
-	}
-
-	function pageNext(num, total, listNum, pageCnt){ // 출력할 페이지의 시작 번호, 리스트의 총 갯수, 출력할 리스트의 갯수, 출력한 페이지 번호 갯수
-		var index = Math.ceil(total / listNum);
-		var max = Math.ceil(index / pageCnt);
-		
-		if(max * pageCnt > num + pageCnt){
-			num += pageCnt;
-			var index = document.getElementById("index");
-			var pageStartNum = document.getElementById("pageStartNum");
-			
-			pageStartNum.value = num;
-			index.value = num - 1;
-		}
-		frmPaging();
-	}
-
-	function pageLast(num, total, listNum, pageCnt){ // 출력할 페이지의 시작 번호, 리스트의 총 갯수, 출력할 리스트의 갯수, 출력한 페이지 번호 갯수
-		var index = Math.ceil(total / listNum);
-		var max = Math.ceil(index / pageCnt);
-		
-		while(max * pageCnt > num + pageCnt){
-			num += pageCnt;
-
-		}
-		var index = document.getElementById("index");
-			var pageStartNum = document.getElementById("pageStartNum");
-			
-			pageStartNum.value = num;
-			index.value = num - 1;
-		frmPaging();
-	}
-
-	function listCnt(){
-		document.getElementById('index').value = 0;
-		document.getElementById('pageStartNum').value = 1;
-		document.getElementById('listCnt').value = document.getElementById('listCount').value;
-		frmPaging();
-	}
-	
-	
 </script>
 </body>
 </html>

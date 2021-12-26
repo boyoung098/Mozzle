@@ -51,7 +51,7 @@ public class FirstBoardCtrl {
 	
 	//처음에 모즐클릭햇을때 뜨는화면에 필요한 값들을 보내준다.
 	@RequestMapping(value="/firstmozzle.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String firstmozzle(Model model, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req) {
+	public String firstmozzle(Model model, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req, @ModelAttribute("moveTo") String moveTo) {
 		
 		//김보영-모즐내회원리스트뿌리기
 		Map<String, String> map = new HashMap<String, String>();
@@ -59,6 +59,8 @@ public class FirstBoardCtrl {
 		List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListMozzleUser(map);
 		model.addAttribute("mozzleuserList",mozzleuserList);
 		//model.addAttribute("mozzle_id", mozzle_id);
+		
+		logger.info("moveTo의 값은==============={}",moveTo);
 		
 		//이미지경로 뿌리기
 		//String imagepath = "C:eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage";

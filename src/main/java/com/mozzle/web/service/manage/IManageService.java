@@ -29,5 +29,6 @@ public interface IManageService {
 	public String[] selectCategory();
 	
 	public String selectMozzleIdByMozzleName(String mozzleName);
-
+	
+	public int checkMember(String user_id);
 }
