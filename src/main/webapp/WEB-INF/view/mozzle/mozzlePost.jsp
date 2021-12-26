@@ -72,7 +72,7 @@
 							<input type="text" class="form-control" name="first-reply-content"
 								id="first-reply-content" style="width: 100%">
 						</div>
-						<button class="btn btn-default" onclick="submitFisrtReply('${post.post_id}', '${post.refer }')">등록</button>
+						<button class="btn btn-default" onclick="submitFisrtReply('${post.post_id}', '${post.refer }')">댓글작성</button>
 					</div>
 				</div>
 			</div>
