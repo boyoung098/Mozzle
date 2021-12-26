@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mozzle.web.comm.ScheduleUtil;
 import com.mozzle.web.dto.schedule.ScheduleDto;
+import com.mozzle.web.dto.schedule.ScheduleLocationInfoDto;
 import com.mozzle.web.service.schedule.IScheduleService;
 
 
@@ -53,9 +54,9 @@ public class ScheduleCtrl {
 				+ ScheduleUtil.isTwo(ymd.get("date"));
 		
 		//모즐아이디 전달
-//		HttpSession session = request.getSession();
-//		String mozzle_id = (String)session.getAttribute("mozzle_id");
-		String mozzle_id = "2";
+		HttpSession session = request.getSession();
+		String mozzle_id = (String)session.getAttribute("mozzle_id");
+		//String mozzle_id = "2";
 		
 		List<ScheduleDto> list = service.scheduleselectAll(mozzle_id, yyyyMMdd);
 		model.addAttribute("list",list);
@@ -63,13 +64,39 @@ public class ScheduleCtrl {
 		return "mozzle/scheduleselectAll";
 	}
 	
-	@RequestMapping(value = "/scheduleinsert.do", method = RequestMethod.GET)
-	public String scheduleinsert(Locale locale,Model model) {
+	@RequestMapping(value = "/scheduleinsert.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String scheduleinsertForm(Locale locale,Model model) {
 		logger.info("일정 추가 폼 이동 {} ", locale);
 		
 		//월별 일정에 대해 하루마다 일정 3개씩 표시하기 기능 구현
 		
-		return "mozzle/scheduleinsert";
+		return "mozzle/scheduleinsertForm";
 	}
+	
+//	@RequestMapping(value = "/scheduleinsert.do", method = {RequestMethod.GET, RequestMethod.POST})
+//	public String scheduleinsert(ScheduleDto dto, ScheduleLocationInfoDto dto2, Locale locale,Model model) {
+//		logger.info("일정 추가 {} ", locale);
+		
+		
+		//schedule_date 는 12자리로 만들어서 DB에 저장해야 한다.
+//		String schedule_date = dto.getYear()
+//				+ ScheduleUtil.isTwo(dto.getMonth())
+//				+ ScheduleUtil.isTwo(dto.getDate())
+//				+ ScheduleUtil.isTwo(dto.getHour())
+//				+ ScheduleUtil.isTwo(dto.getMin());
+//		boolean isS = service.scheduleinsert(
+//					new ScheduleLocationInfoDto(0,)
+//					new ScheduleDto(0, dto.getMozzle_id(), dto.getWriter(),
+//									dto.getTitle(), dto.getContent(),
+//									schedule_date, NULL, dto.getLocation_code());
+//		if(isS) {
+//			return "redirect:calendar.do?year="+dto.getYear()+"&month="+dto.getMonth();
+//		}else {
+//			model.addAttribute("msg", "일정등록실패!!");
+//			return "error";
+//		}
+					
+//		return "mozzle/scheduleinsertForm";
+//	}
 	
 }
