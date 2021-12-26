@@ -198,51 +198,6 @@ input:focus, select:focus {
 		</div>
 <script>
   $(document).ready(function(){
-	<div class="mobile_menu">
-		<div class="header_mobile">
-		  <div class="menu_btn">
-		    <a href="#">       
-		      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjQgNmgtMjR2LTRoMjR2NHptMCA0aC0yNHY0aDI0di00em0wIDhoLTI0djRoMjR2LTR6Ii8+PC9zdmc+">
-		    </a>
-		    <div class="m_logo">
-		    	<a  href="<%=request.getContextPath()%>">
-				<img src="<%=request.getContextPath()%>/resources/images/logo/logo.png" />
-			  </a>
-		    </div>
-		  </div>
-		  
-		</div>
-		<div class="menu_bg"></div>
-			<div class="sidebar_menu">
-			    <div class="close_btn"><a href="#">       
-			        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuOTU0IDIxLjAzbC05LjE4NC05LjA5NSA5LjA5Mi05LjE3NC0yLjgzMi0yLjgwNy05LjA5IDkuMTc5LTkuMTc2LTkuMDg4LTIuODEgMi44MSA5LjE4NiA5LjEwNS05LjA5NSA5LjE4NCAyLjgxIDIuODEgOS4xMTItOS4xOTIgOS4xOCA5LjF6Ii8+PC9zdmc+">
-			        </a>
-			    </div>
-			    <ul class="menu_wrap">
-			          <li><a href="#">메뉴01</a></li>
-			          <li><a href="#">메뉴02</a></li>
-			          <li><a href="#">메뉴03</a></li>
-			          <li><a href="#">메뉴04</a></li>
-			    </ul>
-			</div>
-		</div>
-<script>
-  $(document).ready(function(){
-
-      $('.menu_btn>a').on('click', function(){
-          $('.menu_bg').show(); 
-          $('.sidebar_menu').show().animate({
-              left:0
-          });  
-      });
-      $('.close_btn>a').on('click', function(){
-          $('.menu_bg').hide(); 
-          $('.sidebar_menu').animate({
-              left: '-' + 50 + '%'
-                     },function(){
-          $('.sidebar_menu').hide(); 
-          }); 
-      });
 
       $('.menu_btn>a').on('click', function(){
           $('.menu_bg').show(); 
