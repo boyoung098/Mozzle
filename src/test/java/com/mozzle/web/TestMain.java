@@ -23,6 +23,7 @@ import com.mozzle.web.dao.board.IPostReportDao;
 import com.mozzle.web.dao.users.IGuestDao;
 import com.mozzle.web.dao.users.IMozzleUserDao;
 import com.mozzle.web.dto.board.PostReportDto;
+import com.mozzle.web.dto.board.RowNum_Dto;
 import com.mozzle.web.dto.users.GuestDto;
 import com.mozzle.web.dto.users.MozzleUserDto;
 
@@ -48,15 +49,16 @@ public class TestMain {
 	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	
 	@Test
 	public void test() {
 		//GuestDto guestdto = guestDao.selectByUUID("ee");
 		//log.info("GuestDto 값 {}",guestdto);
 		//List<GuestDto> list = guestDao.selectGuest();
 		
-		Map<String, String> map = new HashMap<String, String>();
+		/*Map<String, String> map = new HashMap<String, String>();
 		map.put("mozzle_id", "1");
-		map.put("user_id", "vv");
+		map.put("user_id", "vv");*/
 		//map.put("nickname", "바");
 		//List<MozzleUserDto> userList = mozzleUserDao.selectListMozzleUser(map);
 		//for (MozzleUserDto mozzleUserDto : userList) {
@@ -112,8 +114,26 @@ public class TestMain {
 //		int n= postreportDao.insertPostReport(reportdto);
 //		assertEquals(1, n);
 		
+		RowNum_Dto rdto = new RowNum_Dto();
+		rdto.setMozzle_id("1");
+		//rdto.setTotal(8);
+//		System.out.println(rdto.toString());
+//
+//		System.out.println(rdto.getStart());
+//		System.out.println(rdto.getLast());
 		
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("mozzle_id", "1");
+//		map.put("start", "1");
+//		
+//		map.put("last", "10");
 		
+//		List<PostReportDto> listreport = postreportDao.selectPostReportList(rdto);
+//		for (PostReportDto postReportDto : listreport) {
+//						System.out.println(postReportDto.toString());
+//		}
+		
+		//System.out.println(postreportDao.postReportListTotal("1"));
 		
 	}
 

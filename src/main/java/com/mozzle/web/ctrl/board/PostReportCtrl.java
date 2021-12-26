@@ -1,21 +1,26 @@
 package com.mozzle.web.ctrl.board;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import com.mozzle.web.dto.board.PostReportDto;
-import com.mozzle.web.dto.users.MozzleUserDto;
+import com.mozzle.web.dto.board.RowNum_Dto;
 import com.mozzle.web.service.board.IPostReportService;
 
 @Controller
@@ -27,9 +32,21 @@ public class PostReportCtrl {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping(value = "/postreportList.do") 
-	public String postreportList() {
+	public String postreportList(Model model, HttpSession session, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req) {
+		List<PostReportDto> lists = null;
+		RowNum_Dto rowDto = null;
 		
-		
+		if(req.getAttribute("row") == null) {
+			rowDto = new RowNum_Dto();
+		}else {
+			rowDto = (RowNum_Dto)req.getAttribute("row");
+		}
+		rowDto.setMozzle_id(mozzle_id);
+		rowDto.setTotal(reportservice.postReportListTotal(mozzle_id));
+		lists = reportservice.selectPostReportList(rowDto);
+		model.addAttribute("lists", lists);
+		//model.addAttribute("row", rowDto);
+		session.setAttribute("row", rowDto);
 		return "mozzle/postreportList";
 	}
 	
@@ -86,6 +103,7 @@ public class PostReportCtrl {
 	}
 	
 	
-	
+
+
 	
 }

@@ -13,6 +13,7 @@
 	<typeAlias type="com.mozzle.web.dto.board.PostReportDto" alias="postReportDto"/>
 	<typeAlias type="com.mozzle.web.dto.notice.NotificationDto" alias="nDto"/>
 	<typeAlias type="com.mozzle.web.dto.board.MozzlePostDto" alias="pDto"/>
+	<typeAlias type="com.mozzle.web.dto.board.RowNum_Dto" alias="rownumDto"/>
 </typeAliases>
 
 <mappers>

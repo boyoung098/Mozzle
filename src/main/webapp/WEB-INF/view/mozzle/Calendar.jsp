@@ -49,11 +49,11 @@
 		<table border="1" id="calendar">
 			<caption>
 				<!-- <<는 연도가 깎여야하기때문에 -1 <는 월이 깎여야 하기때문에 -1  -->
-				<a href="calendar.do?year=<%=year-1%>&month=<%=month%>">◀◀</a>
+				<a href="calendar.do?year=<%=year-1%>&month=<%=month%>">&laquo;</a>
 				<a href="calendar.do?year=<%=year%>&month=<%=month-1%>">◀</a>
 				<%=year %>년<%=month %>월	
 				<a href="calendar.do?year=<%=year%>&month=<%=month+1%>">▶</a>
-				<a href="calendar.do?year=<%=year+1%>&month=<%=month%>">▶▶</a>
+				<a href="calendar.do?year=<%=year+1%>&month=<%=month%>">&raquo;</a>
 			</caption>
 			<tr>
 				<th>일</th>

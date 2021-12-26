@@ -100,7 +100,6 @@ $(document).ready(function() {
 				
 				<div class="userinfodiv">
 				<h5>닉네임 : ${mozzleUserdto.nickname}</h5>
-				
 					<c:if test="${mozzleUserdto.auth_code == '1'}">
 					<h5>등급 : 운영자</h5>
 					</c:if>
@@ -110,6 +109,8 @@ $(document).ready(function() {
 					<fmt:parseDate var="userjoindate" value="${mozzleUserdto.joined_date}" pattern="yyyy-MM-dd"/>
 					<fmt:formatDate var="userjoindate2" value="${userjoindate}" pattern="yyyy-MM-dd"/>
 					<h5>가입일자 : ${userjoindate2}</h5>
+					<h5>생일공개 : ${mozzleUserdto.birthday_show}</h5>
+					<h5>글 작성수 : ${mozzleUserdto.postcnt}</h5>
 				</div>
 				
 				<button class="join-btn" type="button" id="btnupdatemy">정보수정</button>
@@ -163,13 +164,17 @@ $(document).ready(function() {
 				<div class="mo-list">
 					<ul>
 						<li><a  href="#" id="default-move">신고관리<input type="hidden" name="move" value="postreportList"></a></li>
-						<li><a  href="#" id="default-move">멤버관리<input type="hidden" name="move" value="mozzlememberList"></a></li>
 						<li><a  href="#" id="default-move-03">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
+						<li><a  href="#" id="default-move">멤버관리<input type="hidden" name="move" value="adminmozzleMemberList"></a></li>
+						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
 						<!-- <li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li> -->
 						<!-- <li>사진첩</li>-->
             			<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
-						<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
+						<%-- <c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
 						<li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li>
+						</c:if> --%>
+						<c:if test="${mozzleUserdto.auth_code == '2'}">
+						<li><a href="#">멤버<input type="hidden" name="move" value="mozzlememberList"></a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -196,6 +201,15 @@ $(document).ready(function() {
  </ul>
  
 <script type="text/javascript">
+$(document).ready(function(){
+	var firstcheck = "<c:out value='${firstcheck}'/>"
+	if(firstcheck==''){
+		$("#load_mozzle").load("mozzlePost.do?mozzle_id=<%=mozzle_id%>");
+	}	
+	});
+
+
+
 
 //리스트 jquery onload 사용하기
 $(function(){

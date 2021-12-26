@@ -5,13 +5,28 @@ import java.io.Serializable;
 public class RowNum_Dto implements Serializable{
 
 	
-	private static final long serialVersionUID = 1239041450725482854L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1807342103693743891L;
 	private int pageList; // 출력할 페이지의 번호 갯수
 	private int index; //출력한 페이지
 	private int pageNum; // 출력할 페이지의 시작번호
 	private int listNum; // 출력할 리스트의 갯수
 	private int total; // 리스트의 총갯수
+	private String mozzle_id;
 	
+	
+	public String getMozzle_id() {
+		return mozzle_id;
+	}
+
+
+
+	public void setMozzle_id(String mozzle_id) {
+		this.mozzle_id = mozzle_id;
+	}
+
 	{
 		pageList = 5;
 		index = 0;
@@ -25,14 +40,17 @@ public class RowNum_Dto implements Serializable{
 	
 	
 	
+
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "RowNum_Dto [pageList=" + pageList + ", index=" + index + ", pageNum=" + pageNum + ", listNum=" + listNum
-				+ ", total=" + total + "]";
+				+ ", total=" + total + ", mozzle_id=" + mozzle_id + "]";
 	}
-
-
-
 
 
 
