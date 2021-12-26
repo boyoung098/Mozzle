@@ -4,13 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<%@ include file="../comm/import.jsp"%>
-
-</head>
-<body>
 <!-- **************************멤버리스트뿌리는곳*************************  -->
 				
 				<div class="mozzle-member">
@@ -24,7 +17,7 @@
 						
 						
 						</div>
-					<div class="member-box input-search" style="width: 90%">
+					<div class="member-box input-search">
 						
 							<input type="text" class="form-control" placeholder="멤버 검색" id="memberSearchName">
 							<span class="input-group-btn">
@@ -41,8 +34,8 @@
 						 
 						<c:forEach var="mozzleUser" items="${mozzleuserList}">
 
-							<<%-- li class="${mozzleUser.nickname}li"  style="margin-bottom: 10px; border: 1px solid black;"> --%>
-							<li class="${mozzleUser.nickname}li"  style="margin-bottom: 10px; border: 1px solid black; font-size: 20px;">
+							<%-- li class="${mozzleUser.nickname}li"  style="margin-bottom: 10px; border: 1px solid black;"> --%>
+							<li class="${mozzleUser.nickname}li" >
 							<div class="meeber-thumbnail">
 							
 							<div class="meeber-thumbnail" style="cursor: pointer;">
@@ -258,5 +251,3 @@
     
     
 	</script>
-</body>
-</html>

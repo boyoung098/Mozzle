@@ -12,7 +12,7 @@
 		</div>
 
   
-		<table class="table table-border">
+		<table class="table table-border table_b">
 			<thead>
 			<tr>
 				<th><input type="checkbox" id="checkAll" onclick="checkAllFn(this.checked)"></th>

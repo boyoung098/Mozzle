@@ -205,7 +205,9 @@ a {
   ::placeholder{
       color:#bbb;
   }
-  
+.mt-1{
+    margin-top: 20px;
+} 
 .mt-2{
     margin-top: 20px;
 }
@@ -260,10 +262,6 @@ textarea:focus, input:focus{
 }
 
 @media (min-width: 367px){
-	.clear {
-    	clear: both;
-	    float: none;
-	}
 	#image-wrap {
 	    width: 150px;
 	}
@@ -278,10 +276,10 @@ textarea:focus, input:focus{
 	.mobile_menu{
 		display: block;
 	}
-}
-.container{
-	clear: both;
-}
+	.container{
+		clear: both;
+	}
+}	
 
 
 @media (min-width: 768px){
@@ -298,6 +296,9 @@ textarea:focus, input:focus{
 	}
 	.navbar-brand{
 		padding: 0px 15px;
+	}
+	.clear {
+	    float: right;
 	}
 }
 @media (min-width: 992px){
@@ -316,6 +317,11 @@ textarea:focus, input:focus{
 	.mobile_menu{
 		display: none;
 	}
+	.intput-width {
+	    width: 280px;
+	    position: relative;
+	    margin: 0px!important;
+	}
 }
 
 @media (min-width: 1200px){
@@ -332,7 +338,6 @@ textarea:focus, input:focus{
 	    width: 256px;
 	}
 	.clear {
-		clear:both;
 		float: right;
 	}
 	
