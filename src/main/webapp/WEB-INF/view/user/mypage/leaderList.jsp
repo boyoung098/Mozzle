@@ -67,7 +67,7 @@
 				$(result).each(function(){
 					var $tr = $("<tr></tr>")
 					var $td = $("<td></td>");
-					var $a = $("<a>").attr("href", "<%=request.getContextPath()%>/mozzlememberList.do?mozzle_id=" + this.MOZZLE_ID + "&delegate=true")
+					var $a = $("<a>").attr("href", "<%=request.getContextPath()%>/delegateMemberList.do?mozzle_id=" + this.MOZZLE_ID + "&delegate=true")
 						.text(this.MOZZLE_NAME);
 					$tr.append($td.append($a));
 					$("#leaderList tbody").append($tr);
