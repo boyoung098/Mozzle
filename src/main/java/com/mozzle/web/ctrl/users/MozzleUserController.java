@@ -89,6 +89,26 @@ public class MozzleUserController {
 		return "mozzle/mozzleMemberList";
 	}
 	
+	//운영자권한
+	@RequestMapping(value="/adminmozzleMemberList.do", method = RequestMethod.GET)
+	public String adminmozzleMemberList(Model model, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req) {
+		//김보영-모즐내회원리스트뿌리기
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("mozzle_id", mozzle_id);
+				List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListadminMozzleUser(map);
+				model.addAttribute("mozzleuserList",mozzleuserList);
+				//model.addAttribute("mozzle_id", mozzle_id);
+				
+				//이미지경로 뿌리기
+				//String imagepath = "C:eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage";
+				//C:home\images\study.png
+				
+				//String path = req.getSession().getServletContext().getRealPath("/");
+				//*************이미지 경로나옴!!!!!!!!!!!!!
+			//끝
+		return "mozzle/adminmozzleMemberList";
+	}
+	
 	//ajax로 닉네임서치값을 받아서 map 형태로 찾은 리스트들 보내기
 	@RequestMapping(value="/mozzleUserSearch.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -102,7 +122,32 @@ public class MozzleUserController {
 		return returnmap;
 	}
 	
-
+	//운영자권한
+	@RequestMapping(value="/adminmozzleUserSearch.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,List<MozzleUserDto> > adminmozzleUserSearch(String nickname, @ModelAttribute("mozzle_id") String mozzle_id){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("mozzle_id", mozzle_id);
+		map.put("nickname", nickname);
+		List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListadminMozzleUser(map);
+		Map<String,List<MozzleUserDto>> returnmap = new HashMap<String,List<MozzleUserDto>>();
+		returnmap.put("mozzleuserList", mozzleuserList);
+		return returnmap;
+	}
+	
+	
+	
+	@RequestMapping(value="/adminmozzleOut.do", method = RequestMethod.GET)
+	public String adminmozzleOut(String user_id, @ModelAttribute("mozzle_id") String mozzle_id, Model model){
+		log.info("삭제할 아이디를 받아옴??========={}",user_id);
+		MozzleUserDto userdto = new MozzleUserDto();
+		userdto.setAuth_code("3");
+		userdto.setUser_id(user_id);
+		userdto.setMozzle_id(mozzle_id);
+		mozzleUserService.updateMozzleUserAuth(userdto);
+		model.addAttribute("moveTo","adminmozzleMemberList");
+		return "mozzle/firstmozzle";
+	}
 
 	@RequestMapping(value="/mozzleJoinBefore.do", method = RequestMethod.GET)
 	@ResponseBody

@@ -24,4 +24,6 @@ public interface IMozzleUserService {
 	public int updateMozzleUserAuth(MozzleUserDto dto);
 	
 	public List<Map<String, Object>> leaderCheck(String userId);
+	
+	public List<MozzleUserDto> selectListadminMozzleUser(Map<String, String> map);
 }

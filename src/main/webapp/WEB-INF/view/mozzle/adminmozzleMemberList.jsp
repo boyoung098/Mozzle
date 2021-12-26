@@ -22,12 +22,12 @@
 						</c:if>
 						
 						
-						</div>
+					</div>
 					<div class="member-box input-search" style="width: 90%">
 						
-							<input type="text" class="form-control" placeholder="멤버 검색" id="memberSearchName">
+							<input type="text" class="form-control" placeholder="멤버 검색" id="adminmemberSearchName">
 							<span class="input-group-btn">
-								<button class="btn btn-default" type="button" onclick="memberSearch()" style="margin-left: -6px; padding: 6px 12px 6px 0px;">
+								<button class="btn btn-default" type="button" onclick="adminmemberSearch()" style="margin-left: -6px; padding: 6px 12px 6px 0px;">
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
 							</span>
@@ -68,7 +68,7 @@
 							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 80px; margin-right: 10px;">권한넘기기</button>
 							</c:if>
 							<c:if test="${mozzleUser.auth_code == '2'}">
-							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 60px;">강퇴</button>
+							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 60px;" value="${mozzleUser.user_id}" name="adminout">강퇴</button>
 							</c:if>
 							<c:if test="${mozzleUser.auth_code == '3'}">
 							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 60px;">복구</button>
@@ -113,10 +113,10 @@
 					$('#inauth').append('운영자');
 				} else if(auth_code == 2){
 					$('#inauth').append('일반 회원');
-					var html = "";
+					/* var html = "";
 					html += "<button class='join-btn' type='button' style='margin-right:10px;'>권한넘기기</button>"
 					html+= "<button class='join-btn' type='button' >강퇴하기</button>";
-					$("#btnUserDetail").html(html);
+					$("#btnUserDetail").html(html); */
 				}
 				
 				$('#indate').empty();
@@ -136,14 +136,14 @@
 	
 	//닉네임ㅁ을 이용하여 찾기
 	function memberSearch(){
-		var memberSearchval = document.getElementById('memberSearchName').value;
+		var memberSearchval = document.getElementById('adminmemberSearchName').value;
 		console.log(memberSearchval);
 		var mozzleuserul = document.getElementById('mozzleuserul');
 		var mozzle_id = <%=request.getParameter("mozzle_id")%>;
 		
 		
 		$.ajax({
-			url:"./mozzleUserSearch.do?mozzle_id="+mozzle_id,
+			url:"./adminmozzleUserSearch.do?mozzle_id="+mozzle_id,
 			type: "post",
 			data : "nickname="+ memberSearchval,
 			dataType : "JSON",
@@ -174,29 +174,14 @@
 		});
 	}
 	
+	$(document).ready(function () {
+		  $("button[name='adminout']").click(function () {
+			  var outuserId = $(this).val();
+			  console.log(outuserId);
+			  window.location.href = "./adminmozzleOut.do?user_id="+outuserId+"&mozzle_id="+<%=request.getParameter("mozzle_id")%>;
+		  });
+		});
 
-	
-	/* function mozzleUserDetail(this){
-		//var usernickname = document.getElementById('detail${user_id}').value;
-		var usernickname = this.val();
-		console.log(usernickname);
-		//$('#detailModal').modal();
-		
-		
-	} */
-	
-	/*  $(".inviteaa이다").click(function(){
-		//var value = $(".inviteaa이다").children("input").val();
-		var value = $(".detail").val();
-		console.log(value);
-        //console.log($(this).val());
-        
-        
-    });  */
-
-    
-    
-    
 	</script>
 </body>
 </html>
