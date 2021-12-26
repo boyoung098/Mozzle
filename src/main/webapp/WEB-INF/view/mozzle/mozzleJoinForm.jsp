@@ -60,16 +60,12 @@
         </div>
         
         <div class="modal-body">
-        <form:form id="mozzleUserRegist" action="./mozzleUserRegist.do?mozzle_id=${mozzle_id}" method="post" enctype="multipart/form-data"
-        		>
+        <form:form id="mozzleUserRegist" action="./mozzleUserRegist.do?mozzle_id=${mozzle_id}" method="post" enctype="multipart/form-data">
 		<div class="register-container">
-		
-				<h4>프로필이미지 선택</h4>
-				<div class="image-wrap2">
-					<img class="image" id="image" src="<%=request.getContextPath()%>/resources/images/default_profile.png" />
-				</div>
-
-
+			<h4>프로필이미지 선택</h4>
+			<div class="image-wrap2">
+				<img class="image" id="image" src="<%=request.getContextPath()%>/resources/images/default_profile.png" />
+			</div>
  			<div class="register-input" id="imagebox">
 				<div class="box-file-input" style="margin-top: 5px">
 					<label> <input type="file" name="file"

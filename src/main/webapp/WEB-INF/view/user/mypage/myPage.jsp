@@ -31,7 +31,7 @@
 	
 }
 .my-page-menu ul li{
-	padding: 20px 0;
+	padding: 13px 0;
 	color: #fff;
 	display: inline-block;
 	cursor: pointer;
@@ -42,7 +42,7 @@
 }
 
 .my-page-menu ul li a{
-	padding: 20px 40px;
+	padding: 13px 40px;
 }
 
 .auth-input{
@@ -115,8 +115,8 @@
 <body>
 	<div id="header"></div>
 	<section class="container">
-		<div>
-			<img class="width-100" alt="모즐 이미지" src="<%=request.getContextPath()%>/resources/images/bn.png">
+		<div class="my_page_bn">
+			<img class="width-100" alt="모즐 이미지" src="<%=request.getContextPath()%>/resources/images/myimg.png">
 		</div>
 		<div class="my-page-menu">
 			<ul>

@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<div class="input-post">
+<%-- <div class="input-post">
 	<label for="comment">게시글을 작성해주세요</label>
 	<textarea class="form-control" name="mozzle-content"
 		id="mozzle-content" rows="10" cols="68"></textarea>
@@ -17,6 +17,10 @@
 <div class="mt-3">
 	<div class="input-group input-search mt-2" style="width:200px;">
 		<form action="./searchMozzlePost.do" method="post" id="frm_search">
+<div>
+	<div class="input-group input-search mt-2">
+		<form method="post" id="frm_search"
+			onsubmit="javascript:retrun false;">
 			<input type="text" class="form-control" name="keyword" id="keyword"
 				placeholder="게시글 검색"> <span class="input-group-btn">
 			<input type="hidden" name="mozzle_id"  value="${mozzle_id}">
@@ -27,7 +31,7 @@
 		</form>
 	</div>
 </div>
-
+ --%>
 <div class="board-top mt-2">
 	<select class="board-sel selectbox">
 		<option value="new1">최신순</option>
@@ -81,6 +85,33 @@
 </div>
 
 <script>
+
+$.ajax({
+	url : "./replyShow.do?refer=" + obj,
+	type : "post",
+	success : function(data) {
+
+		if (data.isc == true) {
+			console.log("성공");
+			var replyList = data.replyList;
+			var replyListBox = document.getElementById("reply-list-"
+						+ obj);
+		
+			if (replyList != null) {
+				console.log("성공2");
+				for (var i = 0; i < replyList.lenght; i++) {
+						
+					replyListBox.append("댓글");
+				}
+			} else {
+				console.log("결국 실패");
+				replyListBox.append("등록된 댓글이 없습니다");
+			}
+		}
+	}
+})
+};
+
 
 $( document ).ready(function() {
    flag01 = true;

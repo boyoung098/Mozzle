@@ -27,8 +27,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mozzle.web.dto.board.Board;
+import com.mozzle.web.dto.users.MozzleUserDto;
 import com.mozzle.web.dto.users.UserDto;
 import com.mozzle.web.service.board.IBoardService;
+import com.mozzle.web.service.users.IMozzleUserService;
 import com.mozzle.web.service.users.IUserService;
 
 @Controller
@@ -41,10 +43,13 @@ public class BoardCtrl {
 	@Autowired
 	private IUserService userservice;
 	
+	@Autowired
+	private IMozzleUserService mozzleUserService;
+	
 	// 해당 모즐 전체 게시판 출력
 		@RequestMapping(value="/board.do", method = {RequestMethod.GET, RequestMethod.POST})
-		public String boardList(Model model, @ModelAttribute("mozzle_id") String mozzle_id, UserDto userdto, 
-				HttpServletRequest req, HttpSession session) {
+		public String boardList(Model model, @ModelAttribute("mozzle_id") String mozzle_id,  
+				HttpServletRequest req) {
 			
 			//게시판 출력
 			logger.info("모즐메인 게시판");
@@ -60,10 +65,15 @@ public class BoardCtrl {
 			
 			
 			
-			//로그인 하면 글쓰기 버튼 보임
-			//String writer = session.getAttribute("userId");
-			
-			
+			//모즐 회원이면 버튼 활성
+			String session = (String)req.getSession().getAttribute("userId");
+
+			if(session!=null) {
+			map.put("user_id", session);
+			MozzleUserDto mozzleUserdto = mozzleUserService.selectMozzleUserByUserId(map);
+			System.out.println("========================mozzleUserdto"+mozzleUserdto.toString());
+			model.addAttribute("mozzleUserdto",mozzleUserdto);
+			}
 			
 			return "mozzle/board";
 		}

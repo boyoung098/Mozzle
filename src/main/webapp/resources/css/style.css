@@ -2,7 +2,7 @@
 .search {
     height:40px;
     width:100%;
-    border-radius: 100px;
+    border-radius: 100px!important;
     border:1px solid #ddd;
     padding-left: 10px;
 }
@@ -24,9 +24,12 @@
     width:90%;
     font-size: 13px;
     margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .intput-width {
-    width:65%;
+    width:280px;
+    position: relative;
 }
 .search-btn {
     height: 35px;
@@ -43,7 +46,7 @@
 
 input:focus,
 select:focus {
-  outline: transparent !important;
+  outline: 0;
 }
 
 /* 로그인 */
@@ -115,11 +118,7 @@ select:focus {
 .mo-img{
 	display: flex;
 }
-.mo-img img{
-	width:230px;
-    height:230px;
-    object-fit: cover;
-}
+
 .mo-text {
 	flex-grow: 3;
     height: auto;
@@ -135,7 +134,7 @@ select:focus {
     justify-content: space-between;
     position: absolute;
     bottom: 10px;
-    width: 96%;
+    width: 91%;
     align-items: end;
 }
 .mo-member ul {
@@ -146,6 +145,7 @@ select:focus {
     width: 100px;
     height: 40px;
     border: none;
+    border-radius: 5px;
 }
 .mo-list{
     border: 1px solid #ddd;
@@ -329,7 +329,7 @@ select:focus {
     color: #5BA0EE;
 }
 .input-search {
-    width: 96.5%;
+    width: 95%;
 }
 .input-search form{
     display: flex;
@@ -367,6 +367,7 @@ select:focus {
     overflow: hidden;
     border-radius: 100%;
     display: flex;
+    padding: 6px;
 }
 .mozzle-member ul li {
     display: flex;
@@ -382,13 +383,137 @@ select:focus {
 	height:auto;
 	background:#999;
 }
-.clear {
-	clear:both;
-	float: right;
-}
+
 .modal-btn {
 	text-align: center;
 }
 .modal-btn button{
 	padding:5px 10px;
 }
+.mozzle-container h4{
+	font-weight: 700;
+}
+.card {
+	width: 100%;
+    height: 128px;
+    object-fit: cover;
+}
+.browse_list img{
+	border:1px solid #f5f5f5;
+}
+.best_cate li {
+	margin-bottom:5px;
+}
+.best_cate h4{
+	margin:0px 0px 15px 23px;
+}
+.browse_title h4{
+	font-weight: 700;
+}
+.image-wrap2 img{
+	border:1px solid #f5f5f5;
+}
+.mo-list li a:hover{
+	color:#e82d55;
+}
+.tab-pane {
+	padding: 20px 0px;
+}
+.mozzle-member ul li {
+	border:1px solid #ddd;
+	margin-bottom:10px;
+}
+.my_page_bn {
+	margin-top:30px;
+	border:1px solid #ddd;
+}
+.flex {
+	display: flex;
+}
+.notice-img {
+	padding-right: 20px;
+}
+.notice-img img {
+	padding: 10px;
+    border: 1px solid #f5f5f5;
+}
+.wrap {
+    word-break: break-all;
+    white-space: normal;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.top_search {
+	position: absolute;
+	right: 50px;
+	z-index: 99;
+}
+
+
+
+
+
+
+/* 모바일 */
+.m_logo {
+	width:120px;
+	margin:auto;
+}
+.m_logo a {
+	padding:0px 20px;
+}
+.m_logo img{
+	width:100%;
+}
+.menu_btn{
+    padding: 10px;
+    display:flex;
+}
+.menu_bg{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    position: absolute;
+    top:0;
+    display: none;
+}
+.sidebar_menu{
+display: none;
+    width: 50%;
+    height: 100%;
+    background: #e98282;
+    position: absolute;
+    top:0;
+    left: -50%;
+    
+}
+.close_btn{
+    width: 25px;
+    height: 25px;
+    margin:10px;
+}
+.close_btn > a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.menu_wrap{
+    list-style: none;
+    padding: 20px 20px;   
+}
+.menu_wrap li a{
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+

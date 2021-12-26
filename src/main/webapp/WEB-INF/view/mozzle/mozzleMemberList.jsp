@@ -110,10 +110,8 @@
 				</div>
 
 				<%@include file="/WEB-INF/view/mozzle/mozzleUserDetail.jsp" %>
-<!-- **************************멤버리스트뿌리는곳*************************  -->
-<!-- 김보영 자바스크립트 작성 -->
-	<script type="text/javascript">
-	
+
+<script type="text/javascript">	
 	//특정 회원을 눌렀을때 값을가져와서 모달창이 뜨도록
 	$(function(){
 		if("${fn:length(mozzleuserList)}" == 1 && ${result != null}){
