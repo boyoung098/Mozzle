@@ -98,5 +98,15 @@ public class UserController {
 		
 		return "user/mypage/leaderList";
 	}
+	
+	@RequestMapping(value = "/delflagUser.do", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Boolean> delflagUser(String userId){
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		int n = service.delflagUser(userId);
+		boolean result = n > 0 ? true : false;
+		map.put("delflag", result);
+		return map;
+	}
 
 }

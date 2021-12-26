@@ -24,4 +24,6 @@ public interface IUserService {
 	public boolean changePw(UserDto dto);
 	
 	public int updateUser(UserDto dto);
+	
+	public int delflagUser(String id);
 }

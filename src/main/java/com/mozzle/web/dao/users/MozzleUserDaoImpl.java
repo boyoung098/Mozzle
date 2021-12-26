@@ -91,6 +91,13 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 		return session.selectList(NS + "leaderCheck", userId);
 	}
 
+
+	@Override
+	public int changeMozzleAuth(Map<String, String> map) {
+		return session.update(NS + "changeMozzleAuth", map);
+	}
+
+
 	@Override
 	public List<MozzleUserDto> selectListadminMozzleUser(Map<String, String> map) {
 		log.info("전체회원리트스 뿌리기전 넣는 값{}",map);
@@ -98,5 +105,6 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 		//return (list.size()==0?(List<MozzleUserDto>) new MozzleUserDto():list);
 		return list;
 	}
+
 	
 }

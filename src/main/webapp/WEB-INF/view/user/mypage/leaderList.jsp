@@ -51,23 +51,58 @@
 </style>
 
 <script type="text/javascript">
+	var cnt;
 	$(function(){
-		$("#find-id").click(function(e){
-			e.preventDefault();
-			var url = './form/findId.do';
-			var title = '아이디 찾기';
-			var attr = 'width=450px, height=550px';
-			window.open(url, title, attr);
+		$("#removeCancel").click(function(){
+			self.close();
+		});
+		$.ajax({
+			url:"./myPage/leaderCheck.do",
+			type:"post",
+			data:{userId: "${sessionScope.userId}"},
+			success: function(result){
+				cnt = result.length;
+				//var mozzleList = JSON.parse(JSON.stringify(window.opener.mozzleList));
+
+				$(result).each(function(){
+					var $tr = $("<tr></tr>")
+					var $td = $("<td></td>");
+					var $a = $("<a>").attr("href", "<%=request.getContextPath()%>/mozzlememberList.do?mozzle_id=" + this.MOZZLE_ID + "&delegate=true")
+						.text(this.MOZZLE_NAME);
+					$tr.append($td.append($a));
+					$("#leaderList tbody").append($tr);
+				});
+
+			}
+		});
+		$("#removeUser").click(function(){
+			if(cnt != undefined){
+				if(cnt != 0){
+					alert("리더 권한들을 위임해야 탈퇴가 가능합니다.");
+				}
+				else{
+					if(confirm("정말 탈퇴하시겠습니까?")){
+						$.ajax({
+							url:"./delflagUser.do",
+							type:"get",
+							data:{userId: "${sessionScope.userId}"},
+							success: function(result){
+								if(result.delflag){
+									alert("회원 탈퇴가 완료되었습니다. 그동안 Mozzle을 이용해주셔서 감사합니다.");
+									window.opener.location.href="<%=request.getContextPath()%>/logout.do";
+									self.close();
+								}
+								else{
+									alert("회원 탈퇴에 실패했습니다.");
+								}
+							}
+						});
+					}
+				}
+			}
 		});
 		
-		$("#find-password").click(function(e){
-			e.preventDefault();
-			var url = './form/resetPw.do';
-			var title = '아이디중복검사';
-			var attr = 'width=450px, height=550px';
-			window.open(url, title, attr);
-			
-		});
+		
 	});
 </script>
 </head>
@@ -78,22 +113,20 @@
 		<div id="login-form">
 
 				<h2>회원 탈퇴</h2>
+				<p>아래의 모즐들의 리더 권한을 위임해주세요</p>
 				<div>
-					<input type="text" class="form-control input-login" name="id"
-						placeholder="아이디를 입력 해주세요" /> <input type="password"
-						class="form-control input-login" name="password"
-						placeholder="비밀번호를 입력 해주세요" />
-					<div class="ch-box">
-						<div>
-							<input type="checkbox" id="ch" name="remember-me" value="true"><label
-								for="ch">자동 로그인</label>
-						</div>
-						<ul>
-							<li><a id="find-id" href="#">아이디 찾기ㅣ</a></li>
-							<li><a id="find-password" href="#">비밀번호 재설정</a></li>
-						</ul>
-					</div>
-					<input type="submit" class="color-btn input-login" value="로그인" />
+					<table id="leaderList" class="table table-bordered">
+						<thead>
+						<tr>
+							<th>Mozzle 명</th>
+						</tr>
+						</thead>
+						<tbody>
+						
+						</tbody>
+					</table>
+					<input type="button" id="removeUser" class="color-btn input-login" value="탈퇴하기" />
+					<input type="button" id="removeCancel" class="color-btn input-login" value="닫기" />
 				</div>
 
 		</div>

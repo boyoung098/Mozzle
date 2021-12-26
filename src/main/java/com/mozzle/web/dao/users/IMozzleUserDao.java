@@ -28,6 +28,10 @@ public interface IMozzleUserDao {
 	// 이종표 추가
 	public List<Map<String, Object>> leaderCheck(String userId);
 	
+
+	public int changeMozzleAuth(Map<String, String> map);
+
 	public List<MozzleUserDto> selectListadminMozzleUser(Map<String, String> map);
+
 	
 }

@@ -1,5 +1,6 @@
 package com.mozzle.web.ctrl.users;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -39,15 +41,6 @@ public class LoginController {
 	@Autowired
 	private IManageService mService;
 
-	@Autowired
-	private JwtTokenProvider jwtTokenProvider;
-	
-	@Autowired
-	private INoticeService nservice;
-	
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Authentication user, Model model) {
 		if (user != null) {
@@ -55,23 +48,15 @@ public class LoginController {
 			// 로그인 결과가 유효하다면
 			if (userdto != null) {
 				if(userdto.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-					String accessToken = jwtTokenProvider.createJwtAccessToken(userdto.getUsername());
-					String refreshToken = jwtTokenProvider.createJwtRefreshToken(userdto.getUsername());
 					System.out.println(userdto.getUsername());
 					System.out.println(userdto.getAuthorities());
 					model.addAttribute("userId", userdto.getUsername());
-					model.addAttribute("accessToken", accessToken);
-					model.addAttribute("refreshToken", refreshToken);
 					return "forward:/adminIndex.do";
 				}
 				else if(userdto.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))) {
-					String accessToken = jwtTokenProvider.createJwtAccessToken(userdto.getUsername());
-					String refreshToken = jwtTokenProvider.createJwtRefreshToken(userdto.getUsername());
 					System.out.println(userdto.getUsername());
 					System.out.println(userdto.getAuthorities());
 					model.addAttribute("userId", userdto.getUsername());
-					model.addAttribute("accessToken", accessToken);
-					model.addAttribute("refreshToken", refreshToken);
 					List<MozzleDto> myMozzleList = mService.selectMyMozzle(userdto.getUsername());
 					System.out.println(myMozzleList.size());
 					model.addAttribute("myMozzleList", myMozzleList);
@@ -128,13 +113,9 @@ public class LoginController {
 				UserDetails userdto = (UserDetails) user.getPrincipal();
 				// 로그인 결과가 유효하다면
 				if (userdto != null) {
-					String accessToken = jwtTokenProvider.createJwtAccessToken(userdto.getUsername());
-					String refreshToken = jwtTokenProvider.createJwtRefreshToken(userdto.getUsername());
 					System.out.println(userdto.getUsername());
 					System.out.println(userdto.getAuthorities());
 					model.addAttribute("userId", userdto.getUsername());
-					model.addAttribute("accessToken", accessToken);
-					model.addAttribute("refreshToken", refreshToken);
 				}
 			return "forward:/";
 		}
@@ -193,6 +174,7 @@ public class LoginController {
 	public String footer() {
 		return "comm/footer";
 	}
+	
 	
 
 }

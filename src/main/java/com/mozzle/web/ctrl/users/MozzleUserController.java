@@ -25,6 +25,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -409,5 +410,18 @@ public class MozzleUserController {
 		
 		model.addAttribute("mozzleUser",mozzleUser);
 		return "mozzle/mozzleuserMypage";
+	}
+	
+	// 리더 권한 위임(작성자 : 이종표)
+	@RequestMapping(value="/delegateLeader.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> delegateLeader(HttpServletRequest req, @RequestBody Map<String, String> newLeader){
+		System.out.println(newLeader);
+		Map<String, Boolean> delegated = new HashMap<String, Boolean>();
+		HttpSession session = req.getSession();
+		boolean result = mozzleUserService.changeMozzleAuth(session.getAttribute("userId").toString(), newLeader);
+		delegated.put("delegated", result);
+		return delegated;
+		
 	}
 }
