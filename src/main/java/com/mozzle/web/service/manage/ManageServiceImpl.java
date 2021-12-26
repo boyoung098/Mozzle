@@ -1,6 +1,7 @@
 package com.mozzle.web.service.manage;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,8 +96,9 @@ public class ManageServiceImpl implements IManageService {
 	}
 
 	@Override
-	public int checkMember(String user_id) {
-		return dao.checkMember(user_id);
+	public boolean checkMember(Map<String, String> map) {
+		int n = dao.checkMember(map);
+		return (n==1) ? true : false;
+		
 	}
-
 }
