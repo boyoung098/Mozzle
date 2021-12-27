@@ -71,5 +71,9 @@ public class MozzlePostServiceImpl implements IMozzlePostService{
 		return dao.selectMyPost(map);
 	}
 
-	
+	@Override
+	public boolean updateMozzlePost(MozzlePostDto post) {
+		int n = dao.updateMozzlePost(post);
+		return (n == 1) ?  true:false;
+	}
 }

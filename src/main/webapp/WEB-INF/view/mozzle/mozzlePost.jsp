@@ -4,10 +4,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+ 
+  
 <div class="input-post">
 	<label for="comment">게시글을 작성해주세요</label>
-	<textarea class="form-control" name="mozzle-content"
-		id="mozzle-content" rows="10" cols="68"></textarea>
+	<textarea class="form-control" name="mozzle-content" id="summernote" rows="10" cols="68"></textarea>
 	<br>
 	<button id="commentWrite" class="color-btn" onclick="insertMozzlePost()" style="float:right">등록</button>
 </div>
@@ -41,15 +42,30 @@
 			<div class="borad-box row" id="borad-box">
 				<div class="col-sm-10 board-box-list">
 					<div class="meeber-thumbnail">
-						<img src="" alt="">
+						<c:choose>
+							<c:when test="${mozzleUser.image_saved == null}">
+								<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="">
+							</c:when>
+							<c:otherwise>
+							<img src="<%=request.getContextPath()%>/storage/${mozzleUser.image_saved}" alt="">
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<span>${post.user_id}</span> <span>${post.regdate}</span>
 				</div>
 				<div class="col-sm-2">
 					<div class="board-cion">
+					<c:if test="${sessionScope.userId != null}">
 						<div>
-							<a onclick="deleteReply(${post.post_id})">삭제</a>&nbsp;| <a href="#">수정</a>&nbsp;| <a href="#" class="reportclick">신고 <input type="hidden" value="${post.post_id}" class="post_id"></a>
+							<a onclick="deleteReply(${post.post_id})">삭제</a>&nbsp;| 
+							<a href="#" data-toggle="modal" data-target="#myModal">수정</a>&nbsp;|
+							<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
+								<a href="#" class="reportclick">신고 
+									<input type="hidden" value="${post.post_id}" class="post_id">
+								</a>
+							</c:if> 
 						</div>
+					</c:if>	
 					</div>
 				</div>
 				<div class="board-text-container">
@@ -67,7 +83,7 @@
 						<table id="reply-list-${post.refer}">
 						</table>
 						<br><br>
-						<div style="width: 90%;" >
+						<div class="reply_box">
 							<input type="text" class="form-control" name="first-reply-content"
 								id="first-reply-content-${post.refer}" style="width: 100%">
 						</div>
@@ -78,11 +94,56 @@
 		</section>
 	</c:forEach>
 </div>
-
+	<!-- Modal -->
+	  <div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">게시글 수정</h4>
+	        </div>
+	        <div class="modal-body">
+	         <textarea rows="10" cols="68" ></textarea>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal" id="modify_btn">수정</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	  </div>
+	<!-- Modal -->
 <script>
+$( document ).ready(function() {
+	   $("#modify_btn").click(function(){
+		var modifytext = confirm("수정하시겠습니까?");
+		
+		if(modifytext){
+			var content = $("#modify_text").val();
+		}
+			$.ajax({
+				url:"./modify.do",
+				type : "post",
+				data: {"content" : content,
+						"mozzle_id": mozzle_id
+				},
+				success : function(result){
+					if(result ==true){
+						document.location.reload();
+					}
+				}
+			})
+		});
+	});
+
+
 $( document ).ready(function() {
    flag01 = true;
    flag02 = true;
+   
+
 });
 function replyShow(obj) {
 	
@@ -249,10 +310,11 @@ function deleteReply(obj, refer) {
 			}
 		}
 	})
+	document.location.reload();
 }
 function insertMozzlePost() {
 	
-	var content = $("#mozzle-content").val();
+	var content = $("#summernote").val();
 	console.log(content);
 	var mozzle_id = document.getElementById("save-info-mozzeId").value;
 	
@@ -273,41 +335,40 @@ function insertMozzlePost() {
 	})
 	
 }
+$('#summernote').summernote({ 
+    placeholder: '내용을 입력해주세요',
+     tabsize: 2, height: 100 
+}); 
 
-
-/* 김보영 */
-	
-	$(".reportclick").click(function(e){
-		e.preventDefault();
-		var postid =($(this).children("input").eq(0).val());
-		
-		$.ajax({
-			type:"get",
-			url:"./checkPostId.do",
-			data:"post_id="+postid,
-			success:function(msg){
-				if(msg.count=="true"){
-					console.log("true");
-					console.log(postid);
-					var url = './reportPostForm.do?post_id='+postid;
-					var title = '글 신고하기';
-					var attr = 'width = 450px, height = 550px';
-					window.open(url,title,attr);
-					
-				} else{
-					swal("신고","이미 신고접수가 되었습니다.");
-				}
-				},
-			error : function(){
-					alert("문제가 발생하였습니다.");
-				}
-			
-		})
-		
-	
-	});
-
-
+$(".reportclick").click(function(e){
+    e.preventDefault();
+    var postid =($(this).children("input").eq(0).val());
+    
+    $.ajax({
+       type:"get",
+       url:"./checkPostId.do",
+       data:"post_id="+postid,
+       success:function(msg){
+          if(msg.count=="true"){
+             console.log("true");
+             console.log(postid);
+             var url = './reportPostForm.do?post_id='+postid;
+             var title = '글 신고하기';
+             var attr = 'width = 450px, height = 550px';
+             window.open(url,title,attr);
+             
+          } else{
+             swal("신고","이미 신고접수가 되었습니다.");
+          }
+          },
+       error : function(){
+             alert("문제가 발생하였습니다.");
+          }
+       
+    })
+    
+ 
+ });
 </script>
 
 

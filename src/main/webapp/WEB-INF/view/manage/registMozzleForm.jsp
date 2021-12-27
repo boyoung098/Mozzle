@@ -101,7 +101,7 @@
 				style="display: flex; justify-content: center;">
 				<input type="submit" class="btn" id="submit-btn"
 					style="width: 200px; background: #e82d55; color: #fff;"
-					value="모즐등록" onSubmit="checkSubmit()">
+					value="모즐등록" onclick="checkSubmit()">
 			</div>
 		</form>
 	</div>

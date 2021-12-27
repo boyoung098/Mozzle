@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mozzle.web.dto.board.MozzlePostDto;
+import com.mozzle.web.dto.users.MozzleUserDto;
 import com.mozzle.web.service.board.IMozzlePostService;
+import com.mozzle.web.service.users.IMozzleUserService;
 
 @Controller
 public class MozzlePostController {
@@ -29,6 +31,9 @@ public class MozzlePostController {
 	
 	@Autowired
 	IMozzlePostService service;
+	
+	@Autowired
+	private IMozzleUserService mozzleUserService;
 	
 	@RequestMapping(value="/mozzlePost.do", method= RequestMethod.GET)
 	public String selectMozzlePostByMozzleId(HttpServletRequest request, 
@@ -41,6 +46,19 @@ public class MozzlePostController {
 		List<MozzlePostDto> postList = service.selectMozzlePostByMozzleId(mozzle_id);
 		model.addAttribute("postList", postList);
 		model.addAttribute("mozzle_id", mozzle_id);
+		
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("mozzle_id", mozzle_id);
+		
+		String sessionid = (String)request.getSession().getAttribute("userId");
+		System.out.println("============================="+sessionid);
+		
+		if(sessionid!=null) {
+		map.put("user_id", sessionid);
+		MozzleUserDto mozzleUserdto = mozzleUserService.selectMozzleUserByUserId(map);
+		model.addAttribute("mozzleUserdto",mozzleUserdto);
+		}
 		
 		return "mozzle/mozzlePost";
 	}
@@ -165,5 +183,37 @@ public class MozzlePostController {
 		boolean result = service.deleteMozzlePost(post_id);
 		
 		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/modify.do", method=RequestMethod.POST)
+	public boolean updateMozzlePost(@RequestParam("content") String content,
+			@RequestParam("mozzle_id") String mozzle_id, HttpSession session) {
+		
+		
+		logger.info("updateMozzlePost에 입력되는 값 {}", content);
+		
+		String user_id = (String)session.getAttribute("userId");
+		logger.info("session에서 받아온 user_id 값 {}", user_id);
+		
+		MozzlePostDto post = new MozzlePostDto();
+		post.setMozzle_id(mozzle_id);
+		post.setContent(content);
+		boolean n = service.updateMozzlePost(post);
+		return n;
 	}
 }

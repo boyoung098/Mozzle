@@ -99,7 +99,7 @@
 		})
 	});
 </script>
-<div class="container-login">
+<div class="container-join">
 	<form id="login-form" action="./updateUserInfo.do" method="post">
 		<h2>회원 정보 수정</h2>
 

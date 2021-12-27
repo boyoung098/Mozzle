@@ -151,7 +151,7 @@ $(function(){
 
 <body>
 	<div id="header"></div>
-	<section class="container-login mt-3">
+	<section class="container-join mt-3">
 		<form id="login-form" action="./register.do" method="POST">
 				
 				<h2>회원가입</h2>

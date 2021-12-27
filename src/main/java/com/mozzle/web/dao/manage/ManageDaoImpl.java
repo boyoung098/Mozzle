@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mozzle.web.dto.manage.MozzleDto;
 
@@ -114,5 +115,29 @@ public class ManageDaoImpl implements IManageDao{
 	public int checkMember(Map<String, String> map) {
 		logger.info("checkMember {}", map);
 		return session.selectOne(NS + "checkMember", map);
+	}
+
+	@Override
+	public int delflagMozzle(String mozzle_id) {
+		logger.info("delflagMozzle {}", mozzle_id);
+		return session.update(NS + "delflagMozzle", mozzle_id);
+	}
+
+	@Override
+	public int deleteMozzleUser(String mozzle_id) {
+		logger.info("deleteMozzleUser {}", mozzle_id);
+		return session.delete(NS + "deleteMozzleUser", mozzle_id);
+	}
+	
+	@Override
+	public int deleteMozzlePost(String mozzle_id) {
+		logger.info("deleteMozzlePost {}", mozzle_id);
+		return session.update(NS + "deleteMozzlePost", mozzle_id);
+	}
+
+	@Override
+	public int checkMozzleLeader(Map<String, String> map) {
+		logger.info("checkMozzleLeader {}", map);
+		return session.selectOne(NS + "checkMozzleLeader", map);
 	}
 }

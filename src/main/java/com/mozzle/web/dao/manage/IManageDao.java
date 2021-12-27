@@ -38,4 +38,12 @@ public interface IManageDao {
 	public int registLeader(MozzleDto mozzle);
 	
 	public int checkMember(Map<String, String> map);
+	
+	public int checkMozzleLeader(Map<String, String> map);
+	
+	public int delflagMozzle(String mozzle_id);
+	
+	public int deleteMozzleUser(String mozzle_id);
+	
+	public int deleteMozzlePost(String mozzle_id);
 }
