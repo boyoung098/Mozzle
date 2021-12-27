@@ -1,6 +1,7 @@
 package com.mozzle.web.service.board;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mozzle.web.dto.board.MozzlePostDto;
 
@@ -21,5 +22,7 @@ public interface IMozzlePostService {
 	public boolean replyIn(MozzlePostDto post);
 	
 	public boolean deleteMozzlePost(String post_id);
+	
+	public List<MozzlePostDto> selectMyPost(Map<String, String> map);
 
 }
