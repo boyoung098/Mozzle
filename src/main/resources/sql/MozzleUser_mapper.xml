@@ -41,6 +41,21 @@ AND u.DELFLAG = 'N'
 </trim>
 </select>
 
+<!-- 모즐내 회원 닉네임으로 찾기 운영자권한 -->
+<select id="selectListadminMozzleUser2" parameterType="java.util.Map" resultType="mozzleUserDto">
+SELECT um.USER_ID, um.MOZZLE_ID, um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE,
+um.BIRTHDAY_SHOW, um.IMAGE_ORIGIN, um.IMAGE_SAVED
+FROM USER_MOZZLE um JOIN USERS u ON um.USER_ID = u.USER_ID 
+<trim prefix="WHERE" prefixOverrides="AND">
+<if test="nickname !=null">
+ um.NICKNAME like '%'||#{nickname}||'%'
+</if>
+AND um.AUTH_CODE IN ('3','2')
+AND um.MOZZLE_ID =#{mozzle_id}
+AND u.DELFLAG = 'N'
+</trim>
+</select>
+
 
 <!-- 모즐내 회원 닉네임으로 찾기 -> 상세조회 -->
 <select id="selectMozzleUser" parameterType="java.util.Map" resultType="mozzleUserDto">

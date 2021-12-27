@@ -317,7 +317,7 @@
 		//특정 회원을 눌렀을때 값을가져와서 모달창이 뜨도록
 
 			
-		$(document).ready(function(){
+		/* $(document).ready(function(){ */
 			$(function(){
 				
 				$("#mozzleuserul li").each((idx, item) => {
@@ -354,7 +354,7 @@
 						
 						$('#detailModal').modal();
 					});
-			    });
+			    /* }); */
 				
 				
 			});

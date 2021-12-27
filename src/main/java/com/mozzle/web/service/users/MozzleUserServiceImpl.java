@@ -71,7 +71,7 @@ public class MozzleUserServiceImpl implements IMozzleUserService {
 		return (n + m == 2) ? true : false;
 	}
 
-	
+	@Override
 	public List<MozzleUserDto> selectListadminMozzleUser(Map<String, String> map){
 		return mozzleUserDao.selectListadminMozzleUser(map);
 	}
@@ -87,10 +87,10 @@ public class MozzleUserServiceImpl implements IMozzleUserService {
 		// TODO Auto-generated method stub
 		return mozzleUserDao.deleteMozzleUser(dto);
 	}
-
-//	@Override
-//	public int deleteAllUserMozzleById(String userId) {
-//		return mozzleUserDao.deleteAllUserMozzleById(userId);
-//	}
+	
+	@Override
+	public List<MozzleUserDto> selectListadminMozzleUser2(Map<String, String> map){
+		return mozzleUserDao.selectListadminMozzleUser2(map);
+	}
 
 }

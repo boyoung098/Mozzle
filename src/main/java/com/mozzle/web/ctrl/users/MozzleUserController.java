@@ -117,7 +117,7 @@ public class MozzleUserController {
 		//김보영-모즐내회원리스트뿌리기
 				Map<String, String> map = new HashMap<String, String>();
 				map.put("mozzle_id", mozzle_id);
-				List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListadminMozzleUser(map);
+				List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListadminMozzleUser2(map);
 				model.addAttribute("mozzleuserList",mozzleuserList);
 				//model.addAttribute("mozzle_id", mozzle_id);
 				

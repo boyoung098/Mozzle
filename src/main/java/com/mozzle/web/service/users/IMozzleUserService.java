@@ -36,5 +36,7 @@ public interface IMozzleUserService {
 
 	// USER SERVICE로 이동
 	// public int deleteAllUserMozzleById(String userId);
+	
+	public List<MozzleUserDto> selectListadminMozzleUser2(Map<String, String> map);
 
 }

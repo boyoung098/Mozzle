@@ -36,4 +36,6 @@ public interface IMozzleUserDao {
 	public List<MozzleUserDto> selectListadminMozzleUser(Map<String, String> map);
 
 	public MozzleUserDto selectmozzleUserLeader(String mozzle_id);
+	
+	public List<MozzleUserDto> selectListadminMozzleUser2(Map<String, String> map);
 }
