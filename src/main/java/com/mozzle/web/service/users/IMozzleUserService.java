@@ -34,4 +34,7 @@ public interface IMozzleUserService {
 	
 	public int deleteMozzleUser(MozzleUserDto dto);
 
+	// USER SERVICE로 이동
+	// public int deleteAllUserMozzleById(String userId);
+
 }

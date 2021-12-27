@@ -88,4 +88,9 @@ public class MozzleUserServiceImpl implements IMozzleUserService {
 		return mozzleUserDao.deleteMozzleUser(dto);
 	}
 
+//	@Override
+//	public int deleteAllUserMozzleById(String userId) {
+//		return mozzleUserDao.deleteAllUserMozzleById(userId);
+//	}
+
 }

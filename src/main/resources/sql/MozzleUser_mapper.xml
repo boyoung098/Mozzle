@@ -141,4 +141,9 @@ WHERE um.AUTH_CODE = '1'
 AND um.MOZZLE_ID = #{mozzle_id}
 </select>
 
+<!-- 탈퇴 시, 모즐 가입 정보 삭제 -->
+<delete id="deleteAllUserMozzleById" parameterType="java.lang.String">
+	DELETE FROM USER_MOZZLE WHERE USER_ID = #{user_id}
+</delete>
+
 </mapper>
