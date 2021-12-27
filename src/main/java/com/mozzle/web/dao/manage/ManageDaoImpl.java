@@ -1,6 +1,7 @@
 package com.mozzle.web.dao.manage;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -110,8 +111,8 @@ public class ManageDaoImpl implements IManageDao{
 	}
 
 	@Override
-	public int checkMember(String user_id) {
-		logger.info("checkMember {}", user_id);
-		return session.selectOne(NS + "checkMember", user_id);
+	public int checkMember(Map<String, String> map) {
+		logger.info("checkMember {}", map);
+		return session.selectOne(NS + "checkMember", map);
 	}
 }

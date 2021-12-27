@@ -7,6 +7,7 @@
 <link rel="stylesheet"href="<%=request.getContextPath()%>/resources/css/style.css" />
 <link rel="stylesheet"href="<%=request.getContextPath()%>/resources/css/xeicon.css" />
 <link rel="stylesheet"href="<%=request.getContextPath()%>/resources/css/xeicon.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Calendar.css">
 <script src="<%=request.getContextPath()%>/resources/js/swiper-bundle.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/board.js"></script>

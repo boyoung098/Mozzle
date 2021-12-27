@@ -15,7 +15,6 @@ public class ScheduleDto implements Serializable {
 
 	/**
 	 * SCHEDULE_ID,MOZZLE_ID,WIRTER,TITLE,CONTENT,SCHEDULE_DATE,REGDATE,
-	 * LOCATION_CODE
 	 */
 	private String schedule_id;//(pk)
 	private int mozzle_id;//mozzle 아이디
@@ -24,7 +23,6 @@ public class ScheduleDto implements Serializable {
 	private String content;//일정내용
 	private String schedule_date;//일정날짜
 	private String regdate;//일정작성일
-	private int location_code;//지도위치
 	
 	//날짜 정보 파라미터를 받을 용도
 	private String year;
@@ -134,16 +132,9 @@ public class ScheduleDto implements Serializable {
 		this.regdate = regdate;
 	}
 
-	public int getLocation_code() {
-		return location_code;
-	}
-
-	public void setLocation_code(int location_code) {
-		this.location_code = location_code;
-	}
 
 	public ScheduleDto(String schedule_id, int mozzle_id, String writer, String title, String content,
-			String schedule_date, String regdate, int location_code) {
+			String schedule_date, String regdate) {
 		super();
 		this.schedule_id = schedule_id;
 		this.mozzle_id = mozzle_id;
@@ -152,15 +143,17 @@ public class ScheduleDto implements Serializable {
 		this.content = content;
 		this.schedule_date = schedule_date;
 		this.regdate = regdate;
-		this.location_code = location_code;
 	}
 
 	@Override
 	public String toString() {
 		return "ScheduleDto [schedule_id=" + schedule_id + ", mozzle_id=" + mozzle_id + ", writer=" + writer
 				+ ", title=" + title + ", content=" + content + ", schedule_date=" + schedule_date + ", regdate="
-				+ regdate + ", location_code=" + location_code + "]";
+				+ regdate + ", year=" + year + ", month=" + month + ", date=" + date + ", hour=" + hour + ", min=" + min
+				+ "]";
 	}
+
+	
 
 
 

@@ -4,48 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.mozzle.web.dto.schedule.ScheduleDto;
-import com.mozzle.web.dto.schedule.ScheduleLocationInfoDto;
+//import com.mozzle.web.dto.schedule.ScheduleLocationInfoDto;
 
 public interface IScheduleService {
-	
-	/**
-	 * selectinfoAll
-	 * 지도 리스트
-	 * @param location_code
-	 * @return
-	 */
-	public List<ScheduleLocationInfoDto> scheduleinfoselectAll(String location_code);
-	
-	/**
-	 * scheduleinfoinsert
-	 * 지도값 등록
-	 * @param dto2
-	 * @return
-	 */
-	public boolean scheduleinfoinsert(ScheduleLocationInfoDto dto2);
-	
-	/**
-	 * scheduleinfoupdate
-	 * 지도 값 변경
-	 * @param dto2
-	 * @return
-	 */
-	public boolean scheduleinfoupdate(ScheduleLocationInfoDto dto2);
-	
-	/**
-	 * 지도 상세 보기
-	 * @param location_code
-	 * @return
-	 */
-	public ScheduleLocationInfoDto scheduleinfodetail(int location_code);
-	
-	/**
-	 * scheduleinfodelete
-	 * 지도 값 삭제
-	 * @param location_code
-	 * @return
-	 */
-	public boolean scheduleinfodelete(String[] location_code);
 	
 	/**
 	 * selectAll
