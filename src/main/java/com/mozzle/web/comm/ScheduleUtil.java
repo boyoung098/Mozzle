@@ -3,6 +3,9 @@ package com.mozzle.web.comm;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
+
+import com.mozzle.web.dto.schedule.ScheduleDto;
 
 //달력에서 사용하는 공통 기능을 정의
 public class ScheduleUtil {
@@ -35,7 +38,22 @@ public class ScheduleUtil {
 	}
 
 	public static String isTwo(String msg) {
-		// TODO Auto-generated method stub
+		
 		return msg.length()<2?"0"+msg:msg;
 	}
+	
+
+	public static String scheduleselectViewAll(int i, List<ScheduleDto> slist){
+		String sd = isTwo(i+""); // schedule_date --> "05"
+		String cList = ""; // 달력에 출력해줄 일정 제목을 저장할 변수
+		for(ScheduleDto dto:slist) {
+			if(dto.getSchedule_date().substring(6,8).equals(sd)) {
+				cList+="<p>"
+						+dto.getTitle()
+						+"</p>";
+			}
+		}
+		return cList; // 결과: "<p>title</p><p>title</p>"
+	}
+
 }

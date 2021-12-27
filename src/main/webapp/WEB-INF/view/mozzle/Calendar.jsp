@@ -1,4 +1,7 @@
+<%@page import="com.mozzle.web.dto.schedule.ScheduleDto"%>
+<%@page import="com.mozzle.web.dao.schedule.IScheduleDaoImpl" %>
 <%@page import="com.mozzle.web.comm.ScheduleUtil"%>
+<%@page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.Calendar" %>
@@ -15,7 +18,8 @@
 <%
 	//달력의 날짜를 바꾸기 위해 전달된 year와 month 파라미터를 받는다.
 	String paramYear = request.getParameter("year");
-	String paramMonth = request.getParameter("month"); 
+	String paramMonth = request.getParameter("month");
+	String mozzle_id = request.getParameter("mozzle_id");
 
 	Calendar cal = Calendar.getInstance(); 	// 달력만든다.
 	int year = cal.get(Calendar.YEAR); 		//현재 년도를 구한다.
@@ -46,17 +50,20 @@
 	//현재 월의 마지막 날 구하기
 	int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	
+	//해당 일의 일정 받기
+	List<ScheduleDto> slist = (List<ScheduleDto>)request.getAttribute("slist");
+	
 %>
 <body>
 	<form action="./calendar.do" method="get">
-		<table border="1" id="calendar" class="table calendar_table">
+		<table border="1" id="calendar">
 			<caption>
 				<!-- <<는 연도가 깎여야하기때문에 -1 <는 월이 깎여야 하기때문에 -1  -->
-				<a href="calendar.do?year=<%=year-1%>&month=<%=month%>"><span class="angle">&laquo;</span></a>
-				<a href="calendar.do?year=<%=year%>&month=<%=month-1%>"><i class="xi-angle-left xi-1x"></i></a>
-				<span class="cal_title"><%=year %>년<%=month %>월</span>	
-				<a href="calendar.do?year=<%=year%>&month=<%=month+1%>"><i class="xi-angle-right xi-1x"></i></a>
-				<a href="calendar.do?year=<%=year+1%>&month=<%=month%>"><span class="angle">&raquo;</span></a>
+				<a href="calendar.do?year=<%=year-1%>&month=<%=month%>&mozzle_id=<%=mozzle_id %>">&laquo;</a>
+				<a href="calendar.do?year=<%=year%>&month=<%=month-1%>&mozzle_id=<%=mozzle_id %>">◀</a>
+				<%=year %>년<%=month %>월	
+				<a href="calendar.do?year=<%=year%>&month=<%=month+1%>&mozzle_id=<%=mozzle_id %>">▶</a>
+				<a href="calendar.do?year=<%=year+1%>&month=<%=month%>&mozzle_id=<%=mozzle_id %>">&raquo;</a>
 			</caption>
 			<tr>
 				<th>일</th>
@@ -77,10 +84,11 @@
 					for(int i = 1; i<=lastDay; i++){
 						%>
 						<td>
-							<a style="color:<%=ScheduleUtil.fontColor(dayOfWeek, i) %>;" href="scheduleselectAll.do?year=<%=year%>&month=<%=month%>&date=<%=i%>"><%=i%></a>
+							<a style="color:<%=ScheduleUtil.fontColor(dayOfWeek, i) %>;" href="scheduleselectAll.do?year=<%=year%>&month=<%=month%>&date=<%=i%>&mozzle_id=<%=mozzle_id %>"><%=i%></a>
 							<a href="scheduleinsertForm.do?year=<%=year%>&month=<%=month%>&date=<%=i%>&mozzle_id=${mozzle_id}">
-								<img src="./resources/css/imgaes/schedule/scheduleadd.png" alt="일정추가" id="sinsert"/>
+								<img src="<%=request.getContextPath()%>/resources/images/schedule/scheduleadd.png" alt="일정등록" >
 							</a>
+							<%-- <%=ScheduleUtil.scheduleselectViewAll(i, slist) %> --%>
 						</td>
 						<%
 						//행을 바꿔주기--> 현재일(i)이 토요일인지 확인 : (공백수+현재날짜)한 값이7로 나누어 떨어지면 7배수
@@ -96,6 +104,7 @@
 				%>
 			</tr>
 		</table>
+		
 	</form>
 </body>
 </html>

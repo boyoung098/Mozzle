@@ -1,5 +1,6 @@
 package com.mozzle.web.ctrl.schedule;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -34,7 +35,44 @@ public class ScheduleCtrl {
 	@RequestMapping(value = "/calendar.do", method = RequestMethod.GET)
 	public String CalendarForm(Locale locale,Model model,String year, String month, String mozzle_id) {
 		logger.info("달력 보기 {} ", locale);
-		//월별 일정에 대해 하루마다 일정 3개씩 표시하기 기능 구현
+		
+		//컨트롤/Calendar.jsp/ 
+		
+//		String mozzle_id = "1";
+//		calendar를 요청할 때 년,월의 값을 전달하지 않으면 현재 달을 보여준다.
+//		if(year==null||month==null) {
+//			Calendar cal = Calendar.getInstance();
+//			year = cal.get(Calendar.YEAR)+"";
+//			month = cal.get(Calendar.MONTH)+1+"";
+//		}else {
+//			//크기를 비교하기 위해 정수형으로 변환 : month>12, month<1
+//			int yearInt = Integer.parseInt(year);
+//			int monthInt = Integer.parseInt(month);
+//			
+//			//월이 증가하다가 12보다 커진다면 13,14,15,16,17...넘어가는 현상을 처리
+//			if(monthInt>12){
+//				monthInt=1;	//1월로 변경
+//				yearInt++;		//년도는 다음해로 넘어가서 년도 +1 증가시킨다.
+//			}
+//			if(monthInt<1){
+//				monthInt=12;
+//				yearInt--;
+//			}
+//			
+//			year = yearInt+"";
+//			month = String.valueOf(monthInt);
+//		}
+//		
+//		//월별 일정에 대해 하루마다 일정 3개씩 표시하기 기능 구현
+//		String yyyyMM = year+ScheduleUtil.isTwo(month);
+//		System.out.println(yyyyMM);
+//		List<ScheduleDto> slist = service.scheduleselectViewAll(mozzle_id, yyyyMM);
+//		for (ScheduleDto scheduleDto : slist) {
+//			System.out.println(scheduleDto.toString());
+//		}
+//		System.out.println(slist);
+//		model.addAttribute("slist", slist);
+//		model.addAttribute("yyyyMM", yyyyMM);
 		model.addAttribute("mozzle_id", mozzle_id);
 		return "mozzle/Calendar";
 	}
@@ -55,6 +93,8 @@ public class ScheduleCtrl {
 		//모즐아이디 전달
 //		HttpSession session = request.getSession();
 //		String mozzle_id = (String)session.getAttribute("mozzle_id");
+//		String mozzle_id = "2";
+		model.addAttribute("mozzle_id", mozzle_id);
 		
 		List<ScheduleDto> list = service.scheduleselectAll(mozzle_id, yyyyMMdd);
 		model.addAttribute("list",list);
@@ -63,11 +103,11 @@ public class ScheduleCtrl {
 	}
 	
 	@RequestMapping(value = "/scheduleinsertForm.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String scheduleinsertForm(Locale locale,Model model) {
+	public String scheduleinsertForm(Locale locale,Model model, String mozzle_id) {
 		logger.info("일정 추가 폼 이동 {} ", locale);
 		
 		//월별 일정에 대해 하루마다 일정 3개씩 표시하기 기능 구현
-		
+		model.addAttribute("mozzle_id",mozzle_id);
 		return "mozzle/scheduleinsertForm";
 	}
 	
@@ -90,6 +130,8 @@ public class ScheduleCtrl {
 							dto.getTitle(), dto.getContent(),
 							schedule_date, null)
 				);
+		System.out.println("===========================dto.getMozzle_id()======================");
+		System.out.println(dto.getMozzle_id());
 
 		if(isS) {
 			//이부분 연결 제대로하기
@@ -127,7 +169,7 @@ public class ScheduleCtrl {
 //	
 	@RequestMapping(value = "/scheduleupdate.do", method = RequestMethod.GET)
 	public String scheduleupdate(ScheduleDto dto, Locale locale, Model model) {
-		logger.info("일정 수정 폼 이동{}", locale);
+		logger.info("일정 수정 이동{}", locale);
 		//insert 과 똑같이 작성
 		
 		String schedule_date = dto.getYear()
@@ -141,7 +183,7 @@ public class ScheduleCtrl {
 		
 		boolean isS = service.scheduleupdate(
 					//schedule_id / mozzle_id / writer / 
-					new ScheduleDto("", 0, null,
+					new ScheduleDto("0", dto.getMozzle_id(),dto.getWriter(),
 							dto.getTitle(), dto.getContent(),
 							schedule_date, null)
 				);

@@ -29,8 +29,12 @@
 <body>
 	<h1>일정 등록</h1>
 	<form action="./scheduleinsert.do" method="post">
-		<input type="hidden" name="mozzle_id" value="${mozzle_id}" readonly="readonly">
+		<input type="text" name="mozzle_id" value="${mozzle_id}" readonly="readonly">
 		<table border="1">
+			<!-- <tr>
+				<th>Mozzle_id</th>
+				<td><input type="text" name="mozzle_id"> </td>
+			</tr> -->
 			<tr>
 				<th>Writer</th>
 				<td><input type="text" name="writer"></td>
