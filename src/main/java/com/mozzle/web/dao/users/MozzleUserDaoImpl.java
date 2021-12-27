@@ -113,5 +113,11 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 		return session.selectOne(NS + "selectmozzleUserLeader", mozzle_id);
 	}
 
+
+	@Override
+	public int deleteAllUserMozzleById(String userId) {
+		return session.delete(NS + "deleteAllUserMozzleById", userId);
+	}
+
 	
 }

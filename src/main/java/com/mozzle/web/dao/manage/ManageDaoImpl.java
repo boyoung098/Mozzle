@@ -118,6 +118,11 @@ public class ManageDaoImpl implements IManageDao{
 	}
 
 	@Override
+	public List<MozzleDto> selectAllMyMozzle(String userId) {
+		return session.selectList(NS + "selectAllMyMozzle", userId);
+	}
+	
+	@Override
 	public int delflagMozzle(String mozzle_id) {
 		logger.info("delflagMozzle {}", mozzle_id);
 		return session.update(NS + "delflagMozzle", mozzle_id);

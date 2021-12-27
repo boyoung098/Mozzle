@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import com.mozzle.web.dao.users.IMozzleUserDao;
 import com.mozzle.web.dao.users.IUserDao;
 import com.mozzle.web.dto.users.UserDto;
 
@@ -12,6 +13,9 @@ public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	private IUserDao dao;
+	
+	@Autowired
+	private IMozzleUserDao mudao;
 	
 	@Override
 	public UserDto loginChk(String id) {
@@ -67,6 +71,7 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public int delflagUser(String id) {
+		mudao.deleteAllUserMozzleById(id);
 		return dao.delflagUser(id);
 	}
 

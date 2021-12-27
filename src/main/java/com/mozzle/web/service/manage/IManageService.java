@@ -33,7 +33,11 @@ public interface IManageService {
 	
 	public boolean checkMember(Map<String, String> map);
 	
+
+	public List<MozzleDto> selectAllMyMozzle(String userId);
+
 	public boolean checkMozzleLeader(Map<String, String> map);
 	
 	public boolean deleteMozzle(String mozzle_id);
+
 }

@@ -73,14 +73,14 @@ public class UserController {
 		System.out.println(dto.getUser_pw().isEmpty());
 		service.updateUser(dto);
 		return "redirect:/";
-	}
+	} 
 	
 	@RequestMapping(value="/myThread.do", method=RequestMethod.GET)
 	public String myThread(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_id", session.getAttribute("userId").toString());
-		List<MozzlePostDto> posts = postService.selectMyPost(map);
+		List<Map<String, String>> posts = postService.selectMyPost(map);
 		req.setAttribute("posts", posts);
 		return "user/mypage/myThread";
 	}
@@ -88,7 +88,7 @@ public class UserController {
 	@RequestMapping(value="/manageMozzle.do", method=RequestMethod.GET)
 	public String bookmark(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		List<MozzleDto> myMozzleList = mService.selectMyMozzle(session.getAttribute("userId").toString());
+		List<MozzleDto> myMozzleList = mService.selectAllMyMozzle(session.getAttribute("userId").toString());
 		System.out.println(myMozzleList.size());
 		req.setAttribute("myMozzleList", myMozzleList);
 		return "user/mypage/manageMozzle";

@@ -42,6 +42,7 @@
 						<% String imgpath = request.getSession().getServletContext().getRealPath("/")+"storage"+"\\"; %>
 						 <%-- <%= imgpath+"998C26415D1B512A08.png"%> --%>
 						 <c:set var="result" value='<%= request.getParameter("delegate") %>'/>
+						 <c:set var="mozzle_id" value='<%= request.getParameter("mozzle_id") %>'/>
 						<c:forEach var="mozzleUser" items="${mozzleuserList}">
 							<li class="${mozzleUser.nickname}li"  style="margin-bottom: 10px; border: 1px solid black;">
 							<div class="meeber-thumbnail">
@@ -78,12 +79,12 @@
 				</div>
 				
 				<c:if test="${result == true}">
-					<c:set var="mozzle_id" value='<%= request.getParameter("mozzle_id") %>'/>
+					
 					<div style="text-align: center; margin-top:20px;">
 					<c:if test="${fn:length(mozzleuserList) == 0}">
-						<button class="color-btn input-login">삭제하기</button>
+						<button type="button" class="color-btn input-login" id="deleteMozzleBtn">삭제하기</button>
 					</c:if>
-					<button class="color-btn input-login" onclick="window.location=document.referrer;">뒤로가기</button>
+					<button type="button" class="color-btn input-login" onclick="window.location=document.referrer;">뒤로가기</button>
 					</div>
 				</c:if>
 				<%@include file="/WEB-INF/view/mozzle/mozzleUserDetail.jsp" %>
@@ -190,7 +191,7 @@
 		else{
 			if(confirm(nickname + "님에게 리더 권한을 위임하시겠습니까?")){
 				$.ajax({
-					url: "./delegateLeader.do",
+					url: "/delegateLeader.do",
 					type: "post",
 					contentType: 'application/json',
 					data: JSON.stringify({user_id: id, mozzle_id: mozzleId}),
@@ -206,7 +207,28 @@
 				});
 			}
 		}
-	})
+	});
+	
+	$("#deleteMozzleBtn").click(function(){
+		console.log("${mozzle_id}");
+		if(confirm("모즐을 삭제하시겠습니까?")){
+			$.ajax({
+				url:"<%=request.getContextPath()%>/user/myPage/deleteMozzle.do",
+				type:"post",
+				data:{mozzleId: "${mozzle_id}"},
+				success: function(result){
+					if(result.success){
+						alert("모즐이 삭제되었습니다.");
+						history.back();
+					}
+					else{
+						alert("모즐을 삭제하는데 실패하였습니다.");
+					}
+				}
+			});
+		}
+			
+	});
 	
 	/* function mozzleUserDetail(this){
 		//var usernickname = document.getElementById('detail${user_id}').value;

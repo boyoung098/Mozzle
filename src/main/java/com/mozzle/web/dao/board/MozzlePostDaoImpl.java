@@ -79,7 +79,7 @@ public class MozzlePostDaoImpl implements IMozzlePostDao {
 		return session.update(NS + "deleteadminPosts", map);
   }
   @Override
-	public List<MozzlePostDto> selectMyPost(Map<String, String> map) {
+	public List<Map<String, String>> selectMyPost(Map<String, String> map) {
 		return session.selectList(NS + "selectMyPost", map);
 	}
   @Override

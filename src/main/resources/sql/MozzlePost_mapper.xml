@@ -124,20 +124,21 @@ WHERE POST_ID IN
   	</update>
 
 <!-- 내 게시글 보기 작성자 : 이종표 -->
-<select id="selectMyPost" parameterType="java.util.Map" resultType="pDto">
- 	SELECT mp.*, m.MOZZLE_NAME, um.NICKNAME 
-	FROM MOZZLE_POST mp 
-	INNER JOIN MOZZLE m
-	ON mp.MOZZLE_ID = m.MOZZLE_ID 
-	INNER JOIN USER_MOZZLE um 
-	ON um.USER_ID = mp.USER_ID 
-	WHERE mp.USER_ID = #{user_id}
-	<if test="mozzle_id != null">
-	 AND mp.MOZZLE_ID = #{mozzle_id} 
-	</if>
-	AND mp.DEPTH = '0'
-	AND mp.DELFLAG = 'N'
-	ORDER BY mp.REGDATE DESC
+<select id="selectMyPost" parameterType="java.util.Map" resultType="java.util.Map">
+
+SELECT mp.*, m.MOZZLE_NAME, um.NICKNAME, um.IMAGE_ORIGIN, um.IMAGE_SAVED
+FROM MOZZLE_POST mp 
+INNER JOIN MOZZLE m
+ON mp.MOZZLE_ID = m.MOZZLE_ID 
+INNER JOIN USER_MOZZLE um 
+ON um.USER_ID = mp.USER_ID AND um.MOZZLE_ID = mp.MOZZLE_ID 
+WHERE mp.USER_ID = #{user_id}
+<if test="mozzle_id != null">
+ AND mp.MOZZLE_ID = #{mozzle_id} 
+</if>
+AND mp.DEPTH = '0'
+AND mp.DELFLAG = 'N'
+ORDER BY mp.REGDATE DESC
 </select>
 
 

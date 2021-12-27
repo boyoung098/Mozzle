@@ -116,4 +116,9 @@ public class ManageServiceImpl implements IManageService {
 		int n = dao.checkMozzleLeader(map);
 		return (n == 1) ? true : false;
 	}
+
+	@Override
+	public List<MozzleDto> selectAllMyMozzle(String userId) {
+		return dao.selectAllMyMozzle(userId);
+	}
 }
