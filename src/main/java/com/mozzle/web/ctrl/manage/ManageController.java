@@ -243,5 +243,16 @@ public class ManageController {
 		response.put("cList", cList);
 
 		return response;
+	};
+	
+	@RequestMapping(value= "/deleteMozzle.do", method= RequestMethod.GET)
+	@ResponseBody
+	public boolean deleteMozzle(HttpServletRequest request) {
+		
+		String mozzle_id = request.getParameter("mozzle_id");
+		
+		boolean result = mService.deleteMozzle(mozzle_id);
+		
+		return result;
 	}
 }
