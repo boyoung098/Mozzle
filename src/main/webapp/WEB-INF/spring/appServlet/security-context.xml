@@ -33,16 +33,12 @@
 		</security:headers>
 		<security:access-denied-handler
 			error-page="/AuthError.do" />
-		<security:intercept-url pattern="/"
-			access="permitAll" />
-		<security:intercept-url pattern="/loginPage.do"
-			access="permitAll" />
+		<security:intercept-url pattern="/adminIndex.do"
+			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/user/**"
 			access="hasRole('USER')" />
 		<security:intercept-url pattern="/manage/**"
 			access="hasRole('USER')" />
-				<security:intercept-url pattern="/adminIndex.do"
-			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/**"
 			access="permitAll" />
 
@@ -63,6 +59,7 @@
 		
 		<security:remember-me key="mozzle"
 			remember-me-parameter="remember-me" />
+			
 		<!-- <security:remember-me key="nobrand" token-validity-seconds="30" remember-me-parameter="remember-me" 
 			/> -->
 
