@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mozzle.web.dao.manage.IManageDao;
 import com.mozzle.web.dto.manage.MozzleDto;
@@ -37,7 +38,8 @@ public class ManageServiceImpl implements IManageService {
 		
 		return mList; 	
 	}
-
+	
+	@Transactional
 	@Override
 	public MozzleDto selectMozzleByMozzleId(String mozzle_id) {
 		return dao.selectMozzleByMozzleId(mozzle_id);
@@ -99,7 +101,20 @@ public class ManageServiceImpl implements IManageService {
 	public boolean checkMember(Map<String, String> map) {
 		int n = dao.checkMember(map);
 		return (n==1) ? true : false;
+	}
+
+	@Override
+	public boolean deleteMozzle(String mozzle_id) {
+		int n = dao.delflagMozzle(mozzle_id);
+		int m = dao.deleteMozzleUser(mozzle_id);
 		
+		return (n + m) > 0 ? true : false;
+	}
+
+	@Override
+	public boolean checkMozzleLeader(Map<String, String> map) {
+		int n = dao.checkMozzleLeader(map);
+		return (n == 1) ? true : false;
 	}
 
 	@Override

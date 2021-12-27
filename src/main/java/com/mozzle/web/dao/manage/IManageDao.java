@@ -39,6 +39,16 @@ public interface IManageDao {
 	
 	public int checkMember(Map<String, String> map);
 	
+
 	// 이종표 추가
 	public List<MozzleDto> selectAllMyMozzle(String userId);
+
+	public int checkMozzleLeader(Map<String, String> map);
+	
+	public int delflagMozzle(String mozzle_id);
+	
+	public int deleteMozzleUser(String mozzle_id);
+	
+	public int deleteMozzlePost(String mozzle_id);
+
 }

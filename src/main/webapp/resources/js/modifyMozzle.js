@@ -63,6 +63,21 @@ window.onload = function() {
 }
 		
 function checkSubmit() {
-	alert($('#submitMozzleForm').val());
 }
+
+function deleteMozzle(mozzle_id, mozzle_name) {
+	alert(mozzle_name + " 모즐을 해체하시겠습니까?")
+	
+	$.ajax({
+		url : "./deleteMozzle.do?mozzle_id=" + mozzle_id,
+		type : "GET",
+		success : function(result) {
+			
+			if(result == true) {
+				alert(mozzle_name + " 모즐이 해체되었습니다");
+				location.href = "/MozzleProject";
+			}
+		}
+	})
+};
 		

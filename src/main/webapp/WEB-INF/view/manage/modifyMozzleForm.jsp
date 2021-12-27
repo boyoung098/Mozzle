@@ -115,13 +115,14 @@
 			<div class="register-input"
 				style="display: flex; justify-content: center;">
 				<input type="submit" class="btn" id="submit-btn"
-					style="width: 200px; background: #e82d55; color: #fff;"
-					value="모즐수정" onSubmit="checkSubmit()">
+					style="width: 200px; background: #e82d55; color: #fff; margin-right:5px"
+					value="모즐수정" onclick="checkSubmit()">
+				<input type="button" class="btn" id="delete-btn"
+					style="width: 200px; background: #010ea1; color: #fff; margin-left:5px"
+					value="모즐해체" onclick="deleteMozzle('${mozzle.mozzle_id}', '${mozzle.mozzle_name}')">	
 			</div>
 		</form>
 	</div>
 	<div id="footer"></div>
-
-
 </body>
 </html>
