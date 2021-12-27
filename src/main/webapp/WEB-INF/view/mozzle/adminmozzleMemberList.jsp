@@ -81,7 +81,7 @@
 					<c:set var="mozzle_id" value='<%= request.getParameter("mozzle_id") %>'/>
 					<div style="text-align: center; margin-top:20px;">
 					<c:if test="${fn:length(mozzleuserList) == 0}">
-						<button class="color-btn input-login">삭제하기</button>
+						<button class="color-btn input-login" id="deleteMozzleBtn">삭제하기</button>
 					</c:if>
 					<button class="color-btn input-login" onclick="window.location=document.referrer;">뒤로가기</button>
 					</div>
@@ -206,7 +206,11 @@
 				});
 			}
 		}
-	})
+	});
+	
+	$("#deleteMozzleBtn").click(function(){
+		
+	});
 	
 	/* function mozzleUserDetail(this){
 		//var usernickname = document.getElementById('detail${user_id}').value;

@@ -235,13 +235,19 @@ function insertMozzlePost() {
 </script>
 
 <section id="board-card-list">
-<input type="hidden" id="save-info-mozzeId" value="${mozzle_id}">
+<input type="hidden" id="save-info-mozzeId" value="${param.mozzle_id}">
 	<div class="borad-box row" id="borad-box">
 		<div class="col-sm-10 board-box-list">
+			
 			<div class="meeber-thumbnail">
-				<img src="" alt="">
+				<c:if test="${param.image_saved != ''}">
+				<img src="<%=request.getContextPath()%>/storage/${param.image_saved}" alt="">
+				</c:if>
+				<c:if test="${param.image_saved == ''}">
+				<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="">
+				</c:if>
 			</div>
-			<span>${param.user_id}</span> <span>${param.regdate}</span>
+			<span>${param.nickname}(${param.mozzle_name})</span> <span>${param.regdate}</span>
 		</div>
 		<div class="col-sm-2">
 			<div class="board-cion">

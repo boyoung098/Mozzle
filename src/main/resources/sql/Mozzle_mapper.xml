@@ -209,4 +209,17 @@
 			AND MOZZLE_ID = #{mozzle_id}
 			AND AUTH_CODE = '1'
 	</select>
+	
+	<!-- 가입한 모즐 (운영자, 사용자 모두) -->
+	<select id="selectAllMyMozzle" parameterType="java.lang.String" resultType="mDto">
+		SELECT m.MOZZLE_ID MOZZLE_ID, m.MOZZLE_NAME MOZZLE_NAME, 
+			m.MOZZLE_INTRO MOZZLE_INTRO, m.CREATE_DATE CREATE_DATE, 
+			m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED, 
+			m.STATE STATE,
+			um.NICKNAME LEADER_NICKNAME 
+		FROM MOZZLE m LEFT JOIN USER_MOZZLE um
+		ON m.MOZZLE_ID = um.MOZZLE_ID 
+			WHERE um.USER_ID = #{user_id}
+		ORDER BY um.AUTH_CODE, m.MOZZLE_NAME
+	</select>
 </mapper>

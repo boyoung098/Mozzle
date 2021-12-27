@@ -13,12 +13,16 @@
 		<h2>내가쓴글</h2>
 		<c:forEach var="post" items="${posts}">
 			<jsp:include page="../../comm/mozzlePost.jsp">
-				<jsp:param value="${post.post_id}" name="post_id"/>
-				<jsp:param value="${post.mozzle_id}" name="mozzle_id"/>
-				<jsp:param value="${post.user_id}" name="user_id"/>
-				<jsp:param value="${post.content}" name="content"/>
-				<jsp:param value="${post.refer}" name="refer"/>
-				<jsp:param value="${post.regdate}" name="regdate"/>
+				<jsp:param value="${post.IMAGE_ORIGIN}" name="image_origin"/>
+				<jsp:param value="${post.IMAGE_SAVED}" name="image_saved"/>
+				<jsp:param value="${post.MOZZLE_NAME}" name="mozzle_name"/>
+				<jsp:param value="${post.NICKNAME}" name="nickname"/>	
+				<jsp:param value="${post.POST_ID}" name="post_id"/>
+				<jsp:param value="${post.MOZZLE_ID}" name="mozzle_id"/>
+				<jsp:param value="${post.USER_ID}" name="user_id"/>
+				<jsp:param value="${post.CONTENT}" name="content"/>
+				<jsp:param value="${post.REFER}" name="refer"/>
+				<jsp:param value="${post.REGDATE}" name="regdate"/>
 			</jsp:include>
 		</c:forEach>
 	</div>

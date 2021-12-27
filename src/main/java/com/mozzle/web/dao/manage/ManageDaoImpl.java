@@ -115,4 +115,9 @@ public class ManageDaoImpl implements IManageDao{
 		logger.info("checkMember {}", map);
 		return session.selectOne(NS + "checkMember", map);
 	}
+
+	@Override
+	public List<MozzleDto> selectAllMyMozzle(String userId) {
+		return session.selectList(NS + "selectAllMyMozzle", userId);
+	}
 }

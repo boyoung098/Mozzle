@@ -67,7 +67,7 @@ public class MozzlePostServiceImpl implements IMozzlePostService{
 	}
 
 	@Override
-	public List<MozzlePostDto> selectMyPost(Map<String, String> map) {
+	public List<Map<String, String>> selectMyPost(Map<String, String> map) {
 		return dao.selectMyPost(map);
 	}
 

@@ -38,4 +38,7 @@ public interface IManageDao {
 	public int registLeader(MozzleDto mozzle);
 	
 	public int checkMember(Map<String, String> map);
+	
+	// 이종표 추가
+	public List<MozzleDto> selectAllMyMozzle(String userId);
 }

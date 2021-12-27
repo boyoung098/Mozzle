@@ -23,6 +23,6 @@ public interface IMozzlePostService {
 	
 	public boolean deleteMozzlePost(String post_id);
 	
-	public List<MozzlePostDto> selectMyPost(Map<String, String> map);
+	public List<Map<String, String>> selectMyPost(Map<String, String> map);
 
 }

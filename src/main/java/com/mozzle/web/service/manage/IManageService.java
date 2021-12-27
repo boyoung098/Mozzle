@@ -32,4 +32,6 @@ public interface IManageService {
 	public String selectMozzleIdByMozzleName(String mozzleName);
 	
 	public boolean checkMember(Map<String, String> map);
+	
+	public List<MozzleDto> selectAllMyMozzle(String userId);
 }
