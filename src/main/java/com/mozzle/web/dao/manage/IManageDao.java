@@ -1,6 +1,7 @@
 package com.mozzle.web.dao.manage;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mozzle.web.dto.manage.MozzleDto;
 
@@ -36,5 +37,5 @@ public interface IManageDao {
 	
 	public int registLeader(MozzleDto mozzle);
 	
-	public int checkMember(String user_id);
+	public int checkMember(Map<String, String> map);
 }

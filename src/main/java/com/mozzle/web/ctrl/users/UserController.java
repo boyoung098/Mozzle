@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mozzle.web.comm.JwtTokenProvider;
+import com.mozzle.web.dto.board.MozzlePostDto;
 import com.mozzle.web.dto.manage.MozzleDto;
 import com.mozzle.web.dto.users.UserDto;
+import com.mozzle.web.service.board.IMozzlePostService;
 import com.mozzle.web.service.manage.IManageService;
 import com.mozzle.web.service.users.IMozzleUserService;
 import com.mozzle.web.service.users.IUserService;
@@ -33,6 +35,9 @@ public class UserController {
 	@Autowired
 	private IUserService service;
 	
+	@Autowired
+	IMozzlePostService postService;
+
 	@Autowired
 	private IManageService mService;
 
@@ -71,8 +76,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/myThread.do", method=RequestMethod.GET)
-	public String myThread() {
-		
+	public String myThread(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_id", session.getAttribute("userId").toString());
+		List<MozzlePostDto> posts = postService.selectMyPost(map);
+		req.setAttribute("posts", posts);
 		return "user/mypage/myThread";
 	}
 	

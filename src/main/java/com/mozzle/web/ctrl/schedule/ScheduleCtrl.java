@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mozzle.web.comm.ScheduleUtil;
 import com.mozzle.web.dto.schedule.ScheduleDto;
-import com.mozzle.web.dto.schedule.ScheduleLocationInfoDto;
+//import com.mozzle.web.dto.schedule.ScheduleLocationInfoDto;
 import com.mozzle.web.service.schedule.IScheduleService;
 
 
@@ -32,11 +32,10 @@ public class ScheduleCtrl {
 	private IScheduleService service;
 	
 	@RequestMapping(value = "/calendar.do", method = RequestMethod.GET)
-	public String CalendarForm(Locale locale,Model model,String year, String month) {
+	public String CalendarForm(Locale locale,Model model,String year, String month, String mozzle_id) {
 		logger.info("달력 보기 {} ", locale);
-		
 		//월별 일정에 대해 하루마다 일정 3개씩 표시하기 기능 구현
-		
+		model.addAttribute("mozzle_id", mozzle_id);
 		return "mozzle/Calendar";
 	}
 	
@@ -54,9 +53,9 @@ public class ScheduleCtrl {
 				+ ScheduleUtil.isTwo(ymd.get("date"));
 		
 		//모즐아이디 전달
-		HttpSession session = request.getSession();
-		String mozzle_id = (String)session.getAttribute("mozzle_id");
-		//String mozzle_id = "2";
+//		HttpSession session = request.getSession();
+//		String mozzle_id = (String)session.getAttribute("mozzle_id");
+		String mozzle_id = "2";
 		
 		List<ScheduleDto> list = service.scheduleselectAll(mozzle_id, yyyyMMdd);
 		model.addAttribute("list",list);
@@ -64,7 +63,7 @@ public class ScheduleCtrl {
 		return "mozzle/scheduleselectAll";
 	}
 	
-	@RequestMapping(value = "/scheduleinsert.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/scheduleinsertForm.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String scheduleinsertForm(Locale locale,Model model) {
 		logger.info("일정 추가 폼 이동 {} ", locale);
 		
@@ -73,30 +72,88 @@ public class ScheduleCtrl {
 		return "mozzle/scheduleinsertForm";
 	}
 	
-//	@RequestMapping(value = "/scheduleinsert.do", method = {RequestMethod.GET, RequestMethod.POST})
-//	public String scheduleinsert(ScheduleDto dto, ScheduleLocationInfoDto dto2, Locale locale,Model model) {
-//		logger.info("일정 추가 {} ", locale);
-		
-		
+	@RequestMapping(value = "/scheduleinsert.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String scheduleinsert(ScheduleDto dto, Locale locale,Model model) {
+		logger.info("일정 추가 {} ", locale);
+
+		System.out.println(dto);
 		//schedule_date 는 12자리로 만들어서 DB에 저장해야 한다.
-//		String schedule_date = dto.getYear()
-//				+ ScheduleUtil.isTwo(dto.getMonth())
-//				+ ScheduleUtil.isTwo(dto.getDate())
-//				+ ScheduleUtil.isTwo(dto.getHour())
-//				+ ScheduleUtil.isTwo(dto.getMin());
-//		boolean isS = service.scheduleinsert(
-//					new ScheduleLocationInfoDto(0,)
-//					new ScheduleDto(0, dto.getMozzle_id(), dto.getWriter(),
-//									dto.getTitle(), dto.getContent(),
-//									schedule_date, NULL, dto.getLocation_code());
+		String schedule_date = dto.getYear()
+				+ ScheduleUtil.isTwo(dto.getMonth())
+				+ ScheduleUtil.isTwo(dto.getDate())
+				+ ScheduleUtil.isTwo(dto.getHour())
+				+ ScheduleUtil.isTwo(dto.getMin());
+//		boolean isS1 = service.scheduleinfoinsert(
+//					dto2
+//				);
+		boolean isS = service.scheduleinsert(
+					new ScheduleDto("", dto.getMozzle_id(), dto.getWriter(),
+							dto.getTitle(), dto.getContent(),
+							schedule_date, null)
+				);
+
+		if(isS) {
+			//이부분 연결 제대로하기
+			return "redirect:calendar.do?year="+dto.getYear()+"&month="+dto.getMonth();
+		}else {
+			model.addAttribute("msg", "일정등록실패!!");
+			return "error";
+		}
+	}
+	
+//	@RequestMapping(value = "/scheduledelete.do", method = RequestMethod.GET)
+//	public String scheduledelete(String[] schedule_id,ScheduleDto dto, Locale locale, Model model) {
+//		logger.info("일정 삭제 {} , locale");
+//		
+//		String source = "year="+dto.getYear()+"&month="+dto.getMonth()
+//								+"&date="+dto.getDate();
+//		
+//		boolean isS = service.scheduledelete(schedule_id);
 //		if(isS) {
-//			return "redirect:calendar.do?year="+dto.getYear()+"&month="+dto.getMonth();
+//			return "mozzle/scheduleselectAll"+source;
 //		}else {
-//			model.addAttribute("msg", "일정등록실패!!");
+//			model.addAttribute("msg","일정삭제실패");
 //			return "error";
 //		}
-					
-//		return "mozzle/scheduleinsertForm";
 //	}
-	
+//	
+//	@RequestMapping(value = "/scheduleselectOne.do", method = RequestMethod.GET)
+//	public String scheduleselectOne(int Schedule_id, Locale locale, Model model) {
+//		logger.info("일정상세내용보기{}", locale);
+//		ScheduleDto dto = service.scheduledetail(Schedule_id);
+//		model.addAttribute("dto",dto);
+//		
+//		return "scheduleselectOne";
+//	}
+//	
+	@RequestMapping(value = "/scheduleupdate.do", method = RequestMethod.GET)
+	public String scheduleupdate(ScheduleDto dto, Locale locale, Model model) {
+		logger.info("일정 수정 폼 이동{}", locale);
+		//insert 과 똑같이 작성
+		
+		String schedule_date = dto.getYear()
+				+ ScheduleUtil.isTwo(dto.getMonth())
+				+ ScheduleUtil.isTwo(dto.getDate())
+				+ ScheduleUtil.isTwo(dto.getHour())
+				+ ScheduleUtil.isTwo(dto.getMin());
+//		boolean isS1 = service.scheduleinfoinsert(
+//					dto2
+//				);
+		
+		boolean isS = service.scheduleupdate(
+					//schedule_id / mozzle_id / writer / 
+					new ScheduleDto("", 0, null,
+							dto.getTitle(), dto.getContent(),
+							schedule_date, null)
+				);
+
+		if(isS) {
+			//이부분 연결 제대로하기
+			return "redirect:scheduleselectOne.do?schedule_id="+dto.getSchedule_id();
+		}else {
+			model.addAttribute("msg", "일정수정실패!!");
+			return "error";
+		}
+		
+	}
 }

@@ -24,6 +24,8 @@ public interface IMozzlePostDao {
 	public int replyIn(MozzlePostDto post);
 	
 	public int deleteMozzlePost(String post_id);
+	
+	public List<MozzlePostDto> selectMyPost(Map<String, String> map);
 
 	public int deleteadminPosts(Map<String,String[]> map);
 }

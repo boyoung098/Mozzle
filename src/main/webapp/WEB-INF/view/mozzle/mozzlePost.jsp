@@ -274,6 +274,7 @@ function insertMozzlePost() {
 	
 }
 
+
 /* 김보영 */
 	
 	$(".reportclick").click(function(e){
@@ -308,3 +309,5 @@ function insertMozzlePost() {
 
 
 </script>
+
+

@@ -7,35 +7,33 @@
 <head>
 <meta charset="UTF-8">
 <title>일정추가</title>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <% 						//
 	int year = Integer.parseInt(request.getParameter("year"));
 	int month = Integer.parseInt(request.getParameter("month"));
 	int date = Integer.parseInt(request.getParameter("date"));
-	
+
 	//현재시간구하기
 	Calendar cal = Calendar.getInstance();
 	int hour = cal.get(Calendar.HOUR_OF_DAY);
 	int min = cal.get(Calendar.MINUTE);
 %>
 <script type="text/javascript">
-	function backcalendar(){//돌아가기
-		location.href="calendar.do?year=<%=year%>&month=<%=month%>&date=<%=date%>";
-	}
+
+	
 </script>
 </head>
 
 <body>
 	<h1>일정 등록</h1>
 	<form action="./scheduleinsert.do" method="post">
+		<input type="hidden" name="mozzle_id" value="${mozzle_id}" readonly="readonly">
 		<table border="1">
 			<tr>
-				<th>Schedule_id</th>
-				<td><input type="text" name="schedule_id" value="12" readonly="readonly"></td>
-			</tr>
-			<tr>
 				<th>Writer</th>
-				<td><input type="text" name="writer" value="작성자2" readonly="readonly"></td>
+				<td><input type="text" name="writer"></td>
 			</tr>
 			<tr>
 				<th>Shedult_date(일정)</th>
@@ -44,6 +42,8 @@
 						<% 
 							for(int i=year-10; i<year+10; i++){
 								%>
+									<!-- 선택되는 년도를 선택되게 한다.
+										 보기를 늘리고 싶다면 -10 +10 조정으로 가능 -->
 									<option <%=year==i?"selected":""%> value="<%=i%>"><%=i%></option>
 								<%
 							}
@@ -53,6 +53,7 @@
 						<% 
 							for(int i=1; i<=12; i++){
 								%>
+									<!-- 선택되는 월을 선택되게 한다. -->
 									<option <%=month==i?"selected":""%> value="<%=i%>"><%=i%></option>
 								<%
 							}
@@ -62,6 +63,7 @@
 						<% 
 							for(int i=1; i<=31; i++){
 								%>
+									<!-- 선택되는 일을 선택되게 한다. -->
 									<option <%=date==i?"selected":""%> value="<%=i%>"><%=i%></option>
 								<%
 							}
@@ -71,6 +73,7 @@
 						<% 
 							for(int i=1; i<24; i++){
 								%>
+									<!-- 현재 시간을 선택되게 한다. -->
 									<option <%=hour==i?"selected":""%> value="<%=i%>"><%=i%></option>
 								<%
 							} 
@@ -80,18 +83,13 @@
 						<% 
 							for(int i=1; i<60; i++){
 								%>
+									<!-- 현재 분을 선택되게 한다. -->
 									<option <%=min==i?"selected":""%> value="<%=i%>"><%=i%></option>
 								<%
 							} 
 						%>
 					</select>분
 				</td>
-			</tr>
-			<tr>
-				<th>위치</th>
-
-				<td><jsp:include page="./map.jsp"/></td>
-				
 			</tr>
 			<tr>
 				<th>Title</th>
@@ -111,10 +109,11 @@
 			<tr>
 				<td colspan="2">
 					<input type="submit" value="일정추가"/>
-					<input type="button" value="돌아가기" onclick="backcalendar()"/>
+					<input type="button" value="돌아가기" onclick="history.back(-1)"/>
 				</td>
 			</tr>
 		</table>
 	</form>
+	
 </body>
 </html>

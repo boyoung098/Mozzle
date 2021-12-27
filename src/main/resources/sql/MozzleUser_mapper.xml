@@ -35,6 +35,9 @@ FROM USER_MOZZLE um JOIN USERS u ON um.USER_ID = u.USER_ID
 <if test="nickname !=null">
  um.NICKNAME like '%'||#{nickname}||'%'
 </if>
+<if test="delegate != null">
+AND um.AUTH_CODE = '2'
+</if>
 AND um.MOZZLE_ID =#{mozzle_id}
 AND u.DELFLAG = 'N'
 </trim>

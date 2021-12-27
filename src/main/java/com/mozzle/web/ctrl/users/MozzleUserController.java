@@ -110,6 +110,7 @@ public class MozzleUserController {
 		return "mozzle/adminmozzleMemberList";
 	}
 	
+
 	//운영자권한 리스트전체 (권한상관없이_)
 	@RequestMapping(value="/adminmozzleMemberList2.do", method = RequestMethod.GET)
 	public String adminmozzleMemberList2(Model model, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req) {
@@ -128,6 +129,19 @@ public class MozzleUserController {
 				//*************이미지 경로나옴!!!!!!!!!!!!!
 			//끝
 		return "mozzle/adminmozzleMemberList2";
+  }
+	// 리더 위임 권한이 가능한 멤버 리스트
+	// 작성자 : 이종표
+	@RequestMapping(value = "/delegateMemberList.do", method = RequestMethod.GET)
+	public String delegateMemberList(String mozzle_id, String delegate, Model model) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("mozzle_id", mozzle_id);
+		map.put("delegate", delegate);
+		List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListadminMozzleUser(map);
+		model.addAttribute("mozzleuserList",mozzleuserList);
+
+		return "mozzle/adminmozzleMemberList";
+
 	}
 	
 	//ajax로 닉네임서치값을 받아서 map 형태로 찾은 리스트들 보내기
