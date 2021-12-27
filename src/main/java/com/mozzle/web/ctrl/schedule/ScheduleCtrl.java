@@ -40,7 +40,7 @@ public class ScheduleCtrl {
 	}
 	
 	@RequestMapping(value = "/scheduleselectAll.do", method = RequestMethod.GET)
-	public String scheduleselectAll(HttpServletRequest request, Locale locale,Model model,
+	public String scheduleselectAll(HttpServletRequest request, Locale locale,Model model,String mozzle_id,
 									@RequestParam Map<String,String> ymd) {
 		logger.info("일정 목록 보기 {} ", locale);
 		
@@ -55,8 +55,8 @@ public class ScheduleCtrl {
 		//모즐아이디 전달
 //		HttpSession session = request.getSession();
 //		String mozzle_id = (String)session.getAttribute("mozzle_id");
-		String mozzle_id = "2";
-		
+//		String mozzle_id = "2";
+		model.addAttribute("mozzle_id",mozzle_id);
 		List<ScheduleDto> list = service.scheduleselectAll(mozzle_id, yyyyMMdd);
 		model.addAttribute("list",list);
 		

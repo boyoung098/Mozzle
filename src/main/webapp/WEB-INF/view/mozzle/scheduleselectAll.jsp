@@ -91,6 +91,9 @@
 					<td><%=dto.getWriter()%></td>
 					<td><a href="scheduleselectOne.do?schedule_id="> <%=dto.getTitle() %></a></td>
 					<td><%=dto.getContent()%></td>
+					<td><%=dto.getSchedule_date() %></td>
+					<td><%=dto.getRegdate() %></td>
+					
 					<%-- <td><%=ScheduleUtil.toDates(dto.getSchedule_date()) %></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="<%=dto.getRegdate()%>"/> </td> --%>
 				</tr>

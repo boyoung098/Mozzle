@@ -29,6 +29,7 @@
 <body>
 	<h1>일정 등록</h1>
 	<form action="./scheduleinsert.do" method="post">
+		${mozzle_id}
 		<input type="hidden" name="mozzle_id" value="${mozzle_id}" readonly="readonly">
 		<table border="1">
 			<tr>
