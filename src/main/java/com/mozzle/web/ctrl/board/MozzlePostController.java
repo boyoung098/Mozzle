@@ -166,4 +166,36 @@ public class MozzlePostController {
 		
 		return result;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/modify.do", method=RequestMethod.POST)
+	public boolean updateMozzlePost(@RequestParam("content") String content,
+			@RequestParam("mozzle_id") String mozzle_id, HttpSession session) {
+		
+		
+		logger.info("insertMozzlePost에 입력되는 값 {}", content);
+		
+		String user_id = (String)session.getAttribute("userId");
+		logger.info("session에서 받아온 user_id 값 {}", user_id);
+		
+		MozzlePostDto post = new MozzlePostDto();
+		post.setMozzle_id(mozzle_id);
+		post.setContent(content);
+		boolean n = service.updateMozzlePost(post);
+		return n;
+	}
 }

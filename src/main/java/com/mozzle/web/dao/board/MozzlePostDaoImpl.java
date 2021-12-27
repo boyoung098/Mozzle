@@ -82,5 +82,9 @@ public class MozzlePostDaoImpl implements IMozzlePostDao {
 	public List<MozzlePostDto> selectMyPost(Map<String, String> map) {
 		return session.selectList(NS + "selectMyPost", map);
 	}
-
+  @Override
+	public int updateMozzlePost(MozzlePostDto post) {
+		logger.info("updateMozzlePost {}", post);
+		return session.update(NS+"updateMozzlePost", post);
+	}
 }

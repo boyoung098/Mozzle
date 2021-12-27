@@ -83,7 +83,7 @@
 						<table id="reply-list-${post.refer}">
 						</table>
 						<br><br>
-						<div style="width: 90%;" >
+						<div class="reply_box">
 							<input type="text" class="form-control" name="first-reply-content"
 								id="first-reply-content-${post.refer}" style="width: 100%">
 						</div>
@@ -105,10 +105,10 @@
 	          <h4 class="modal-title">게시글 수정</h4>
 	        </div>
 	        <div class="modal-body">
-	         <textarea rows="10" cols="68" >${postList.content}</textarea>
+	         <textarea rows="10" cols="68" ></textarea>
 	        </div>
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-default" data-dismiss="modal">수정</button>
+	          <button type="button" class="btn btn-default" data-dismiss="modal" id="modify_btn">수정</button>
 	        </div>
 	      </div>
 	      
@@ -116,6 +116,29 @@
 	  </div>
 	<!-- Modal -->
 <script>
+$( document ).ready(function() {
+	   $("#modify_btn").click(function(){
+		var modifytext = confirm("수정하시겠습니까?");
+		
+		if(modifytext){
+			var content = $("#modify_text").val();
+		}
+			$.ajax({
+				url:"./modify.do",
+				type : "post",
+				data: {"content" : content,
+						"mozzle_id": mozzle_id
+				},
+				success : function(result){
+					if(result ==true){
+						document.location.reload();
+					}
+				}
+			})
+		});
+	});
+
+
 $( document ).ready(function() {
    flag01 = true;
    flag02 = true;

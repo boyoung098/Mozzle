@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="content">
+	<div class="content" style="height:400px;">
 		<h2>멤버초대</h2>
 
 

@@ -49,14 +49,14 @@
 %>
 <body>
 	<form action="./calendar.do" method="get">
-		<table border="1" id="calendar">
+		<table border="1" id="calendar" class="table calendar_table">
 			<caption>
 				<!-- <<는 연도가 깎여야하기때문에 -1 <는 월이 깎여야 하기때문에 -1  -->
-				<a href="calendar.do?year=<%=year-1%>&month=<%=month%>">&laquo;</a>
-				<a href="calendar.do?year=<%=year%>&month=<%=month-1%>">◀</a>
-				<%=year %>년<%=month %>월	
-				<a href="calendar.do?year=<%=year%>&month=<%=month+1%>">▶</a>
-				<a href="calendar.do?year=<%=year+1%>&month=<%=month%>">&raquo;</a>
+				<a href="calendar.do?year=<%=year-1%>&month=<%=month%>"><span class="angle">&laquo;</span></a>
+				<a href="calendar.do?year=<%=year%>&month=<%=month-1%>"><i class="xi-angle-left xi-1x"></i></a>
+				<span class="cal_title"><%=year %>년<%=month %>월</span>	
+				<a href="calendar.do?year=<%=year%>&month=<%=month+1%>"><i class="xi-angle-right xi-1x"></i></a>
+				<a href="calendar.do?year=<%=year+1%>&month=<%=month%>"><span class="angle">&raquo;</span></a>
 			</caption>
 			<tr>
 				<th>일</th>

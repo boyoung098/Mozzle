@@ -50,15 +50,50 @@ select:focus {
   outline: 0;
 }
 
+.my-page-menu{
+	background-color: #e82d55;
+}
+.my-page-menu ul{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	
+}
+.my-page-menu ul li{
+	padding: 13px 0;
+	color: #fff;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.my-page-menu ul li a:hover, .my-page-menu ul li a.active{
+	background-color: #a00022;
+}
+
+.my-page-menu ul li a{
+	padding: 13px 40px;
+}
+
+.auth-input{
+	display:flex;
+	flex-direction:column;
+	align-items: center;
+}
+
 /* 로그인 */
 .login-result{
 	color:#e82d55;	
 }
+
 .container-login {
     width:350px;
     margin: auto;
+    height: 500px;
 }
-
+.container-join{
+	 width:350px;
+    margin: auto;
+}
 .input-login {
     height: 40px;
     width: 350px;
@@ -560,7 +595,10 @@ input:focus, select:focus {
 	top:-45px;
 }
 
-
+.reply_box {
+	display: inline-block;
+	width:90%;
+}
 
 
 
