@@ -8,10 +8,7 @@
 <html>
 <head>
 <style type="text/css">
-.adminListbtn{
-	display: inline-block;
-	
-}
+
 </style>
 </head>
 <body>
@@ -69,8 +66,8 @@
 							<input type="hidden" value="${mozzleUser.auth_code}" class="unserinfo">
 							<fmt:parseDate var="dateFmt" value="${mozzleUser.joined_date}" pattern="yyyy-MM-dd"/>
 							<fmt:formatDate var="dateFmt2" value="${dateFmt}" pattern="yyyy-MM-dd"/>
-							</div> <span style="display: block;">${mozzleUser.nickname}</span>
-							<div class="adminListbtn" style="width: 100%">
+							</div> <span>${mozzleUser.nickname}</span>
+							<div class="adminListbtn">
 							<c:if test="${mozzleUser.auth_code == '2'}">
 							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 80px; margin-right: 10px; float: right;" value="${mozzleUser.user_id}" name="adminauthupdate">권한넘기기</button>
 							</c:if>
