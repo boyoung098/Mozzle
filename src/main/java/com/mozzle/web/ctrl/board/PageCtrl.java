@@ -112,4 +112,28 @@ public class PageCtrl {
 		return json.toString();
 		
 	}
+	
+	//삭제 다중 부적절처리
+	@PostMapping(value = "/deleteadmin.do", produces = "application/text; charset=UTF-8;")
+	public String deleteadmin(HttpSession session,RowNum_Dto rowDto, @ModelAttribute("mozzle_id") String mozzle_id, 
+			HttpServletRequest req, String[] chkArray){
+		Map<String,String[]> map = new HashMap<String,String[]>();
+		map.put("report_ids", chkArray);
+		System.out.println("폼에서 받아온 chkArray"+chkArray);
+		log.info("페이징 컨트롤러 세션 확인 페이지 {}",session.getAttribute("row"));
+		log.info("페이징 컨트롤러 화면 요청값 {}", rowDto);
+		log.info("페이징 컨트롤러 모즐아이디 {}", mozzle_id);
+		//String user_id =  (String) req.getSession().getAttribute("userId");
+		
+		JSONObject json = null;
+		reportservice.deleteadminPostReport(map);
+		rowDto.setTotal(reportservice.postReportListTotal(mozzle_id));
+		rowDto.setMozzle_id(mozzle_id);
+		json = objectJSON(reportservice.selectPostReportList(rowDto),rowDto, mozzle_id);
+		//session.removeAttribute("row");
+		session.setAttribute("row", rowDto);
+		
+		return json.toString();
+		
+	}
 }

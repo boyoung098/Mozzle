@@ -77,7 +77,7 @@ public class FirstBoardCtrl {
 		//model.addAttribute("mozzle_id", mozzle_id);
 		
 		logger.info("moveTo의 값은==============={}",moveTo);
-		
+		logger.info("mozzle_id의 값은==============={}",mozzle_id);
 		//이미지경로 뿌리기
 		//String imagepath = "C:eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage";
 		//C:home\images\study.png
@@ -110,6 +110,10 @@ public class FirstBoardCtrl {
 			} else {
 				
 			}
+			
+			//김보영 모즐운영자정보
+			MozzleUserDto mozzleLeader = mozzleUserService.selectmozzleUserLeader(mozzle_id);
+			model.addAttribute("mozzleLeader",mozzleLeader);
 //		
 //		
 //		if(mozzleUserdto !=null) {

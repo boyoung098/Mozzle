@@ -55,9 +55,9 @@
           <h4 class="modal-title">모즐 가입</h4>
         </div>
         
-        <div class="modal-body">
+        <div class="modal-body" style="text-align: center;">
         <form:form id="mozzleUserRegist" action="./mozzleUserRegist.do?mozzle_id=${mozzle_id}" method="post" enctype="multipart/form-data">
-		<div class="register-container">
+		<div class="register-container" style="display: inline-block;">
 			<h4>프로필이미지 선택</h4>
 			<div class="image-wrap2">
 				<img class="image" id="image" src="<%=request.getContextPath()%>/resources/images/default_profile.png" />

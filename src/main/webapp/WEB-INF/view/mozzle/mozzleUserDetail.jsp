@@ -27,8 +27,8 @@
           <h4 class="modal-title" id="usernickname"></h4>
         </div>
         
-        <div class="modal-body">
-		<div class="register-container">
+        <div class="modal-body" style="text-align: center;">
+		<div class="register-container" style=" display: inline-block;">
 		
 			<%-- <input type="text" id="save_result" name="result" value="${result}" /> --%>
 			<div class="image-wrap2" id="detail-image-div">

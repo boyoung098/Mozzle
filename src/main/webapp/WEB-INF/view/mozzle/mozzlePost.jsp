@@ -48,7 +48,7 @@
 				<div class="col-sm-2">
 					<div class="board-cion">
 						<div>
-							<a onclick="deleteReply(${post.post_id})">삭제</a>&nbsp;| <a href="#">수정</a>&nbsp;| <a href="#">신고</a>
+							<a onclick="deleteReply(${post.post_id})">삭제</a>&nbsp;| <a href="#">수정</a>&nbsp;| <a href="#" class="reportclick">신고 <input type="hidden" value="${post.post_id}" class="post_id"></a>
 						</div>
 					</div>
 				</div>
@@ -273,7 +273,41 @@ function insertMozzlePost() {
 	})
 	
 }
-</script>
 
+
+/* 김보영 */
+	
+	$(".reportclick").click(function(e){
+		e.preventDefault();
+		var postid =($(this).children("input").eq(0).val());
+		
+		$.ajax({
+			type:"get",
+			url:"./checkPostId.do",
+			data:"post_id="+postid,
+			success:function(msg){
+				if(msg.count=="true"){
+					console.log("true");
+					console.log(postid);
+					var url = './reportPostForm.do?post_id='+postid;
+					var title = '글 신고하기';
+					var attr = 'width = 450px, height = 550px';
+					window.open(url,title,attr);
+					
+				} else{
+					swal("신고","이미 신고접수가 되었습니다.");
+				}
+				},
+			error : function(){
+					alert("문제가 발생하였습니다.");
+				}
+			
+		})
+		
+	
+	});
+
+
+</script>
 
 

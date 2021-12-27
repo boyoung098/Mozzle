@@ -132,5 +132,13 @@ AND u.DELFLAG = 'N'
 	UPDATE USER_MOZZLE SET AUTH_CODE = #{auth_code} WHERE MOZZLE_ID = #{mozzle_id} AND USER_ID = #{user_id}
 </update>
 
+<!--운영자 찾기 -->
+<select id="selectmozzleUserLeader" parameterType="java.lang.String" resultType="mozzleUserDto">
+SELECT um.USER_ID, um.MOZZLE_ID, um.AUTH_CODE, um.NICKNAME, um.JOINED_DATE,
+um.BIRTHDAY_SHOW, um.IMAGE_ORIGIN, um.IMAGE_SAVED, u.EMAIL 
+FROM USER_MOZZLE um JOIN USERS u ON um.USER_ID = u.USER_ID 
+WHERE um.AUTH_CODE = '1'
+AND um.MOZZLE_ID = #{mozzle_id}
+</select>
 
 </mapper>

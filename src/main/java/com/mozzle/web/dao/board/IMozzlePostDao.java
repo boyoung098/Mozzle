@@ -27,4 +27,5 @@ public interface IMozzlePostDao {
 	
 	public List<MozzlePostDto> selectMyPost(Map<String, String> map);
 
+	public int deleteadminPosts(Map<String,String[]> map);
 }

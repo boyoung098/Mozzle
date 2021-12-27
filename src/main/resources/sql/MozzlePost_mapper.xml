@@ -112,6 +112,17 @@
 		WHERE POST_ID= #{post_id}
 </delete>
 
+
+<!-- 김보영 -->
+<update id="deleteadminPosts" parameterType="java.util.Map">
+  	UPDATE MOZZLE_POST
+		SET DELFLAG='Y'
+WHERE POST_ID IN
+<foreach collection="report_ids" item="report_id" open="(" separator="," close=")">
+#{report_id}
+</foreach>
+  	</update>
+
 <!-- 내 게시글 보기 작성자 : 이종표 -->
 <select id="selectMyPost" parameterType="java.util.Map" resultType="pDto">
  	SELECT mp.*, m.MOZZLE_NAME, um.NICKNAME 
@@ -128,5 +139,6 @@
 	AND mp.DELFLAG = 'N'
 	ORDER BY mp.REGDATE DESC
 </select>
+
 
 </mapper>
