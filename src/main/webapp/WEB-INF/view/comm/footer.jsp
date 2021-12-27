@@ -5,6 +5,9 @@
 
 
 <footer class="footer-bs mt-5">
+	<div class="footer_up">
+		<a href="#"><i class="xi-caret-up-square xi-3x"></i></a>
+	</div>
 	<div class="container">
 		<div class="row">
 		<div class="col-md-3 footer-brand animated fadeInLeft">

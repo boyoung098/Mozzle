@@ -129,7 +129,7 @@
 	</section>
 	
 
-	<section class="container">	
+	<section class="container contaienr-hi">	
 		<c:if test="${auth == false}">
 		<div class="text-center mt-5 bt-5">
 			<h2>회원정보 입력</h2>

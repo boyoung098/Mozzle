@@ -28,6 +28,7 @@ footer {
     background-color: #3c3d41;
     padding: 45px 40px;
     color: #999;
+    position: relative;
 }
 .footer-bs .footer-brand,
 .footer-bs .footer-nav,
