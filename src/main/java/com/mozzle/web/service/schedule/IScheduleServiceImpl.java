@@ -33,7 +33,7 @@ public class IScheduleServiceImpl implements IScheduleService {
 		logger.info("scheduleselectAll 전체출력 : {}", mozzle_id, yyyyMMdd);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("mozzle_id", mozzle_id);
-		map.put("schedule_date", yyyyMMdd);
+		map.put("yyyyMMdd", yyyyMMdd);
 		List<ScheduleDto> list = dao.scheduleselectAll(mozzle_id, yyyyMMdd);
 		return list;
 	}
