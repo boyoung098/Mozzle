@@ -89,7 +89,7 @@ $(document).ready(function(){
 							<input type="text" class="form-control search"
 								name="inputKeyword" id="inputKeyword" placeholder=" 찾으시는 모임이 있나요?" value="<%= keyword %>"/>
 							<div class="input-group-btn top_search">
-								<button type="button" id="search-btn" class="btn btn-default">
+								<button type="button" id="search-btn" class="btn btn-default search-btn">
 									<i class="xi-search"></i>
 								</button>
 							</div>

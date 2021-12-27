@@ -502,9 +502,54 @@ input:focus, select:focus {
 .notice-list a.checked{
 	background-color: #eee;
 }
+.search-btn {
+	border:none;
+}
 
+#hash-tag{
+	width: 10px;
+	height: 10px;
+}
 
+#reply-show-button{
+	width: 100%;
+	height: 100%;
+	border: 1px solid #ddd;
+	text-align: center;
+	padding: 10px;
+}
 
+#reply-show-button p {
+	margin: 0px;
+}
+
+#reply-show-button:hover {
+	box-shadow: 1px 1px 1px #aaa;
+	cursor: pointer;
+	transition-duration: 0.1s;
+}
+
+#content{
+  width: 100%;
+  }
+  
+.profil-image{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+#mozzleout{
+	background: #e82d55;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 4px;
+    border: none;
+}
+.board-cion a{
+	cursor: pointer;
+}
 
 /* 모바일 */
 .m_logo {
