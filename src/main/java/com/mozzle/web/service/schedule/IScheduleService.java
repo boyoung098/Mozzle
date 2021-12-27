@@ -30,7 +30,7 @@ public interface IScheduleService {
 	 * @param schedule_id
 	 * @return
 	 */
-	public ScheduleDto scheduledetail(int schedule_id);
+	public ScheduleDto scheduledetail(String schedule_id);
 	
 	
 	/**
@@ -55,5 +55,13 @@ public interface IScheduleService {
 	 * @return
 	 */
 	public int schedulecount(String schedule_id, String yyyyMMdd);
+	
+	/**
+	 * 일정에 리스트 보여주기
+	 * @param schedule_id
+	 * @param yyyyMM
+	 * @return
+	 */
+	public List<ScheduleDto> scheduleselectViewAll(String schedule_id, String yyyyMM);
 	
 }

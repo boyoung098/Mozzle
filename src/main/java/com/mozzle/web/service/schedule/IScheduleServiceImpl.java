@@ -45,8 +45,9 @@ public class IScheduleServiceImpl implements IScheduleService {
 		return dao.scheduleinsert(dto);
 	}
 
+	
 	@Override
-	public ScheduleDto scheduledetail(int schedule_id) {
+	public ScheduleDto scheduledetail(String schedule_id) {
 		// 일정상세보기 : select문, 결과: ScheduleDto, 파라미터 : schedule_id
 		return dao.scheduledetail(schedule_id);
 	}
@@ -69,6 +70,12 @@ public class IScheduleServiceImpl implements IScheduleService {
 		// 일정의 개수 조회 : select문, 파라미터 : schedule_id, yyyyMMdd
 		logger.info("schedulecount 개수(count) : {}", schedule_id, yyyyMMdd);
 		return dao.schedulecount(schedule_id, yyyyMMdd);
+	}
+
+	@Override
+	public List<ScheduleDto> scheduleselectViewAll(String schedule_id, String yyyyMM) {
+		logger.info("scheduleselectViewAll 리스트 : {}", schedule_id, yyyyMM);
+		return dao.scheduleselectViewAll(schedule_id, yyyyMM);
 	}
 
 	

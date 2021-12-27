@@ -48,7 +48,7 @@ public class IScheduleDaoImpl implements IScheduleDao {
 	}
 
 	@Override
-	public ScheduleDto scheduledetail(int schedule_id) {
+	public ScheduleDto scheduledetail(String schedule_id) {
 		// 일정상세보기 : select문, 결과: ScheduleDto, 파라미터 : schedule_id
 		ScheduleDto dto = session.selectOne(NS + "scheduledetail", schedule_id);
 		return dto;
@@ -82,5 +82,16 @@ public class IScheduleDaoImpl implements IScheduleDao {
 		int cnt = session.selectOne(NS + "schedulecount", map);
 		return cnt;
 	}
+
+	@Override
+	public List<ScheduleDto> scheduleselectViewAll(String schedule_id, String yyyyMM) {
+		logger.info("scheduleselectViewAll : {} ",schedule_id,yyyyMM);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("schedule_id", schedule_id);
+		map.put("yyyyMM", yyyyMM);
+		return session.selectList(NS + "scheduleselectViewAll", map);
+	}
+	
+	
 
 }

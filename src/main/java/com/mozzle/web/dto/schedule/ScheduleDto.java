@@ -17,7 +17,7 @@ public class ScheduleDto implements Serializable {
 	 * SCHEDULE_ID,MOZZLE_ID,WIRTER,TITLE,CONTENT,SCHEDULE_DATE,REGDATE,
 	 */
 	private String schedule_id;//(pk)
-	private int mozzle_id;//mozzle 아이디
+	private String mozzle_id;//mozzle 아이디
 	private String writer;//작성자(이름)
 	private String title;//일정제목
 	private String content;//일정내용
@@ -84,11 +84,11 @@ public class ScheduleDto implements Serializable {
 		this.schedule_id = schedule_id;
 	}
 
-	public int getMozzle_id() {
+	public String getMozzle_id() {
 		return mozzle_id;
 	}
 
-	public void setMozzle_id(int mozzle_id) {
+	public void setMozzle_id(String mozzle_id) {
 		this.mozzle_id = mozzle_id;
 	}
 
@@ -133,7 +133,7 @@ public class ScheduleDto implements Serializable {
 	}
 
 
-	public ScheduleDto(String schedule_id, int mozzle_id, String writer, String title, String content,
+	public ScheduleDto(String schedule_id, String mozzle_id, String writer, String title, String content,
 			String schedule_date, String regdate) {
 		super();
 		this.schedule_id = schedule_id;
