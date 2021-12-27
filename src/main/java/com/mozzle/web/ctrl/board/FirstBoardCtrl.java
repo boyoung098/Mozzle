@@ -55,20 +55,23 @@ public class FirstBoardCtrl {
 		
 		//임현경 - 비공개 모즐의 경우 멤버 확인
 		MozzleDto myMozzle = mService.selectMozzleByMozzleId(mozzle_id);
+		String user_id = (String) session.getAttribute("userId");
 		
-		if(myMozzle.getState().equals('N')) {
-			String user_id = (String) session.getAttribute("userId");
-			
-			Map<String, String> checkMap = new HashMap<String, String>();
-			checkMap.put("user_id", user_id);
-			checkMap.put("mozzle_id", mozzle_id);
-			
-			boolean memberCheck = mService.checkMember(checkMap);
-			logger.info("checkMember {}", memberCheck);
-			
-			model.addAttribute("memberCheck", memberCheck);
-		}
+		Map<String, String> checkInfoMap = new HashMap<String, String>();
+		checkInfoMap.put("user_id", user_id);
+		checkInfoMap.put("mozzle_id", mozzle_id);
 
+		if(user_id != null && !user_id.equals("")) {
+			boolean memberCheck = mService.checkMember(checkInfoMap);
+			logger.info("checkMember {}", memberCheck);
+				
+			model.addAttribute("memberCheck", memberCheck);
+			//임현경 - 모즐의 리더인지 확인
+			boolean LederCheck = mService.checkMozzleLeader(checkInfoMap);
+			logger.info("checkMozzleLeader {}", LederCheck);
+			
+			model.addAttribute("LederCheck", LederCheck);
+		} 
 		//김보영-모즐내회원리스트뿌리기
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("mozzle_id", mozzle_id);

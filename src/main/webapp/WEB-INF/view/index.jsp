@@ -41,6 +41,23 @@
 	height: 30px;
 	margin-top: 20%;
 }
+
+.arrow-left {
+	height: 90px;
+	width: 70px;
+	float: left;
+	margin-top: 90px;
+}
+
+
+.arrow-right {
+	height: 90px;
+	width: 70px;
+	float: right;
+	margin-top: 90px;
+
+}
+
 </style>
 <script>
 	window.onload = function() {
@@ -81,6 +98,7 @@
 		<section class="container mt-3" id="new-mozzle">
 			<h4>My 모즐!</h4>
 			<div class="swiper-container sw-new-mozzle">
+			
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 						<a id="mozzle-regist-button" href="./manage/registMozzleForm.do">
@@ -91,7 +109,8 @@
 							</div>
 						</a>
 					</div>
-					<c:forEach var="mozzle" items="${myMozzleList}">
+					<c:forEach var="mozzle" items="${myMozzleList}"  varStatus="vs"  begin="1" end="10">
+					<div style="display:none">${vs.index}</div>
 						<div class="swiper-slide">
 							<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
 									<c:when test="${not empty mozzle.image_saved}">
@@ -102,7 +121,6 @@
 													alt="img" />
 											</div>
 										</div>
-
 									</c:when>
 									<c:otherwise>
 										<img class="card"
@@ -118,15 +136,18 @@
 							</a>
 						</div>
 					</c:forEach>
+
 				</div>
 			</div>
+			
 		</section>
 	</c:if>
 	<section class="container mt-3 mozzle-container" id="new-mozzle">
 		<h4>새로 생긴 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle">
 			<div class="swiper-wrapper">
-				<c:forEach var="mozzle" items="${newMozzleList}">
+				<c:forEach var="mozzle" items="${newMozzleList}" varStatus="vs" begin="1" end="10">
+				<div style="display:none">${vs.index}</div>
 					<div class="swiper-slide">
 						<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
 								<c:when test="${not empty mozzle.image_saved}">
@@ -161,7 +182,8 @@
 		<h4>HOT 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle2">
 			<div class="swiper-wrapper">
-				<c:forEach var="mozzle" items="${hotMozzleList}">
+				<c:forEach var="mozzle" items="${hotMozzleList}" varStatus="vs"  begin="1" end="10">
+					<div style="display:none">${vs.index}</div>
 					<div class="swiper-slide">
 						<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
 								<c:when test="${not empty mozzle.image_saved}">

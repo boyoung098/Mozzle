@@ -72,10 +72,7 @@ $(document).ready(function() {
 	<div id="header"></div>
 	<section class="container mt-3" id="new-mozzle2">
 	<c:choose>
-		<c:when test="${memberCheck eq false && myMozzle.state == 'N'}">
-			<p>비공개 모즐입니다</p>
-		</c:when>
-		<c:otherwise>
+		<c:when test="${memberCheck eq true || myMozzle.state == 'Y'}">
 		<div class="row content">
 			<div class="col-sm-3 sidenav" id="fixed-info">
 			<div >
@@ -152,13 +149,23 @@ $(document).ready(function() {
 			<div class="col-sm-9">
 				<div class="mo-img">
 					<div id= "image-wrap">
+					<c:choose>
+					<c:when test="${!empty myMozzle.image_saved}">
 						<img id="cover-image" src="<%=request.getContextPath()%>/resources/upload/${myMozzle.image_saved}"
-						alt="메인" />
+							alt="메인" />	
+					</c:when>
+					<c:otherwise>
+						<img id="cover-image" src="<%=request.getContextPath()%>/resources/upload/basic.png"
+							alt="메인" />	
+					</c:otherwise>
+					</c:choose>
 					</div>
 					<div class="mo-text">
 						<div class="mozzle-title-icon">
 							<h4>${myMozzle.mozzle_name}</h4>
-							<a href="./manage/modifyMozzleForm.do?mozzle_id=${myMozzle.mozzle_id}"><i class="xi-cog  xi-x"></i></a>
+							<c:if test="${LederCheck eq true}">
+								<a href="./manage/modifyMozzleForm.do?mozzle_id=${myMozzle.mozzle_id}"><i class="xi-cog  xi-x"></i></a>
+							</c:if>						
 						</div>
 						<p>${myMozzle.mozzle_intro}
 							 <c:if test="${empty mozzleUserdto}">
@@ -209,6 +216,9 @@ $(document).ready(function() {
 			<%@include file= "/WEB-INF/view/mozzle/mozzleJoinForm.jsp"  %>
 			<div id="load_mozzle" class="col-sm-9 clear mt-3"></div>
 		</div>
+		</c:when>
+		<c:otherwise>
+			<p>비공개 모즐입니다</p>
 		</c:otherwise>
 		</c:choose>
 	</section>

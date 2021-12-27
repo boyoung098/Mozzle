@@ -32,4 +32,8 @@ public interface IManageService {
 	public String selectMozzleIdByMozzleName(String mozzleName);
 	
 	public boolean checkMember(Map<String, String> map);
+	
+	public boolean checkMozzleLeader(Map<String, String> map);
+	
+	public boolean deleteMozzle(String mozzle_id);
 }

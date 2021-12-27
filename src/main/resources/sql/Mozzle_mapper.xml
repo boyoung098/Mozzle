@@ -31,7 +31,7 @@
 	</select>	
 	
 	<update id="updateMozzle" parameterType="mDto">
-		UPDATE ADMIN.MOZZLE
+		UPDATE MOZZLE
 			SET MOZZLE_NAME=#{mozzle_name}, 
 			MOZZLE_INTRO=#{mozzle_intro},
 			<if test="image_origin != null"> 
@@ -99,8 +99,9 @@
 				m.IMAGE_ORIGIN IMAGE_ORIGIN, m.IMAGE_SAVED IMAGE_SAVED,  
 				m.STATE STATE
 		FROM MOZZLE m RIGHT JOIN USER_MOZZLE um
-				ON m.MOZZLE_ID = um.MOZZLE_ID
+				ON m.MOZZLE_ID = um.MOZZLE_ID 
 				WHERE um.AUTH_CODE IN ('1', '2'))
+		WHERE STATE = 'Y'
 		GROUP BY MOZZLE_ID,  MOZZLE_NAME, 
 				MOZZLE_INTRO, CREATE_DATE, 
 				IMAGE_ORIGIN, IMAGE_SAVED, STATE
@@ -202,11 +203,28 @@
 	</select>
 	
 	<!--리더 여부 확인-->
-	<select id="checkLeader" parameterType="java.util.Map" resultType="java.lang.Integer">
+	<select id="checkMozzleLeader" parameterType="java.util.Map" resultType="java.lang.Integer">
 		SELECT COUNT(*) 
 			FROM USER_MOZZLE um 
 			WHERE USER_ID = #{user_id}
 			AND MOZZLE_ID = #{mozzle_id}
 			AND AUTH_CODE = '1'
 	</select>
+	
+	<delete id="delflagMozzle">
+		UPDATE MOZZLE
+			SET DELFLAG='Y' 
+			WHERE MOZZLE_ID=#{mozzle_id}
+	</delete>
+	
+	<delete id="deleteMozzleUser">
+		DELETE FROM USER_MOZZLE
+			WHERE MOZZLE_ID=#{mozzle_id}
+	</delete>
+	
+	<delete id="deleteMozzlePost">
+		UPDATE MOZZLE_POST 
+			SET DELFLAG='Y' 
+			WHERE MOZZLE_ID=#{mozzle_id}
+	</delete>
 </mapper>
