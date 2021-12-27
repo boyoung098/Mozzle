@@ -5,11 +5,9 @@
 	<!-- 일정리스트 -->
 	<select id="scheduleselectAll" parameterType="java.util.Map"
 		resultType="ScheduleDto">
-SELECT SCHEDULE_ID ,MOZZLE_ID ,WRITER ,TITLE ,CONTENT
-      ,SCHEDULE_DATE ,REGDATE
-      FROM SCHEDULES s
-      WHERE MOZZLE_ID =#{mozzle_id} AND SUBSTR(SCHEDULE_DATE,1,8) = #{yyyyMMdd}
-      ORDER BY SCHEDULE_DATE
+		SELECT SCHEDULE_ID ,MOZZLE_ID ,WRITER ,TITLE ,CONTENT
+		,SCHEDULE_DATE ,REGDATE
+		FROM SCHEDULES s
 	</select>
 
 	<!-- 일정추가 -->
