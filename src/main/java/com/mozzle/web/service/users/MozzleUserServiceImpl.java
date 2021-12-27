@@ -76,4 +76,16 @@ public class MozzleUserServiceImpl implements IMozzleUserService {
 		return mozzleUserDao.selectListadminMozzleUser(map);
 	}
 
+	@Override
+	public MozzleUserDto selectmozzleUserLeader(String mozzle_id) {
+		
+		return mozzleUserDao.selectmozzleUserLeader(mozzle_id);
+	}
+
+	@Override
+	public int deleteMozzleUser(MozzleUserDto dto) {
+		// TODO Auto-generated method stub
+		return mozzleUserDao.deleteMozzleUser(dto);
+	}
+
 }

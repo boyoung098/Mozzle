@@ -1,11 +1,10 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%-- <div class="input-post">
+<div class="input-post">
 	<label for="comment">게시글을 작성해주세요</label>
 	<textarea class="form-control" name="mozzle-content"
 		id="mozzle-content" rows="10" cols="68"></textarea>
@@ -17,10 +16,6 @@
 <div class="mt-3">
 	<div class="input-group input-search mt-2" style="width:200px;">
 		<form action="./searchMozzlePost.do" method="post" id="frm_search">
-<div>
-	<div class="input-group input-search mt-2">
-		<form method="post" id="frm_search"
-			onsubmit="javascript:retrun false;">
 			<input type="text" class="form-control" name="keyword" id="keyword"
 				placeholder="게시글 검색"> <span class="input-group-btn">
 			<input type="hidden" name="mozzle_id"  value="${mozzle_id}">
@@ -31,7 +26,7 @@
 		</form>
 	</div>
 </div>
- --%>
+
 <div class="board-top mt-2">
 	<select class="board-sel selectbox">
 		<option value="new1">최신순</option>
@@ -53,7 +48,7 @@
 				<div class="col-sm-2">
 					<div class="board-cion">
 						<div>
-							<a onclick="deleteReply(${post.post_id})">삭제</a>&nbsp;| <a href="#">수정</a>&nbsp;| <a href="#">신고</a>
+							<a onclick="deleteReply(${post.post_id})">삭제</a>&nbsp;| <a href="#">수정</a>&nbsp;| <a href="#" class="reportclick">신고 <input type="hidden" value="${post.post_id}" class="post_id"></a>
 						</div>
 					</div>
 				</div>
@@ -74,9 +69,9 @@
 						<br><br>
 						<div style="width: 90%;" >
 							<input type="text" class="form-control" name="first-reply-content"
-								id="first-reply-content" style="width: 100%">
+								id="first-reply-content-${post.refer}" style="width: 100%">
 						</div>
-						<button class="btn btn-default" onclick="submitFisrtReply('${post.post_id}', '${post.refer }')">댓글작성</button>
+						<button class="btn btn-default" onclick="submitFisrtReply('${post.post_id}', '${post.refer}')">댓글작성</button>
 					</div>
 				</div>
 			</div>
@@ -85,39 +80,10 @@
 </div>
 
 <script>
-
-$.ajax({
-	url : "./replyShow.do?refer=" + obj,
-	type : "post",
-	success : function(data) {
-
-		if (data.isc == true) {
-			console.log("성공");
-			var replyList = data.replyList;
-			var replyListBox = document.getElementById("reply-list-"
-						+ obj);
-		
-			if (replyList != null) {
-				console.log("성공2");
-				for (var i = 0; i < replyList.lenght; i++) {
-						
-					replyListBox.append("댓글");
-				}
-			} else {
-				console.log("결국 실패");
-				replyListBox.append("등록된 댓글이 없습니다");
-			}
-		}
-	}
-})
-};
-
-
 $( document ).ready(function() {
    flag01 = true;
    flag02 = true;
 });
-
 function replyShow(obj) {
 	
 	if(flag01 == true) {
@@ -211,7 +177,6 @@ function replyShow(obj) {
 		}
 	});
 };
-
 function showReplyInput(obj) {
 	if(flag02 == true) {
 		document.getElementById("reply-input-"+ obj).style.display = "";
@@ -222,7 +187,6 @@ function showReplyInput(obj) {
 		replyShow(obj);
 	}
 }
-
 function submitReply(obj, refer) {
 	
 	var content = document.getElementById("reply-"+ obj).value;
@@ -246,9 +210,8 @@ function submitReply(obj, refer) {
 		}	
 	})
 }
-
 function submitFisrtReply(obj, refer) {
-	var content = document.getElementById("first-reply-content").value;
+	var content = document.getElementById("first-reply-content-" + refer).value;
 	console.log(content);
 	var mozzle_id = document.getElementById("save-info-mozzeId").value;
 	console.log(mozzle_id)
@@ -266,11 +229,11 @@ function submitFisrtReply(obj, refer) {
 				alert("등록되었습니다");
 				flag01 = true;
 				replyShow(refer);
+				document.getElementById("first-reply-content-" + refer).value = "";
 			}
 		}	
 	})
 }
-
 function deleteReply(obj, refer) {
 	
 	var url = "./deleteMozzlePost.do?post_id=" + obj;
@@ -287,7 +250,6 @@ function deleteReply(obj, refer) {
 		}
 	})
 }
-
 function insertMozzlePost() {
 	
 	var content = $("#mozzle-content").val();
@@ -311,6 +273,40 @@ function insertMozzlePost() {
 	})
 	
 }
+
+
+/* 김보영 */
+	
+	$(".reportclick").click(function(e){
+		e.preventDefault();
+		var postid =($(this).children("input").eq(0).val());
+		
+		$.ajax({
+			type:"get",
+			url:"./checkPostId.do",
+			data:"post_id="+postid,
+			success:function(msg){
+				if(msg.count=="true"){
+					console.log("true");
+					console.log(postid);
+					var url = './reportPostForm.do?post_id='+postid;
+					var title = '글 신고하기';
+					var attr = 'width = 450px, height = 550px';
+					window.open(url,title,attr);
+					
+				} else{
+					swal("신고","이미 신고접수가 되었습니다.");
+				}
+				},
+			error : function(){
+					alert("문제가 발생하였습니다.");
+				}
+			
+		})
+		
+	
+	});
+
 
 </script>
 

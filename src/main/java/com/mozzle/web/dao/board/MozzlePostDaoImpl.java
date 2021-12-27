@@ -1,6 +1,7 @@
 package com.mozzle.web.dao.board;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -70,6 +71,16 @@ public class MozzlePostDaoImpl implements IMozzlePostDao {
 	public int deleteMozzlePost(String post_id) {
 		logger.info("deleteMozzlePost {}", post_id);
 		return session.update(NS + "deleteMozzlePost", post_id);
+	}
+
+	@Override
+	public int deleteadminPosts(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return session.update(NS + "deleteadminPosts", map);
+  }
+  @Override
+	public List<MozzlePostDto> selectMyPost(Map<String, String> map) {
+		return session.selectList(NS + "selectMyPost", map);
 	}
 
 }

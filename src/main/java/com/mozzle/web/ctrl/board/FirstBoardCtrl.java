@@ -51,8 +51,24 @@ public class FirstBoardCtrl {
 	
 	//처음에 모즐클릭햇을때 뜨는화면에 필요한 값들을 보내준다.
 	@RequestMapping(value="/firstmozzle.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String firstmozzle(Model model, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req, @ModelAttribute("moveTo") String moveTo) {
+	public String firstmozzle(Model model, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req, @ModelAttribute("moveTo") String moveTo, HttpSession session) {
 		
+		//임현경 - 비공개 모즐의 경우 멤버 확인
+		MozzleDto myMozzle = mService.selectMozzleByMozzleId(mozzle_id);
+		
+		if(myMozzle.getState().equals('N')) {
+			String user_id = (String) session.getAttribute("userId");
+			
+			Map<String, String> checkMap = new HashMap<String, String>();
+			checkMap.put("user_id", user_id);
+			checkMap.put("mozzle_id", mozzle_id);
+			
+			boolean memberCheck = mService.checkMember(checkMap);
+			logger.info("checkMember {}", memberCheck);
+			
+			model.addAttribute("memberCheck", memberCheck);
+		}
+
 		//김보영-모즐내회원리스트뿌리기
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("mozzle_id", mozzle_id);
@@ -61,7 +77,7 @@ public class FirstBoardCtrl {
 		//model.addAttribute("mozzle_id", mozzle_id);
 		
 		logger.info("moveTo의 값은==============={}",moveTo);
-		
+		logger.info("mozzle_id의 값은==============={}",mozzle_id);
 		//이미지경로 뿌리기
 		//String imagepath = "C:eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage";
 		//C:home\images\study.png
@@ -71,8 +87,6 @@ public class FirstBoardCtrl {
 	//끝
 		
 		//임현경 - mozzle 정보 + 카테고리 정보
-		String mozzle= req.getParameter(mozzle_id);
-		MozzleDto myMozzle = mService.selectMozzleByMozzleId(mozzle_id);
 		
 		String create_date_origin = myMozzle.getCreate_date();
 		int idx = create_date_origin.indexOf(" ");
@@ -96,6 +110,10 @@ public class FirstBoardCtrl {
 			} else {
 				
 			}
+			
+			//김보영 모즐운영자정보
+			MozzleUserDto mozzleLeader = mozzleUserService.selectmozzleUserLeader(mozzle_id);
+			model.addAttribute("mozzleLeader",mozzleLeader);
 //		
 //		
 //		if(mozzleUserdto !=null) {

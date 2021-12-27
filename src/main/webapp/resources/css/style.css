@@ -28,8 +28,9 @@
     text-overflow: ellipsis;
 }
 .intput-width {
-    width:280px;
+    width:228px;
     position: relative;
+    margin: 20px auto;
 }
 .search-btn {
     height: 35px;
@@ -278,6 +279,12 @@ select:focus {
     overflow-y: scroll;
     margin-top: 15px;
 }
+.mozzle-member ul li {
+	border:1px solid #ddd;
+}
+.mozzle-member ul li button{
+	margin-left:10px;
+}
 .new-photo ul{
     display: flex;
     flex-wrap: wrap;
@@ -447,9 +454,54 @@ select:focus {
 	position: absolute;
 	right: 50px;
 	z-index: 99;
+	top: 5px;
+}
+
+.select_bar {
+	padding-top: 17px;
+}
+
+.container h3 {
+	margin-top: 40px;
+	font-weight: 600;
+}
+
+.swiper-slide .mozzle_title {
+	font-size: 16px;
+	padding-top: 10px;
+	font-weight: 700;
+}
+
+.swiper-slide p {
+	width: 90%;
+	font-size: 13px;
+	margin-bottom: 5px;
+}
+
+input:focus, select:focus {
+	outline: transparent !important;
+}
+
+#search-btn {
+	border: none;
+	background-color: rgba(0, 0, 0, 0);
 }
 
 
+.dropdown-menu {
+	width: 350px;
+	left: 50% !important;
+	right: auto !important;
+	transform: translate(-50%, 0);
+}
+
+
+.notice-list a{
+	min-height: 80px;
+}
+.notice-list a.checked{
+	background-color: #eee;
+}
 
 
 
@@ -478,13 +530,14 @@ select:focus {
     display: none;
 }
 .sidebar_menu{
-display: none;
+	display: none;
     width: 50%;
     height: 100%;
     background: #e98282;
     position: absolute;
     top:0;
     left: -50%;
+    z-index: 9;
     
 }
 .close_btn{
@@ -505,8 +558,20 @@ display: none;
     color: #fff;
     text-decoration: none;
 }
-
-
+.mobile_my{
+	display: flex;
+    justify-content: space-evenly;
+}
+.mobile_my li a{
+	color:#fff;
+}
+.mobile_my li a:hover{
+	background: #e98282;
+}
+.table_b {
+	border-top: 1px solid #ddd;
+    margin-top: 10px;
+}
 
 
 

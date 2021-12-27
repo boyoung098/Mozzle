@@ -146,7 +146,6 @@ li {
                 </div>
             </section>
             <% String post_id = request.getParameter("post_id");  %>
-            <%=post_id%>
             <script type="text/javascript">
           
             

@@ -106,5 +106,12 @@ public class MozzleUserDaoImpl implements IMozzleUserDao {
 		return list;
 	}
 
+
+	@Override
+	public MozzleUserDto selectmozzleUserLeader(String mozzle_id) {
+		// TODO Auto-generated method stub
+		return session.selectOne(NS + "selectmozzleUserLeader", mozzle_id);
+	}
+
 	
 }

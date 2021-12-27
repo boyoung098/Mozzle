@@ -1,6 +1,7 @@
 package com.mozzle.web.service.manage;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mozzle.web.dto.manage.MozzleDto;
 
@@ -30,5 +31,5 @@ public interface IManageService {
 	
 	public String selectMozzleIdByMozzleName(String mozzleName);
 	
-	public int checkMember(String user_id);
+	public boolean checkMember(Map<String, String> map);
 }
