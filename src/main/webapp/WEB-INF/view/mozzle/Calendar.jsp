@@ -9,6 +9,9 @@
 <title>일정관리</title>
 <link rel="stylesheet" type="text/css" href="./resources/css/Calendar.css">
 </head>
+<script type="text/javascript">
+	
+</script>
 <%
 	//달력의 날짜를 바꾸기 위해 전달된 year와 month 파라미터를 받는다.
 	String paramYear = request.getParameter("year");
@@ -75,8 +78,8 @@
 						%>
 						<td>
 							<a style="color:<%=ScheduleUtil.fontColor(dayOfWeek, i) %>;" href="scheduleselectAll.do?year=<%=year%>&month=<%=month%>&date=<%=i%>"><%=i%></a>
-							<a href="scheduleinsert.do?year=<%=year%>&month=<%=month%>&date=<%=i%>">
-								<img src="./resources/css/imgaes/schedule/scheduleadd.png" alt="일정추가"/>
+							<a href="scheduleinsertForm.do?year=<%=year%>&month=<%=month%>&date=<%=i%>&mozzle_id=${mozzle_id}">
+								<img src="./resources/css/imgaes/schedule/scheduleadd.png" alt="일정추가" id="sinsert"/>
 							</a>
 						</td>
 						<%

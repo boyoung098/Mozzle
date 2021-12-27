@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mozzle.web.dao.schedule.IScheduleDao;
 import com.mozzle.web.dto.schedule.ScheduleDto;
-import com.mozzle.web.dto.schedule.ScheduleLocationInfoDto;
+//import com.mozzle.web.dto.schedule.ScheduleLocationInfoDto;
 
 /**
  * Schedule
