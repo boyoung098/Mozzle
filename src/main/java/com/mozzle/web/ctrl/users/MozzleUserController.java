@@ -372,109 +372,243 @@ public class MozzleUserController {
 		return returnmap;
 	}
 	
-	//유저가 모즐내 업데이트할때
-		@ResponseBody
-		@PostMapping(value = "/mozzleUpdate.do")
-		public String mozzleUserUpdate(HttpServletRequest req, Model model, MozzleUserDto mozzleUserDto,
-											BindingResult result, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletResponse resp) throws IOException {
-			
-			
-			
-			MultipartFile file = mozzleUserDto.getFile();
-			System.out.println("*************file:"+file); 
-			//org.springframework.web.multipart.commons.CommonsMultipartFile@515a98d6
-			
-			String fileName = file.getOriginalFilename();
-			if(fileName!="") {
-				mozzleUserDto.setImage_origin(fileName);
-				String image_saved = UUID.randomUUID().toString();
-//				int point = fileName.indexOf(".");
-//				String filepackager = fileName.substring(point);
-				String finalimage = image_saved + ".png";
-				mozzleUserDto.setImage_saved(finalimage);
+	//유저가 모즐내 업데이트할때(처음)
+//		@ResponseBody
+//		@PostMapping(value = "/mozzleUpdate.do")
+//		public String mozzleUserUpdate(HttpServletRequest req, Model model, MozzleUserDto mozzleUserDto,
+//											BindingResult result, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletResponse resp) throws IOException {
+//			
+//			
+//			
+//			MultipartFile file = mozzleUserDto.getFile();
+//			System.out.println("*************file:"+file); 
+//			//org.springframework.web.multipart.commons.CommonsMultipartFile@515a98d6
+//			
+//			String fileName = file.getOriginalFilename();
+//			if(fileName!="") {
+//				mozzleUserDto.setImage_origin(fileName);
+//				String image_saved = UUID.randomUUID().toString();
+////				int point = fileName.indexOf(".");
+////				String filepackager = fileName.substring(point);
+//				String finalimage = image_saved + ".png";
+//				mozzleUserDto.setImage_saved(finalimage);
+//				
+//				
+//				//파일업로드절차=============================================
+//				InputStream inputStream = null;
+//				OutputStream outputStream = null;
+//				
+//				String path = null;
+//				
+//				try {
+//					inputStream = file.getInputStream();
+//					System.out.println("inputStream ======="+inputStream);
+//					//java.io.FileInputStream@679bb012
+//					
+//					//배포전 절대경로 path
+//					//path = req.getServletPath();
+//					//path = req.getContextPath(); MozzleProject
+//					
+//					//System.out.println(path);
+//					
+//					//배포할때 아래 방법쓰기
+//					path = WebUtils.getRealPath(req.getSession().getServletContext(),"/storage");
+//					System.out.println("path ======"+path); 
+//					//C:\eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage
+//					
+//					
+//					//만약 저장위치가 없다
+//					File storage = new File(path);
+//					if(!storage.exists()) {
+//						storage.mkdirs();
+//					}
+//					
+//					//저장할 파일이 없다면 만들어주고 override함
+//					File newfile = new File(path+"/"+finalimage);
+//					if(!newfile.exists()) {
+//						newfile.createNewFile();
+//					}
+//					
+//					//파일을 쓸 위치를 지정해줌
+//					outputStream = new FileOutputStream(newfile);
+//					
+//					//파일을 써줌 (우리가 가져온 파일은 0101)
+//					int read = 0;
+//					byte[] n = new byte[(int)file.getSize()];
+//					while((read = inputStream.read(n))!= -1) {
+//						outputStream.write(n,0,read);
+//					}
+//					
+//					
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} finally {
+//					try {
+//						inputStream.close();
+//						outputStream.close();
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//				//파일업로드절차=============================================
+//				
+//			}
+//			System.out.println("************fileName:"+fileName); //Capture001.png
+//			
+//			
+//			String userId = (String)req.getSession().getAttribute("userId");
+//			mozzleUserDto.setUser_id(userId);
+//			System.out.println("====mozzleUserDto수정!!!!:"+mozzleUserDto.toString());
+//			int resultcnt = mozzleUserService.updateMozzleUser(mozzleUserDto);
+//			
+//			String msg =null;
+//			
+//			if(resultcnt == 0) {
+//				msg="nochange";
+//				
+//			} else {
+//				msg ="change";
+//			}
+//			
+//			
+//			return msg;
+//		}
+	
+	
+	
+	
+	
+	
+	
+	//유저가 모즐내 업데이트할때(수정본)
+			@ResponseBody
+			@PostMapping(value = "/mozzleUpdate.do")
+			public Map<String,MozzleUserDto > mozzleUserUpdate(HttpServletRequest req, Model model, MozzleUserDto mozzleUserDto,
+												BindingResult result, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletResponse resp) throws IOException {
 				
 				
-				//파일업로드절차=============================================
-				InputStream inputStream = null;
-				OutputStream outputStream = null;
+				MultipartFile file = mozzleUserDto.getFile();
+				System.out.println("*************file:"+file); 
+				//org.springframework.web.multipart.commons.CommonsMultipartFile@515a98d6
 				
-				String path = null;
-				
-				try {
-					inputStream = file.getInputStream();
-					System.out.println("inputStream ======="+inputStream);
-					//java.io.FileInputStream@679bb012
-					
-					//배포전 절대경로 path
-					//path = req.getServletPath();
-					//path = req.getContextPath(); MozzleProject
-					
-					//System.out.println(path);
-					
-					//배포할때 아래 방법쓰기
-					path = WebUtils.getRealPath(req.getSession().getServletContext(),"/storage");
-					System.out.println("path ======"+path); 
-					//C:\eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage
+				String fileName = file.getOriginalFilename();
+				if(fileName!="") {
+					mozzleUserDto.setImage_origin(fileName);
+					String image_saved = UUID.randomUUID().toString();
+//					int point = fileName.indexOf(".");
+//					String filepackager = fileName.substring(point);
+					String finalimage = image_saved + ".png";
+					mozzleUserDto.setImage_saved(finalimage);
 					
 					
-					//만약 저장위치가 없다
-					File storage = new File(path);
-					if(!storage.exists()) {
-						storage.mkdirs();
-					}
+					//파일업로드절차=============================================
+					InputStream inputStream = null;
+					OutputStream outputStream = null;
 					
-					//저장할 파일이 없다면 만들어주고 override함
-					File newfile = new File(path+"/"+finalimage);
-					if(!newfile.exists()) {
-						newfile.createNewFile();
-					}
+					String path = null;
 					
-					//파일을 쓸 위치를 지정해줌
-					outputStream = new FileOutputStream(newfile);
-					
-					//파일을 써줌 (우리가 가져온 파일은 0101)
-					int read = 0;
-					byte[] n = new byte[(int)file.getSize()];
-					while((read = inputStream.read(n))!= -1) {
-						outputStream.write(n,0,read);
-					}
-					
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
 					try {
-						inputStream.close();
-						outputStream.close();
+						inputStream = file.getInputStream();
+						System.out.println("inputStream ======="+inputStream);
+						//java.io.FileInputStream@679bb012
+						
+						//배포전 절대경로 path
+						//path = req.getServletPath();
+						//path = req.getContextPath(); MozzleProject
+						
+						//System.out.println(path);
+						
+						//배포할때 아래 방법쓰기
+						path = WebUtils.getRealPath(req.getSession().getServletContext(),"/storage");
+						System.out.println("path ======"+path); 
+						//C:\eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage
+						
+						
+						//만약 저장위치가 없다
+						File storage = new File(path);
+						if(!storage.exists()) {
+							storage.mkdirs();
+						}
+						
+						//저장할 파일이 없다면 만들어주고 override함
+						File newfile = new File(path+"/"+finalimage);
+						if(!newfile.exists()) {
+							newfile.createNewFile();
+						}
+						
+						//파일을 쓸 위치를 지정해줌
+						outputStream = new FileOutputStream(newfile);
+						
+						//파일을 써줌 (우리가 가져온 파일은 0101)
+						int read = 0;
+						byte[] n = new byte[(int)file.getSize()];
+						while((read = inputStream.read(n))!= -1) {
+							outputStream.write(n,0,read);
+						}
+						
+						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+					} finally {
+						try {
+							inputStream.close();
+							outputStream.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
+					//파일업로드절차=============================================
+					
 				}
-				//파일업로드절차=============================================
+				System.out.println("************fileName:"+fileName); //Capture001.png
 				
-			}
-			System.out.println("************fileName:"+fileName); //Capture001.png
-			
-			
-			String userId = (String)req.getSession().getAttribute("userId");
-			mozzleUserDto.setUser_id(userId);
-			System.out.println("====mozzleUserDto수정!!!!:"+mozzleUserDto.toString());
-			int resultcnt = mozzleUserService.updateMozzleUser(mozzleUserDto);
-			
-			String msg =null;
-			
-			if(resultcnt == 0) {
-				msg="nochange";
 				
-			} else {
-				msg ="change";
+				String userId = (String)req.getSession().getAttribute("userId");
+				mozzleUserDto.setUser_id(userId);
+				System.out.println("====mozzleUserDto수정!!!!:"+mozzleUserDto.toString());
+				int resultcnt = mozzleUserService.updateMozzleUser(mozzleUserDto);
+				
+//				String msg =null;
+//				
+//				if(resultcnt == 0) {
+//					msg="nochange";
+//					
+//				} else {
+//					msg ="change";
+//				}
+				
+				//mozzle_id와 userid로 회원정보찾기
+				Map<String, String> userinfo = new HashMap<String, String>();
+				userinfo.put("user_id", userId);
+				userinfo.put("mozzle_id", mozzle_id);
+				MozzleUserDto userdtoInfo = mozzleUserService.selectMozzleUserByUserId(userinfo);
+				
+				
+				Map<String,MozzleUserDto > mapChangedUser = new HashMap<String, MozzleUserDto>();
+				mapChangedUser.put("userdtoInfo", userdtoInfo);
+				
+				log.info("===========수정한 멤버의 dto{}",userdtoInfo);
+				
+				return mapChangedUser;
 			}
-			
-			
-			return msg;
-		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//마이페이지 폼 띄울때
