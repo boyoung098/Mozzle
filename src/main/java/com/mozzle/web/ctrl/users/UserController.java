@@ -73,7 +73,7 @@ public class UserController {
 		System.out.println(dto.getUser_pw().isEmpty());
 		service.updateUser(dto);
 		return "redirect:/";
-	}
+	} 
 	
 	@RequestMapping(value="/myThread.do", method=RequestMethod.GET)
 	public String myThread(HttpServletRequest req) {
