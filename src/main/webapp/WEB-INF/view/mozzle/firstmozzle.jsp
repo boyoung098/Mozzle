@@ -89,21 +89,20 @@ $(document).ready(function() {
 			  <div id="home" class="tab-pane fade in active" style="text-align: center;">
 			    <div style=" display: inline-block;">
 					<c:if test="${mozzleLeader.image_saved == null}">
-						<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;">
+						<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;" class="leaderinfoimg">
 						</c:if>
 						<c:if test="${mozzleLeader.image_saved != null}">
-						<img src="<%=request.getContextPath()%>/storage/${mozzleUserdto.image_saved}" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;">
+						<img src="<%=request.getContextPath()%>/storage/${mozzleUserdto.image_saved}" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;" class="leaderinfoimg">
 						</c:if>
 					</div>
 					<div class="userinfodiv">
-				<h5>닉네임 : ${mozzleLeader.nickname}</h5>
+				<h5 id="leadernickname">닉네임 : ${mozzleLeader.nickname}</h5>
 					<fmt:parseDate var="leaderjoindate" value="${mozzleLeader.joined_date}" pattern="yyyy-MM-dd"/>
 					<fmt:formatDate var="leaderjoindate2" value="${leaderjoindate}" pattern="yyyy-MM-dd"/>
 					<h5>Email : ${mozzleLeader.email}</h5>
 					
 					<c:if test="${mozzleLeader.user_id == mozzleUserdto.user_id}">
 					<h5>가입일자 : ${leaderjoindate2}</h5>
-					<h5>생일공개 : ${mozzleLeader.birthday_show}</h5>
 					<h5>글 작성수 : ${mozzleUserdto.postcnt}</h5>
 					<button class="join-btn" type="button" id="btnupdatemy" style="width: 75px;">정보수정</button>
 					</c:if>
@@ -115,25 +114,21 @@ $(document).ready(function() {
 			  <div id="menu1" class="tab-pane fade" style="text-align: center;">
 			    <div style=" display: inline-block;">
 						<c:if test="${mozzleUserdto.image_saved == null}">
-						<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;">
+						<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;" class="memberinfoimg">
 						</c:if>
 						<c:if test="${mozzleUserdto.image_saved != null}">
-						<img src="<%=request.getContextPath()%>/storage/${mozzleUserdto.image_saved}" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;">
+						<img src="<%=request.getContextPath()%>/storage/${mozzleUserdto.image_saved}" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;" class="memberinfoimg">
 						</c:if>
 				</div>
 				
 				<div class="userinfodiv">
-				<h5>닉네임 : ${mozzleUserdto.nickname}</h5>
-					<c:if test="${mozzleUserdto.auth_code == '1'}">
-					<h5>등급 : 운영자</h5>
-					</c:if>
+				<h5  id="membernickname">닉네임 : ${mozzleUserdto.nickname}</h5>
 					<c:if test="${mozzleUserdto.auth_code == '2'}">
 					<h5>등급 : 일반회원</h5>
 					</c:if>
 					<fmt:parseDate var="userjoindate" value="${mozzleUserdto.joined_date}" pattern="yyyy-MM-dd"/>
 					<fmt:formatDate var="userjoindate2" value="${userjoindate}" pattern="yyyy-MM-dd"/>
 					<h5>가입일자 : ${userjoindate2}</h5>
-					<h5>생일공개 : ${mozzleUserdto.birthday_show}</h5>
 					<h5>글 작성수 : ${mozzleUserdto.postcnt}</h5>
 				</div>
 				

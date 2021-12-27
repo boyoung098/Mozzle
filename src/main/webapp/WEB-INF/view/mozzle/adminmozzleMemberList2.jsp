@@ -7,7 +7,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<style type="text/css">
+.adminListbtn{
+	display: inline-block;
+	
+}
+</style>
 </head>
 <body>
 <!-- **************************멤버리스트뿌리는곳*************************  -->
@@ -15,8 +20,8 @@
 				<div class="mozzle-member">
 					<div class="member-title">
 						<div class="member-box">
-							<h4>멤버</h4>
-							<span> ${fn:length(mozzleuserList)} </span>
+							<!-- <h4>멤버</h4> -->
+							<%-- <span> ${fn:length(mozzleuserList)} </span> --%>
 						</div>
 						<c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto == '2'}">
 						</c:if>
@@ -41,7 +46,7 @@
 						 
 						<c:forEach var="mozzleUser" items="${mozzleuserList}">
 						
-							<li class="${mozzleUser.nickname}li"  style="margin-bottom: 10px; ">
+							<li class="${mozzleUser.nickname}li"  style="margin-bottom: 10px;">
 							<div class="meeber-thumbnail" style="cursor: pointer;">
 							<%-- <input type="hidden" value="${mozzleUser.nickname}" class="unserinfo">
 							<input type="hidden" value="${mozzleUser.joined_date}" class="unserinfo">
@@ -64,18 +69,19 @@
 							<input type="hidden" value="${mozzleUser.auth_code}" class="unserinfo">
 							<fmt:parseDate var="dateFmt" value="${mozzleUser.joined_date}" pattern="yyyy-MM-dd"/>
 							<fmt:formatDate var="dateFmt2" value="${dateFmt}" pattern="yyyy-MM-dd"/>
-							</div> <span>${mozzleUser.nickname}</span>
+							</div> <span style="display: block;">${mozzleUser.nickname}</span>
+							<div class="adminListbtn" style="width: 100%">
 							<c:if test="${mozzleUser.auth_code == '2'}">
-							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 80px; margin-right: 10px;" value="${mozzleUser.user_id}" name="adminauthupdate">권한넘기기</button>
+							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 80px; margin-right: 10px; float: right;" value="${mozzleUser.user_id}" name="adminauthupdate">권한넘기기</button>
 							</c:if>
 							<c:if test="${mozzleUser.auth_code == '2'}">
-							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 60px;" value="${mozzleUser.user_id}" name="adminout">강퇴</button>
+							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 60px; float: right;" value="${mozzleUser.user_id}" name="adminout">강퇴</button>
 							<%-- <button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 60px;" value="${mozzleUser.user_id}" name="adminout2">강퇴2</button> --%>
 							</c:if>
 							<c:if test="${mozzleUser.auth_code == '3'}">
-							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 60px;" value="${mozzleUser.user_id}" name="adminin">복구</button>
+							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 60px; float: right;" value="${mozzleUser.user_id}" name="adminin">복구</button>
 							</c:if>
-							
+							</div>
 						</li>
 						
 						</c:forEach>

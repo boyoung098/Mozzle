@@ -83,7 +83,7 @@
 			<br>
 			
 			<div class="register-input" id="public-choice">
-				<div id="text-box">
+				<div id="text-box" style="display: none;">
 					<h4>생일 공개여부</h4>
 					<label class="radio-inline">
 				      <input type="radio" name="birthday_show" checked value="Y">예

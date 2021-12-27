@@ -88,7 +88,7 @@
 			<br>
 			
 			<div class="register-input" id="public-choice">
-				<div id="text-box">
+				<div id="text-box" style="display: none;">
 					<h4>생일 공개여부</h4>
 					<label class="radio-inline">
 				      <input type="radio" class="birthday_show" name="birthday_show" value="Y">예
@@ -198,10 +198,37 @@
      				url : "./mozzleUpdate.do?mozzle_id="+mozzle_id,
      				type : "post",
      				data : formData,
+     				dataType : "JSON",
      				async : true,
-     				success : function(msg){
+     				success : function(mapChangedUser){
      					swal("수정이 완료되었습니다.");
      			 		
+     					/* 수정완료후 받아올 값을 JSON으로 받기? */
+     					var updateauth = mapChangedUser.userdtoInfo.auth_code;
+     					var updateimage_saved = mapChangedUser.userdtoInfo.image_saved;
+     					var updatenickname = mapChangedUser.userdtoInfo.nickname;
+     					
+     					
+     					if(updateauth =='1'){
+     						if(updateimage_saved != ""){
+    							$(".leaderinfoimg").attr("src","<%=request.getContextPath()%>/storage/"+updateimage_saved);
+    						} else{
+    							$(".leaderinfoimg").attr("src","<%=request.getContextPath()%>/resources/images/default_profile.png");
+    						}
+     						
+     						$("#leadernickname").empty();
+     						$('#leadernickname').append("닉네임 : "+updatenickname);
+     					} else if(updateauth =='2'){
+     						if(updateimage_saved != ""){
+    							$(".memberinfoimg").attr("src","<%=request.getContextPath()%>/storage/"+updateimage_saved);
+    						} else{
+    							$(".memberinfoimg").attr("src","<%=request.getContextPath()%>/resources/images/default_profile.png");
+    						}
+     						$("#membernickname").empty();
+     						$('#membernickname').append("닉네임 : "+updatenickname);
+     					}
+     					
+     					
      				},
      				error : function(){
      					alert("ajax 실행 오류");
