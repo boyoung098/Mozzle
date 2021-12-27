@@ -1,6 +1,7 @@
 package com.mozzle.web.dao.board;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mozzle.web.dto.board.MozzlePostDto;
 
@@ -24,4 +25,5 @@ public interface IMozzlePostDao {
 	
 	public int deleteMozzlePost(String post_id);
 
+	public int deleteadminPosts(Map<String,String[]> map);
 }

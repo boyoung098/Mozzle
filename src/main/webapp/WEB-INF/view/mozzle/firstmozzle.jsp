@@ -60,9 +60,10 @@ $(document).ready(function() {
 #mozzleout{
 	background: #e82d55;
     color: #fff;
-    font-size: 15px;
+    font-size: 14px;
     border-radius: 4px;
     border: none;
+    width: 75px;
 }
 
 </style>
@@ -75,16 +76,34 @@ $(document).ready(function() {
 			<div >
 			<ul class="nav nav-tabs">
 			  <li class="active"><a data-toggle="tab" href="#home">운영자</a></li>
-			  <c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
+			  <c:if test="${mozzleUserdto.auth_code == '2'}">
 			  <li><a data-toggle="tab" href="#menu1">내정보</a></li>
 			  </c:if>
 			</ul>
-			<div class="tab-content">
+			<div class="tab-content"> <!-- 운영자정보 -->
 			  <div id="home" class="tab-pane fade in active" style="text-align: center;">
 			    <div style=" display: inline-block;">
-					<img src="<%=request.getContextPath()%>/resources/upload/${myMozzle.image_saved}"
-						alt="메인"  style="width: 180px; height: 180px; object-fit: cover; border-radius: 100%;"/>
+					<c:if test="${mozzleLeader.image_saved == null}">
+						<img src="<%=request.getContextPath()%>/resources/images/default_profile.png" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;">
+						</c:if>
+						<c:if test="${mozzleLeader.image_saved != null}">
+						<img src="<%=request.getContextPath()%>/storage/${mozzleUserdto.image_saved}" alt="" style="width: 160px; height: 160px; object-fit: cover; border-radius: 100%;">
+						</c:if>
 					</div>
+					<div class="userinfodiv">
+				<h5>닉네임 : ${mozzleLeader.nickname}</h5>
+					<fmt:parseDate var="leaderjoindate" value="${mozzleLeader.joined_date}" pattern="yyyy-MM-dd"/>
+					<fmt:formatDate var="leaderjoindate2" value="${leaderjoindate}" pattern="yyyy-MM-dd"/>
+					<h5>Email : ${mozzleLeader.email}</h5>
+					
+					<c:if test="${mozzleLeader.user_id == mozzleUserdto.user_id}">
+					<h5>가입일자 : ${leaderjoindate2}</h5>
+					<h5>생일공개 : ${mozzleLeader.birthday_show}</h5>
+					<h5>글 작성수 : ${mozzleUserdto.postcnt}</h5>
+					<button class="join-btn" type="button" id="btnupdatemy" style="width: 75px;">정보수정</button>
+					</c:if>
+					
+				</div>
 					
 			  </div>
 			  <!-- 내정보 -->
@@ -113,8 +132,8 @@ $(document).ready(function() {
 					<h5>글 작성수 : ${mozzleUserdto.postcnt}</h5>
 				</div>
 				
-				<button class="join-btn" type="button" id="btnupdatemy">정보수정</button>
-				<button class="join-btn" id="mozzleout" style="margin: 5px;">탈퇴하기</button>
+				<button class="join-btn" type="button" id="btnupdatemy" style="width: 75px;">정보수정</button>
+				<button class="join-btn" id="mozzleout" style="width: 75px;">탈퇴하기</button>
 			  </div>
 			  </div>
 			</div>
@@ -163,19 +182,20 @@ $(document).ready(function() {
 				</div>
 				<div class="mo-list">
 					<ul>
-						<li><a  href="#" id="default-move">신고관리<input type="hidden" name="move" value="postreportList"></a></li>
-						<li><a  href="#" id="default-move-03">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
-						<li><a  href="#" id="default-move">멤버관리<input type="hidden" name="move" value="adminmozzleMemberList"></a></li>
+					
 						<li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="mozzlePost"></a></li>
-						<!-- <li><a  href="#" id="default-move">게시글<input type="hidden" name="move" value="board"></a></li> -->
 						<!-- <li>사진첩</li>-->
             			<li><a href="#">일정<input type="hidden" name="move" value="calendar"></a></li>
 						<%-- <c:if test="${mozzleUserdto.auth_code == '1' || mozzleUserdto.auth_code == '2'}">
 						<li><a href="#">내정보<input type="hidden" name="move" value="mozzleuserMypage"></a></li>
 						</c:if> --%>
-						<%-- <c:if test="${mozzleUserdto.auth_code == '2'}"> --%>
+						<c:if test="${mozzleUserdto.auth_code == '2' || mozzleUserdto.auth_code == null}">
 						<li><a href="#">멤버<input type="hidden" name="move" value="mozzlememberList"></a></li>
-						<%-- </c:if> --%>
+						</c:if>
+						<c:if test="${mozzleLeader.user_id == mozzleUserdto.user_id}">
+						<li><a  href="#" id="default-move">멤버관리<input type="hidden" name="move" value="adminmozzleMemberList2"></a></li>
+						<li><a  href="#" id="default-move">신고관리<input type="hidden" name="move" value="postreportList"></a></li>
+					</c:if>	
 					</ul>
 				</div>
 			</div>
@@ -193,20 +213,28 @@ $(document).ready(function() {
  <% String mozzle_id = request.getParameter("mozzle_id");  %>
  <%=mozzle_id%>
  
- <ul>
+<!--  <ul>
  <li class="lilili">
  <input type="hidden" value="61" class="post_id">
  61누르기
  </li>
- </ul>
+ </ul> -->
  
 <script type="text/javascript">
-$(document).ready(function(){
-	var firstcheck = "<c:out value='${firstcheck}'/>"
-	if(firstcheck==''){
-		$("#load_mozzle").load("mozzlePost.do?mozzle_id=<%=mozzle_id%>");
-	}	
-	});
+ $(document).ready(function(){
+	 
+	var moveTo = "<%=(String)session.getAttribute("moveTo")%>";
+	console.log(moveTo);
+	if(moveTo=='' || moveTo == "null"){
+		 $("#load_mozzle").load("mozzlePost.do?mozzle_id=<%=mozzle_id%>");
+		 
+		<%-- $("#load_mozzle").load("postreportList.do?mozzle_id=<%=mozzle_id%>"); --%>
+	} else if(moveTo=="adminmozzleMemberList"){
+		 $("#load_mozzle").load("adminmozzleMemberList2.do?mozzle_id=<%=mozzle_id%>");
+	}  
+	<% session.removeAttribute("moveTo"); %>
+	console.log("<%=(String)session.getAttribute("moveTo")%>");
+	}); 
 
 
 
@@ -222,7 +250,7 @@ $(function(){
 			$("#load_mozzle").load($(item).children("input").val()+".do?mozzle_id=<%=mozzle_id%>");
 			//menu = $(item).children("input").val();
 
-		})
+		});
 	});
 	
 });
@@ -241,9 +269,20 @@ $(function(){
 		
 	});
 	
-
 	
-	$(".lilili").click(function(e){
+	$("#mozzleout").click(function(e){
+		if (confirm("정말 탈퇴하시겠습니까?") == true){    //확인
+			window.location.href = "./deleteuserMozzle.do?mozzle_id="+<%=request.getParameter("mozzle_id")%>;
+		 }else{   //취소
+		      return;
+		  }
+			 
+	});
+	
+	
+
+/* 	
+	$(".reportclick").click(function(e){
 		e.preventDefault();
 		var postid =($(this).children("input").eq(0).val());
 		
@@ -271,7 +310,7 @@ $(function(){
 		})
 		
 	
-	});
+	}); */
 	
 })
 
@@ -284,7 +323,7 @@ function userSessionCheck(){
 	console.log(auth);
 	if(userId=='null'){
 //			console.log(userId+"ss");
-		alert('로그인이 되어있지 않습ㄴ디ㅏ.');
+		alert('로그인이 되어있지 않습니다.');
 		location.href='./loginPage.do'; //로그인페이지로 이동해야함
 	} else if(auth==3){
 		

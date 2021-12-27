@@ -110,6 +110,26 @@ public class MozzleUserController {
 		return "mozzle/adminmozzleMemberList";
 	}
 	
+	//운영자권한 리스트전체 (권한상관없이_)
+	@RequestMapping(value="/adminmozzleMemberList2.do", method = RequestMethod.GET)
+	public String adminmozzleMemberList2(Model model, @ModelAttribute("mozzle_id") String mozzle_id, HttpServletRequest req) {
+		//김보영-모즐내회원리스트뿌리기
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("mozzle_id", mozzle_id);
+				List<MozzleUserDto> mozzleuserList = mozzleUserService.selectListadminMozzleUser(map);
+				model.addAttribute("mozzleuserList",mozzleuserList);
+				//model.addAttribute("mozzle_id", mozzle_id);
+				
+				//이미지경로 뿌리기
+				//String imagepath = "C:eclipse\workspace_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Mozzle\storage";
+				//C:home\images\study.png
+				
+				//String path = req.getSession().getServletContext().getRealPath("/");
+				//*************이미지 경로나옴!!!!!!!!!!!!!
+			//끝
+		return "mozzle/adminmozzleMemberList2";
+	}
+	
 	//ajax로 닉네임서치값을 받아서 map 형태로 찾은 리스트들 보내기
 	@RequestMapping(value="/mozzleUserSearch.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -137,18 +157,64 @@ public class MozzleUserController {
 	}
 	
 	
-	
+	//운영자권한 강퇴
 	@RequestMapping(value="/adminmozzleOut.do", method = RequestMethod.GET)
-	public String adminmozzleOut(String user_id, @ModelAttribute("mozzle_id") String mozzle_id, Model model){
+	public String adminmozzleOut(String user_id, @ModelAttribute("mozzle_id") String mozzle_id, Model model, HttpSession session){
 		log.info("삭제할 아이디를 받아옴??========={}",user_id);
 		MozzleUserDto userdto = new MozzleUserDto();
 		userdto.setAuth_code("3");
 		userdto.setUser_id(user_id);
 		userdto.setMozzle_id(mozzle_id);
 		mozzleUserService.updateMozzleUserAuth(userdto);
-		model.addAttribute("moveTo","adminmozzleMemberList");
-		return "mozzle/firstmozzle";
+		//model.addAttribute("moveTo","adminmozzleMemberList");
+		session.setAttribute("moveTo", "adminmozzleMemberList");
+		return "redirect:/firstmozzle.do";
 	}
+	
+	//운영자권한 복구
+		@RequestMapping(value="/adminmozzleIn.do", method = RequestMethod.GET)
+		public String adminmozzleIn(String user_id, @ModelAttribute("mozzle_id") String mozzle_id, Model model, HttpSession session){
+			log.info("복구할 아이디를 받아옴??========={}",user_id);
+			MozzleUserDto userdto = new MozzleUserDto();
+			userdto.setAuth_code("2");
+			userdto.setUser_id(user_id);
+			userdto.setMozzle_id(mozzle_id);
+			mozzleUserService.updateMozzleUserAuth(userdto);
+			//model.addAttribute("moveTo","adminmozzleMemberList");
+			session.setAttribute("moveTo", "adminmozzleMemberList");
+			return "redirect:/firstmozzle.do";
+		}
+		
+		//운영자권한 권한위임
+				@RequestMapping(value="/adminmozzlechangeAuth.do", method = RequestMethod.GET)
+				public String adminmozzlechanAuth(String user_id, @ModelAttribute("mozzle_id") String mozzle_id, Model model, HttpSession session){
+					log.info("리더로 위임할 아이디를 받아옴??========={}",user_id);
+					String leaderId = (String) session.getAttribute("userId");
+					Map<String,String> newLeader = new HashMap<String, String>();
+					newLeader.put("mozzle_id", mozzle_id);
+					newLeader.put("user_id", user_id);
+					mozzleUserService.changeMozzleAuth(leaderId, newLeader);
+					//session.setAttribute("moveTo", "adminmozzleMemberList");
+					return "redirect:/firstmozzle.do";
+				}
+				
+				
+				
+		//모즐회원탈퇴
+				@RequestMapping(value="/deleteuserMozzle.do", method = RequestMethod.GET)
+				public String deleteuserMozzle( @ModelAttribute("mozzle_id") String mozzle_id, Model model, HttpSession session){
+					String userId = (String) session.getAttribute("userId");
+					MozzleUserDto userdto = new MozzleUserDto();
+					userdto.setUser_id(userId);
+					userdto.setMozzle_id(mozzle_id);
+					
+					mozzleUserService.deleteMozzleUser(userdto);
+					
+					
+					
+					return "redirect:/firstmozzle.do";
+				}			
+		
 
 	@RequestMapping(value="/mozzleJoinBefore.do", method = RequestMethod.GET)
 	@ResponseBody

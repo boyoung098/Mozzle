@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mozzle.web.dao.board.IMozzlePostDao;
 import com.mozzle.web.dao.board.IPostReportDao;
 import com.mozzle.web.dto.board.PostReportDto;
 import com.mozzle.web.dto.board.RowNum_Dto;
@@ -15,6 +16,8 @@ public class PostReportServiceImpl implements IPostReportService {
 
 	@Autowired
 	IPostReportDao dao;
+	@Autowired
+	IMozzlePostDao postdao;
 	
 	@Override
 	public int selectCntByPostId(String post_id) {
@@ -48,7 +51,7 @@ public class PostReportServiceImpl implements IPostReportService {
 
 	@Override
 	public int deleteadminPostReport(Map<String, String[]> map) {
-		// TODO Auto-generated method stub
+		postdao.deleteadminPosts(map);
 		return dao.deleteadminPostReport(map);
 	}
 	

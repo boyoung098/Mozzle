@@ -112,4 +112,14 @@
 		WHERE POST_ID= #{post_id}
 </delete>
 
+<!-- 김보영 -->
+<update id="deleteadminPosts" parameterType="java.util.Map">
+  	UPDATE MOZZLE_POST
+		SET DELFLAG='Y'
+WHERE POST_ID IN
+<foreach collection="report_ids" item="report_id" open="(" separator="," close=")">
+#{report_id}
+</foreach>
+  	</update>
+
 </mapper>

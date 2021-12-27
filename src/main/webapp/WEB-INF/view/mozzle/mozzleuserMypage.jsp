@@ -98,11 +98,11 @@
 				    </label>
 				
 			</div>
-			<div class="register-name">
+			<%-- <div class="register-name">
 				<fmt:parseDate var="dateFmt" value="${mozzleUser.joined_date}" pattern="yyyy-MM-dd"/>
 				<fmt:formatDate value="${dateFmt}" var="dateval" pattern="yyyy-MM-dd"/>
 				<h4>가입일자 : <span id="indate">${dateval}</span></h4>
-			</div>
+			</div> --%>
 			<br>
 			<div>
 			</div>
