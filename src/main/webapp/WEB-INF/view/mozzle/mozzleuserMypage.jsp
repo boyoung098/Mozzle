@@ -50,7 +50,7 @@
 <body>
 
 	<div id="content" style="text-align: center;">
-        <form:form id="mozzleUserUpdate" action="#" method="post" enctype="multipart/form-data"
+        <form:form id="mozzleUserUpdate" action="./mozzleUpdate.do" method="post" enctype="multipart/form-data"
         		>
 		<div class="register-container"  style="display: inline-block;">
 		
@@ -169,6 +169,11 @@
     		reader.readAsDataURL(event.target.files[0]);
     		
     	}
+		
+		
+		
+	
+		
 		function update(){
 			var mozzle_id = <%=request.getParameter("mozzle_id")%>;
     		var nick = $("#updatenick").val();
@@ -194,50 +199,130 @@
     			$("#resultalert2").html("글자수 제한을 어겼습니다");
     		}
     		else{
-    			 $.ajax({
-     				url : "./mozzleUpdate.do?mozzle_id="+mozzle_id,
-     				type : "post",
-     				data : formData,
-     				dataType : "JSON",
-     				async : true,
-     				success : function(mapChangedUser){
-     					swal("수정이 완료되었습니다.");
-     			 		
-     					/* 수정완료후 받아올 값을 JSON으로 받기? */
-     					var updateauth = mapChangedUser.userdtoInfo.auth_code;
-     					var updateimage_saved = mapChangedUser.userdtoInfo.image_saved;
-     					var updatenickname = mapChangedUser.userdtoInfo.nickname;
-     					
-     					
-     					if(updateauth =='1'){
-     						if(updateimage_saved != ""){
-    							$(".leaderinfoimg").attr("src","<%=request.getContextPath()%>/storage/"+updateimage_saved);
-    						} else{
-    							$(".leaderinfoimg").attr("src","<%=request.getContextPath()%>/resources/images/default_profile.png");
-    						}
-     						
-     						$("#leadernickname").empty();
-     						$('#leadernickname').append("닉네임 : "+updatenickname);
-     					} else if(updateauth =='2'){
-     						if(updateimage_saved != ""){
-    							$(".memberinfoimg").attr("src","<%=request.getContextPath()%>/storage/"+updateimage_saved);
-    						} else{
-    							$(".memberinfoimg").attr("src","<%=request.getContextPath()%>/resources/images/default_profile.png");
-    						}
-     						$("#membernickname").empty();
-     						$('#membernickname').append("닉네임 : "+updatenickname);
-     					}
-     					
-     					
-     				},
-     				error : function(){
-     					alert("ajax 실행 오류");
-     				},
-     				/* cache: false, */
-     				contentType: false, 
-     				processData: false
-     				
-     			});
+    			
+    			
+    			
+    			$.ajax({
+    				url : "./mozzleJoinBefore.do?mozzle_id="+mozzle_id,
+    				type : "get",
+    				data : "nickname="+nick,
+    				dataType : "JSON",
+    				async : true,
+    				success : function(msg){
+    					console.log(msg.TF);
+    					console.log(nick + beforenick);
+    					if(nick == beforenick){
+    						console.log('둘은 같다');
+    						msg.TF== "true";
+    						 $.ajax({
+ 			     				url : "./mozzleUpdate.do?mozzle_id="+mozzle_id,
+ 			     				type : "post",
+ 			     				data : formData,
+ 			     				dataType : "JSON",
+ 			     				async : true,
+ 			     				success : function(mapChangedUser){
+ 			     					swal("수정이 완료되었습니다.");
+ 			     			 		
+ 			     					/* 수정완료후 받아올 값을 JSON으로 받기? */
+ 			     					var updateauth = mapChangedUser.userdtoInfo.auth_code;
+ 			     					var updateimage_saved = mapChangedUser.userdtoInfo.image_saved;
+ 			     					var updatenickname = mapChangedUser.userdtoInfo.nickname;
+ 			     					
+ 			     					
+ 			     					if(updateauth =='1'){
+ 			     						if(updateimage_saved != ""){
+ 			    							$(".leaderinfoimg").attr("src","<%=request.getContextPath()%>/storage/"+updateimage_saved);
+ 			    						} else{
+ 			    							$(".leaderinfoimg").attr("src","<%=request.getContextPath()%>/resources/images/default_profile.png");
+ 			    						}
+ 			     						
+ 			     						$("#leadernickname").empty();
+ 			     						$('#leadernickname').append("닉네임 : "+updatenickname);
+ 			     					} else if(updateauth =='2'){
+ 			     						if(updateimage_saved != ""){
+ 			    							$(".memberinfoimg").attr("src","<%=request.getContextPath()%>/storage/"+updateimage_saved);
+ 			    						} else{
+ 			    							$(".memberinfoimg").attr("src","<%=request.getContextPath()%>/resources/images/default_profile.png");
+ 			    						}
+ 			     						$("#membernickname").empty();
+ 			     						$('#membernickname').append("닉네임 : "+updatenickname);
+ 			     					}
+ 			     					
+ 			     					
+ 			     				},
+ 			     				error : function(){
+ 			     					alert("ajax 실행 오류");
+ 			     				},
+ 			     				/* cache: false, */
+ 			     				contentType: false, 
+ 			     				processData: false
+ 			     				
+ 			     			});
+    					}else if(msg.TF == "false"){
+    						$("#resultalert2").html("중복된 닉네임이 있습니다.");
+    					} else{
+
+
+    						 $.ajax({
+    			     				url : "./mozzleUpdate.do?mozzle_id="+mozzle_id,
+    			     				type : "post",
+    			     				data : formData,
+    			     				dataType : "JSON",
+    			     				async : true,
+    			     				success : function(mapChangedUser){
+    			     					swal("수정이 완료되었습니다.");
+    			     			 		
+    			     					/* 수정완료후 받아올 값을 JSON으로 받기? */
+    			     					var updateauth = mapChangedUser.userdtoInfo.auth_code;
+    			     					var updateimage_saved = mapChangedUser.userdtoInfo.image_saved;
+    			     					var updatenickname = mapChangedUser.userdtoInfo.nickname;
+    			     					
+    			     					
+    			     					if(updateauth =='1'){
+    			     						if(updateimage_saved != ""){
+    			    							$(".leaderinfoimg").attr("src","<%=request.getContextPath()%>/storage/"+updateimage_saved);
+    			    						} else{
+    			    							$(".leaderinfoimg").attr("src","<%=request.getContextPath()%>/resources/images/default_profile.png");
+    			    						}
+    			     						
+    			     						$("#leadernickname").empty();
+    			     						$('#leadernickname').append("닉네임 : "+updatenickname);
+    			     					} else if(updateauth =='2'){
+    			     						if(updateimage_saved != ""){
+    			    							$(".memberinfoimg").attr("src","<%=request.getContextPath()%>/storage/"+updateimage_saved);
+    			    						} else{
+    			    							$(".memberinfoimg").attr("src","<%=request.getContextPath()%>/resources/images/default_profile.png");
+    			    						}
+    			     						$("#membernickname").empty();
+    			     						$('#membernickname').append("닉네임 : "+updatenickname);
+    			     					}
+    			     					
+    			     					
+    			     				},
+    			     				error : function(){
+    			     					alert("ajax 실행 오류");
+    			     				},
+    			     				/* cache: false, */
+    			     				contentType: false, 
+    			     				processData: false
+    			     				
+    			     			});
+    						
+    						
+    						
+    						
+    					}
+    				},
+    				error : function(){
+    					alert("ajax 실행 오류");
+    				}
+    				
+    			}); 
+    			
+    			
+    			
+    			
+    			
     			
     			
     		}

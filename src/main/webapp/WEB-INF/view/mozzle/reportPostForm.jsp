@@ -152,7 +152,6 @@ li {
             function test() {
             	var checkChoice = $("input[name=inpReasonChoice]:checked").val();
             	console.log(checkChoice);
-        		
         		//ajax처리해서 보내기
         		$.ajax({
         			type:"get",

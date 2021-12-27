@@ -66,8 +66,8 @@
 							<input type="hidden" value="${mozzleUser.auth_code}" class="unserinfo">
 							<fmt:parseDate var="dateFmt" value="${mozzleUser.joined_date}" pattern="yyyy-MM-dd"/>
 							<fmt:formatDate var="dateFmt2" value="${dateFmt}" pattern="yyyy-MM-dd"/>
-							</div> <span>${mozzleUser.nickname}</span>
-							<div class="adminListbtn">
+							</div> <span >${mozzleUser.nickname}</span>
+							
 							<c:if test="${mozzleUser.auth_code == '2'}">
 							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 80px; margin-right: 10px; float: right;" value="${mozzleUser.user_id}" name="adminauthupdate">권한넘기기</button>
 							</c:if>
@@ -78,7 +78,7 @@
 							<c:if test="${mozzleUser.auth_code == '3'}">
 							<button class='join-btn' type='button' style="font-size: 13px; height: 30px; width: 60px; float: right;" value="${mozzleUser.user_id}" name="adminin">복구</button>
 							</c:if>
-							</div>
+							
 						</li>
 						
 						</c:forEach>
@@ -317,7 +317,7 @@
 		//특정 회원을 눌렀을때 값을가져와서 모달창이 뜨도록
 
 			
-		/* $(document).ready(function(){ */
+		$(document).ready(function(){
 			$(function(){
 				
 				$("#mozzleuserul li").each((idx, item) => {
@@ -354,7 +354,7 @@
 						
 						$('#detailModal').modal();
 					});
-			    /* }); */
+			    });
 				
 				
 			});

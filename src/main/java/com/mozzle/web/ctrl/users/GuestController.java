@@ -78,10 +78,12 @@ public class GuestController {
 		log.info("오늘이랑 받은 값 날짜 비교 {}",betweenDate);
 		
 		if(betweenDate > 7) {
+			
 			resp.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = resp.getWriter();
-			writer.println("<script>alert('링크의 유효기간인 7일이 경과되었습니다.'); location.href='../MozzleProject/';</script>");
+			writer.println("<script>alert('링크의 유효기간인 7일이 경과되었습니다.'); location.href='../MozzleProject';</script>");
 			writer.flush();
+			//return "redirect:/";
 		} else {
 			//게스트가 들어갈수 있는 모즐메인페이지를 return시킨다
 			GuestDto guestDto = guestService.selectByUUID(uuid);
@@ -90,8 +92,9 @@ public class GuestController {
 			model.addAttribute("mozzle_id",mozzle_id);
 			return "redirect:/firstmozzle.do";
 		}
+		return null;
 		
-		return "redirect:/firstmozzle.do";
+		
 	}
 	
 	@GetMapping("/moveCheck.do")

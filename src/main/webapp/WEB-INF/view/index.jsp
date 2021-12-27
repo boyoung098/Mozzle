@@ -109,7 +109,7 @@
 							</div>
 						</a>
 					</div>
-					<c:forEach var="mozzle" items="${myMozzleList}"  varStatus="vs"  begin="1" end="10">
+					<c:forEach var="mozzle" items="${myMozzleList}"  varStatus="vs"  begin="0" end="9">
 					<div style="display:none">${vs.index}</div>
 						<div class="swiper-slide">
 							<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
@@ -146,7 +146,7 @@
 		<h4>새로 생긴 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle">
 			<div class="swiper-wrapper">
-				<c:forEach var="mozzle" items="${newMozzleList}" varStatus="vs" begin="1" end="10">
+				<c:forEach var="mozzle" items="${newMozzleList}" varStatus="vs"  begin="0" end="9">
 				<div style="display:none">${vs.index}</div>
 					<div class="swiper-slide">
 						<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
@@ -182,7 +182,7 @@
 		<h4>HOT 모즐!</h4>
 		<div class="swiper-container sw-new-mozzle2">
 			<div class="swiper-wrapper">
-				<c:forEach var="mozzle" items="${hotMozzleList}" varStatus="vs"  begin="1" end="10">
+				<c:forEach var="mozzle" items="${hotMozzleList}" varStatus="vs"  begin="0" end="9">
 					<div style="display:none">${vs.index}</div>
 					<div class="swiper-slide">
 						<a href="./firstmozzle.do?mozzle_id=${mozzle.mozzle_id}"> <c:choose>
