@@ -550,6 +550,21 @@ input:focus, select:focus {
 .board-cion a{
 	cursor: pointer;
 }
+.sidenav {
+	position: sticky;
+	top:0px;
+}
+.footer_up{
+	position: absolute;
+	right:0px;
+	top:-45px;
+}
+
+
+
+
+
+
 
 /* 모바일 */
 .m_logo {

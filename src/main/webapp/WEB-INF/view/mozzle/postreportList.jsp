@@ -2,6 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<style>
+.table>tbody>tr>td {
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    font-weight: 200;
+}
+</style>
+
 <div>
 	<form action="./multiDelflag.do" method="post" id="frm" onsubmit="return chkbox()">
 	
@@ -33,9 +41,9 @@
 			
 		</table>
 		
-			<input type="text" name="index" id="index" value="${row.index}">
-			<input type="text" name="pageNum" id="pageNum" value="${row.pageNum}">
-			<input type="text" name="listNum" id="listNum" value="${row.listNum}">
+			<input type="hidden" name="index" id="index" value="${row.index}">
+			<input type="hidden" name="pageNum" id="pageNum" value="${row.pageNum}">
+			<input type="hidden" name="listNum" id="listNum" value="${row.listNum}">
 	
 			<div style="text-align: center;">
 				<ul class="pagination">
@@ -64,6 +72,7 @@
    })
 } */
 
+//부적적처리
 function inappropriate(){
 	
     var chkArray = new Array(); // 배열 선언
@@ -162,7 +171,112 @@ function inappropriate(){
 		         });
 		      },
 		      error:function(){
-		         alert("잘못된 요청입니다.");
+		         alert("선택해주세요.");
+		      }
+		   });
+
+}
+
+//부적적처리
+function deleteadmin(){
+	
+    var chkArray = new Array(); // 배열 선언
+
+    $("input:checkbox[name='chkVal']:checked").each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+        chkArray.push(this.value);
+    });
+    console.log(chkArray);
+    
+	   $.ajax({
+		      url : "./deleteadmin.do?mozzle_id=<%=mozzle_id%>&chkArray="+chkArray,
+		      type:"post",
+		      async:true,
+		      data: $("#frm").serialize(),
+		      dataType : "json",
+		      success : function(msg){ //{"lists" : [{},{}, ..],"row",{"","",""}}
+		         console.log(msg);
+		         
+		         $.each(msg,function(key,value){
+		        	 var varHtml = "";
+		        	 var n = 7;
+		        	 
+						if(key =='lists'){
+							//thead
+							varHtml += "<thead>                ";
+							varHtml += "	<tr>               ";
+								varHtml +="<th>";
+								varHtml +="<input type='checkbox' id='checkAll' onclick='checkAllFn(this.checked)'>";
+								varHtml +="</th>";
+							varHtml += "		<th>신고번호</th>";
+							varHtml += "		<th>작성자</th>  ";
+							varHtml += "		<th>사유</th>";
+							varHtml += "		<th>신고일자</th>";
+							varHtml += "		<th>신고처리</th>";
+							varHtml += "		<th>상세보기</th>";
+							varHtml += "	</tr>              ";
+							varHtml += "</thead>               ";
+							//tbody
+							varHtml += "<tbody>               ";
+							$.each(value,function(k,v){
+								varHtml+="<tr>                                                                                                                                                     "  ;
+								if(v.process == '미처리'){
+								varHtml+="	<td><input type='checkbox' name='chkVal' value='"+v.report_id+"'></td>                                                                                              "  ;
+								}else{
+									varHtml+="	<td></td>                                                                                              "  ;
+								}
+								varHtml+="	<td>"+v.report_id+"</td>                                                                                                                                            "  ;
+								varHtml+="	<td>"+v.user_id+"</td>                                                                                                                                          ";
+								varHtml+="	<td>"+v.reason+"</td>                                                                                                                                          ";
+								varHtml+="	<td>"+v.report_time+"</td>                                                                                                                                               ";
+								
+								if(v.process == '미처리'){
+									varHtml+="	<td  style='color:blue;'>"+v.process+"</td>                                                           	                                                                                 ";
+									}else{
+									varHtml+="	<td>"+v.process+"</td>                                                           	                                                                                 ";
+									}
+								
+								varHtml+="	<td><a data-toggle='collapse' href='#collapse"+v.report_id+"' onclick='collapse("+v.report_id+")'>상세보기</a></td>";
+								varHtml+="</tr>                                                                                                                                                      ";
+								
+								varHtml+="<tr>                                                                                    ";
+								varHtml+="	<td colspan=7>                                                                       ";
+								varHtml+="		<div id='collapse"+v.report_id+"' class='panel-collapse collapse'>                 ";
+								varHtml+="			<div class='form-group'>                                                       ";
+								varHtml+="				<label>내용</label>                                                        ";
+								varHtml+="				<textarea rows='5'  class='form-control' >"+v.content+"</textarea>   ";
+								varHtml+="			</div>                                                                         ";
+								varHtml+="		</div>                                                                             ";
+								varHtml+="	</td>                                                                                  ";
+								varHtml+="</tr> ";
+								
+							});                                                                                                                                                                      
+							varHtml += "</tbody>               ";
+							
+						}else{
+							
+						  varHtml += "<li><a href='#' onclick='pageFirst()'><span class='glyphicon glyphicon-fast-backward'></span> </a></li>                                                        ";
+						  varHtml += "<li><a href='#' onclick='pagePrev("+value.pagenum+","+value.pagelist+")'><span class='glyphicon glyphicon-step-backward'></span></a></li>                            ";
+						  varHtml += "                                                                                                                                                               ";
+							for(let i= value.pagenum; i<=value.count; i++){
+							  varHtml += "  <li><a href='#' onclick='pageIndex("+i+")'>"+i+"</a></li>                                                                                                    ";
+							}				  
+						  varHtml += "                                                                                                                                                               ";
+						  varHtml += "<li><a href='#' onclick='pageNext("+value.pagenum+","+value.total+","+value.listnum+","+value.pagelist+")'><span class='glyphicon glyphicon-step-forward'></span> </a></li>";
+						  varHtml += "<li><a href='#' onclick='pageLast("+value.pagenum+","+value.total+","+value.listnum+","+value.pagelist+")'><span class='glyphicon glyphicon-fast-forward'></span> </a></li>";
+							
+						}
+						
+						if(key == 'lists'){
+							$(".table").html(varHtml);
+						}else{
+							$(".pagination").html(varHtml);
+						}
+						
+		        	 
+		         });
+		      },
+		      error:function(){
+		         alert("선택해주세요.");
 		      }
 		   });
 
@@ -380,7 +494,7 @@ var pageAjax = function(){
 							varHtml+="	<td>"+v.report_id+"</td>                                                                                                                                            "  ;
 							varHtml+="	<td>"+v.user_id+"</td>                                                                                                                                          ";
 							varHtml+="	<td>"+v.reason+"</td>                                                                                                                                          ";
-							varHtml+="	<td>"+report_time+"</td>                                                                                                                                          ";
+							varHtml+="	<td>"+v.report_time+"</td>                                                                                                                                          ";
 							if(v.process == '미처리'){
 								varHtml+="	<td  style='color:blue;'>"+v.process+"</td>                                                           	                                                                                 ";
 								}else{

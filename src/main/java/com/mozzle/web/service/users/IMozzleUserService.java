@@ -29,5 +29,9 @@ public interface IMozzleUserService {
 	public boolean changeMozzleAuth(String leaderId, Map<String, String> newLeader);
 
 	public List<MozzleUserDto> selectListadminMozzleUser(Map<String, String> map);
+	
+	public MozzleUserDto selectmozzleUserLeader(String mozzle_id);
+	
+	public int deleteMozzleUser(MozzleUserDto dto);
 
 }

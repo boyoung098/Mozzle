@@ -1,6 +1,7 @@
 package com.mozzle.web.service.board;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -63,6 +64,11 @@ public class MozzlePostServiceImpl implements IMozzlePostService{
 	public boolean deleteMozzlePost(String post_id) {
 		int n = dao.deleteMozzlePost(post_id);
 		return (n == 1) ? true:false;
+	}
+
+	@Override
+	public List<MozzlePostDto> selectMyPost(Map<String, String> map) {
+		return dao.selectMyPost(map);
 	}
 
 	
