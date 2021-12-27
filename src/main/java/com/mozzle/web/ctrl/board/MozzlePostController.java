@@ -88,7 +88,7 @@ public class MozzlePostController {
 		model.addAttribute("postList", postList);
 		model.addAttribute("mozzle_id", mozzle_id);
 		
-		return "mozzle/mozzlePost";
+		return "redirect:/firstmozzle.do";
 	}
 	
 	

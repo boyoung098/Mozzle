@@ -70,6 +70,11 @@ $(document).ready(function() {
 <body>
 	<div id="header"></div>
 	<section class="container mt-3" id="new-mozzle2">
+	<c:choose>
+		<c:when test="${memberCheck eq false && myMozzle.state == 'N'}">
+			<p>비공개 모즐입니다</p>
+		</c:when>
+		<c:otherwise>
 		<div class="row content">
 			<div class="col-sm-3 sidenav" id="fixed-info">
 			<div >
@@ -161,6 +166,7 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</div>
+				
 				<div class="mo-list">
 					<ul>
 						<li><a  href="#" id="default-move">신고관리<input type="hidden" name="move" value="postreportList"></a></li>
@@ -178,10 +184,13 @@ $(document).ready(function() {
 						<%-- </c:if> --%>
 					</ul>
 				</div>
+				
 			</div>
 			<%@include file= "/WEB-INF/view/mozzle/mozzleJoinForm.jsp"  %>
 			<div id="load_mozzle" class="col-sm-9 clear mt-3"></div>
 		</div>
+		</c:otherwise>
+		</c:choose>
 	</section>
 
 
