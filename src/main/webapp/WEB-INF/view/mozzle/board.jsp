@@ -3,6 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+
 <script>
 
 $(document).ready(function(){
@@ -36,7 +45,8 @@ $(document).ready(function(){
 </script>
 	<div class="mt-3">
 		
-	${mozzleUserdto.user_id}
+		<textarea name="content" id="summernote" class="summernote"></textarea>
+
 		<div class="input-group input-search mt-2" >
 			<form method="post" id="frm_search" onsubmit="javascript:retrun false;" action="./searchBoard.do">
 				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="게시글 검색" value="${keyword}"> 

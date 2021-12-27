@@ -19,53 +19,6 @@ $(document).ready(function(){
 });
 
 </script>
-<style>
-.select_bar {
-	padding-top: 17px;
-}
-
-.container h3 {
-	margin-top: 40px;
-	font-weight: 600;
-}
-
-.swiper-slide .mozzle_title {
-	font-size: 16px;
-	padding-top: 10px;
-	font-weight: 700;
-}
-
-.swiper-slide p {
-	width: 90%;
-	font-size: 13px;
-	margin-bottom: 5px;
-}
-
-input:focus, select:focus {
-	outline: transparent !important;
-}
-
-#search-btn {
-	border: none;
-	background-color: rgba(0, 0, 0, 0);
-}
-
-
-.dropdown-menu {
-	width: 350px;
-	left: 50% !important;
-	right: auto !important;
-	transform: translate(-50%, 0);
-}
-
-
-.notice-list a{
-	min-height: 80px;
-}
-.notice-list a.checked{
-	background-color: #eee;
-}
-</style>
 
 <script>
 	$(function() {
@@ -125,7 +78,7 @@ input:focus, select:focus {
 	<nav class="navbar container pc_menu">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="<%=request.getContextPath()%>">
+				<a class="navbar-brand mt-1" href="<%=request.getContextPath()%>">
 					<img src="<%=request.getContextPath()%>/resources/images/logo/logo.png" />
 				</a>
 			</div>
@@ -184,16 +137,46 @@ input:focus, select:focus {
 		</div>
 		<div class="menu_bg"></div>
 			<div class="sidebar_menu">
-			    <div class="close_btn"><a href="#">       
-			        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuOTU0IDIxLjAzbC05LjE4NC05LjA5NSA5LjA5Mi05LjE3NC0yLjgzMi0yLjgwNy05LjA5IDkuMTc5LTkuMTc2LTkuMDg4LTIuODEgMi44MSA5LjE4NiA5LjEwNS05LjA5NSA5LjE4NCAyLjgxIDIuODEgOS4xMTItOS4xOTIgOS4xOCA5LjF6Ii8+PC9zdmc+">
+			    <div class="close_btn">
+			    	<a href="#">       
+			        	<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuOTU0IDIxLjAzbC05LjE4NC05LjA5NSA5LjA5Mi05LjE3NC0yLjgzMi0yLjgwNy05LjA5IDkuMTc5LTkuMTc2LTkuMDg4LTIuODEgMi44MSA5LjE4NiA5LjEwNS05LjA5NSA5LjE4NCAyLjgxIDIuODEgOS4xMTItOS4xOTIgOS4xOCA5LjF6Ii8+PC9zdmc+">
 			        </a>
 			    </div>
-			    <ul class="menu_wrap">
+			    <div>
+		        	<ul class="mobile_my">
+						<c:if test="${empty sessionScope.userId}">
+							<li><a href="<%=request.getContextPath()%>/loginPage.do">로그인</a></li>
+							<li><a href="<%=request.getContextPath()%>/registerPage.do">회원가입</a></li>
+						</c:if>
+						<c:if test="${not empty sessionScope.userId}">
+							<li class="dropdown"><a id="notification" href="#">${sessionScope.userId}님</a>
+							<li><a id="myPageGo" href="#">마이페이지</a></li>
+							<li><a id="logoutGo"
+								href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
+						</c:if>
+					</ul>
+					<form id="myPageGo-form"
+						action="<%=request.getContextPath()%>/user/myPage.do" method="post">
+						<input type="hidden" name="auth" value="false" />
+					</form>
+			        </div>
+			    <div>
+			    	<div class="input-group intput-width ">
+						<input type="text" class="form-control search"
+							name="inputKeyword" id="inputKeyword" placeholder=" 찾으시는 모임이 있나요?" value="<%= keyword %>"/>
+						<div class="input-group-btn top_search">
+							<button type="button" id="search-btn" class="btn btn-default">
+								<i class="xi-search"></i>
+							</button>
+						</div>
+					</div>
+			    </div>
+			    <!-- <ul class="menu_wrap">
 			          <li><a href="#">메뉴01</a></li>
 			          <li><a href="#">메뉴02</a></li>
 			          <li><a href="#">메뉴03</a></li>
 			          <li><a href="#">메뉴04</a></li>
-			    </ul>
+			    </ul> -->
 			</div>
 		</div>
 <script>
