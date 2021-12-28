@@ -119,6 +119,10 @@ public class ManageServiceImpl implements IManageService {
 
 	@Override
 	public List<MozzleDto> selectAllMyMozzle(String userId) {
-		return dao.selectAllMyMozzle(userId);
+		List<MozzleDto> mList = dao.selectAllMyMozzle(userId);
+		for (MozzleDto mozzleDto : mList) {
+			mozzleDto.setMemberCnt(dao.selectUserNum(mozzleDto.getMozzle_id()));
+		}
+		return mList;
 	}
 }
