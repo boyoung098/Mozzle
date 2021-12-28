@@ -32,6 +32,7 @@ public class ScheduleUtil {
 		String s = schedule_date.substring(0, 4) + "-" + schedule_date.substring(4, 6) + "-"
 				+ schedule_date.substring(6, 8) + "" + schedule_date.substring(8, 10) + ":"
 				+ schedule_date.substring(10) + ":00";
+		System.out.println(s);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년MM월dd일 HH시mm분");
 		Timestamp tm = Timestamp.valueOf(s); // 문자열을 Date타입으로 변환
 		return sdf.format(tm);

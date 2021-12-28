@@ -87,7 +87,7 @@ public class IScheduleDaoImpl implements IScheduleDao {
 	public List<ScheduleDto> scheduleselectViewAll(String schedule_id, String yyyyMM) {
 		logger.info("scheduleselectViewAll : {} ",schedule_id,yyyyMM);
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("schedule_id", schedule_id);
+		map.put("mozzle_id", schedule_id);
 		map.put("yyyyMM", yyyyMM);
 		return session.selectList(NS + "scheduleselectViewAll", map);
 	}
