@@ -88,7 +88,7 @@
 							<a href="scheduleinsertForm.do?year=<%=year%>&month=<%=month%>&date=<%=i%>&mozzle_id=${mozzle_id}">
 								<img src="<%=request.getContextPath()%>/resources/images/schedule/scheduleadd.png" alt="일정등록" >
 							</a>
-							<%-- <%=ScheduleUtil.scheduleselectViewAll(i, slist) %> --%>
+							<%=ScheduleUtil.scheduleselectViewAll(i, slist) %>
 						</td>
 						<%
 						//행을 바꿔주기--> 현재일(i)이 토요일인지 확인 : (공백수+현재날짜)한 값이7로 나누어 떨어지면 7배수

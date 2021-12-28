@@ -40,39 +40,39 @@ public class ScheduleCtrl {
 		
 //		String mozzle_id = "1";
 //		calendar를 요청할 때 년,월의 값을 전달하지 않으면 현재 달을 보여준다.
-//		if(year==null||month==null) {
-//			Calendar cal = Calendar.getInstance();
-//			year = cal.get(Calendar.YEAR)+"";
-//			month = cal.get(Calendar.MONTH)+1+"";
-//		}else {
-//			//크기를 비교하기 위해 정수형으로 변환 : month>12, month<1
-//			int yearInt = Integer.parseInt(year);
-//			int monthInt = Integer.parseInt(month);
-//			
-//			//월이 증가하다가 12보다 커진다면 13,14,15,16,17...넘어가는 현상을 처리
-//			if(monthInt>12){
-//				monthInt=1;	//1월로 변경
-//				yearInt++;		//년도는 다음해로 넘어가서 년도 +1 증가시킨다.
-//			}
-//			if(monthInt<1){
-//				monthInt=12;
-//				yearInt--;
-//			}
-//			
-//			year = yearInt+"";
-//			month = String.valueOf(monthInt);
-//		}
-//		
-//		//월별 일정에 대해 하루마다 일정 3개씩 표시하기 기능 구현
-//		String yyyyMM = year+ScheduleUtil.isTwo(month);
-//		System.out.println(yyyyMM);
-//		List<ScheduleDto> slist = service.scheduleselectViewAll(mozzle_id, yyyyMM);
-//		for (ScheduleDto scheduleDto : slist) {
-//			System.out.println(scheduleDto.toString());
-//		}
-//		System.out.println(slist);
-//		model.addAttribute("slist", slist);
-//		model.addAttribute("yyyyMM", yyyyMM);
+		if(year==null||month==null) {
+			Calendar cal = Calendar.getInstance();
+			year = cal.get(Calendar.YEAR)+"";
+			month = cal.get(Calendar.MONTH)+1+"";
+		}else {
+			//크기를 비교하기 위해 정수형으로 변환 : month>12, month<1
+			int yearInt = Integer.parseInt(year);
+			int monthInt = Integer.parseInt(month);
+			
+			//월이 증가하다가 12보다 커진다면 13,14,15,16,17...넘어가는 현상을 처리
+			if(monthInt>12){
+				monthInt=1;	//1월로 변경
+				yearInt++;		//년도는 다음해로 넘어가서 년도 +1 증가시킨다.
+			}
+			if(monthInt<1){
+				monthInt=12;
+				yearInt--;
+			}
+			
+			year = yearInt+"";
+			month = String.valueOf(monthInt);
+		}
+		
+		//월별 일정에 대해 하루마다 일정 3개씩 표시하기 기능 구현
+		String yyyyMM = year+ScheduleUtil.isTwo(month);
+		System.out.println(yyyyMM);
+		List<ScheduleDto> slist = service.scheduleselectViewAll(mozzle_id, yyyyMM);
+		for (ScheduleDto scheduleDto : slist) {
+			System.out.println(scheduleDto.toString());
+		}
+		System.out.println(slist);
+		model.addAttribute("slist", slist);
+		model.addAttribute("yyyyMM", yyyyMM);
 		model.addAttribute("mozzle_id", mozzle_id);
 		return "mozzle/Calendar";
 	}
@@ -135,7 +135,7 @@ public class ScheduleCtrl {
 
 		if(isS) {
 			//이부분 연결 제대로하기
-			return "redirect:calendar.do?year="+dto.getYear()+"&month="+dto.getMonth();
+			return "forward:firstmozzle.do?mozzle_id"+dto.getMozzle_id();
 		}else {
 			model.addAttribute("msg", "일정등록실패!!");
 			return "error";
