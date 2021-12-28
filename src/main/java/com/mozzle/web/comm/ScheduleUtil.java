@@ -21,7 +21,7 @@ public class ScheduleUtil {
 			color = "black";
 		}
 
-		return color;
+		return color; 
 	}
 
 	public static String toDates(String schedule_date) {

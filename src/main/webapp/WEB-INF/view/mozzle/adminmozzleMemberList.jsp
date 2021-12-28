@@ -191,7 +191,7 @@
 		else{
 			if(confirm(nickname + "님에게 리더 권한을 위임하시겠습니까?")){
 				$.ajax({
-					url: "/delegateLeader.do",
+					url: "./delegateLeader.do",
 					type: "post",
 					contentType: 'application/json',
 					data: JSON.stringify({user_id: id, mozzle_id: mozzleId}),
